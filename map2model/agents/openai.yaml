@@ -1,0 +1,4 @@
+interface:
+  display_name: "Map to Model"
+  short_description: "按 KML 获取地图并统一坐标，影像转 CAD，或整理已有 CAD 并在 SU 中封面分类"
+  default_prompt: "使用 $map2model，按我的 KML、位置、场地图或已有 CAD 整理前期建模底图；定位任务先获取 OSM 和 Esri 资料并统一坐标，需要 SU 时继续构造、保存和回读模型。"

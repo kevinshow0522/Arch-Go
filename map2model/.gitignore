@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+outputs/
+process/
+*.dwg
+*.dxf
+*.bak
+*.dwl
+*.dwl2
+
+.map2model-work/
+
+# Existing projects created before the rename
+.map2cad-work/
