@@ -1,0 +1,376 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>
+<title>分析图交互方案</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: 说明 → 配色条 → 左侧模板目录 + 右侧大舞台（图 / 控件 / 交互说明）→ 通用规则表 */
+:root{
+  --bg:#f3f4f2; --panel:#ffffff; --fg:#1d2124; --muted:#5f666c; --line:#d9dcd8; --chip:#e9ebe7;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181a; --panel:#1d2124; --fg:#e8eae7; --muted:#9aa29f; --line:#2f3436; --chip:#272c2e; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15181a; --panel:#1d2124; --fg:#e8eae7; --muted:#9aa29f; --line:#2f3436; --chip:#272c2e; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:32px}
+h1{font-size:clamp(24px,3.4vw,34px);margin:0;text-wrap:balance}
+h2{font-size:20px;margin:0}
+p{margin:0}
+.lede{max-width:68ch;color:var(--muted)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--muted)}
+header{display:grid;gap:10px}
+.pal{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pal .lab{font-size:13px;color:var(--muted)}
+button{font:inherit;font-size:13px;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+button[aria-pressed="true"]{border-color:var(--fg);box-shadow:inset 0 0 0 1px var(--fg)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.sw{display:inline-flex}.sw i,.chip i{width:11px;height:11px;border-radius:50%;border:1px solid rgba(127,127,127,.35)}.sw i+i{margin-left:-3px}
+.main{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;align-items:start}
+nav{display:grid;gap:4px;position:sticky;top:max(12px,env(safe-area-inset-top,0px))}
+nav button{border-radius:6px;justify-content:flex-start;border-color:transparent;background:transparent;padding:7px 10px}
+nav button[aria-pressed="true"]{background:var(--panel);border-color:var(--line);box-shadow:none}
+nav code{font-family:var(--mono);font-size:12px;color:var(--muted);min-width:22px}
+.stage{background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:grid;min-width:0}
+.stage .svg svg{width:100%;height:auto;display:block}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;border-top:1px solid var(--line);align-items:center}
+.rng{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.rng input{width:140px}
+.how{padding:4px 16px 16px;display:grid;gap:6px}
+.how h3{font-size:14px;margin:8px 0 0}
+.how ul{margin:0;padding-left:18px;font-size:13px;display:grid;gap:2px}
+.keys{font-size:12px;color:var(--muted)}
+kbd{font-family:var(--mono);font-size:12px;background:var(--chip);border-radius:3px;padding:0 5px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;font-size:13px;min-width:620px;width:100%}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:500}
+@media (max-width:760px){.main{grid-template-columns:1fr}nav{position:static;display:flex;overflow-x:auto;gap:4px}nav button{white-space:nowrap}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">建筑单体分析 · 交互方案 v1.0 · 2026-10-19</div>
+  <h1>分析图交互方案</h1>
+  <p class="lede">B1 到 B9 每个模板各配一种交互，用在 07 展示界面和汇报时的屏幕演示。静态出图时，每个交互状态就是一张图，所以交互版和 PDF 版讲的是同一件事。图里是示意几何，正式版叠在模型导出的线稿上。</p>
+</header>
+<div class="pal" id="pal"><span class="lab">配色</span></div>
+<div class="main">
+  <nav id="nav" aria-label="模板"></nav>
+  <div class="stage">
+    <div class="svg" id="svg"></div>
+    <div class="ctl" id="ctl"></div>
+    <div class="how" id="how"></div>
+  </div>
+</div>
+
+<section style="display:grid;gap:14px">
+  <h2>通用交互规则</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>规则</th><th>做法</th></tr></thead>
+    <tbody>
+      <tr><td>一张图一个主控件</td><td>控件统一放在图的正下方；一张图只讲一件事，不叠多个开关去讲不同内容</td></tr>
+      <tr><td>悬停只突出，点击才切换</td><td>悬停时突出当前对象、淡化其余（淡到约 20%），不弹窗；点击才改变状态；手机上用点按代替悬停</td></tr>
+      <tr><td>动效时长</td><td>切换 0.3 到 0.6 秒，缓入缓出；生成序列自动播放每步 1.6 秒；数字增长 1.2 秒；流线虚线持续流动</td></tr>
+      <tr><td>底图不动</td><td>同一个模板里机位、比例、底图始终不变，变的只有分析层，读者不会迷路</td></tr>
+      <tr><td>每个状态都能出静态图</td><td>每个交互状态对应一张静态图，导出 PDF 时一状态一页；交互版和文本版讲同一件事</td></tr>
+      <tr><td>换配色不重置</td><td>切换配色时保留当前步骤、时段、开关状态</td></tr>
+      <tr><td>键盘</td><td><kbd>←</kbd> <kbd>→</kbd> 上一步或下一步，<kbd>1</kbd> 到 <kbd>9</kbd> 跳到对应模板，适合汇报时翻页</td></tr>
+      <tr><td>减少动效</td><td>系统开启“减少动态效果”时，所有过渡直接跳到结果，流线不流动</td></tr>
+    </tbody>
+  </table></div>
+</section>
+</div>
+
+<script>
+/* 配色全部取自日本传统色卡（nipponcolors），中性色为色卡色加白或加黑 */
+const NM={"#006284":"縹","#268785":"青碧","#69B0AC":"青磁","#78C2C4":"白群","#77969A":"深川鼠","#A8D8B9":"白緑","#3A8FB7":"千草","#C7802D":"金茶","#CB4042":"赤紅","#91AD70":"柳染",
+"#FAD689":"浅黄","#ECB88A":"薄柿","#81C7D4":"水","#9B90C2":"楝","#F4A7B9":"一斥染","#D19826":"山吹茶","#B5CAA0":"裏柳",
+"#FFB11B":"山吹","#D0104C":"韓紅花","#1B813E":"常磐","#005CAF":"瑠璃","#6A4C9C":"桔梗","#F596AA":"桃","#2EA9DF":"露草","#E2943B":"朽葉","#CB1B45":"紅","#5DAC81":"若竹",
+"#0D5661":"藍","#86C166":"苗","#F9BF45":"玉子","#B28FCE":"薄","#EB7A77":"甚三紅","#58B2DC":"空","#F7C242":"花葉","#DB4D6D":"中紅","#20604F":"虫襖",
+"#EBB471":"薄香","#BF6766":"長春","#6699A1":"錆浅葱","#D7B98E":"砥粉","#A96360":"蘇芳香","#9F353A":"燕脂","#B1B479":"麹塵","#838A2D":"苔",
+"#8A6BBE":"藤紫","#B481BB":"紅藤","#F8C3CD":"退紅","#70649A":"二藍","#E87A90":"薄紅","#E9A368":"梅染","#6F3381":"菖蒲"};
+const STYLES=[
+ {id:"A",name:"青磁·素雅",desc:"縹、青碧、青磁一路由深到浅，白模加青绿色系，流线用金茶和赤紅跳出来。清爽克制，汇报投标都适用。",
+  canvas:"#F5F7F6",ink:"#22302F",sub:"#6E7F7E",model:"#FFFFFF",edge:"#8C9B9A",ctx:"#E3E8E7",ground:"#ECF0EF",poche:"#1E2A2C",accent:"#006284",green:"#91AD70",
+  fn:{教室:"#006284",专业教室:"#268785",公共共享:"#69B0AC",体育:"#78C2C4",办公后勤:"#77969A",宿舍:"#A8D8B9"},
+  flow:{车行:"#3A8FB7",人行:"#C7802D",消防:"#CB4042"},sw:.8,font:"sans"},
+ {id:"B",name:"花葉·淡彩",desc:"浅黄、薄柿、白緑、水、楝、一斥染六种浅色分功能，和平面图纸填色完全一致。适合功能多的学校和综合体。",
+  canvas:"#FCFAF6",ink:"#35302A",sub:"#8A8278",model:"#FFFFFF",edge:"#A39C93",ctx:"#EEEAE3",ground:"#F3F0EA",poche:"#2B2722",accent:"#D19826",green:"#B5CAA0",
+  fn:{教室:"#FAD689",专业教室:"#ECB88A",公共共享:"#A8D8B9",体育:"#81C7D4",办公后勤:"#9B90C2",宿舍:"#F4A7B9"},
+  flow:{车行:"#3A8FB7",人行:"#C7802D",消防:"#CB4042"},sw:.8,font:"sans"},
+ {id:"D",name:"藍染·夜景",desc:"藍加深做底，白群、苗、玉子、露草这些亮色在深底上发光。流线、夜间开放和分时使用最好读，也适合大屏。",
+  canvas:"#0B252A",ink:"#E4EEEE",sub:"#8DAEB1",model:"#17363C",edge:"#4C777C",ctx:"#112E34",ground:"#0F2B31",poche:"#E4EEEE",accent:"#78C2C4",green:"#20604F",dark:1,
+  fn:{教室:"#78C2C4",专业教室:"#86C166",公共共享:"#F9BF45",体育:"#2EA9DF",办公后勤:"#B28FCE",宿舍:"#EB7A77"},
+  flow:{车行:"#58B2DC",人行:"#F7C242",消防:"#DB4D6D"},sw:.8,font:"sans"},
+ {id:"E",name:"砥粉·纸本",desc:"砥粉调成纸底，薄香、長春、柳染、錆浅葱这些带灰的茶色系，配宋体标签。有手绘感，适合文化类和乡建。",
+  canvas:"#F2EBDD",ink:"#3F352C",sub:"#87796A",model:"#FAF6EE",edge:"#5C5045",ctx:"#E6DCCB",ground:"#EAE1D1",poche:"#3A3029",accent:"#C7802D",green:"#B1B479",
+  fn:{教室:"#EBB471",专业教室:"#BF6766",公共共享:"#91AD70",体育:"#6699A1",办公后勤:"#D7B98E",宿舍:"#A96360"},
+  flow:{车行:"#0D5661",人行:"#C7802D",消防:"#9F353A"},sw:.6,font:"serif"},
+ {id:"F",name:"藤紫·雅致",desc:"藤紫、紅藤、二藍配退紅和薄紅，紫粉一系，菖蒲做强调。柔和但有辨识度，适合文化、商业和面向家长的展示。",
+  canvas:"#F7F5F8",ink:"#2E2834",sub:"#7E7688",model:"#FFFFFF",edge:"#9A94A3",ctx:"#E9E6EE",ground:"#F0EEF3",poche:"#2A2430",accent:"#6F3381",green:"#A8D8B9",
+  fn:{教室:"#8A6BBE",专业教室:"#B481BB",公共共享:"#F8C3CD",体育:"#70649A",办公后勤:"#77969A",宿舍:"#E87A90"},
+  flow:{车行:"#3A8FB7",人行:"#E9A368",消防:"#CB1B45"},sw:.8,font:"sans"}
+];
+const FN=["教室","专业教室","公共共享","体育","办公后勤","宿舍"];
+let cur=0;
+
+
+/* ---------- 颜色和几何工具 ---------- */
+function mix(h,k){const n=parseInt(h.slice(1),16);let r=n>>16,g=n>>8&255,b=n&255;
+ const t=k<0?0:255,a=Math.abs(k);r=Math.round(r+(t-r)*a);g=Math.round(g+(t-g)*a);b=Math.round(b+(t-b)*a);
+ return "#"+((1<<24)|(r<<16)|(g<<8)|b).toString(16).slice(1)}
+function lum(h){const n=parseInt(h.slice(1),16);return(.299*(n>>16)+.587*(n>>8&255)+.114*(n&255))/255}
+function on(st,c){return lum(c)>.6?(st.dark?"#0B1A1D":st.ink):"#FFFFFF"}
+const C30=Math.cos(Math.PI/6);
+function P(o,x,y,z){return[o.ox+(x-y)*C30*o.s,o.oy+(x+y)*.5*o.s-z*o.s]}
+function pp(a){return a.map(p=>p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ")}
+function box(st,o,x,y,z,w,d,h,fill,op={}){
+ const sw=op.sw??st.sw,e=op.edge??st.edge,a=op.op??1,dk=st.dark?-.35:-.14;
+ const top=[P(o,x,y,z+h),P(o,x+w,y,z+h),P(o,x+w,y+d,z+h),P(o,x,y+d,z+h)];
+ const rt=[P(o,x+w,y,z),P(o,x+w,y+d,z),P(o,x+w,y+d,z+h),P(o,x+w,y,z+h)];
+ const lf=[P(o,x,y+d,z),P(o,x+w,y+d,z),P(o,x+w,y+d,z+h),P(o,x,y+d,z+h)];
+ const g=`stroke="${e}" stroke-width="${sw}" stroke-linejoin="round"`;
+ return `<g opacity="${a}"><polygon points="${pp(lf)}" fill="${mix(fill,dk*1.6)}" ${g}/><polygon points="${pp(rt)}" fill="${mix(fill,dk)}" ${g}/><polygon points="${pp(top)}" fill="${fill}" ${g}/></g>`}
+function T(st,x,y,s,o={}){const f=st.font==="serif"?"Noto Serif SC,Songti SC,serif":"Noto Sans SC,PingFang SC,Microsoft YaHei,sans-serif";
+ return `<text x="${x}" y="${y}" font-family="${f}" font-size="${o.size||10}" font-weight="${o.w||400}" fill="${o.fill||st.ink}" text-anchor="${o.a||"start"}"${o.rot?` transform="rotate(${o.rot} ${x} ${y})"`:""}>${s}</text>`}
+function line(pts,c,w,dash){return `<polyline points="${pp(pts)}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"${dash?` stroke-dasharray="${dash}"`:""}/>`}
+function arrow(st,pts,c,w=2,dash){const a=pts[pts.length-2],b=pts[pts.length-1],ang=Math.atan2(b[1]-a[1],b[0]-a[0]),L=6;
+ const p1=[b[0]-L*Math.cos(ang-.45),b[1]-L*Math.sin(ang-.45)],p2=[b[0]-L*Math.cos(ang+.45),b[1]-L*Math.sin(ang+.45)];
+ return line(pts,c,w,dash)+`<polygon points="${pp([b,p1,p2])}" fill="${c}"/>`}
+function tag(st,px,py,lx,ly,txt,c){ // 线式标签：圆点＋引线＋名称
+ return `<circle cx="${px}" cy="${py}" r="2.2" fill="${c||st.ink}"/>`+line([[px,py],[lx,ly],[lx+(lx>px?6:-6),ly]],st.ink,.6)+T(st,lx+(lx>px?9:-9),ly+3.5,txt,{size:9.5,a:lx>px?"start":"end"})}
+function tri(x,y,c,r=5,rot=0){const p=[[0,-r],[r*.87,r*.5],[-r*.87,r*.5]].map(([a,b])=>{const t=rot*Math.PI/180;return[x+a*Math.cos(t)-b*Math.sin(t),y+a*Math.sin(t)+b*Math.cos(t)]});return `<polygon points="${pp(p)}" fill="${c}"/>`}
+function frame(st,W,H,body,note){return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img"><rect width="${W}" height="${H}" fill="${st.canvas}"/>${body}${note?T(st,10,H-9,note,{size:8,fill:st.sub}):""}</svg>`}
+const MODEL_NOTE="示意几何｜正式出图叠在模型导出线稿上";
+
+const FLOORS=[
+ {n:"1F",name:"架空层·食堂",b:[["公共共享",0,0,16,4],["体育",0,4,8,6],["办公后勤",8,4,8,6]]},
+ {n:"2F",name:"普通教室",b:[["教室",0,0,10,4],["专业教室",10,0,6,4],["公共共享",0,4,16,2],["教室",0,6,16,4]]},
+ {n:"3F",name:"专业教室",b:[["教室",0,0,16,4],["公共共享",0,4,6,2],["专业教室",0,6,16,4]]},
+ {n:"RF",name:"屋顶运动场",b:[["公共共享",0,0,16,10,.3],["体育",3,2,10,6,.35]]}];
+const ROOMS=[[0,0,20,22],[20,0,20,22],[40,0,20,22],[60,0,20,22],[80,0,20,22],[82,30,18,35],[82,65,18,35],[0,108,20,22],[20,108,20,22],[40,108,20,22],[60,108,20,22],[80,108,20,22],[0,30,18,70]];
+function plan(st,ox,oy,sc,hi,hc){let g=`<rect x="${ox+18*sc}" y="${oy+30*sc}" width="${64*sc}" height="${70*sc}" fill="${st.green}" opacity=".35"/>`;
+ ROOMS.forEach(r=>g+=`<rect x="${ox+r[0]*sc}" y="${oy+r[1]*sc}" width="${r[2]*sc}" height="${r[3]*sc}" fill="${st.model}" stroke="${st.edge}" stroke-width=".6"/>`);
+ [[0,22,100,8],[0,100,100,8]].forEach(r=>g+=`<rect x="${ox+r[0]*sc}" y="${oy+r[1]*sc}" width="${r[2]*sc}" height="${r[3]*sc}" fill="${st.ground}" stroke="${st.edge}" stroke-width=".6"/>`);
+ hi.forEach(r=>g+=`<rect x="${ox+r[0]*sc}" y="${oy+r[1]*sc}" width="${r[2]*sc}" height="${r[3]*sc}" fill="${hc}" stroke="${mix(hc,-.25)}" stroke-width=".8"/>`);
+ g+=`<rect x="${ox}" y="${oy}" width="${100*sc}" height="${130*sc}" fill="none" stroke="${st.poche}" stroke-width="1.2"/>`;
+ return g}
+function site(st,ox,oy){let g=`<rect x="${ox}" y="${oy}" width="140" height="170" fill="${st.ground}"/>`;
+ g+=`<rect x="${ox}" y="${oy}" width="140" height="14" fill="${st.ctx}"/><rect x="${ox}" y="${oy}" width="14" height="170" fill="${st.ctx}"/>`;
+ g+=`<rect x="${ox+22}" y="${oy+22}" width="110" height="140" fill="none" stroke="${st.sub}" stroke-width=".8" stroke-dasharray="5 2 1 2"/>`;
+ g+=`<rect x="${ox+90}" y="${oy+90}" width="38" height="66" rx="19" fill="${st.green}" opacity=".6"/>`;
+ [[30,30,52,14],[30,76,52,14],[30,44,12,32],[70,44,12,32]].forEach(r=>g+=`<rect x="${ox+r[0]}" y="${oy+r[1]}" width="${r[2]}" height="${r[3]}" fill="${st.model}" stroke="${st.edge}" stroke-width=".7"/>`);
+ g+=`<rect x="${ox+30}" y="${oy+100}" width="50" height="50" fill="${st.model}" stroke="${st.edge}" stroke-width=".7"/>`;
+ return g}
+
+/* ---------- 交互版模板：每个函数 (st, state) → SVG ---------- */
+const VW=560,VH=380;
+function stage(st,body,note){return frame(st,VW,VH,body,note)}
+
+/* B1 生成序列：逐步播放，新加部分从上方落下 */
+function B1i(st,S){const k=S.k,t=S.t,o={ox:262,oy:178,s:10.5},M=st.model,N=st.accent;
+ const rise=n=>n===k?(1-t)*4:0,op=n=>n===k?Math.max(t,.05):1;
+ const part=(n,x,y,z,w,d,h,f)=>n>k?"":box(st,o,x,y,z+rise(n),w,d,h,f||(n===k?N:M),{op:op(n)});
+ let g=part(1,0,0,0,20,14,2)+part(2,0,0,2,20,4,4)+part(3,16,4,2,4,6,2.5)+part(3,8,4,4,3,6,1)+part(4,0,0,6,6,4,3.5,N)+part(2,0,10,2,20,4,3)+part(4,.6,10.4,5,18.8,3.2,.25,st.fn.体育);
+ const steps=[["基座","整块抬起，留出架空层"],["围合","南北两条教学带"],["连通","东侧联系体与连廊"],["活化","屋顶运动场与塔楼"]];
+ g+=T(st,24,48,"0"+k,{size:34,w:700,fill:st.accent})+T(st,82,36,steps[k-1][0],{size:16,w:700})+T(st,82,54,steps[k-1][1],{size:11,fill:st.sub});
+ steps.forEach((s,i)=>{const x=24+i*30;g+=`<g data-act="b1go" data-v="${i+1}" style="cursor:pointer"><rect x="${x-4}" y="${VH-44}" width="26" height="22" fill="transparent"/><rect x="${x}" y="${VH-34}" width="18" height="4" rx="2" fill="${i+1<=k?st.accent:st.ctx}"/></g>`});
+ return stage(st,g,MODEL_NOTE)}
+
+/* B2 爆炸轴测：滑杆拉开/合拢；点楼层单独看；点功能只亮这一类；切到流线版 */
+function B2i(st,S){const o={ox:300,oy:228,s:8.6},gap=1.75+S.gap*4.6;let g="";
+ const c1=P(o,7,4,0),c2=P(o,7,4,gap*3);g+=line([c1,c2],st.sub,.6,"2 3");
+ FLOORS.forEach((f,i)=>{const z=i*gap,dim=S.hf>=0&&S.hf!==i;let fg="";
+  fg+=box(st,o,0,0,z,16,10,.4,st.model);
+  f.b.forEach(b=>{const h=b[5]||1.3;let fill=S.mode==="flow"?st.model:st.fn[b[0]];if(S.iso&&S.mode!=="flow"&&b[0]!==S.iso)fill=st.model;fg+=box(st,o,b[1],b[2],z+.4,b[3],b[4],h,fill,{op:S.mode==="flow"?.55:1})});
+  const L=P(o,0,10,z+.4),sel=S.hf===i;
+  fg+=`<rect x="${L[0]-100}" y="${L[1]-12}" width="96" height="30" fill="transparent"/>`+T(st,L[0]-8,L[1]+2,f.n,{size:12,w:700,a:"end",fill:sel?st.accent:st.ink})+T(st,L[0]-8,L[1]+15,f.name,{size:9.5,a:"end",fill:st.sub});
+  g+=`<g data-act="b2floor" data-v="${i}" style="cursor:pointer" opacity="${dim?.18:1}">${fg}</g>`});
+ if(S.mode==="flow"){const h=1.9,c=st.flow.人行;
+  [[[16,5,0],[11,5,0],[8,5,0]],[[8,5,1],[1,5,1]],[[8,5,2],[3,5,2]],[[8,5,3],[8,8,3]]].forEach((seg,i)=>{if(S.hf<0||S.hf===i)g+=arrow(st,seg.map(p=>P(o,p[0],p[1],p[2]*gap+.4+h)),c,2.6)});
+  if(S.hf<0)for(let i=0;i<3;i++)g+=`<g class="fl">${line([P(o,8,5,i*gap+.4+h),P(o,8,5,(i+1)*gap+.4+h-.2)],c,1.6,"4 3")}</g>`;
+  if(S.hf<=0){g+=arrow(st,[P(o,19,8,1),P(o,13,8,1)],st.flow.车行,2.6)}
+ }
+ g+=T(st,24,36,S.mode==="flow"?"流线版":"功能版",{size:16,w:700})+T(st,24,54,S.hf>=0?`只看 ${FLOORS[S.hf].n} ${FLOORS[S.hf].name}，再点一次恢复`:"点楼层名单独看一层",{size:10.5,fill:st.sub});
+ return stage(st,g,MODEL_NOTE)}
+
+/* B3 同底空间系列：切换空间，高亮淡入 */
+const B3SETS=[["学术长廊","两条走廊加宽成可停留的长廊",[[0,22,100,8],[0,100,100,8]],"fn.公共共享"],
+ ["交流平台","走廊上挑出三处平台",[[38,22,24,16],[38,92,24,16],[18,52,14,22]],"flow.人行"],
+ ["共享客厅","西侧通高大厅与南侧共享教室",[[0,30,18,70],[40,108,20,22]],"fn.专业教室"]];
+function pick(st,k){const [a,b]=k.split(".");return st[a][b]}
+function B3i(st,S){const sc=2.3,ox=250,oy=40,set=B3SETS[S.i],hc=pick(st,set[3]);let g=plan(st,ox,oy,sc,[],hc);
+ g+=`<g opacity="${S.t}">`+set[2].map(r=>`<rect x="${ox+r[0]*sc}" y="${oy+r[1]*sc}" width="${r[2]*sc}" height="${r[3]*sc}" fill="${hc}" stroke="${mix(hc,-.25)}" stroke-width="1"/>`).join("")+`</g>`;
+ g+=`<rect x="24" y="40" width="14" height="14" fill="${hc}"/>`+T(st,46,52,set[0],{size:18,w:700})+T(st,24,76,set[1],{size:11,fill:st.sub})+T(st,24,100,`${S.i+1} / 3 · 同一张底图`,{size:10,fill:st.sub});
+ B3SETS.forEach((s,i)=>{g+=`<g data-act="b3go" data-v="${i}" style="cursor:pointer"><rect x="24" y="${130+i*30}" width="150" height="24" rx="12" fill="${i===S.i?pick(st,s[3]):"transparent"}" stroke="${pick(st,s[3])}"/>`+T(st,40,146+i*30,s[0],{size:11,fill:i===S.i?on(st,pick(st,s[3])):st.ink})+`</g>`});
+ return stage(st,g)}
+
+/* B4 色带剖面：悬停功能高亮同类；点照片放大 */
+function B4i(st,S){let s="";const G=262,H=40,X=x=>40+x*1.2;
+ s+=`<rect x="10" y="${G}" width="540" height="60" fill="${st.ground}"/>`;
+ s+=`<rect x="${X(70)}" y="${G}" width="${340*1.2}" height="36" fill="${mix(st.poche,st.dark?-.7:.78)}"/>`+T(st,X(240),G+22,"地下车库 · 设备",{size:10,a:"middle",fill:st.sub});
+ const L=[[G-H,[["公共共享",70,200,"食堂·架空"],["体育",200,320,"风雨操场"],["办公后勤",320,410,"后勤"]]],
+  [G-2*H,[["教室",70,210,"普通教室"],["公共共享",210,250,"中庭"],["专业教室",250,380,"实验室"]]],
+  [G-3*H,[["教室",110,240,"普通教室"],["专业教室",240,380,"美术·音乐"]]],
+  [G-4*H,[["专业教室",150,300,"图书馆"]]]];
+ L.forEach(([y,segs])=>segs.forEach(([f,x1,x2,n])=>{const dim=S.hl&&S.hl!==f,c=dim?mix(st.fn[f],st.dark?-.65:.78):st.fn[f];
+  s+=`<g data-hov="b4fn" data-v="${f}" style="cursor:pointer"><rect x="${X(x1)}" y="${y}" width="${(x2-x1)*1.2}" height="${H}" fill="${c}"/>`+T(st,X((x1+x2)/2),y+H/2+4,n,{size:10.5,a:"middle",fill:on(st,c)})+`</g>`}));
+ const P2=st.poche,sl=(x1,x2,y)=>`<rect x="${X(x1)}" y="${y-1.8}" width="${(x2-x1)*1.2}" height="3.6" fill="${P2}"/>`;
+ s+=sl(70,410,G)+sl(70,410,G-H)+sl(70,380,G-2*H)+sl(110,380,G-3*H)+sl(150,300,G-4*H);
+ ["±0.00","4.50","9.00","13.50","18.00"].forEach((v,i)=>{const y=G-i*H;s+=tri(26,y-4,st.ink,3.5,180)+T(st,32,y-1,v,{size:9,fill:st.sub})});
+ const PH=[[150,46,X(140),G-H*1.5,"中庭看台"],[300,40,X(230),G-2*H-H/2,"共享中庭"],[460,54,X(340),G-3*H-2,"屋顶台地"]];
+ PH.forEach(([cx,cy,px,py,n],i)=>{const big=S.ph===i,r=big?44:22,cy2=big?cy+26:cy;
+  s+=line([[cx,cy2+r],[px,py]],st.ink,.8,"2 2")+`<circle cx="${px}" cy="${py}" r="2.6" fill="${st.ink}"/>`;
+  s+=`<g data-act="b4ph" data-v="${i}" style="cursor:pointer"><circle cx="${cx}" cy="${cy2}" r="${r}" fill="${st.ctx}" stroke="${st.model}" stroke-width="3"/><circle cx="${cx}" cy="${cy2}" r="${r}" fill="none" stroke="${big?st.accent:st.edge}" stroke-width="${big?1.6:.6}"/>`+T(st,cx,cy2+3,big?"实景照片":"照片",{size:big?11:8.5,a:"middle",fill:st.sub})+`</g>`+T(st,cx+r+6,cy2+4,n,{size:10.5,w:700})});
+ s+=T(st,24,30,S.hl?`${S.hl}：同类空间在各层的位置`:"悬停色带，看同类功能分布在哪几层",{size:11,w:700});
+ return stage(st,s,"点圆形照片放大；正式版换实景或渲染")}
+
+/* B5 剖切轴测：按时段看哪些房间开放 */
+const B5ROOMS=[["教室",0,0,6,5],["教室",6,0,6,5],["专业教室",12,0,6,5],["公共共享",0,5,18,2],["公共共享",0,7,9,5],["体育",9,7,9,5]];
+const B5T=[{k:"上课时段",open:[0,1,2,3,4,5],say:[4,"下课就在这里看书"]},{k:"放学后",open:[2,3,5],say:[2,"社团借用专业教室"]},{k:"周末",open:[3,4,5],say:[4,"社区家长来共享客厅"]},{k:"寒暑假",open:[3,5],say:[5,"假期操场对外开放"]}];
+const B5P=[[[1.2,1.2],[3,1.2],[4.6,1.2],[1.2,3.4],[3,3.4]],[[7.2,1.4],[9,1.4],[10.6,3.2],[8,3.4]],[[13.4,1.4],[15.6,2.4],[14,3.6]],[[3,6],[10,6],[15,6]],[[2.5,9],[4,10],[5.5,8.5],[7,10.5]],[[12,9.5],[14,10],[15,8.5],[11,8]]];
+function B5i(st,S){const o={ox:270,oy:96,s:12.5},W=2.2,LOW=1.4,t=.22,cfg=B5T[S.ti];let s="";
+ s+=box(st,o,0,0,-.5,18,12,.5,st.model);
+ B5ROOMS.forEach((r,i)=>{const open=cfg.open.includes(i);s+=box(st,o,r[1]+.05,r[2]+.05,0,r[3]-.1,r[4]-.1,.06,open?mix(st.fn[r[0]],st.dark?0:.2):st.ground,{sw:0})});
+ const walls=[[0,0,0,18,t,W],[0,0,0,t,12,W],[6,0,0,t,5,LOW],[12,0,0,t,5,LOW],[0,5-t,0,4,t,LOW],[8,5-t,0,10,t,LOW],[0,7,0,3,t,LOW],[6,7,0,12,t,LOW],[9,7,0,t,5,LOW],[18-t,0,0,t,12,.9],[0,12-t,0,18,t,.9]];
+ walls.sort((a,b)=>(a[0]+a[3]/2+a[1]+a[4]/2)-(b[0]+b[3]/2+b[1]+b[4]/2)).forEach(w=>s+=box(st,o,...w,st.model,{sw:.6}));
+ B5P.forEach((ps,i)=>{if(!cfg.open.includes(i))return;ps.forEach(([x,y])=>{const p=P(o,x,y,0);s+=`<ellipse cx="${p[0]}" cy="${p[1]-7}" rx="2.6" ry="6.5" fill="${st.ink}" opacity=".75"/><circle cx="${p[0]}" cy="${p[1]-15.5}" r="2.6" fill="${st.ink}" opacity=".75"/>`})});
+ const r=B5ROOMS[cfg.say[0]],bp=P(o,r[1]+r[3]/2,r[2]+r[4]/2,0),txt=cfg.say[1],bw=txt.length*11+18,bx=Math.min(bp[0]-20,VW-bw-10);
+ s+=`<rect x="${bx}" y="${bp[1]-66}" width="${bw}" height="24" rx="12" fill="${st.accent}"/><polygon points="${bx+16},${bp[1]-42} ${bx+26},${bp[1]-42} ${bp[0]},${bp[1]-30}" fill="${st.accent}"/>`+T(st,bx+9,bp[1]-50,txt,{size:11,fill:on(st,st.accent)});
+ s+=T(st,24,36,cfg.k,{size:18,w:700})+T(st,24,56,`开放 ${cfg.open.length} 处，其余关闭`,{size:11,fill:st.sub});
+ return stage(st,s,MODEL_NOTE)}
+
+/* B6 房间单元：滑杆在分区图和家具图之间过渡 */
+function B6i(st,S){let s="";const ox=150,oy=70,w=300,h=210,v=S.v;
+ s+=`<rect x="${ox}" y="${oy}" width="${w}" height="${h}" fill="${st.model}" stroke="${st.edge}" stroke-width="1"/>`;
+ const z=[["讲授区",0,0,.55,1,"教室"],["讨论区",.55,0,.45,.6,"公共共享"],["展示·阅读",.55,.6,.45,.4,"专业教室"]];
+ s+=`<g opacity="${1-v*.85}">`+z.map(([n,x,y,ww,hh,f])=>`<rect x="${ox+x*w}" y="${oy+y*h}" width="${ww*w}" height="${hh*h}" fill="${st.fn[f]}" stroke="${st.model}" stroke-width="2"/>`+T(st,ox+(x+ww/2)*w,oy+(y+hh/2)*h+4,n,{size:13,w:700,a:"middle",fill:on(st,st.fn[f])})).join("")+`</g>`;
+ let fu="";for(let r=0;r<5;r++)for(let c=0;c<3;c++)fu+=`<rect x="${ox+18+c*44}" y="${oy+22+r*36}" width="32" height="16" fill="${st.model}" stroke="${st.ink}" stroke-width="1"/>`;
+ [[ox+228,oy+50],[ox+228,oy+160]].forEach(([x,y])=>{fu+=`<circle cx="${x}" cy="${y}" r="20" fill="${st.model}" stroke="${st.ink}" stroke-width="1"/>`;for(let a=0;a<6;a++){const t=a/6*Math.PI*2;fu+=`<circle cx="${x+30*Math.cos(t)}" cy="${y+30*Math.sin(t)}" r="5" fill="${st.model}" stroke="${st.ink}" stroke-width=".9"/>`}});
+ s+=`<g opacity="${.15+v*.85}">${fu}</g>`;
+ s+=`<rect x="${ox}" y="${oy+h}" width="${w}" height="34" fill="${st.ground}" stroke="${st.edge}" stroke-width=".8" stroke-dasharray="4 3"/>`+T(st,ox+w/2,oy+h+21,"廊下延伸",{size:10,a:"middle",fill:st.sub});
+ s+=`<line x1="${ox+165}" y1="${oy}" x2="${ox+165}" y2="${oy+h}" stroke="${st.accent}" stroke-width="2.4" stroke-dasharray="6 4"/>`+T(st,ox+170,oy-8,"活动隔断",{size:10,fill:st.accent});
+ s+=T(st,24,36,v<.5?"分区图":"家具图",{size:18,w:700})+T(st,24,56,"同一间教室，拖动看两种读法",{size:11,fill:st.sub});
+ return stage(st,s)}
+
+/* B7 气候剖面：太阳高度角可调，算出阳光进深 */
+function B7i(st,S){let s="";const G=300,FH=56,PX=13.33,tipX=120-2*PX,a=S.a,r=a*Math.PI/180;
+ s+=`<rect x="10" y="${G}" width="540" height="40" fill="${st.ground}"/>`;
+ const yT=G-3*FH,P2=st.poche;
+ s+=`<rect x="120" y="${yT}" width="300" height="${3*FH}" fill="${st.model}" stroke="${st.edge}" stroke-width=".6"/>`;
+ for(let i=0;i<=3;i++){const y=G-i*FH;s+=`<rect x="120" y="${y-1.6}" width="300" height="3.2" fill="${P2}"/>`;if(i>0)s+=`<rect x="${tipX}" y="${y-1.6}" width="${120-tipX}" height="3.2" fill="${P2}"/>`}
+ s+=`<rect x="270" y="${yT}" width="46" height="${3*FH}" fill="${st.fn.公共共享}" opacity=".5"/>`;
+ let depth=0;
+ if(S.sun){for(let i=1;i<=3;i++){const ys=G-i*FH,yf=ys+FH,xh=tipX+FH/Math.tan(r);depth=Math.max(0,(xh-120)/PX);
+   if(xh>120)s+=`<polygon points="120,${ys+1.6} ${120},${yf-1.6} ${xh},${yf-1.6}" fill="#F7C242" opacity=".45"/>`;
+   const L=150;s+=arrow(st,[[tipX-L*Math.cos(r),ys-L*Math.sin(r)],[tipX,ys]],st.flow.消防,1.4)}}
+ if(S.wind){const wc=st.flow.车行;s+=`<g class="fl">${line([[20,G-28],[120,G-30],[270,G-34]],wc,2,"6 4")}${line([[20,G-FH-28],[120,G-FH-30],[270,G-FH-34]],wc,2,"6 4")}${line([[293,G-20],[293,yT-40]],wc,2,"6 4")}</g>`+T(st,20,G-38,"夏季东南风",{size:10,fill:wc})+T(st,300,yT-30,"中庭拔风",{size:10,fill:wc})}
+ if(S.rain){const rc=st.green;s+=`<g class="fl">${line([[380,yT],[440,yT],[440,G+14]],rc,2,"5 3")}</g><rect x="452" y="${G+6}" width="70" height="24" fill="${rc}" opacity=".75"/>`+T(st,487,G+22,"雨水回收",{size:10,a:"middle"})}
+ s+=T(st,24,34,`太阳高度角 ${a.toFixed(0)}°`,{size:18,w:700})+T(st,24,54,S.sun?(depth>0?`出挑 2m，阳光进入室内约 ${depth.toFixed(1)} m`:"出挑 2m，阳光照不进室内"):"日照已关闭",{size:11,fill:st.sub})+T(st,24,72,"深圳 北纬22.5°：夏至 89°，春秋分 67.5°，冬至 44°（正午）",{size:9.5,fill:st.sub});
+ return stage(st,s,"层高 4.2m，比例为示意")}
+
+/* B8 量化分层：数字递增；悬停一层看它的占比 */
+function B8i(st,S){const o={ox:215,oy:178,s:8},gap=8.5;let s="";
+ const L=[["地面活动场",6200,62,st.fn.体育,[[2,2,10,7]]],["架空层",2100,21,st.fn.公共共享,[[0,0,16,3]]],["屋顶运动场",3400,34,st.accent,[[3,2,11,6]]]];
+ const ease=S.t;
+ L.forEach((l,i)=>{const z=i*gap,dim=S.hov>=0&&S.hov!==i;let g=box(st,o,0,0,z,18,12,.3,st.model);l[4].forEach(r=>g+=box(st,o,r[0]+1,r[1]+1.5,z+.3,r[2],r[3],.25,l[3]));
+  const p=P(o,18,6,z+.3),lx=388,ly=p[1];g+=line([p,[lx-6,ly]],st.ink,.6,"2 2");
+  g+=T(st,lx,ly-10,String(i+1).padStart(2,"0")+"  "+l[0],{size:11.5,w:700})+T(st,lx,ly+8,Math.round(l[1]*ease).toLocaleString("en-US")+" ㎡",{size:11})+T(st,lx+92,ly+9,Math.round(l[2]*ease)+"%",{size:18,w:700,fill:l[3]});
+  s+=`<g data-hov="b8" data-v="${i}" style="cursor:pointer" opacity="${dim?.22:1}"><rect x="${lx-6}" y="${ly-26}" width="170" height="42" fill="transparent"/>${g}</g>`});
+ s+=line([[388,322],[548,322]],st.ink,.8)+T(st,388,342,"合计 "+Math.round(11700*ease).toLocaleString("en-US")+" ㎡",{size:12,w:700})+T(st,486,344,Math.round(117*ease)+"%",{size:22,w:700,fill:st.accent});
+ s+=T(st,388,360,"÷ 用地 10,000 ㎡；三项相加闭合",{size:9.5,fill:st.sub});
+ s+=T(st,24,318,"室外活动覆盖率",{size:18,w:700})+T(st,24,338,"进入页面时数字从 0 增长，悬停某层看单项",{size:11,fill:st.sub});
+ return stage(st,s,"示例数字｜"+MODEL_NOTE)}
+
+/* B9 多联流线：三种流线可叠加，虚线流动 */
+function B9i(st,S){const sc=1.9,ox=230,oy=20;let s=`<g transform="translate(${ox} ${oy}) scale(${sc})">${site(st,0,0)}`;
+ const C=st.flow;
+ if(S.on.车行)s+=`<g class="fl">${line([[2,120],[24,120],[24,96],[38,96]],C.车行,1.4,"4 3")}</g><rect x="36" y="92" width="10" height="8" fill="${C.车行}"/>`+tri(18,120,C.车行,3.4,90);
+ if(S.on.人行)s+=`<g class="fl">${line([[56,4],[56,28]],C.人行,1.4,"4 3")}${line([[56,48],[56,70]],C.人行,1,"4 3")}${line([[4,60],[30,60]],C.人行,1.4,"4 3")}${line([[86,166],[86,90],[70,70]],C.人行,1,"4 3")}</g>`+tri(56,18,C.人行,3.4,180)+tri(18,60,C.人行,3.4,90);
+ if(S.on.消防)s+=`<g class="fl"><rect x="24" y="24" width="64" height="134" fill="none" stroke="${C.消防}" stroke-width="1.3" stroke-dasharray="5 3"/></g><rect x="30" y="152" width="50" height="6" fill="${C.消防}" opacity=".5"/>`+tri(18,40,C.消防,3.4,90);
+ s+=`</g>`;
+ const n=Object.values(S.on).filter(Boolean).length;
+ s+=T(st,24,36,n===3?"三种流线叠加":n===0?"只看底图":Object.keys(S.on).filter(k=>S.on[k]).join(" + "),{size:18,w:700})+T(st,24,56,"开关任意组合，入口三角一色一义",{size:11,fill:st.sub});
+ Object.entries(C).forEach(([k,c],i)=>{s+=tri(30,96+i*24,c,5,90)+T(st,40,100+i*24,k+"入口",{size:10.5})});
+ return stage(st,s)}
+
+/* ---------- 模板定义：控件、交互说明 ---------- */
+const IT=[
+ {c:"B1",n:"同机位生成序列",f:B1i,init:()=>({k:1,t:1,play:false}),
+  ctl:S=>`<button data-act="b1prev">上一步</button><button data-act="b1next">下一步</button><button data-act="b1play" aria-pressed="${S.play}">${S.play?"暂停":"自动播放"}</button>`,
+  how:["每次只出现一步，新加的体块从上方落下并着色，之前的退成白模","自动播放每步停 1.6 秒，播完停在最后一步","底部进度条可直接点到任意一步"],step:(S,d)=>{S.k=Math.min(4,Math.max(1,S.k+d));S.t=0;return "t"}},
+ {c:"B2",n:"爆炸功能轴测",f:B2i,init:()=>({gap:1,mode:"fn",hf:-1,iso:null}),
+  ctl:S=>`<label class="rng">合拢<input type="range" id="b2gap" min="0" max="100" value="${Math.round(S.gap*100)}" aria-label="爆炸间距">拉开</label><button data-act="b2mode" aria-pressed="${S.mode==="flow"}">${S.mode==="flow"?"看功能":"看流线"}</button>`+(S.mode==="fn"?FN.slice(0,5).map(k=>`<button class="chip" data-act="b2iso" data-v="${k}" aria-pressed="${S.iso===k}"><i style="background:var(--c-${FN.indexOf(k)})"></i>${k}</button>`).join(""):""),
+  how:["滑杆在合拢和拉开之间过渡，讲“各层怎么叠在一起”","点楼层名只看这一层，其余淡化","点功能色块只亮这一类，看它分布在哪几层","切到流线版，体块淡化，流线虚线流动"]},
+ {c:"B3",n:"同底空间系列",f:B3i,init:()=>({i:0,t:1}),
+  ctl:S=>`<button data-act="b3prev">上一个</button><button data-act="b3next">下一个</button>`,
+  how:["底图不动，只有高亮层淡入淡出，读者一眼看出是同一张平面","左侧按钮直接跳到某一种空间","键盘 ← → 切换"],step:(S,d)=>{S.i=(S.i+d+3)%3;S.t=0;return "t"}},
+ {c:"B4",n:"功能色带剖面",f:B4i,init:()=>({hl:null,ph:-1}),ctl:S=>`<button data-act="b4clear">全部显示</button>`,
+  how:["悬停任一色带，同类功能在各层同时高亮，其余淡化","点圆形照片放大，再点一次缩回","手机上用点按代替悬停"]},
+ {c:"B5",n:"剖切轴测·分时开放",f:B5i,init:()=>({ti:0}),
+  ctl:S=>B5T.map((t,i)=>`<button data-act="b5t" data-v="${i}" aria-pressed="${S.ti===i}">${t.k}</button>`).join(""),
+  how:["按时段切换：开放的房间着色并出现使用者，关闭的退成底色","气泡跟着时段换成使用者的一句话","键盘 ← → 切换时段"],step:(S,d)=>{S.ti=(S.ti+d+4)%4}},
+ {c:"B6",n:"房间单元",f:B6i,init:()=>({v:0}),
+  ctl:S=>`<label class="rng">分区<input type="range" id="b6v" min="0" max="100" value="${Math.round(S.v*100)}" aria-label="分区和家具">家具</label>`,
+  how:["同一间教室，滑杆在分区图和家具图之间过渡","活动隔断用强调色虚线，始终显示","正式版右侧可接室内透视（GPT 渲染）"]},
+ {c:"B7",n:"气候策略剖面",f:B7i,init:()=>({a:44,sun:true,wind:true,rain:true}),
+  ctl:S=>`<button data-act="b7a" data-v="89">夏至</button><button data-act="b7a" data-v="67.5">春秋分</button><button data-act="b7a" data-v="44">冬至</button><label class="rng">30°<input type="range" id="b7r" min="30" max="90" value="${Math.round(S.a)}" aria-label="太阳高度角">90°</label>`+["sun:日照","wind:风","rain:雨水"].map(x=>{const[k,n]=x.split(":");return `<button data-act="b7l" data-v="${k}" aria-pressed="${S[k]}">${n}</button>`}).join(""),
+  how:["点节气或拖滑杆，太阳光线转到对应角度，室内光斑和进深数字实时算出","风、光、雨三层可单独开关，一次只讲一条也行","角度按项目纬度计算，换项目只改纬度"]},
+ {c:"B8",n:"量化分层",f:B8i,init:()=>({hov:-1,t:0}),ctl:S=>`<button data-act="b8replay">重新计数</button>`,
+  how:["进入时面积和百分比从 0 增长到实际值","悬停一层，其余两层淡化","合计始终等于三项之和"],enter:"t"},
+ {c:"B9",n:"多联流线平面",f:B9i,init:()=>({on:{车行:true,人行:true,消防:false}}),
+  ctl:S=>Object.keys(S.on).map(k=>`<button data-act="b9" data-v="${k}" aria-pressed="${S.on[k]}">${k}</button>`).join(""),
+  how:["三种流线各一个开关，可任意叠加","打开的流线虚线沿行进方向流动","静态出图时就是三联平面，一联一种流线"]}];
+
+/* ---------- 控制器 ---------- */
+const RM=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+let si=0,ti=0;const ST=IT.map(t=>t.init());
+try{const a=JSON.parse(localStorage.getItem("biact")||"{}");if(STYLES[a.s])si=a.s;if(IT[a.t])ti=a.t}catch(e){}
+const $=id=>document.getElementById(id);
+let anim=null,playTimer=null;
+function tween(S,key,from,to,ms,done){cancelAnimationFrame(anim);if(RM){S[key]=to;draw();done&&done();return}
+ const t0=performance.now();const f=now=>{const p=Math.min(1,(now-t0)/ms),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;S[key]=from+(to-from)*e;drawSvg();if(p<1)anim=requestAnimationFrame(f);else{done&&done()}};anim=requestAnimationFrame(f)}
+const FLOWCSS=`<style>.fl>*{animation:fl 1s linear infinite}@keyframes fl{to{stroke-dashoffset:-14}}@media (prefers-reduced-motion:reduce){.fl{animation:none}}</style>`;
+function drawSvg(){const st=STYLES[si];$("svg").innerHTML=IT[ti].f(st,ST[ti]).replace("<rect",FLOWCSS+"<rect")}
+function draw(){const st=STYLES[si],t=IT[ti],S=ST[ti];
+ document.documentElement.style.cssText=FN.map((k,i)=>`--c-${i}:${st.fn[k]}`).join(";");
+ $("pal").querySelectorAll("button").forEach((b,i)=>b.setAttribute("aria-pressed",i===si));
+ $("nav").querySelectorAll("button").forEach((b,i)=>b.setAttribute("aria-pressed",i===ti));
+ drawSvg();$("ctl").innerHTML=t.ctl(S);
+ $("how").innerHTML=`<h3>${t.c} ${t.n} · 交互方式</h3><ul>${t.how.map(x=>`<li>${x}</li>`).join("")}</ul><p class="keys">键盘 <kbd>←</kbd> <kbd>→</kbd> 上一步/下一步，<kbd>1</kbd>–<kbd>9</kbd> 切换模板</p>`;
+ try{localStorage.setItem("biact",JSON.stringify({s:si,t:ti}))}catch(e){}}
+function enter(i){ti=i;clearInterval(playTimer);ST[0].play=false;draw();if(IT[i].enter){tween(ST[i],"t",0,1,1200,()=>draw())}}
+function step(d){const t=IT[ti],S=ST[ti];
+ if(ti===0){S.k=Math.min(4,Math.max(1,S.k+d));tween(S,"t",0,1,520);$("ctl").innerHTML=t.ctl(S);return}
+ if(ti===2){S.i=(S.i+d+3)%3;tween(S,"t",0,1,420);return}
+ if(ti===4){S.ti=(S.ti+d+4)%4;draw();return}
+ enter(Math.min(8,Math.max(0,ti+d)))}
+function act(a,v){const S=ST[ti];
+ switch(a){
+  case "b1prev":step(-1);break;case "b1next":step(1);break;
+  case "b1go":S.k=+v;tween(S,"t",0,1,520);break;
+  case "b1play":S.play=!S.play;clearInterval(playTimer);if(S.play){if(S.k===4)S.k=0;const nx=()=>{if(S.k>=4){S.play=false;clearInterval(playTimer);draw();return}S.k++;tween(S,"t",0,1,520)};nx();playTimer=setInterval(nx,1600)}draw();break;
+  case "b2mode":S.mode=S.mode==="fn"?"flow":"fn";S.iso=null;draw();break;
+  case "b2floor":S.hf=S.hf===+v?-1:+v;draw();break;
+  case "b2iso":S.iso=S.iso===v?null:v;draw();break;
+  case "b3go":S.i=+v;tween(S,"t",0,1,420);break;case "b3prev":step(-1);break;case "b3next":step(1);break;
+  case "b4ph":S.ph=S.ph===+v?-1:+v;drawSvg();break;case "b4clear":S.hl=null;S.ph=-1;drawSvg();break;
+  case "b5t":S.ti=+v;draw();break;
+  case "b7a":tween(S,"a",S.a,+v,600,()=>draw());break;
+  case "b7l":S[v]=!S[v];draw();break;
+  case "b8replay":tween(S,"t",0,1,1200);break;
+  case "b9":S.on[v]=!S.on[v];draw();break;}}
+document.addEventListener("click",e=>{const el=e.target.closest("[data-act]");if(el)act(el.dataset.act,el.dataset.v);
+ const h=e.target.closest("[data-hov]");if(h)hov(h.dataset.hov,h.dataset.v,true)});
+function hov(k,v,tap){const S=ST[ti];if(k==="b4fn"){S.hl=tap&&S.hl===v?null:v;drawSvg()}if(k==="b8"){S.hov=tap&&S.hov===+v?-1:+v;drawSvg()}}
+$("svg").addEventListener("pointerover",e=>{if(e.pointerType!=="mouse")return;const h=e.target.closest("[data-hov]");if(h){const S=ST[ti];const v=h.dataset.hov==="b8"?+h.dataset.v:h.dataset.v;if((h.dataset.hov==="b4fn"?S.hl:S.hov)!==v)hov(h.dataset.hov,h.dataset.v,false)}});
+$("svg").addEventListener("pointerleave",e=>{const S=ST[ti];if(ti===3&&S.hl){S.hl=null;drawSvg()}if(ti===7&&S.hov>=0){S.hov=-1;drawSvg()}});
+document.addEventListener("input",e=>{const S=ST[ti];if(e.target.id==="b2gap"){S.gap=e.target.value/100;drawSvg()}if(e.target.id==="b6v"){S.v=e.target.value/100;drawSvg()}if(e.target.id==="b7r"){S.a=+e.target.value;drawSvg()}});
+document.addEventListener("keydown",e=>{if(e.target.matches("input"))return;if(e.key==="ArrowRight"){step(1);e.preventDefault()}else if(e.key==="ArrowLeft"){step(-1);e.preventDefault()}else if(/^[1-9]$/.test(e.key))enter(+e.key-1)});
+STYLES.forEach((st,i)=>{const b=document.createElement("button");b.type="button";b.innerHTML=`<span class="sw">${[st.canvas,st.fn.教室,st.fn.公共共享,st.flow.人行].map(c=>`<i style="background:${c}"></i>`).join("")}</span>${st.id} ${st.name}`;b.onclick=()=>{si=i;draw()};$("pal").appendChild(b)});
+IT.forEach((t,i)=>{const b=document.createElement("button");b.type="button";b.innerHTML=`<code>${t.c}</code>${t.n}`;b.onclick=()=>enter(i);$("nav").appendChild(b)});
+enter(ti);
+</script>
+</body></html>
