@@ -1,41 +1,42 @@
 <title>通州网球训练中心策划</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 :root{
-  --bg:#f3f4f2; --surface:#ffffff; --surface2:#eceeeb; --ink:#1c2226; --muted:#5b646a; --rule:#d3d8d5;
-  --accent:#1f6b5a; --accent-soft:#e1efe9; --accent-ink:#ffffff; --warn:#8f5410; --warn-soft:#f6ecdc; --neg:#a3372e; --pos:#1f6b5a;
-  --court:#2f6690; --runoff:#5d8e61; --line:#f7f8f5; --net:#16242c; --fence:#23313a; --pole:#d9a521;
-  --ground:#e6e8e3; --green:#cddbc2; --tree:#98b487; --road:#c6c9c6; --hard:#ddd9cf; --park:#d5d8d3; --bldg:#f6f3ea;
-  --corr:#ead9b4; --corr-line:#8a6424; --redline:#b3261e; --ev:#cfe5d7; --acc:#d3e0ef; --dim:#3f4b53;
-  --winter:#356f9f; --summer:#b0662a; --bar:#1f6b5a; --bar-neg:#a3372e; --grid:#d9ddda;
+  --bg:#f8f7f2; --surface:#ffffff; --surface2:#efeee9; --ink:#0b252a; --muted:#56605f; --rule:#d9d8d0;
+  --accent:#0b252a; --accent-soft:#fcebc4; --accent-ink:#ffffff; --accent-bar:#f9bf45; --warn:#8f5410; --warn-soft:#f6ecdc; --neg:#b03a55; --pos:#0b252a;
+  --court:#1e7fa8; --runoff:#78c2c4; --line:#ffffff; --net:#0b252a; --fence:#0b252a; --pole:#3a4547;
+  --ground:#e6e6e1; --green:#86c166; --tree:#5e9a45; --road:#58b2dc; --hard:#d9d8d0; --park:#a9d6ee; --bldg:#0b252a; --bldg-ink:#f8f7f2;
+  --corr:#f7c242; --corr-line:#8a6424; --redline:#0b252a; --fire:#db4d6d; --ev:#9fd4c0; --acc:#d3e0ef; --dim:#3a4547;
+  --winter:#1a6a8c; --summer:#a8650f; --bar:#0b252a; --bar-neg:#b03a55; --grid:#d9d8d0;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#101315; --surface:#171b1e; --surface2:#1f2428; --ink:#e3e7e5; --muted:#9aa3a8; --rule:#2f363b;
-    --accent:#62b59c; --accent-soft:#1b3029; --accent-ink:#0c1a15; --warn:#dca55c; --warn-soft:#2e2517; --neg:#e47b70; --pos:#62b59c;
-    --court:#2a5679; --runoff:#436b48; --line:#eef1ec; --net:#081014; --fence:#b8c3c8; --pole:#e6b53a;
-    --ground:#1c2124; --green:#26372a; --tree:#3b583e; --road:#393e42; --hard:#33312c; --park:#2c3134; --bldg:#3a3934;
-    --corr:#4a3d26; --corr-line:#d8b26a; --redline:#ff6b5e; --ev:#21402f; --acc:#25374f; --dim:#aab4ba;
-    --winter:#7db6e2; --summer:#e09a5c; --bar:#62b59c; --bar-neg:#e47b70; --grid:#2c3337;
+    --bg:#0a1618; --surface:#102326; --surface2:#173034; --ink:#ecebe4; --muted:#a3adae; --rule:#2a4447;
+    --accent:#f9bf45; --accent-soft:#3a3115; --accent-ink:#0b252a; --accent-bar:#f9bf45; --warn:#dca55c; --warn-soft:#2e2517; --neg:#e8849a; --pos:#f9bf45;
+    --court:#1a6a8c; --runoff:#4e8f91; --line:#eef1ec; --net:#061012; --fence:#b8c3c8; --pole:#a3adae;
+    --ground:#16282b; --green:#4f7a3e; --tree:#6e9e58; --road:#2f6e8c; --hard:#2e3634; --park:#25485a; --bldg:#d9d8d0; --bldg-ink:#0b252a;
+    --corr:#c99a2e; --corr-line:#f7c242; --redline:#ecebe4; --fire:#e8849a; --ev:#21402f; --acc:#25374f; --dim:#a3adae;
+    --winter:#7db6e2; --summer:#f9bf45; --bar:#f9bf45; --bar-neg:#e8849a; --grid:#2a4447;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#101315; --surface:#171b1e; --surface2:#1f2428; --ink:#e3e7e5; --muted:#9aa3a8; --rule:#2f363b;
-  --accent:#62b59c; --accent-soft:#1b3029; --accent-ink:#0c1a15; --warn:#dca55c; --warn-soft:#2e2517; --neg:#e47b70; --pos:#62b59c;
-  --court:#2a5679; --runoff:#436b48; --line:#eef1ec; --net:#081014; --fence:#b8c3c8; --pole:#e6b53a;
-  --ground:#1c2124; --green:#26372a; --tree:#3b583e; --road:#393e42; --hard:#33312c; --park:#2c3134; --bldg:#3a3934;
-  --corr:#4a3d26; --corr-line:#d8b26a; --redline:#ff6b5e; --ev:#21402f; --acc:#25374f; --dim:#aab4ba;
-  --winter:#7db6e2; --summer:#e09a5c; --bar:#62b59c; --bar-neg:#e47b70; --grid:#2c3337;
+  --bg:#0a1618; --surface:#102326; --surface2:#173034; --ink:#ecebe4; --muted:#a3adae; --rule:#2a4447;
+  --accent:#f9bf45; --accent-soft:#3a3115; --accent-ink:#0b252a; --accent-bar:#f9bf45; --warn:#dca55c; --warn-soft:#2e2517; --neg:#e8849a; --pos:#f9bf45;
+  --court:#1a6a8c; --runoff:#4e8f91; --line:#eef1ec; --net:#061012; --fence:#b8c3c8; --pole:#a3adae;
+  --ground:#16282b; --green:#4f7a3e; --tree:#6e9e58; --road:#2f6e8c; --hard:#2e3634; --park:#25485a; --bldg:#d9d8d0; --bldg-ink:#0b252a;
+  --corr:#c99a2e; --corr-line:#f7c242; --redline:#ecebe4; --fire:#e8849a; --ev:#21402f; --acc:#25374f; --dim:#a3adae;
+  --winter:#7db6e2; --summer:#f9bf45; --bar:#f9bf45; --bar-neg:#e8849a; --grid:#2a4447;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;font-size:15px;line-height:1.7}
 .wrap{max-width:1160px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:28px 64px}
-h1,h2,h3{font-family:"Noto Serif SC","Songti SC","STSong",serif;font-weight:700;line-height:1.35;margin:0}
+h1,h2,h3{font-family:"Noto Sans SC","Microsoft YaHei","PingFang SC",sans-serif;font-weight:400;line-height:1.35;margin:0}
+h1{font-weight:300}
 h1{font-size:clamp(24px,4.2vw,36px);letter-spacing:.02em}
 h2{font-size:clamp(19px,2.6vw,24px);margin-bottom:14px;display:flex;gap:12px;align-items:baseline}
 h2 .no{font-family:"Noto Sans SC",sans-serif;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.08em}
@@ -47,14 +48,14 @@ section{margin-top:40px;padding-top:28px;border-top:1px solid var(--rule)}
 .lede{color:var(--muted);margin-top:8px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 18px}
 .chip{border:1px solid var(--rule);background:var(--surface);border-radius:999px;padding:3px 12px;font-size:13px}
-.verdict{background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--accent);padding:16px 18px;border-radius:6px}
+.verdict{background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--accent-bar);padding:16px 18px;border-radius:6px}
 .verdict b{color:var(--accent)}
 .card{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:16px}
 .grid2{display:grid;grid-template-columns:1fr;gap:16px}
 .grid-plan-detail{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
 @media(min-width:860px){.grid2{grid-template-columns:1fr 1fr}.grid-plan-detail{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}}
 .note{font-size:13px;color:var(--muted)}
-.change{font-size:13px;color:var(--ink);background:var(--accent-soft);border-left:3px solid var(--accent);padding:6px 10px;border-radius:4px;margin:8px 0 0}
+.change{font-size:13px;color:var(--ink);background:var(--accent-soft);border-left:3px solid var(--accent-bar);padding:6px 10px;border-radius:4px;margin:8px 0 0}
 .warnbox{background:var(--warn-soft);border:1px solid var(--rule);border-left:4px solid var(--warn);padding:12px 14px;border-radius:6px;font-size:14px}
 .scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
 .plan-box{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:10px}
@@ -147,7 +148,8 @@ footer{margin-top:48px;font-size:12.5px;color:var(--muted)}
     <span><i style="background:var(--runoff)"></i>缓冲区</span>
     <span><i style="background:var(--corr);border-color:var(--corr-line)"></i>休息走廊（轻钢廊架）</span>
     <span><i style="background:var(--bldg);border-color:var(--ink)"></i>装配式模块用房</span>
-    <span><i style="background:var(--road)"></i>车行道/消防车道</span>
+    <span><i style="background:var(--road)"></i>车行道（停车通道兼消防车道）</span>
+    <span><i style="background:var(--hard);border:0;border-top:2px dashed var(--fire);height:0;vertical-align:3px"></i>中部消防车道</span>
     <span><i style="background:var(--park)"></i>停车位</span>
     <span><i style="background:var(--hard)"></i>广场/步道/回车场</span>
     <span><i style="background:var(--green)"></i>绿化</span>
@@ -657,7 +659,8 @@ function drawSite(){
   tr.forEach(function(p){ s.push('<circle cx="'+f(p[0])+'" cy="'+f(p[1])+'" r="1.15" fill="var(--tree)" opacity=".9"/>'); });
 
   // 中部配套带：消防车道（贯通至停车通道）、回车场
-  s.push(R(66.2,3,4,YA-3,'fill="var(--road)"'));
+  s.push(R(66.2,3,4,YA-3,'fill="var(--hard)"'));
+  s.push(Ln(69.6,18,69.6,YA,'stroke="var(--fire)" stroke-width=".22" stroke-dasharray="1.2 .9"'));
   s.push(R(70.2,3,20,15,'fill="var(--hard)"'));
   s.push(R(66.2,3,24,15,'fill="none" stroke="var(--dim)" stroke-width=".18" stroke-dasharray="1 .6"'));
   s.push(T(78.2,9.4,'消防回车场','text-anchor="middle" font-size="1.7" font-weight="700" fill="var(--ink)"'));
@@ -756,10 +759,10 @@ function drawSite(){
     [1,8,2,1,['储物·值班']],
     [1,9,2,2,['服务前台']]
   ];
-  var bt = 'text-anchor="middle" fill="var(--ink)" font-size="1.2"';
+  var bt = 'text-anchor="middle" fill="var(--bldg-ink)" font-size="1.2"';
   rooms.forEach(function(rm){
     var rx = bx+rm[0]*mw, ry = by+rm[1]*mh, rw = rm[2]*mw, rh = rm[3]*mh;
-    s.push(R(rx,ry,rw,rh,'fill="none" stroke="var(--ink)" stroke-width=".16"'));
+    s.push(R(rx,ry,rw,rh,'fill="none" stroke="var(--bldg-ink)" stroke-width=".16"'));
     var lines = rm[4], cy0 = ry+rh/2 - (lines.length-1)*0.75 + 0.42;
     lines.forEach(function(t, li){ s.push(T(rx+rw/2, cy0+li*1.5, t, bt)); });
   });
