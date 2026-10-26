@@ -108,7 +108,7 @@ def cover():
         R(224, 604, 96, 2, DK),
         P(224, 632, 1200, '北京城市副中心 · 通州潞邑街道孙各庄片区（区位参考）', 32, DK, 400, 1.4, ls=2),
         P(224, 840, 900, f'25<span style="color:{Y};">亩</span> · 16<span style="color:{Y};">片</span>', 72, BG, 300, 1, NUM),
-        P(224, 944, 1000, '用地 16,667 ㎡ · 全部室外硬地标准训练场', 24, L2, 400, 1, ls=4),
+        P(224, 944, 1000, '用地 16,667 ㎡ · 16 片网球 + 4 片匹克球 · 全部室外', 24, L2, 400, 1, ls=4),
         ('<svg aria-label="网球场线稿" width="416" height="131" viewBox="0 0 397 125" style="position:absolute;left:1376px;top:836px;width:416px;height:131px;">'
          + path(court, 'none', '#8FA3A6', 1.5) + '</svg>'),
     ]
@@ -165,7 +165,7 @@ def s01():
 
 def s02():
     chapter('s02', '02', 'SECTION 02 · MASTER PLAN', '总平面与功能',
-            ['每区两排之间设 4 m 休息走廊', '中部装配式配套用房 594 ㎡', '南侧两排停车 92 位'],
+            ['两排之间设 4 m 休息走廊', '中部北段 4 片匹克球场', '装配式用房 594 ㎡ · 停车 92 位'],
             placeholder(0, 160, 880, 720, '东西两区与中部配套 · 意向'), 'LAYOUT · FUNCTION')
 
 
@@ -183,7 +183,7 @@ def s03():
     net = f'M{f(nx)} {f(cy0 - 0.914 * s)}v{f(ch + 1.828 * s)}'
     left = R(0, 160, 880, 720, DK, inner=svg('网球场线稿', 0, 0, 880, 720, [path(d, 'none', '#6E8589', 2), path(net, 'none', Y, 3)]))
     chapter('s03', '03', 'SECTION 03 · INVESTMENT', '投资与运营',
-            ['总投资约 1,163 万元 ◐', '基准情景只够保本', '盈利取决于租金与教学占比'],
+            ['总投资约 1,200 万元 ◐', '基准情景回收期约 16 年', '盈利取决于租金、教学与匹克球'],
             left, 'CAPEX · OPERATION')
 
 
@@ -199,8 +199,9 @@ def premise():
     b = header('01 项目前提与条件', '前提已定：25 亩放 16 片，全部室外')
     b.append(panel(128, L1, '用户给定条件', [('25 亩', '用地 16,667 ㎡，暂无具体红线'), ('16 片', '标准网球训练场'),
                                          ('东西两区', '用户原话“左右两区”，每区 8 片'), ('中部配套', '更衣室等配套设施'), ('场内停车', '停车场设在用地内')]))
-    b.append(panel(992, Y, '变更 01 · 报告页批注', [('不做气膜', '16 片全部室外硬地'), ('休息走廊', '每区两排场地之间加一排'),
-                                              ('装配式', '配套可移动，不设门厅和观赛席'), ('两排停车', '不做环形，不设大巴位')], build=1))
+    b.append(panel(992, Y, '变更 01–02 · 甲方批注', [('不做气膜', '16 片全部室外硬地'), ('休息走廊', '每区两排场地之间加一排'),
+                                              ('装配式', '配套可移动，不设门厅和观赛席'), ('两排停车', '不做环形，不设大巴位'),
+                                              ('匹克球', '变更 02：中部北侧加 4 片，取消回车场')], build=1))
     b += footer(4)
     write('premise', section('premise', b))
 
@@ -293,10 +294,10 @@ def plan():
     def add(col, d):
         g.setdefault(col, []).append(d)
     add(L1, r(0, 0, W, H))
-    for a in [(0, 0, W, 3), (0, 3, 3, H - 3), (153.4, 3, 3, H - 3), (9, YB, 57.2, H - YB), (90.2, YB, 57.2, H - YB), (70.2, 18, 20, YC - 18),
+    for a in [(0, 0, W, 3), (0, 3, 3, H - 3), (153.4, 3, 3, H - 3), (9, YB, 57.2, H - YB), (90.2, YB, 57.2, H - YB),
               (3, YP1, 2, 5.5), (151.4, YP1, 2, 5.5), (64, YP2, 2.2, 5.5), (90.2, YP2, 2.2, 5.5)]:
         add(GRN, r(*a))
-    for a in [(66.2, 3, 4, YA - 3), (70.2, 3, 20, 15), (70.2, Y2, 20, 1), (70.2, 44.57, 1, 33), (89.2, 44.57, 1, 33), (70.2, 77.57, 20, YS - 77.57),
+    for a in [(66.2, 3, 4, YA - 3), (79.34, 3, 1.72, YC - 3), (70.2, Y2, 20, 1), (70.2, 44.57, 1, 33), (89.2, 44.57, 1, 33), (70.2, 77.57, 20, YS - 77.57),
               (3, YS, 63.2, 2), (70.2, YS, 83.2, 2), (70.2, YP1, 20, 5.5), (66.2, YP2, 24, H - YP2)]:
         add(L2, r(*a))
     for a in [(3, YA, 150.4, 6), (3, YP2, 6, H - YP2), (147.4, YP2, 6, H - YP2)]:
@@ -317,6 +318,19 @@ def plan():
                 lines += f'M{f((cx + 1.37) * k)} {f((ny - 6.4) * k)}h{f(8.23 * k)}M{f((cx + 1.37) * k)} {f((ny + 6.4) * k)}h{f(8.23 * k)}'
                 lines += f'M{f((cx + 5.485) * k)} {f((ny - 6.4) * k)}v{f(12.8 * k)}'
                 netd += f'M{f((cx - 0.914) * k)} {f(ny * k)}h{f(12.8 * k)}'
+    # 匹克球场（变更02）：2×2，每片含缓冲 9.14×18.285 m，场地 6.10×13.41 m
+    pkf = ''
+    for px, py in ((70.2, 3), (81.06, 3), (70.2, 21.285), (81.06, 21.285)):
+        add(RUN, r(px, py, 9.14, 18.285))
+        cx, cy = px + 1.52, py + 2.4375
+        add(COURT, r(cx, cy, 6.10, 13.41))
+        ny = cy + 6.705
+        lines += r(cx, cy, 6.10, 13.41)
+        lines += f'M{f(cx * k)} {f((ny - 2.13) * k)}h{f(6.10 * k)}M{f(cx * k)} {f((ny + 2.13) * k)}h{f(6.10 * k)}'
+        lines += f'M{f((cx + 3.05) * k)} {f(cy * k)}V{f((ny - 2.13) * k)}M{f((cx + 3.05) * k)} {f((ny + 2.13) * k)}V{f((cy + 13.41) * k)}'
+        netd += f'M{f((cx - 0.3) * k)} {f(ny * k)}h{f(6.7 * k)}'
+    for px in (70.2, 81.06):
+        pkf += r(px, 3, 9.14, 36.57) + f'M{f(px * k)} {f(21.285 * k)}h{f(9.14 * k)}'
     add(COR, r(3, YC, 150.4, 4))
     add(DK, r(71.2, 44.57, 18, 33))
     for zc in range(6):
@@ -326,23 +340,23 @@ def plan():
         stalls += f'M{f((5 + kk * 2.5) * k)} {f(YP1 * k)}v{f(5.5 * k)}M{f((93.9 + kk * 2.5) * k)} {f(YP1 * k)}v{f(5.5 * k)}'
     for kk in range(23):
         stalls += f'M{f((9 + kk * 2.5) * k)} {f(YP2 * k)}v{f(5.5 * k)}M{f((92.4 + kk * 2.5) * k)} {f(YP2 * k)}v{f(5.5 * k)}'
-    fence = ''.join(r(zx, ry, 63.2, 36.57) for zx in (3, 90.2) for ry in (Y1, Y2))
+    fence = ''.join(r(zx, ry, 63.2, 36.57) for zx in (3, 90.2) for ry in (Y1, Y2)) + pkf
     inner = [path(''.join(v), c) for c, v in g.items()]
     inner += [path(lines, 'none', WH, 1.2), path(netd, 'none', DK, 1.6), path(stalls, 'none', WH, 1.2), path(fence, 'none', DK, 1.4),
-              path(f'M{f(68.2 * k)} {f(18 * k)}V{f(YA * k)}', 'none', FIRE, 2, ' stroke-dasharray="10 8"'),
               path(r(0, 0, W, H), 'none', DK, 2, ' stroke-dasharray="16 6 3 6"')]
-    b = header('02 总平面与功能', '25 亩放得下 16 片标准场')
+    b = header('02 总平面与功能', '25 亩放下 16 片网球场和 4 片匹克球场')
     b.append(svg('总平面容量试排', SX, SY, W * k, H * k, inner))
     tag = f'background:{DK};padding:6px 14px;'
     b += [P(SX + 3 * k + 14, SY + 3 * k + 6, 170, '西区 · 8 片', 24, BG, 400, 1, extra=tag, build=1),
           P(SX + 90.2 * k + 14, SY + 3 * k + 6, 170, '东区 · 8 片', 24, BG, 400, 1, extra=tag, build=1),
           P(SX + 3 * k + 24, SY + YC * k + 3, 440, '休息走廊 4 m · 东西贯通 150.4 m', 24, DK, 500, 1, build=2),
+          P(SX + 80.2 * k - 68, SY + 21.285 * k - 18, 136, '匹克球 ×4', 24, BG, 400, 1, align='center', extra=tag, build=3),
           P(SX + 71.2 * k, SY + 44.57 * k + 64, 18 * k, '配套用房', 24, BG, 400, 1.4, align='center', build=3),
           P(SX + 71.2 * k, SY + 44.57 * k + 100, 18 * k, '594 ㎡', 24, BG, 400, 1.4, NUM, align='center', build=3),
           P(SX + 71.2 * k, SY + 44.57 * k + 136, 18 * k, '装配式', 24, BG, 400, 1.4, align='center', build=3),
           P(SX + 9 * k + 8, SY + YA * k + 10, 420, '停车 92 位 · 一条通道两排', 24, DK, 500, 1, build=4),
           P(SX + 66.2 * k, SY + YP2 * k + 34, 24 * k, '入口广场', 24, DK, 400, 1, align='center')]
-    notes = ['ITF 标准尺寸，缓冲不压缩', '两区对称，配套居中，人车分流', '绿地率 14.5%，或低于控规 ◐']
+    notes = ['ITF 标准尺寸，缓冲不压缩', '中部北段加 4 片匹克球场', '取消回车场 · 消防走南侧 ◐', '绿地率 11.9%，或低于控规 ◐']
     b.append(R(128, 296, 520, 400, None, 'display:flex;flex-direction:column;gap:28px;',
                ''.join(T(f'<span style="color:{DK};">0{i + 1}　</span>{t}', 32, DK, 300, 1.4) for i, t in enumerate(notes))))
     b.append(P(128, 728, 480, '用地 156.40 × 106.57 m', 24, TX, 400, 1.3, NUM))
@@ -437,7 +451,7 @@ def func():
     card = (T('休息走廊', 32, DK, 400, 1.3) +
             T('宽 4.0 m · 贯通 150.4 m · 601.6 ㎡', 24, DK, 400, 1.4) +
             T('轻钢廊架：遮阳、座椅、直饮水', 24, DK, 400, 1.4) +
-            T('跨消防车道处净高 ≥4.5 m ◐', 24, DK, 400, 1.4))
+            T('北接匹克球场 · 南接配套用房', 24, DK, 400, 1.4))
     b.append(R(560, 704, 496, 248, Y, 'display:flex;flex-direction:column;gap:10px;padding:32px 40px;', card, build=1))
     b.append(svg('装配式模块用房平面', BX, BY, 18 * k, 33 * k, inner))
     for c, r_, cs, rs, ls in rooms:
@@ -457,31 +471,32 @@ def func():
 
 # ------------------------------------------------------------------ 11 指标
 def metrics():
-    b = header('02 总平面与功能', '场地占 55%，绿地率 14.5% 偏低')
-    segs = [(9244.9, COURT, '场地', '55.5%'), (601.6, COR, '休息走廊', '3.6%'), (594.0, DK, '配套基底', '3.6%'),
-            (2658.3, CAR, '道路停车', '15.9%'), (1150.5, L2, '广场步道', '6.9%'), (2418.2, GRN, '绿化', '14.5%')]
+    b = header('02 总平面与功能', '网球场占 55%，绿地率降到 11.9%')
+    segs = [(9244.9, COURT, '网球场', '55.5%'), (668.5, RUN, '匹克球场', '4.0%'), (601.6, COR, '休息走廊', '3.6%'), (594.0, DK, '配套基底', '3.6%'),
+            (2335.8, CAR, '道路停车', '14.0%'), (1236.0, L2, '广场步道', '7.4%'), (1986.8, GRN, '绿化', '11.9%')]
     tot = sum(s[0] for s in segs)
     W = 1664
     x = 0.0
     parts = []
     gap = 4
     for v, c, n, pct in segs:
-        w = v / tot * (W - gap * 5)
+        w = v / tot * (W - gap * (len(segs) - 1))
         parts.append(path(rp(x, 0, w, 48), c))
         x += w + gap
     b.append(svg('用地分配比例条', 128, 264, W, 48, parts))
-    b.append(R(128, 328, 1664, 64, None, 'display:grid;grid-template-columns:repeat(6, 1fr);gap:16px;',
+    b.append(R(128, 328, 1664, 64, None, 'display:grid;grid-template-columns:repeat(7, 1fr);gap:16px;',
                ''.join(f'<p style="font-size:24px;font-weight:400;line-height:1.3;color:{DK};border-top:4px solid {c};padding:8px 0px 0px 0px;">{n} <span style="color:{TX};">{pct}</span></p>'
                        for v, c, n, pct in segs)))
     rows = [('用地面积', '16,667 ㎡（25 亩）', '甲方目标 ●', '待核'),
             ('网球场（围网内）', '9,244.9 ㎡ · 16 片', '设计结果', '待核'),
+            ('匹克球场', '668.5 ㎡ · 4 片 · 6.10 × 13.41 m', '设计结果', '待核'),
             ('休息走廊', '601.6 ㎡ · 4.0 × 150.4 m', '设计结果', '待核'),
             ('配套用房', '594 ㎡ · 单层装配式', '设计结果', '待核'),
             ('停车', '92 位（无障碍 2、充电 9）', '设计结果', '待核'),
-            ('绿地率', '14.5%', '规划硬性', '○ 缺'),
+            ('绿地率', '11.9%（变更 01 为 14.5%）', '规划硬性', '○ 缺'),
             ('建筑密度 / 容积率', '3.6%（含廊架约 7.2%）/ 约 0.036', '规划硬性', '○ 缺'),
             ('灯杆 / 外围网', '64 根 / 798.2 m', '设计结果', '待核')]
-    th = ''.join(f'<th style="width:{w}%;font-size:24px;font-weight:500;line-height:2.1;color:{DK};text-align:left;border-bottom:2px solid {DK};padding:0px 16px;">{t}</th>'
+    th = ''.join(f'<th style="width:{w}%;font-size:24px;font-weight:500;line-height:1.9;color:{DK};text-align:left;border-bottom:2px solid {DK};padding:0px 16px;">{t}</th>'
                  for t, w in (('指标', 26), ('数值', 44), ('性质', 16), ('状态', 14)))
     trs = ''
     for i, (a, v, n, st) in enumerate(rows):
@@ -489,40 +504,41 @@ def metrics():
         cells = ''
         for j, t in enumerate((a, v, n, st)):
             ff = f'font-family:{NUM};' if j == 1 else ''
-            cells += f'<td style="{bg}{ff}font-size:24px;font-weight:400;line-height:2.1;color:{DK if j < 2 else TX};border-bottom:1px solid {L2};padding:0px 16px;">{t}</td>'
+            cells += f'<td style="{bg}{ff}font-size:24px;font-weight:400;line-height:1.9;color:{DK if j < 2 else TX};border-bottom:1px solid {L2};padding:0px 16px;">{t}</td>'
         trs += f'<tr>{cells}</tr>'
     b.append(f'<table style="position:absolute;left:128px;top:432px;width:1664px;border-collapse:collapse;"><tr>{th}</tr>{trs}</table>')
-    b.append(P(128, 944, 1664, '来源：指标表 v2（02.S1 容量试排，变更01 后）· 规划硬性指标均待规划条件', 24, TX, 400, 1.3))
+    b.append(P(128, 944, 1664, '来源：指标表 v3（02.S1 容量试排，变更02 后）· 规划硬性指标均待规划条件', 24, TX, 400, 1.3))
     b += footer(11)
     write('metrics', section('metrics', b))
 
 
 # ------------------------------------------------------------------ 13 投资
 def capex():
-    b = header('03 投资与运营', '总投资约 1,163 万元，比变更前少 189 万')
+    b = header('03 投资与运营', '总投资约 1,200 万元，匹克球场净增 37 万')
     b.append(R(128, 296, 480, 464, Y, 'display:flex;flex-direction:column;justify-content:space-between;padding:44px 48px;',
                T('总投资 ◐ 速算', 24, DK, 400, 1.3, ls=4) +
-               f'<div style="display:flex;flex-direction:column;gap:8px;">' + T('1,163', 120, DK, 300, 1, NUM) + T('万元', 32, DK, 300, 1.2) + '</div>' +
+               f'<div style="display:flex;flex-direction:column;gap:8px;">' + T('1,200', 120, DK, 300, 1, NUM) + T('万元', 32, DK, 300, 1.2) + '</div>' +
                T('北京 2025–2026 公开报价中值，含其他费 10%、预备费 8%', 24, DK, 400, 1.4)))
     sc = 360 / 1352.0
     base = 400
-    bars = [(0, 1352, L2, '变更前（方案一）', '1,352'), (1352, 1097, Y, '配套改装配式', '−255'),
-            (1097, 1157, COR, '增加休息走廊', '+60'), (1157, 1163, L2, '其他调整 ◐', '+6'), (0, 1163, Y, '本方案', '1,163')]
+    bars = [(0, 1352, L2, '原方案一', '1,352'), (1352, 1097, Y, '配套改装配式', '−255'),
+            (1097, 1157, COR, '增加休息走廊', '+60'), (1157, 1163, L2, '其他调整 ◐', '+6'),
+            (1163, 1200, RUN, '加匹克球场', '+37'), (0, 1200, Y, '本方案', '1,200')]
     SX, SY = 704, 296
     inner = []
-    cw, step = 152, 220
+    cw, step = 140, 184
     for i, (a, bb, c, n, v) in enumerate(bars):
         top = base - max(a, bb) * sc
         h = max(abs(bb - a) * sc, 3)
         inner.append(path(rp(i * step, top, cw, h), c))
-        if i < 4:
+        if i < len(bars) - 1:
             yv = base - bb * sc
             inner.append(path(f'M{f(i * step + cw)} {f(yv)}H{f((i + 1) * step)}', 'none', TX, 1.5, ' stroke-dasharray="4 4"'))
-    inner.append(path(f'M0 {base}H{f(4 * step + cw)}', 'none', DK, 2))
-    b.append(svg('投资变化瀑布图', SX, SY, 4 * step + cw, 420, inner))
+    inner.append(path(f'M0 {base}H{f(5 * step + cw)}', 'none', DK, 2))
+    b.append(svg('投资变化瀑布图', SX, SY, 5 * step + cw, 420, inner))
     for i, (a, bb, c, n, v) in enumerate(bars):
         top = base - max(a, bb) * sc
-        b.append(P(SX + i * step - 24, SY + top - 40, cw + 48, v, 32, DK, 400, 1.1, NUM, align='center', build=i + 1 if 0 < i < 4 else None))
+        b.append(P(SX + i * step - 24, SY + top - 40, cw + 48, v, 32, DK, 400, 1.1, NUM, align='center', build=i if 0 < i < len(bars) - 1 else None))
         b.append(P(SX + i * step - 24, SY + base + 14, cw + 48, n, 24, TX, 400, 1.3, align='center'))
     cards = [('约 133 万元', '可搬迁部分：走廊、模块用房及基础'), ('约 40–66 万元', '到期搬迁残值，未计入现金流 ◐')]
     for i, (v, t) in enumerate(cards):
@@ -534,21 +550,21 @@ def capex():
 
 # ------------------------------------------------------------------ 14 运营
 def ops():
-    b = header('03 投资与运营', '基准情景只够保本，利用率要过 52%')
+    b = header('03 投资与运营', '基准回收期约 16 年，利用率要过 46%')
     SX, SY, W, H = 128, 280, 1080, 640
     x0, x1 = 120, 1040
     ux = lambda u: x0 + (u - 30) * (x1 - x0) / 50.0
     y_top, y_bot = 30, 560
-    vy = lambda v: y_top + (200 - v) * (y_bot - y_top) / 350.0
+    vy = lambda v: y_top + (250 - v) * (y_bot - y_top) / 400.0
     inner = []
     grid = ''
     for v in (-100, 100, 200):
         grid += f'M{x0} {f(vy(v))}H{x1}'
     inner.append(path(grid, 'none', L2, 1))
     inner.append(path(f'M{x0} {f(vy(0))}H{x1}', 'none', TX, 2))
-    inner.append(path(f'M{x0} {f(vy(116.3))}H{x1}', 'none', TX, 1.5, ' stroke-dasharray="6 6"'))
-    inner.append(path(f'M{f(ux(52))} {y_top}V{y_bot}', 'none', Y, 3, ' stroke-dasharray="8 6"'))
-    pts = [(40, -104), (55, 21), (70, 147)]
+    inner.append(path(f'M{x0} {f(vy(120))}H{x1}', 'none', TX, 1.5, ' stroke-dasharray="6 6"'))
+    inner.append(path(f'M{f(ux(46))} {y_top}V{y_bot}', 'none', Y, 3, ' stroke-dasharray="8 6"'))
+    pts = [(40, -64.5), (55, 77), (70, 218.5)]
     inner.append(path('M' + 'L'.join(f'{f(ux(u))} {f(vy(v))}' for u, v in pts), 'none', DK, 3))
     for u, v in pts:
         r_ = 12 if u == 55 else 8
@@ -560,15 +576,15 @@ def ops():
     for u in (30, 40, 50, 60, 70, 80):
         b.append(P(SX + ux(u) - 40, SY + y_bot + 12, 80, f'{u}%', 24, TX, 400, 1, NUM, align='center'))
     b += [P(SX + x0, SY + y_bot + 48, 600, '利用率 →　EBITDA（万元/年）↑', 24, TX, 400, 1),
-          P(SX + ux(40) + 16, SY + vy(-104) - 8, 260, '保守 40% · −104', 24, DK, 400, 1),
-          P(SX + ux(55) + 20, SY + vy(21) + 6, 240, '基准 55% · 21', 24, DK, 500, 1),
-          P(SX + ux(70) - 300, SY + vy(147) - 34, 280, '乐观 70% · 147', 24, DK, 400, 1, align='right'),
-          P(SX + ux(52) + 12, SY + vy(-135) - 12, 220, '盈亏平衡 52%', 24, DK, 500, 1, build=1),
-          P(SX + x0 + 8, SY + vy(116.3) - 34, 560, '10 年回本需约 116 万元/年（利用率约 68%）', 24, TX, 400, 1, extra=f'background:{BG};', build=2)]
+          P(SX + ux(40) - 272, SY + vy(-64.5) - 36, 260, '保守 40% · −64', 24, DK, 400, 1, align='right'),
+          P(SX + ux(55) + 20, SY + vy(77) + 6, 240, '基准 55% · 77', 24, DK, 500, 1),
+          P(SX + ux(70) - 300, SY + vy(218.5) - 34, 280, '乐观 70% · 218', 24, DK, 400, 1, align='right'),
+          P(SX + ux(46) + 12, SY + vy(-135) - 12, 220, '盈亏平衡 46%', 24, DK, 500, 1, build=1),
+          P(SX + x0 + 8, SY + vy(120) - 34, 500, '10 年回本需约 120 万元/年（利用率约 60%）', 24, TX, 400, 1, extra=f'background:{BG};', build=2)]
     th = ''.join(f'<th style="width:{w}%;font-size:24px;font-weight:500;line-height:2.1;color:{DK};text-align:{"left" if i == 0 else "right"};border-bottom:2px solid {DK};padding:0px 8px;">{t}</th>'
                  for i, (t, w) in enumerate((('万元', 34), ('保守', 22), ('基准', 22), ('乐观', 22))))
-    rows = [('利用率', '40%', '55%', '70%'), ('年收入', '608', '847', '1,085'), ('年成本', '713', '826', '939'),
-            ('EBITDA', '−104', '21', '147'), ('回收期', '不回本', '55 年', '7.9 年'), ('10 年累计', '−2,320', '−1,108', '+104')]
+    rows = [('利用率', '40%', '55%', '70%'), ('年收入', '659', '916', '1,173'), ('年成本', '723', '839', '955'),
+            ('EBITDA', '−64', '77', '218'), ('回收期', '不回本', '15.6 年', '5.5 年'), ('10 年累计', '−1,972', '−607', '+758')]
     trs = ''
     for a, *vs in rows:
         cells = f'<td style="font-size:24px;line-height:2.1;color:{TX};border-bottom:1px solid {L2};padding:0px 8px;">{a}</td>'
@@ -578,8 +594,8 @@ def ops():
         trs += f'<tr>{cells}</tr>'
     b.append(f'<table style="position:absolute;left:1280px;top:296px;width:512px;border-collapse:collapse;"><tr>{th}</tr>{trs}</table>')
     b.append(R(1280, 736, 512, 184, Y, 'display:flex;flex-direction:column;justify-content:center;gap:6px;padding:0px 32px;',
-               T('盈亏平衡租金', 24, DK, 400, 1.3) + T('≤ 5.85 万元/亩/年', 44, DK, 300, 1.2, NUM) + T('利用率 55% 时；租金每变 1 万，EBITDA 变约 25 万', 24, DK, 400, 1.3), build=3))
-    b.append(P(128, 952, 1664, '假设 ◐：每片每日 15 可售小时 · 室外 240 天/年 · 80/120 元/时 + 夜灯 20 元 · 租金 5 万元/亩/年 · 不含税、折旧、融资', 24, TX, 400, 1.3))
+               T('盈亏平衡租金', 24, DK, 400, 1.3) + T('≤ 8.1 万元/亩/年', 44, DK, 300, 1.2, NUM) + T('利用率 55% 时；租金每变 1 万，EBITDA 变约 25 万', 24, DK, 400, 1.3), build=3))
+    b.append(P(128, 952, 1664, '假设 ◐：每片每日 15 可售小时 · 240 天/年 · 网球 80/120 元 + 夜灯 20 元 · 匹克球 60/100 元 · 租金 5 万元/亩/年', 24, TX, 400, 1.3))
     b += footer(14)
     write('ops', section('ops', b))
 
@@ -587,7 +603,7 @@ def ops():
 # ------------------------------------------------------------------ 15 抓手
 def levers():
     b = header('03 投资与运营', '教学占比和租金，是最大的两个抓手')
-    b.append(P(128, 248, 1664, '基准情景 EBITDA 21 万元/年之上的增量（万元/年）◐ · 合计按联动重算，不等于逐项相加', 24, TX, 400, 1.3))
+    b.append(P(128, 248, 1664, '基准情景 EBITDA 77 万元/年之上的增量（万元/年）◐ · 合计按联动重算，不等于逐项相加', 24, TX, 400, 1.3))
     items = [('提高教学占比', '已售场时 40% → 60%（仍在 35% 上限内）', 56), ('租金谈判', '5 → 3 万元/亩/年', 50),
              ('黄金时段提价', '120 → 140 元/时', 21), ('冬季减员降耗', '12–2 月两类岗位减员 50%', 16),
              ('夜灯费提价', '20 → 30 元/时', 5), ('会员储值替代平台', '平台订场 40% → 15%', -1)]
@@ -608,8 +624,8 @@ def levers():
         b.append(P(128, y + 48, 580, d, 24, TX, 400, 1.2))
         xe = x0 + abs(v) * sc if v >= 0 else x0 + 8
         b.append(P(xe + 16, y + 24, 160, f'{v:+d}'.replace('-', '−'), 32, DK, 400, 1.2, NUM, build=1 if i < 2 else None))
-    cards = [(L1, '五项经营抓手（不含租金）', 'EBITDA 约 111 万元/年 · 回收期约 10.5 年'),
-             (Y, '再谈下租金（六项合计）', 'EBITDA 约 161 万元/年 · 回收期约 7.2 年')]
+    cards = [(L1, '五项经营抓手（不含租金）', 'EBITDA 约 166 万元/年 · 回收期约 7.2 年'),
+             (Y, '再谈下租金（六项合计）', 'EBITDA 约 216 万元/年 · 回收期约 5.5 年')]
     for i, (c, h, v) in enumerate(cards):
         b.append(R(128 + i * 848, 856, 816, 120, c, 'display:flex;flex-direction:column;justify-content:center;gap:4px;padding:0px 40px;',
                    T(h, 24, DK if i else TX, 400, 1.3) + T(v, 32, DK, 400, 1.3), build=2 + i))
@@ -627,7 +643,8 @@ def nextp():
             ('投资上限与回收期目标', '方案取舍', '甲方', ''),
             ('运营模式', '收益', '甲方', ''),
             ('电力容量与市政接入', '夜场照明', '供电 / 市政', ''),
-            ('道路开口与消防（走廊跨消防车道净高）', '出入口、走廊', '规划 / 消防', '')]
+            ('消防：取消回车场，只靠南侧贯通通道', '匹克球场片数', '消防部门', ''),
+            ('匹克球场需求与价格（4 片能否卖到 55%）', '收益', '周边场馆调研', '')]
     th = ''.join(f'<th style="width:{w}%;font-size:24px;font-weight:500;line-height:2.1;color:{DK};text-align:left;border-bottom:2px solid {DK};padding:0px 16px;">{t}</th>'
                  for t, w in (('待定项', 48), ('影响', 20), ('找谁定', 18), ('前置条件', 14)))
     trs = ''
