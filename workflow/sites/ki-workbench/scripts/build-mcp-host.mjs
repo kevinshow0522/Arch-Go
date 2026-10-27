@@ -1,0 +1,10 @@
+import {createRequire} from 'node:module';
+import {readFileSync,writeFileSync} from 'node:fs';
+import path from 'node:path';
+const source=path.resolve(process.argv[2]??'../../kigaga-workflow-v0.3');
+const require=createRequire(path.join(source,'package.json'));
+const {build}=require('esbuild');
+const result=await build({entryPoints:[path.resolve('workbench/mcp-host.mjs')],bundle:true,write:false,format:'iife',platform:'browser',target:'es2022',minify:true,nodePaths:[path.join(source,'node_modules')]});
+writeFileSync('public/workbench-host.js',result.outputFiles[0].text);
+writeFileSync('vendor/mcp-apps.LICENSE',readFileSync(path.join(source,'node_modules/@modelcontextprotocol/ext-apps/LICENSE')));
+console.log('Bundled the official MCP Apps host bridge from the shared toolchain.');

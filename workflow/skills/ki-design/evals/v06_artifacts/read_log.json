@@ -1,0 +1,30 @@
+{
+  "read_at": "2026-10-10T10:10:23Z",
+  "reader": "independent evaluator",
+  "files": [
+    {
+      "path": "outputs/cui-v06-build/package/skills/cui-kai-local-design/SKILL.md",
+      "sha256": "b9038df8d45fe9407f7d806b1d06c4936780761514b0214b95227c8d0c0f4c81"
+    },
+    {
+      "path": "outputs/cui-v06-build/package/skills/cui-kai-local-design/method/生成工作模式.md",
+      "sha256": "8cdc55a644691d97f75c0f59911795776c563e35f4f3ada624ec97ad4f06cd27"
+    },
+    {
+      "path": "outputs/cui-v06-build/package/skills/cui-kai-local-design/method/图像生成与跨图一致性.md",
+      "sha256": "8755d68cec6c5b9ce6091caa1ad59489065a188b91815d09c1867c8b433522dc"
+    },
+    {
+      "path": "outputs/cui-v06-build/package/skills/cui-kai-local-design/references/theory/v06/理念生成判断.md",
+      "sha256": "fcecc05da6a5caac2a1572d7ae8be5d050ba69da12a8e77f728f49f4d39a723e"
+    },
+    {
+      "path": "outputs/cui-v06-build/package/skills/cui-kai-local-design/references/reading/v06/图纸阅读卡.md",
+      "sha256": "13fc2aaa5d926e9b3faee6d86adee6d435919af6605ae7a61c27b7cd663f0377"
+    },
+    {
+      "path": "outputs/cui-v06-build/package/skills/cui-kai-local-design/templates/空间生成简报.md",
+      "sha256": "75d66e8d772d9d091fd35f403ec8527569346dd88b0f10e4a146c7e94ed8c7b8"
+    }
+  ]
+}

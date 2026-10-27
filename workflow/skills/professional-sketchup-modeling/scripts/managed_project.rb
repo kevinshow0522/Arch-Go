@@ -1,0 +1,2174 @@
+# managed_project.rb
+# Tool-owned SketchUp project isolation and transactional phase execution.
+require 'sketchup.rb'
+require 'json'
+require_relative 'geometry_guard'
+require_relative 'construction_geometry'
+require 'digest'
+require 'fileutils'
+require_relative 'managed_unit_scope'
+require_relative 'managed_targets'
+require_relative 'source_dimensions'
+require_relative 'viewport_capture'
+
+module PipClawManagedProject
+  extend self
+  DICT = 'pipclaw_managed_project'.freeze
+  ROOT_PREFIX = 'Managed_Project_'.freeze
+
+  def model
+    Sketchup.active_model
+  end
+
+  # Explicit machine-local workaround; never rewrite the glass material alpha.
+  def apply_runtime_render_profile
+    config_path = File.join(ENV['APPDATA'].to_s, 'SketchUpLiveMCP', 'runtime-render-profile.json')
+    return unless File.file?(config_path)
+    profile = JSON.parse(File.read(config_path))
+    if profile['disable_material_transparency'] == true
+      model.rendering_options['MaterialTransparency'] = false
+    end
+  end
+
+  def model_identity
+    # Identity is a read-only query; rendering options are changed only by an explicit build.
+    current = model
+    JSON.generate({
+      'ok'=>true,
+      'object_id'=>current.object_id,
+      'path'=>current.path.to_s,
+      'title'=>current.title.to_s
+    })
+  end
+
+  def root_for(project_id, create = false)
+    found = model.entities.grep(Sketchup::Group).find do |group|
+      group.valid? && group.get_attribute(DICT, 'project_id') == project_id.to_s
+    end
+    return found if found || !create
+    group = model.entities.add_group
+    group.name = ROOT_PREFIX + project_id.to_s
+    group.set_attribute(DICT, 'project_id', project_id.to_s)
+    group.set_attribute(DICT, 'managed_root', true)
+    group
+  end
+
+  def begin_project(project_id)
+    raise ArgumentError, 'project_id is required' if project_id.to_s.strip.empty?
+    # Do not create an empty SketchUp group here: SketchUp deletes empty groups at
+    # operation commit. The managed root is created atomically with the first phase.
+    existing = root_for(project_id, false)
+    JSON.generate({'ok'=>true, 'project_id'=>project_id.to_s, 'root_pid'=>(existing ? (existing.persistent_id rescue nil) : nil), 'root_name'=>(existing ? existing.name : nil)})
+  end
+
+  def bounds_signature(entity)
+    b = entity.bounds
+    [b.min.x, b.min.y, b.min.z, b.max.x, b.max.y, b.max.z].map { |v| v.to_f.round(7) }
+  rescue StandardError
+    []
+  end
+
+  def child_entities(entity)
+    return entity.entities if entity.respond_to?(:entities)
+    return entity.definition.entities if entity.respond_to?(:definition) && entity.definition
+    nil
+  rescue StandardError
+    nil
+  end
+
+  def canonical_json(value, memo = nil)
+    # One serialization only: shared immutable readback subtrees have identical
+    # JSON bytes. Never retain this memo across calls or model mutations.
+    memo ||= {}
+    container = value.is_a?(Hash) || value.is_a?(Array)
+    key = value.object_id if container
+    return memo[key][1] if container && memo.key?(key)
+    result = case value
+    when Hash
+      keys = value.keys.map(&:to_s).uniq.sort
+      '{' + keys.map { |name| original = value.key?(name) ? name : name.to_sym; JSON.generate(name) + ':' + canonical_json(value[original], memo) }.join(',') + '}'
+    when Array
+      '[' + value.map { |item| canonical_json(item, memo) }.join(',') + ']'
+    else
+      JSON.generate(value)
+    end
+    memo[key] = [value, result] if container
+    result
+  end
+
+  # Same canonical byte sequence, streamed into SHA-256. Keep only small
+  # immutable fragments during this one readback, not several copies of the
+  # complete million-entity scene at every ancestor of its object tree.
+  def canonical_sha256(value, memo = nil)
+    digest = Digest::SHA256.new
+    canonical_emit(value, lambda { |part| digest.update(part) }, memo || {})
+    digest.hexdigest
+  end
+
+  # Encode small ordered subtrees in JSON's native generator. The old emitter
+  # invoked a chain of Ruby lambdas for every scalar at every ancestor, blocking
+  # SU's main thread for large models. Raw fragments contain only bytes produced
+  # here; arbitrary build strings are never accepted as pre-encoded JSON.
+  class CanonicalFragment
+    def initialize(bytes); @bytes = bytes; end
+    def to_json(*_arguments); @bytes; end
+  end
+
+  # One readback only, same sorted keys/string-key precedence and <=64 KiB
+  # fragment retention as canonical_emit. Large parents stream through the same
+  # sink without allocating another complete ancestor string. Budget estimates
+  # include escaping; final bytesize is checked before retaining a fragment.
+  def canonical_fragment(value, memo)
+    container = value.is_a?(Hash) || value.is_a?(Array)
+    return JSON.generate(value) unless container
+    key = value.object_id
+    entry = memo[key]
+    return entry[1] if entry && entry[0].equal?(value)
+    budget = 2
+    if value.is_a?(Hash)
+      normalized = {}
+      value.keys.map(&:to_s).uniq.sort.each do |name|
+        original = value.key?(name) ? name : name.to_sym
+        child = value[original]
+        if child.is_a?(Hash) || child.is_a?(Array)
+          bytes = canonical_fragment(child, memo)
+          return nil unless bytes
+          budget += bytes.bytesize
+          child = CanonicalFragment.new(bytes)
+        else
+          budget += child.is_a?(String) ? child.bytesize * 6 + 2 : child.to_s.bytesize + 8
+        end
+        budget += name.bytesize * 6 + 4
+        return nil if budget > 65536
+        normalized[name] = child
+      end
+    else
+      normalized = []
+      value.each do |child|
+        if child.is_a?(Hash) || child.is_a?(Array)
+          bytes = canonical_fragment(child, memo)
+          return nil unless bytes
+          budget += bytes.bytesize + 1
+          child = CanonicalFragment.new(bytes)
+        else
+          budget += child.is_a?(String) ? child.bytesize * 6 + 3 : child.to_s.bytesize + 9
+        end
+        return nil if budget > 65536
+        normalized << child
+      end
+    end
+    out = JSON.generate(normalized)
+    return nil if out.bytesize > 65536
+    memo[key] = [value, out]
+    out
+  end
+
+  def canonical_emit(value, sink, memo)
+    fragment = canonical_fragment(value, memo)
+    return sink.call(fragment) if fragment
+    if value.is_a?(Hash)
+      sink.call('{')
+      value.keys.map(&:to_s).uniq.sort.each_with_index do |name, index|
+        sink.call(',') if index > 0
+        sink.call(JSON.generate(name))
+        sink.call(':')
+        original = value.key?(name) ? name : name.to_sym
+        canonical_emit(value[original], sink, memo)
+      end
+      sink.call('}')
+    else
+      sink.call('[')
+      value.each_with_index do |item, index|
+        sink.call(',') if index > 0
+        canonical_emit(item, sink, memo)
+      end
+      sink.call(']')
+    end
+    nil
+  end
+
+  def point_signature(point)
+    [point.x, point.y, point.z].map { |value| value.to_f.round(7) }
+  rescue StandardError
+    []
+  end
+
+  def material_signature(material, cache = nil)
+    return nil unless material
+    signatures = cache && (cache[:material_signatures] ||= {})
+    return signatures[material.object_id] if signatures && signatures.key?(material.object_id)
+    texture = material.respond_to?(:texture) && material.texture
+    texture_path = texture ? (texture.filename.to_s rescue '') : ''
+    signature = {
+      'name'=>material.display_name.to_s,
+      'color'=>(material.color.to_a.map { |value| value.to_f.round(7) } rescue []),
+      'alpha'=>(material.alpha.to_f.round(7) rescue nil),
+      'texture'=> texture ? {
+        'filename'=>texture_path,
+        'sha256'=>(File.file?(texture_path) ? Digest::SHA256.file(texture_path).hexdigest : nil),
+        'width'=>(texture.width.to_i rescue nil),
+        'height'=>(texture.height.to_i rescue nil)
+      } : nil
+    }
+    signatures[material.object_id] = signature if signatures
+    signature
+  rescue StandardError
+    {'name'=>material.to_s}
+  end
+
+  def entity_order_key(entity)
+    [(entity.typename.to_s rescue ''), (entity.persistent_id rescue entity.entityID rescue 0).to_i, (entity.name.to_s rescue '')]
+  end
+
+  # Recovery may trust an exact sealed SKP only while SketchUp still has the
+  # file open without unsaved edits. Keep this separate from ordinary identity:
+  # a path/object id alone never proves scene content.
+  def clean_checkpoint_identity
+    JSON.generate({'ok'=>true, 'identity'=>JSON.parse(model_identity), 'modified'=>model.modified?})
+  end
+
+  # Expert writes need a cheap boundary check after each append/update.  The
+  # full entity_record/geometry_summary walk is still used by recovery and
+  # explicit diagnostics, but repeating face-level geometry digests for a
+  # 200k-entity roof makes SketchUp appear hung after an otherwise completed
+  # Ruby build.  This digest keeps identity, hierarchy, transforms, bounds,
+  # materials and counts while intentionally omitting per-face topology.
+  def fast_boundary_record(entity, excluded_phase = nil, ignore_visibility_pids = nil, cache = {})
+    digest = Digest::SHA256.new
+    counts = Hash.new(0)
+    root_object_id = entity.object_id
+    ignored = Array(ignore_visibility_pids).map(&:to_s)
+    seen = {}
+    walk = lambda do |node, depth|
+      next unless node && (node.valid? rescue false)
+      key = node.object_id
+      next if seen[key]
+      seen[key] = true
+      type = (node.typename.to_s rescue '')
+      pid = (node.persistent_id rescue node.entityID rescue nil)
+      counts['entities'] += 1
+      counts['faces'] += 1 if defined?(Sketchup::Face) && node.is_a?(Sketchup::Face)
+      counts['edges'] += 1 if defined?(Sketchup::Edge) && node.is_a?(Sketchup::Edge)
+      counts['groups'] += 1 if defined?(Sketchup::Group) && node.is_a?(Sketchup::Group)
+      counts['component_instances'] += 1 if defined?(Sketchup::ComponentInstance) && node.is_a?(Sketchup::ComponentInstance)
+      counts['max_depth'] = [counts['max_depth'], depth].max
+      # The protected project root contains the current mutable work unit.
+      # Its aggregate bounds may legitimately grow when an append adds a roof
+      # or other geometry; keep that changing extent out of the external
+      # boundary digest while retaining child identity and bounds for all
+      # non-mutable content.
+      # A single pre-write snapshot serves the external boundary and rollback
+      # baseline. Retain only encoded node records, not expanded scene trees.
+      # The owner discards this cache before Ruby runs; post-write/abort read fresh.
+      frames = (cache[:boundary_frames] ||= {})
+      frame_key = [node.object_id, !!(node.object_id == root_object_id && excluded_phase), ignored.include?(pid.to_s), !!cache[:exact_geometry]]
+      encoded = frames[frame_key]
+      unless encoded
+        node_bounds = (node.object_id == root_object_id && excluded_phase) ? [] : bounds_signature(node)
+        fields = {'pid'=>pid, 'type'=>type, 'name'=>(node.name.to_s rescue ''), 'bounds'=>node_bounds}
+        if node.respond_to?(:transformation)
+          fields['transform'] = node.transformation.to_a.map { |v| v.to_f.round(7) } rescue []
+        end
+        fields['appearance'] = appearance_summary(node, cache)
+        fields['locked'] = node.respond_to?(:locked?) ? node.locked? : false
+        if node.respond_to?(:definition) && node.definition
+          fields['definition_guid'] = node.definition.guid.to_s rescue ''
+        end
+        if defined?(Sketchup::ComponentInstance) && node.is_a?(Sketchup::ComponentInstance)
+          fields['definition_state'] = fast_definition_record(node.definition, cache)
+        end
+        fields['appearance']['hidden'] = '__managed_visibility__' if ignored.include?(pid.to_s)
+        fields['geometry'] = geometry_leaf_signature(node, cache) if cache[:exact_geometry] && !child_entities(node)
+        # Native JSON on bounded records preserves the previous canonical bytes.
+        encoded = canonical_fragment(fields, {}) || canonical_json(fields)
+        frames[frame_key] = encoded
+      end
+      digest.update(encoded)
+      digest.update("\0")
+      children = child_entities(node)
+      # Include definition appearance once per unique definition, not once
+      # per instance. A material/tag change need not change the definition GUID.
+      children = nil if defined?(Sketchup::ComponentInstance) && node.is_a?(Sketchup::ComponentInstance)
+      if children
+        list = children.to_a.select { |child| child.valid? rescue false }
+        list = list.reject { |child| mutable_member?(child, excluded_phase) } if node.object_id == root_object_id && excluded_phase
+        list.sort_by! { |child| entity_order_key(child) }
+        list.each { |child| walk.call(child, depth + 1) }
+      end
+    end
+    walk.call(entity, 0)
+    result_bounds = (excluded_phase && entity.object_id == root_object_id) ? [] : bounds_signature(entity)
+    {'digest'=>digest.hexdigest, 'counts'=>counts, 'bounds_inches'=>result_bounds}
+  end
+
+  def fast_definition_record(definition, cache)
+    records = (cache[:boundary_definitions] ||= {})
+    key = [definition.object_id, !!cache[:exact_geometry]]
+    return records[key] if records.key?(key)
+    visiting = (cache[:boundary_visiting] ||= {})
+    raise 'CYCLIC_PROTECTED_DEFINITION' if visiting[key]
+    visiting[key] = true
+    begin
+      records[key] = fast_boundary_record(definition, nil, nil, cache)
+    ensure
+      visiting.delete(key)
+    end
+  end
+
+  # Face-me components legitimately rotate with the camera.  Their placement
+  # origin, scale and vertical axis remain model facts; the camera-facing
+  # rotation is viewport state and must not invalidate a protected-scene
+  # fingerprint during evidence capture.
+  def face_camera_component?(entity)
+    entity.is_a?(Sketchup::ComponentInstance) &&
+      entity.respond_to?(:definition) && entity.definition &&
+      entity.definition.respond_to?(:behavior) &&
+      entity.definition.behavior.respond_to?(:always_face_camera?) &&
+      entity.definition.behavior.always_face_camera?
+  rescue StandardError
+    false
+  end
+
+  def geometry_leaf_signature(entity, cache = nil)
+    if entity.is_a?(Sketchup::Face)
+      uv = []
+      if entity.respond_to?(:get_UVHelper)
+        begin
+          helper = entity.get_UVHelper(true, true)
+          uv = entity.loops.to_a.flat_map { |loop| loop.vertices.to_a.map { |vertex| helper.get_front_UVQ(vertex.position).to_a.map { |value| value.to_f.round(7) } } }
+        rescue StandardError
+          uv = []
+        end
+      end
+      {
+        'type'=>'face',
+        'hidden'=>entity.hidden?,
+        'layer'=>entity.layer.name.to_s,
+        'layer_visible'=>entity.layer.visible?,
+        'loops'=>entity.loops.to_a.map { |loop| loop.vertices.to_a.map { |vertex| point_signature(vertex.position) } },
+        'normal'=>(entity.normal.to_a.map { |value| value.to_f.round(7) } rescue []),
+        'material'=>material_signature(entity.material, cache),
+        'back_material'=>material_signature(entity.back_material, cache),
+        'uvq'=>uv
+      }
+    elsif entity.is_a?(Sketchup::Edge)
+      {
+        'type'=>'edge',
+        'hidden'=>entity.hidden?,
+        'layer'=>entity.layer.name.to_s,
+        'layer_visible'=>entity.layer.visible?,
+        'start'=>point_signature(entity.start.position),
+        'end'=>point_signature(entity.end.position),
+        'curve'=>(entity.curve ? entity.curve.class.name.to_s : nil)
+      }
+    else
+      {
+        'type'=>(entity.typename.to_s rescue ''),
+        'pid'=>(entity.persistent_id rescue entity.entityID rescue nil),
+        # Group/ComponentInstance state is part of the audited model even when
+        # it does not change the outer bounds or face/edge counts.
+        'transform'=>(if face_camera_component?(entity)
+          t = entity.transformation
+          {
+            'origin'=>t.origin.to_a.map { |value| value.to_f.round(7) },
+            'axis_lengths'=>[t.xaxis.length, t.yaxis.length, t.zaxis.length].map { |value| value.to_f.round(7) },
+            'zaxis'=>t.zaxis.to_a.map { |value| value.to_f.round(7) }
+          }
+        else
+          (entity.transformation.to_a.map { |value| value.to_f.round(7) } rescue nil)
+        end),
+        'hidden'=>(entity.hidden? rescue nil),
+        'locked'=>(entity.respond_to?(:locked?) ? entity.locked? : false),
+        'material'=>material_signature(entity.respond_to?(:material) ? entity.material : nil, cache),
+        'back_material'=>material_signature(entity.respond_to?(:back_material) ? entity.back_material : nil, cache),
+        'layer'=>(entity.layer.name.to_s rescue nil),
+        'layer_visible'=>(entity.layer.visible? rescue nil),
+        'definition_guid'=>(entity.definition.guid.to_s rescue nil)
+      }
+    end
+  rescue StandardError
+    {'type'=>(entity.typename.to_s rescue ''), 'unreadable'=>true}
+  end
+
+  def geometry_node_signature(entity, depth = 0, max_depth = 8, path = [], ignore_visibility_pids = nil, cache = nil)
+    key = entity.object_id
+    children = child_entities(entity)
+    node_cache = cache && (cache[:complete_geometry_node] ||= {})
+    node_key = [key, Array(ignore_visibility_pids).map(&:to_s).sort.join("\0")]
+    return node_cache[node_key] if node_cache && !path.include?(key) && node_cache.key?(node_key)
+    leaf_cache = cache && (cache[:geometry_leaf] ||= {})
+    node = if leaf_cache && leaf_cache.key?(key)
+      leaf_cache[key].dup
+    else
+      value = geometry_leaf_signature(entity)
+      leaf_cache[key] = value if leaf_cache
+      value.dup
+    end
+    node['incomplete'] = true if node['unreadable'] == true
+    node['pid'] = (entity.persistent_id rescue entity.entityID rescue nil)
+    if ignore_visibility_pids && ignore_visibility_pids.include?(node['pid'].to_s)
+      node['hidden'] = '__managed_visibility__'
+    end
+    unless children
+      node_cache[node_key] = node if node_cache && node['incomplete'] != true
+      return node
+    end
+    if path.include?(key)
+      node['incomplete'] = true
+      node['cycle'] = true
+      node['max_depth'] = depth
+      return node
+    end
+    valid = children.to_a.select { |child| child.valid? rescue false }.sort_by { |child| entity_order_key(child) }
+    node['children'] = []
+    node['children'] = valid.map { |child| geometry_node_signature(child, depth + 1, max_depth, path + [key], ignore_visibility_pids, cache) }
+    node['incomplete'] = node['incomplete'] == true || node['children'].any? { |child| child['incomplete'] == true }
+    node['max_depth'] = max_depth if node['incomplete']
+    node_cache[node_key] = node if node_cache && node['incomplete'] != true
+    node
+  rescue StandardError
+    {'type'=>(entity.typename.to_s rescue ''), 'incomplete'=>true, 'max_depth'=>depth}
+  end
+
+  def geometry_summary(entity, ignore_visibility_pids = nil, cache = nil)
+    summary_cache = cache && (cache[:geometry_summary] ||= {})
+    ignored_key = Array(ignore_visibility_pids).map(&:to_s).sort.join("\0")
+    summary_key = [entity.object_id, ignored_key]
+    return summary_cache[summary_key] if summary_cache && summary_cache.key?(summary_key)
+    node = geometry_node_signature(entity, 0, 8, [], ignore_visibility_pids, cache)
+    counts = Hash.new(0)
+    walk = lambda do |item|
+      counts['entities'] += 1
+      counts['faces'] += 1 if item['type'] == 'face'
+      counts['edges'] += 1 if item['type'] == 'edge'
+      counts['groups'] += 1 if %w[Group ComponentInstance].include?(item['type'])
+      Array(item['children']).each { |child| walk.call(child) }
+    end
+    walk.call(node)
+    result = counts.merge('digest'=>canonical_sha256(node, cache && (cache[:canonical_chunks] ||= {})), 'complete'=>node['incomplete'] != true)
+    summary_cache[summary_key] = result if summary_cache
+    result
+  rescue StandardError
+    {'complete'=>false, 'digest'=>nil}
+  end
+
+  def appearance_summary(entity, cache = nil)
+    material = entity.respond_to?(:material) ? entity.material : nil
+    {
+      'material'=>material_signature(material, cache),
+      'back_material'=>material_signature(entity.respond_to?(:back_material) ? entity.back_material : nil, cache),
+      'layer'=>(entity.layer.name.to_s rescue nil),
+      'layer_visible'=>(entity.layer.visible? rescue nil),
+      'hidden'=>(entity.hidden? rescue nil),
+      'definition_guid'=>(entity.definition.guid.to_s rescue nil)
+    }
+  end
+
+  def entity_record(entity, depth = 0, ignore_visibility_pids = nil, excluded_phase = nil, path = [], cache = nil, root_boundary = false)
+    key = entity.object_id
+    # A component definition can appear many times in one protected scene.
+    # Its children have the same identity and geometry at every occurrence;
+    # retain their complete record for this fingerprint invocation instead of
+    # rebuilding the same nested tree for every instance. Never reuse an
+    # incomplete/cyclic record, and use a fresh cache for the post-write check.
+    record_cache = cache && (cache[:entity_record] ||= {})
+    record_key = [key, Array(ignore_visibility_pids).map(&:to_s).sort.join("\0"), excluded_phase.to_s, root_boundary]
+    return record_cache[record_key] if record_cache && !path.include?(key) && record_cache.key?(record_key)
+    children = child_entities(entity)
+    valid_children = children ? children.to_a.select { |child| child.valid? rescue false }.sort_by { |child| entity_order_key(child) } : []
+    record = {
+      'pid'=>(entity.persistent_id rescue entity.entityID rescue nil),
+      'type'=>entity.typename.to_s,
+      'name'=>(entity.respond_to?(:name) ? entity.name.to_s : ''),
+      'layer'=>(entity.respond_to?(:layer) && entity.layer ? entity.layer.name.to_s : ''),
+      'material'=>(entity.respond_to?(:material) && entity.material ? entity.material.display_name.to_s : ''),
+      'bounds'=>root_boundary ? [] : bounds_signature(entity),
+      'appearance_summary'=>appearance_summary(entity),
+      'geometry_summary'=>root_boundary ? {'complete'=>true, 'excluded_phase'=>excluded_phase.to_s} : geometry_summary(entity, ignore_visibility_pids, cache),
+      'incomplete'=>false
+    }
+    if ignore_visibility_pids && ignore_visibility_pids.include?(record['pid'].to_s)
+      record['appearance_summary']['hidden'] = '__managed_visibility__'
+    end
+    # Face-camera entourage changes its displayed world bounds when the camera
+    # moves. Fingerprint definition geometry + placement, not its rendered AABB.
+    if face_camera_component?(entity)
+      record['bounds'] = bounds_signature(entity.definition)
+      record['always_face_camera'] = true
+    end
+    if entity.respond_to?(:transformation)
+      if record['always_face_camera']
+        t = entity.transformation
+        record['transform'] = {'origin'=>t.origin.to_a.map { |v| v.to_f.round(7) }, 'axis_lengths'=>[t.xaxis.length, t.yaxis.length, t.zaxis.length].map { |v| v.to_f.round(7) }, 'zaxis'=>t.zaxis.to_a.map { |v| v.to_f.round(7) }}
+      else
+        record['transform'] = entity.transformation.to_a.map { |v| v.to_f.round(7) }
+      end
+    end
+    if children
+      if path.include?(key)
+        record['incomplete'] = true
+        record['cycle'] = true
+        record['max_depth'] = depth
+      else
+        filtered_children = valid_children.reject do |child|
+          excluded_phase && mutable_member?(child, excluded_phase)
+        end
+        record['children'] = filtered_children.map { |child| entity_record(child, depth + 1, ignore_visibility_pids, excluded_phase, path + [key], cache) }
+        record['incomplete'] = record['children'].any? { |child| child['incomplete'] == true }
+        record['max_depth'] = 8 if record['incomplete']
+      end
+    end
+    record_cache[record_key] = record if record_cache && record['incomplete'] != true
+    record
+  end
+
+  def collect_definition_guids(entity, result = {}, seen = {})
+    return result if seen[entity.object_id]
+    seen[entity.object_id] = true
+    if entity.is_a?(Sketchup::ComponentInstance)
+      guid = entity.definition.guid.to_s rescue ''
+      result[guid] = entity.definition if !guid.empty?
+    end
+    children = child_entities(entity)
+    children.to_a.each { |child| collect_definition_guids(child, result, seen) } if children
+    result
+  rescue StandardError
+    result
+  end
+
+  def bounded_external_fingerprint(project_id, mutable_phase = nil, ignore_visibility_pids = nil, include_protected_root = true, exact_geometry = false, cache = {})
+    top_level = model.entities.to_a.select { |entity| entity.valid? rescue false }
+    root = root_for(project_id, false)
+    external_entities = top_level.reject { |entity| root && entity.object_id == root.object_id }
+    ignored = Array(ignore_visibility_pids).map(&:to_s)
+    cache ||= {}
+    cache[:exact_geometry] = exact_geometry # One immutable snapshot only.
+    records = external_entities.map { |entity| fast_boundary_record(entity, nil, ignored, cache).merge('pid'=>(entity.persistent_id rescue entity.entityID rescue nil), 'type'=>(entity.typename.to_s rescue '')) }
+    if root && include_protected_root
+      records << fast_boundary_record(root, mutable_phase, ignored, cache).merge('pid'=>(root.persistent_id rescue root.entityID rescue nil), 'type'=>'managed_root')
+    end
+    Digest::SHA256.hexdigest(canonical_json({'entities'=>records.sort_by { |record| [record['type'].to_s, record['pid'].to_i, record['digest'].to_s] }, 'mutable_phase'=>mutable_phase.to_s}))
+  end
+
+  def external_fingerprint(project_id, mutable_phase = nil, ignore_visibility_pids = nil, include_protected_root = true, cache = {}, boundary_mode = false)
+    return bounded_external_fingerprint(project_id, mutable_phase, ignore_visibility_pids, include_protected_root, boundary_mode == 'local_geometry_v1', cache) if boundary_mode
+    top_level = model.entities.to_a.select { |entity| entity.valid? rescue false }
+    root = root_for(project_id, false)
+    external_entities = top_level.reject { |entity| root && entity.object_id == root.object_id }
+    protected_entities = if root
+      root.entities.to_a.select { |entity| entity.valid? rescue false }.reject do |entity|
+        mutable_member?(entity, mutable_phase)
+      end
+    else
+      []
+    end
+    ignored_visibility = Array(ignore_visibility_pids).map(&:to_s)
+    protected_root = if root
+      root_record = entity_record(root, 0, ignored_visibility, mutable_phase, [], cache, true)
+      # The root transform and protected children are part of the boundary. The
+      # mutable phase is excluded above, so its aggregate bounds/geometry cannot
+      # create a false positive for a legal rebuild.
+      root_record['bounds'] = []
+      root_record['geometry_summary'] = {'complete'=>true, 'excluded_phase'=>mutable_phase.to_s}
+      root_record
+    end
+    records = (external_entities + protected_entities + (include_protected_root && protected_root ? [protected_root] : [])).map { |entity| entity.is_a?(Hash) ? entity : entity_record(entity, 0, ignored_visibility, mutable_phase, [], cache) }
+    external_defs = external_entities.each_with_object({}) { |entity, out| collect_definition_guids(entity, out) }
+    managed_defs = root ? collect_definition_guids(root) : {}
+    # Hash every external definition even when the managed phase only starts
+    # referencing it in this step. A legal new reference must not look like a
+    # mutation; changing that definition's geometry still changes this digest.
+    definitions = external_defs.keys.sort.map do |guid|
+      definition = external_defs[guid] || managed_defs[guid]
+      {'guid'=>guid, 'name'=>(definition.name.to_s rescue ''), 'geometry_summary'=>geometry_summary(definition, nil, cache)}
+    end
+    payload = {
+      'entities'=>records.sort do |left,right|
+        order = [left['type'].to_s,left['pid'].to_i] <=> [right['type'].to_s,right['pid'].to_i]
+        order == 0 ? canonical_json(left) <=> canonical_json(right) : order
+      end,
+      'shared_definitions'=>definitions
+    }
+    if records.any? { |record| record['incomplete'] == true || record.dig('geometry_summary', 'complete') == false } || definitions.any? { |record| record.dig('geometry_summary', 'complete') == false }
+      raise 'PROTECTION_READBACK_INCOMPLETE: unreadable protected geometry cannot be treated as unchanged'
+    end
+    canonical_sha256(payload, cache && (cache[:canonical_chunks] ||= {}))
+  end
+
+  def phase_group(root, phase_name, work_unit_id = nil)
+    root.entities.grep(Sketchup::Group).find do |group|
+      next false unless group.valid? && group.get_attribute(DICT, 'phase') == phase_name.to_s
+      work_unit_id.nil? || group.get_attribute(DICT, 'work_unit_id').to_s == work_unit_id.to_s
+    end
+  end
+
+  def model_binding_matches?(expected, actual)
+    return false unless expected.is_a?(Hash) && actual.is_a?(Hash)
+    expected_path = expected['path'].to_s
+    actual_path = actual['path'].to_s
+    if !expected_path.empty? || !actual_path.empty?
+      return false unless !expected_path.empty? && !actual_path.empty? && File.expand_path(expected_path).casecmp(File.expand_path(actual_path)).zero?
+    end
+    if expected['object_id'] != nil
+      return false unless actual['object_id'] != nil && expected['object_id'].to_i == actual['object_id'].to_i
+    end
+    true
+  rescue StandardError
+    false
+  end
+
+  def count_recursive(entities, counts = Hash.new(0), depth = 0)
+    counts['max_depth'] = [counts['max_depth'], depth].max
+    entities.each do |entity|
+      next unless entity.valid? rescue false
+      counts['entities'] += 1
+      counts['faces'] += 1 if entity.is_a?(Sketchup::Face)
+      counts['edges'] += 1 if entity.is_a?(Sketchup::Edge)
+      counts['groups'] += 1 if entity.is_a?(Sketchup::Group)
+      counts['component_instances'] += 1 if entity.is_a?(Sketchup::ComponentInstance)
+      children = child_entities(entity)
+      count_recursive(children, counts, depth + 1) if children
+    end
+    counts
+  end
+
+  # Read actual definition use and world-space AABB volumes. AABB is not solid volume.
+  # Each leaf belongs to its nearest component family: nested geometry is not double-counted.
+  def complexity_metrics(phase)
+    families = {}
+    total = 0
+    root_volume = phase.bounds.width.to_f * phase.bounds.height.to_f * phase.bounds.depth.to_f
+    walk = lambda do |entities, transform, owner, stack|
+      entities.each do |entity|
+        next unless entity.valid?
+        children = child_entities(entity)
+        if children
+          definition = entity.respond_to?(:definition) ? entity.definition : nil
+          key = definition ? definition.guid.to_s : nil
+          next if key && stack.include?(key)
+          world = transform * entity.transformation
+          family = owner
+          if entity.is_a?(Sketchup::ComponentInstance) && key
+            family = key
+            item = families[key] ||= {'definition_guid'=>key,'instances'=>0,'entities'=>0,'max_bbox_volume_ratio'=>0.0}
+            item['instances'] += 1
+            box = Geom::BoundingBox.new
+            8.times { |i| box.add(definition.bounds.corner(i).transform(world)) }
+            volume = box.width.to_f * box.height.to_f * box.depth.to_f
+            ratio = root_volume > 0 ? volume / root_volume : 1.0
+            item['max_bbox_volume_ratio'] = [item['max_bbox_volume_ratio'], ratio].max
+          end
+          walk.call(children, world, family, key ? stack + [key] : stack)
+        else
+          total += 1
+          families[owner]['entities'] += 1 if owner && families[owner]
+        end
+      end
+    end
+    walk.call(phase.entities, Geom::Transformation.new, nil, [])
+    families.each_value { |f| f['entity_share'] = total > 0 ? f['entities'].to_f / total : 0.0 }
+    {'source'=>'su_entity_readback','bbox_volume_inches3'=>root_volume,
+     'normalization'=>'world_AABB_volume_not_solid_volume','leaf_entities'=>total,'families'=>families.values}
+  end
+
+  # Records source-visible reusable systems on the managed archetype phase.
+  # This is deliberately separate from names/counts so final audit can verify
+  # the systems belong to the accepted component contract.
+  def register_visible_detail(phase_group, metadata)
+    raise ArgumentError, 'phase_group must be a valid SketchUp group' unless phase_group && phase_group.valid?
+    data = metadata.is_a?(String) ? JSON.parse(metadata) : metadata
+    raise ArgumentError, 'detail metadata must be a Hash' unless data.is_a?(Hash)
+    raise ArgumentError, 'detail id, kind and source_cue must be nonempty strings' unless %w[id kind source_cue].all? { |key| data[key].is_a?(String) && !data[key].strip.empty? }
+    raise ArgumentError, 'detail instances must be a positive integer' unless data['instances'].is_a?(Integer) && data['instances'] >= 1
+    systems = phase_registry(phase_group, 'visible_detail_systems_json')
+    normalized = {
+      'id'=>data['id'].strip,
+      'kind'=>data['kind'].strip,
+      'source_cue'=>data['source_cue'].to_s,
+      'instances'=>data['instances'].to_i,
+      'prototype'=>(data['prototype'] || '').to_s,
+      'host'=>(data['host'] || '').to_s
+    }
+    systems.reject! { |item| item.is_a?(Hash) && item['id'].to_s == normalized['id'] }
+    systems << normalized
+    phase_group.set_attribute(DICT, 'visible_detail_systems_json', JSON.generate(systems))
+    normalized
+  end
+
+  def phase_detail_systems(phase_group)
+    phase_registry(phase_group, 'visible_detail_systems_json')
+  end
+
+  # Records one-off source-visible detail that must not be propagated as part of
+  # a reusable archetype (entry, canopy, crown, corner closure, interface, etc.).
+  # The actual entity is sealed into the registry so audit can prove the detail
+  # exists instead of trusting descriptive metadata.
+  def register_unique_detail(phase_group, detail_entity, metadata)
+    valid_entity = detail_entity && detail_entity.valid? && (detail_entity.is_a?(Sketchup::Group) || detail_entity.is_a?(Sketchup::ComponentInstance))
+    raise ArgumentError, 'unique detail must be a valid Group or ComponentInstance' unless phase_group && phase_group.valid? && valid_entity
+    data = metadata.is_a?(String) ? JSON.parse(metadata) : metadata
+    raise ArgumentError, 'unique detail metadata must be a Hash' unless data.is_a?(Hash)
+    id = data['id'].to_s.strip
+    kind = data['kind'].to_s.strip
+    cue = data['source_cue'].to_s.strip
+    raise ArgumentError, 'unique detail needs id, kind and source_cue' if id.empty? || kind.empty? || cue.empty?
+    items = phase_registry(phase_group, 'unique_details_json')
+    item = {
+      'id'=>id,
+      'kind'=>kind,
+      'source_cue'=>cue,
+      'host'=>(data['host'] || '').to_s,
+      'persistent_id'=>(detail_entity.persistent_id rescue nil),
+      'name'=>(detail_entity.name rescue '').to_s
+    }
+    items.reject! { |existing| existing.is_a?(Hash) && existing['id'].to_s == id }
+    items << item
+    write_phase_registry(phase_group, 'unique_details_json', items)
+    item
+  end
+
+  # A massing subject is an actual SketchUp group tied to one image-space role.
+  # The audit later projects its real bounds through the active camera; a script
+  # cannot satisfy the image contract by merely returning descriptive text.
+  def register_projection_subject(phase_group, subject_group, metadata)
+    raise ArgumentError, 'phase_group and subject_group must be valid groups' unless phase_group && phase_group.valid? && subject_group && subject_group.valid?
+    data = metadata.is_a?(String) ? JSON.parse(metadata) : metadata
+    raise ArgumentError, 'projection metadata must be a Hash' unless data.is_a?(Hash)
+    id = data['id'].to_s.strip
+    role = data['role'].to_s.strip
+    raise ArgumentError, 'projection subject needs id and role' if id.empty? || role.empty?
+    subjects = phase_registry(phase_group, 'projection_subjects_json')
+    item = { 'id'=>id, 'role'=>role, 'persistent_id'=>(subject_group.persistent_id rescue nil), 'name'=>subject_group.name.to_s }
+    subjects.reject! { |existing| existing.is_a?(Hash) && existing['id'].to_s == id }
+    subjects << item
+    phase_group.set_attribute(DICT, 'projection_subjects_json', JSON.generate(subjects))
+    item
+  end
+
+  def phase_projection_subjects(phase_group)
+    phase_registry(phase_group, 'projection_subjects_json')
+  end
+
+  def phase_registry(phase_group, key)
+    items = JSON.parse(phase_group.get_attribute(DICT, key, '[]').to_s)
+    unless items.is_a?(Array) && items.all? { |x| x.is_a?(Hash) && x['id'].is_a?(String) && !x['id'].strip.empty? }
+      raise "REGISTRY_INVALID: #{key}"
+    end
+    ids = items.map { |x| x['id'].strip }
+    raise "REGISTRY_DUPLICATE: #{key}" unless ids.uniq.length == ids.length
+    items
+  end
+
+  def write_phase_registry(phase_group, key, items)
+    phase_group.set_attribute(DICT, key, JSON.generate(items))
+    items
+  end
+
+  def register_archetype(phase_group, prototype, metadata)
+    raise ArgumentError, 'archetype prototype must be a valid Sketchup::ComponentInstance, not a Group' unless phase_group && phase_group.valid? && prototype && prototype.valid? && prototype.is_a?(Sketchup::ComponentInstance)
+    data = metadata.is_a?(String) ? JSON.parse(metadata) : metadata
+    raise ArgumentError, 'archetype metadata must be a Hash' unless data.is_a?(Hash)
+    id = data['id'].to_s.strip
+    family = data['family'].to_s.strip
+    cue = data['source_cue'].to_s.strip
+    raise ArgumentError, 'archetype needs id, family and source_cue' if id.empty? || family.empty? || cue.empty?
+    items = phase_registry(phase_group, 'archetypes_json')
+    item = {'id'=>id, 'family'=>family, 'source_cue'=>cue, 'persistent_id'=>(prototype.persistent_id rescue nil), 'definition_name'=>prototype.definition.name.to_s, 'definition_guid'=>(prototype.definition.guid rescue '')}
+    items.reject! { |existing| existing.is_a?(Hash) && existing['id'].to_s == id }
+    items << item
+    write_phase_registry(phase_group, 'archetypes_json', items)
+    item
+  end
+
+  # Resolve an accepted managed object by its semantic ID without trusting a
+  # descriptive path. The correction adapter uses this only to bind a declared
+  # target; it never treats a missing target as an implicit permission to edit.
+  def find_entity_by_semantic_id(project_root, semantic_id)
+    wanted = semantic_id.to_s
+    found = nil
+    walk = lambda do |entities|
+      entities.each do |entity|
+        next unless entity.valid? rescue false
+        if entity.respond_to?(:get_attribute) && entity.get_attribute('ADAI_GEOMETRY', 'semantic_id').to_s == wanted
+          found = entity
+          return
+        end
+        if entity.is_a?(Sketchup::Group)
+          walk.call(entity.entities)
+        elsif entity.is_a?(Sketchup::ComponentInstance)
+          walk.call(entity.definition.entities)
+        end
+        return if found
+      end
+    end
+    walk.call(project_root.entities)
+    found
+  rescue StandardError
+    nil
+  end
+
+  def register_primary_correction(phase_group, target_entity, correction_entity, metadata)
+    valid = lambda { |entity| entity && entity.valid? && (entity.is_a?(Sketchup::Group) || entity.is_a?(Sketchup::ComponentInstance)) }
+    raise ArgumentError, 'correction target and result must be valid managed entities' unless phase_group && phase_group.valid? && valid.call(target_entity) && valid.call(correction_entity)
+    data = metadata.is_a?(String) ? JSON.parse(metadata) : metadata
+    raise ArgumentError, 'correction metadata must be a Hash' unless data.is_a?(Hash)
+    id = data['id'].to_s.strip
+    target_id = data['target_semantic_id'].to_s.strip
+    reason = data['reason'].to_s.strip
+    raise ArgumentError, 'correction needs id, target_semantic_id and reason' if id.empty? || target_id.empty? || reason.empty?
+    items = phase_registry(phase_group, 'correction_bindings_json')
+    item = {
+      'id'=>id,
+      'target_semantic_id'=>target_id,
+      'target_persistent_id'=>(target_entity.persistent_id rescue nil),
+      'correction_persistent_id'=>(correction_entity.persistent_id rescue nil),
+      'reason'=>reason
+    }
+    items.reject! { |existing| existing.is_a?(Hash) && existing['id'].to_s == id }
+    items << item
+    write_phase_registry(phase_group, 'correction_bindings_json', items)
+    item
+  end
+
+  def find_archetype(project_root, archetype_id)
+    entries = registered_groups(project_root).flat_map { |g| phase_registry(g, 'archetypes_json').select { |i| i['id'].to_s == archetype_id.to_s }.map { |i| [g,i] } }
+    raise 'ARCHETYPE_ID_AMBIGUOUS' if entries.length > 1
+    return nil if entries.empty?
+    group, item = entries.first
+    entity = find_entity_in_collection(group.entities, item['persistent_id'].to_i)
+    entity if entity && entity.valid? && entity.respond_to?(:definition)
+  end
+
+  def instantiate_archetype(phase_group, entities, project_root, archetype_id, transform, metadata = {})
+    prototype = find_archetype(project_root, archetype_id)
+    raise ArgumentError, "Registered archetype not found: #{archetype_id}" unless prototype
+    instance = entities.add_instance(prototype.definition, transform || Geom::Transformation.new)
+    data = metadata.is_a?(String) ? JSON.parse(metadata) : metadata
+    system_id = (data['system_id'] || archetype_id).to_s
+    items = phase_registry(phase_group, 'replication_systems_json')
+    item = items.find { |entry| entry['id'].to_s == system_id }
+    unless item
+      item = {'id'=>system_id, 'archetype_id'=>archetype_id.to_s, 'source_cue'=>data['source_cue'].to_s, 'definition_guid'=>(prototype.definition.guid rescue ''), 'definition_name'=>prototype.definition.name.to_s, 'instance_pids'=>[]}
+      items << item
+    end
+    instance.set_attribute(DICT, 'replication_system_id', system_id)
+    instance.set_attribute(DICT, 'replication_archetype_id', archetype_id.to_s)
+    item['instance_pids'] ||= []
+    pid = (instance.persistent_id rescue nil)
+    item['instance_pids'] << pid
+    item['expected_placements'] ||= []
+    expected = data['expected_transform'] || (instance.transformation.to_a rescue [])
+    paths = instance_paths_for(project_root, instance)
+    raise ArgumentError, 'INSTANCE_PATH_AMBIGUOUS: registration requires one managed instance path' unless paths.length == 1
+    item['expected_placements'] << {'persistent_id'=>pid, 'transform'=>Array(expected).map { |value| value.to_f.round(7) }, 'path_pids'=>paths.first['path_pids'], 'world_transform'=>paths.first['world_transform']}
+    write_phase_registry(phase_group, 'replication_systems_json', items)
+    instance
+  end
+
+  def recursive_entities(entities, output = [])
+    entities.each do |entity|
+      output << entity
+      if entity.is_a?(Sketchup::Group)
+        recursive_entities(entity.entities, output)
+      elsif entity.is_a?(Sketchup::ComponentInstance)
+        recursive_entities(entity.definition.entities, output)
+      end
+    end
+    output
+  rescue StandardError
+    output
+  end
+
+  def register_variant(phase_group, entity, metadata)
+    raise ArgumentError, 'variant entity must be valid' unless entity && entity.valid?
+    data = metadata.is_a?(String) ? JSON.parse(metadata) : metadata
+    id = data['id'].to_s.strip
+    kind = data['kind'].to_s.strip
+    cue = data['source_cue'].to_s.strip
+    raise ArgumentError, 'variant needs id, kind and source_cue' if id.empty? || kind.empty? || cue.empty?
+    items = phase_registry(phase_group, 'variants_json')
+    item = {'id'=>id, 'kind'=>kind, 'source_cue'=>cue, 'persistent_id'=>(entity.persistent_id rescue nil)}
+    items.reject! { |existing| existing.is_a?(Hash) && existing['id'].to_s == id }
+    items << item
+    write_phase_registry(phase_group, 'variants_json', items)
+    item
+  end
+
+  def find_entity_in_collection(entities, persistent_id)
+    entities.to_a.each do |candidate|
+      next unless candidate.valid? rescue false
+      candidate_id = (candidate.persistent_id rescue candidate.entityID rescue nil).to_i
+      return candidate if candidate_id == persistent_id.to_i
+      if candidate.is_a?(Sketchup::Group)
+        found = find_entity_in_collection(candidate.entities, persistent_id)
+        return found if found
+      end
+    end
+    nil
+  rescue StandardError
+    nil
+  end
+
+  def instance_path_index(root, requested_pids)
+    wanted = Array(requested_pids).each_with_object({}) { |pid, out| out[pid.to_i] = true }
+    found = Hash.new { |out, pid| out[pid] = [] }
+    return found if wanted.empty?
+    walk = lambda do |entities, parent, ids, definitions|
+      entities.to_a.each do |entity|
+        next unless entity.valid?
+        pid = (entity.persistent_id rescue entity.entityID rescue nil)
+        group = entity.is_a?(Sketchup::Group)
+        instance = entity.is_a?(Sketchup::ComponentInstance)
+        # A face that is not requested needs no matrix or occurrence path.
+        next unless group || instance || wanted[pid.to_i]
+        transform = parent * (entity.respond_to?(:transformation) ? entity.transformation : Geom::Transformation.new)
+        path_ids = ids + [pid]
+        found[pid.to_i] << {'path_pids'=>path_ids, 'world_transform'=>transform.to_a.map { |v| v.to_f.round(7) }} if wanted[pid.to_i]
+        if group
+          walk.call(entity.entities, transform, path_ids, definitions)
+        elsif instance
+          key = entity.definition.object_id
+          raise 'INSTANCE_PATH_CYCLE' if definitions.include?(key)
+          walk.call(entity.definition.entities, transform, path_ids, definitions + [key])
+        end
+      end
+    end
+    walk.call(root.entities, root.transformation, [(root.persistent_id rescue root.entityID rescue nil)], [])
+    found
+  end
+
+  def instance_paths_for(root, target)
+    pid = (target.persistent_id rescue target.entityID rescue nil).to_i
+    instance_path_index(root, [pid])[pid]
+  end
+
+  def structure_audit(root)
+    groups = registered_groups(root)
+    archetypes = groups.flat_map { |g| phase_registry(g, 'archetypes_json') }
+    archetypes = archetypes.map do |item|
+      entity = model.find_entity_by_persistent_id(item['persistent_id'].to_i) rescue nil
+      item.merge('valid'=>!!(entity && entity.valid?), 'counts'=>(entity && entity.valid? ? count_recursive(child_entities(entity)) : {}), 'bounds_inches'=>(entity && entity.valid? ? bounds_signature(entity) : []))
+    end
+    replications = groups.flat_map { |g| phase_registry(g, 'replication_systems_json').map { |r| r.merge('_owner_pid'=>g.persistent_id) } }
+    occurrence_paths = instance_path_index(root, replications.flat_map { |item| Array(item['instance_pids']) })
+    replications = replications.map do |item|
+      owner_pid = item.delete('_owner_pid')
+      replication_phase = groups.find { |g| g.persistent_id == owner_pid }
+      registered = (item['instance_pids'] || []).compact.map(&:to_i)
+      unique_pids = registered.uniq
+      duplicates = registered.group_by { |pid| pid }.select { |_pid, values| values.length > 1 }.keys
+      found = unique_pids.map { |pid| find_entity_in_collection(replication_phase ? replication_phase.entities : [], pid) }
+      invalid_pids = unique_pids.select.with_index { |_pid, index| !found[index] || !found[index].is_a?(Sketchup::ComponentInstance) }
+      definition_mismatch = []
+      expected_guid = item['definition_guid'].to_s
+      found.each_with_index do |entity, index|
+        next unless entity && entity.is_a?(Sketchup::ComponentInstance)
+        actual_guid = (entity.definition.guid rescue '').to_s
+        definition_mismatch << unique_pids[index] if expected_guid != '' && actual_guid != expected_guid
+      end
+      actual = unique_pids.length - invalid_pids.length - definition_mismatch.length
+      placements = found.each_with_index.map do |entity, index|
+        next unless entity && entity.is_a?(Sketchup::ComponentInstance)
+        {
+          'persistent_id'=>unique_pids[index],
+          'transform'=>(entity.transformation.to_a.map { |value| value.to_f.round(7) } rescue []),
+          'bounds_inches'=>bounds_signature(entity)
+        }
+      end.compact
+      expected_records = Array(item['expected_placements'])
+      expected_by_pid = expected_records.each_with_object({}) { |entry, memo| memo[entry['persistent_id'].to_i] = Array(entry['transform']).map { |value| value.to_f.round(7) } }
+      path_mismatches = found.each_with_index.map do |entity, index|
+        next unless entity && entity.is_a?(Sketchup::ComponentInstance)
+        expected = expected_records.find { |entry| entry['persistent_id'].to_i == unique_pids[index] }
+        paths = occurrence_paths[unique_pids[index]]
+        valid_path = expected && paths.length == 1 && expected['path_pids'] == paths.first['path_pids'] && expected['world_transform'] == paths.first['world_transform']
+        valid_path ? nil : unique_pids[index]
+      end.compact
+      placement_mismatches = placements.map do |placement|
+        expected_transform = expected_by_pid[placement['persistent_id'].to_i]
+        next if expected_transform.nil? || expected_transform == placement['transform']
+        placement['persistent_id']
+      end.compact
+      item.merge(
+        'expected_instances'=>unique_pids.length,
+        'actual_instances'=>actual,
+        'invalid_instance_pids'=>invalid_pids,
+        'duplicate_instance_pids'=>duplicates,
+        'definition_mismatch_pids'=>definition_mismatch,
+        'instance_placements'=>placements,
+        'placement_mismatch_pids'=>placement_mismatches,
+        'path_mismatch_pids'=>path_mismatches,
+        'placement_contract_missing'=>expected_by_pid.empty? || expected_by_pid.keys.sort != unique_pids.sort,
+        'valid'=>actual == unique_pids.length && actual > 0 && duplicates.empty? && placement_mismatches.empty? && path_mismatches.empty? && !expected_by_pid.empty? && expected_by_pid.keys.sort == unique_pids.sort
+      )
+    end
+    variants = groups.flat_map { |g| phase_registry(g, 'variants_json') }
+    variants = variants.map do |item|
+      entity = model.find_entity_by_persistent_id(item['persistent_id'].to_i) rescue nil
+      item.merge('valid'=>!!(entity && entity.valid?), 'bounds_inches'=>(entity && entity.valid? ? bounds_signature(entity) : []))
+    end
+    {'archetypes'=>archetypes, 'replication_systems'=>replications, 'variants'=>variants}
+  end
+
+  def world_transform_for(target, entities = model.entities, parent = Geom::Transformation.new, seen = {})
+    entities.to_a.each do |candidate|
+      next unless candidate.valid? rescue false
+      next if seen[candidate.object_id]
+      seen[candidate.object_id] = true
+      local = candidate.respond_to?(:transformation) ? candidate.transformation : Geom::Transformation.new
+      world = parent * local
+      if (candidate.persistent_id rescue candidate.entityID rescue nil).to_i == (target.persistent_id rescue target.entityID rescue nil).to_i
+        return world
+      end
+      children = child_entities(candidate)
+      found = world_transform_for(target, children, world, seen) if children
+      return found if found
+    end
+    nil
+  rescue StandardError
+    nil
+  end
+
+  def local_bounds_for(entity)
+    return entity.definition.bounds if entity.is_a?(Sketchup::ComponentInstance)
+    return entity.local_bounds if entity.respond_to?(:local_bounds)
+    entity.bounds
+  rescue StandardError
+    entity.bounds
+  end
+
+  def screen_bbox_normalized(entity)
+    view = model.active_view
+    width = view.vpwidth.to_f
+    height = view.vpheight.to_f
+    raise 'SketchUp viewport unavailable for projection audit' if width <= 1 || height <= 1
+    transform = world_transform_for(entity) || Geom::Transformation.new
+    bounds = local_bounds_for(entity)
+    points = (0..7).map { |index| view.screen_coords(bounds.corner(index).transform(transform)) }
+    xs = points.map(&:x); ys = points.map(&:y)
+    [xs.min / width, ys.min / height, xs.max / width, ys.max / height].map { |value| value.round(6) }
+  rescue StandardError
+    []
+  end
+
+  # E13-A narrow patch adapter. It deliberately edits one tagged Group or
+  # ComponentInstance by a finite translation and never edits a shared
+  # ComponentDefinition. The MCP verifies the returned fingerprint again
+  # immediately before applying or rolling back.
+  def patch_target(project_id, semantic_id, scope)
+    raise ArgumentError, 'patch scope must be instance' unless scope.to_s == 'instance'
+    root = root_for(project_id, false)
+    raise ArgumentError, "Managed project not found: #{project_id}" unless root && root.valid?
+    target = find_entity_by_semantic_id(root, semantic_id)
+    raise ArgumentError, "PATCH_TARGET_NOT_FOUND: #{semantic_id}" unless target && target.valid?
+    unless target.is_a?(Sketchup::Group) || target.is_a?(Sketchup::ComponentInstance)
+      raise ArgumentError, 'PATCH_UNSUPPORTED_OBJECT: semantic target must be a Group or ComponentInstance'
+    end
+    # A child found through a shared ComponentDefinition has no unique
+    # instance path. Refuse it before preview/apply rather than moving every
+    # parent instance while claiming an instance-scoped edit.
+    shared = shared_definition_ancestor_for(root, target)
+    if shared
+      raise ArgumentError, 'PATCH_AMBIGUOUS_SHARED_ANCESTOR: target is inside a shared ComponentDefinition; use a unique top-level instance or an explicit supported copy operation'
+    end
+    target
+  end
+
+  def definition_instance_count(definition, entities = model.entities, seen = {})
+    return 0 unless definition
+    total = 0
+    entities.to_a.each do |entity|
+      next unless entity.valid? rescue false
+      key = entity.object_id
+      next if seen[key]
+      seen[key] = true
+      if entity.is_a?(Sketchup::ComponentInstance)
+        total += 1 if (entity.definition.guid.to_s rescue '') == (definition.guid.to_s rescue '')
+        total += definition_instance_count(definition, entity.definition.entities, seen)
+      elsif entity.is_a?(Sketchup::Group)
+        total += definition_instance_count(definition, entity.entities, seen)
+      end
+    end
+    total
+  rescue StandardError
+    0
+  end
+
+  def shared_definition_ancestor_for(root, target)
+    found = nil
+    walk = lambda do |entities|
+      entities.to_a.each do |entity|
+        next unless entity.valid? rescue false
+        return true if entity.object_id == target.object_id
+        if entity.is_a?(Sketchup::Group)
+          return true if walk.call(entity.entities)
+        elsif entity.is_a?(Sketchup::ComponentInstance)
+          if walk.call(entity.definition.entities)
+            count = definition_instance_count(entity.definition)
+            found = entity.definition if count > 1
+            return true
+          end
+        end
+      end
+      false
+    end
+    walk.call(root.entities)
+    found
+  rescue StandardError
+    nil
+  end
+
+  def patch_translation(change)
+    data = change.is_a?(String) ? JSON.parse(change) : change
+    values = data.is_a?(Hash) ? data['translation_mm'] : nil
+    raise ArgumentError, 'PATCH_UNSUPPORTED_CHANGE: translation_mm=[x,y,z] is required' unless values.is_a?(Array) && values.length == 3 && values.all? { |value| value.is_a?(Numeric) && value.finite? }
+    values.map { |value| value.to_f * 0.03937007874015748 }
+  end
+
+  def patch_fingerprint(target)
+    Digest::SHA256.hexdigest(canonical_json(entity_record(target)))
+  end
+
+  def patch_preview(project_id, semantic_id, scope, change)
+    target = patch_target(project_id, semantic_id, scope)
+    patch_translation(change)
+    instances = []
+    if target.is_a?(Sketchup::ComponentInstance)
+      guid = target.definition.guid.to_s rescue ''
+      model.entities.each { |entity| instances << (entity.persistent_id rescue entity.entityID rescue nil) if entity.is_a?(Sketchup::ComponentInstance) && (entity.definition.guid.to_s rescue '') == guid }
+    end
+    JSON.generate({
+      'ok'=>true,
+      'project_id'=>project_id.to_s,
+      'semantic_id'=>semantic_id.to_s,
+      'scope'=>scope.to_s,
+      'persistent_id'=>(target.persistent_id rescue target.entityID rescue nil),
+      'entity_type'=>target.typename.to_s,
+      'definition_guid'=>(target.definition.guid.to_s rescue nil),
+      'definition_instance_pids'=>instances,
+      'original_transform'=>target.transformation.to_a.map(&:to_f),
+      'target_fingerprint'=>patch_fingerprint(target)
+    })
+  end
+
+  def patch_apply(project_id, semantic_id, scope, change)
+    started = false
+    committed = false
+    commit_attempted = false
+    begin
+      target = patch_target(project_id, semantic_id, scope)
+      delta = patch_translation(change)
+      raise 'target cannot be transformed' unless target.respond_to?(:transform!)
+      start_result = model.start_operation("Patch managed #{project_id} #{semantic_id}", true)
+      raise 'start_operation returned false' if start_result == false
+      started = true
+      original = target.transformation.to_a.map(&:to_f)
+      target.transform!(Geom::Transformation.translation(Geom::Vector3d.new(*delta)))
+      after = target.transformation.to_a.map(&:to_f)
+      after_fingerprint = patch_fingerprint(target)
+      commit_attempted = true
+      commit_result = model.commit_operation
+      raise 'commit_operation returned false' if commit_result == false
+      committed = true
+      JSON.generate({'ok'=>true, 'project_id'=>project_id.to_s, 'semantic_id'=>semantic_id.to_s, 'scope'=>scope.to_s, 'original_transform'=>original, 'target_before'=>original, 'target_after'=>after, 'after_target_fingerprint'=>after_fingerprint})
+    rescue Exception => error
+      propagate = error.is_a?(Interrupt) || error.is_a?(SystemExit) || error.is_a?(NoMemoryError)
+      if !propagate && error.message.to_s.start_with?('PATCH_AMBIGUOUS_SHARED_ANCESTOR')
+        return JSON.generate({'ok'=>false, 'error'=>error.message, 'unsupported'=>true, 'write_attempted'=>false})
+      end
+      rollback_error = nil
+      rollback_unconfirmed = false
+      if started && !committed && !commit_attempted
+        begin
+          abort_result = model.abort_operation
+          rollback_unconfirmed = abort_result == false
+        rescue Exception => abort_error
+          rollback_error = exception_payload(abort_error)
+          rollback_unconfirmed = true
+        end
+      end
+      raise error if propagate
+      if commit_attempted || rollback_unconfirmed
+        return JSON.generate({'ok'=>false, 'error'=>"#{error.class}: #{error.message}", 'commit_unconfirmed'=>commit_attempted && !committed, 'rollback_unconfirmed'=>rollback_unconfirmed, 'rollback_error'=>rollback_error})
+      end
+      raise error
+    end
+  end
+
+  def patch_rollback(project_id, semantic_id, scope, original_transform)
+    started = false
+    committed = false
+    commit_attempted = false
+    begin
+      target = patch_target(project_id, semantic_id, scope)
+      values = original_transform.is_a?(String) ? JSON.parse(original_transform) : original_transform
+      raise ArgumentError, 'PATCH_ORIGINAL_TRANSFORM_INVALID' unless values.is_a?(Array) && values.length == 16 && values.all? { |value| value.is_a?(Numeric) && value.finite? }
+      start_result = model.start_operation("Rollback managed patch #{project_id} #{semantic_id}", true)
+      raise 'start_operation returned false' if start_result == false
+      started = true
+      target.transformation = Geom::Transformation.new(values.map(&:to_f))
+      after = target.transformation.to_a.map(&:to_f)
+      commit_attempted = true
+      commit_result = model.commit_operation
+      raise 'commit_operation returned false' if commit_result == false
+      committed = true
+      JSON.generate({'ok'=>true, 'project_id'=>project_id.to_s, 'semantic_id'=>semantic_id.to_s, 'scope'=>scope.to_s, 'target_after'=>after})
+    rescue Exception => error
+      propagate = error.is_a?(Interrupt) || error.is_a?(SystemExit) || error.is_a?(NoMemoryError)
+      rollback_error = nil
+      rollback_unconfirmed = false
+      if started && !committed && !commit_attempted
+        begin
+          abort_result = model.abort_operation
+          rollback_unconfirmed = abort_result == false
+        rescue Exception => abort_error
+          rollback_error = exception_payload(abort_error)
+          rollback_unconfirmed = true
+        end
+      end
+      raise error if propagate
+      if commit_attempted || rollback_unconfirmed
+        return JSON.generate({'ok'=>false, 'error'=>"#{error.class}: #{error.message}", 'commit_unconfirmed'=>commit_attempted && !committed, 'rollback_unconfirmed'=>rollback_unconfirmed, 'rollback_error'=>rollback_error})
+      end
+      raise error
+    end
+  end
+
+  def projection_subject_audit(root)
+    registered_groups(root).flat_map do |group|
+      phase_projection_subjects(group).map do |item|
+        entity = find_entity_in_collection(group.entities, item['persistent_id'].to_i)
+        item.merge('bounds_inches'=>(entity ? bounds_signature(entity) : []), 'screen_bbox_normalized'=>(entity ? screen_bbox_normalized(entity) : []), 'valid'=>!!(entity && entity.valid?))
+      end
+    end
+  end
+
+  def build_source(bytes)
+    header=bytes.lines.first(2).join
+    encoding=header.match(/(?:coding|encoding)\s*[=:]\s*([A-Za-z0-9_-]+)/)
+    source=bytes.dup.force_encoding(encoding ? Encoding.find(encoding[1]) : Encoding::UTF_8)
+    raise 'BUILD_ENCODING_INVALID' unless source.valid_encoding?
+    source
+  end
+
+  def preflight_build_script(script_path, source = nil)
+    source = build_source(source || File.binread(script_path.to_s))
+    if defined?(RubyVM::InstructionSequence) && RubyVM::InstructionSequence.respond_to?(:compile)
+      RubyVM::InstructionSequence.compile(source, script_path.to_s, script_path.to_s, 1)
+    end
+    true
+  end
+
+  def exception_payload(error)
+    {
+      'class'=>error.class.name.to_s,
+      'message'=>error.message.to_s,
+      'line'=>(error.backtrace && error.backtrace.first)
+    }
+  end
+
+  def operation_receipt_path(project_id, operation_id)
+    raise ArgumentError, 'Invalid receipt project ID' unless project_id.to_s.match?(/\A[A-Za-z][A-Za-z0-9_-]{2,63}\z/)
+    raise ArgumentError, 'Invalid operation ID' unless operation_id.to_s.match?(/\A[0-9a-f-]{36}\z/)
+    File.join(ENV.fetch('APPDATA'), 'SketchUpLiveMCP', 'operation-receipts', project_id.to_s, operation_id.to_s + '.json')
+  end
+
+  def operation_receipt(project_id, operation_id)
+    target = operation_receipt_path(project_id, operation_id)
+    return JSON.generate({'ok'=>true, 'found'=>false, 'operation_id'=>operation_id}) unless File.file?(target)
+    receipt = JSON.parse(File.binread(target))
+    root = root_for(project_id, false)
+    marker = root && root.get_attribute(DICT, 'operation_commit_' + operation_id.to_s)
+    marker ||= model.get_attribute(DICT, 'operation_commit_' + operation_id.to_s)
+    mode = receipt.dig('result','rollback_fingerprint_mode')
+    boundary = mode == 'local_geometry_v1' ? mode : mode == 'boundary_attributes_v2'
+    current_rollback = receipt.dig('result','rollback_confirmed') ? external_fingerprint(project_id, '__no_mutable_phase__', nil, true, {}, boundary) : nil
+    JSON.generate({'ok'=>true, 'found'=>true, 'receipt'=>receipt, 'current_model_binding'=>JSON.parse(model_identity), 'commit_marker'=>marker, 'current_rollback_fingerprint'=>current_rollback})
+  end
+
+  def auxiliary_with_receipt(request_json)
+    request = JSON.parse(request_json)
+    method = request.fetch('kind')
+    raise 'Unsupported auxiliary action' unless %w[save_copy remove_phase remove_phases].include?(method)
+    args = request.fetch('arguments')
+    project_id = request.fetch('project_id')
+    raise 'Auxiliary input mismatch' unless args.first == project_id && Digest::SHA256.hexdigest(canonical_json(args)) == request.fetch('input_sha256')
+    raise 'Auxiliary document mismatch' unless request['model_binding'] == JSON.parse(model_identity)
+    target = operation_receipt_path(project_id,request.fetch('operation_id'))
+    if File.file?(target)
+      prior = JSON.parse(File.binread(target))
+      raise 'OPERATION_ID_CONFLICT' unless prior['request'] == request
+      return JSON.generate(prior['result']) if prior['status'] == 'completed'
+      raise 'RESULT_UNKNOWN: auxiliary operation already dispatched'
+    end
+    FileUtils.mkdir_p(File.dirname(target))
+    File.open(target,File::WRONLY | File::CREAT | File::EXCL,0600) { |f| f.write(JSON.generate({'request'=>request,'status'=>'started'})); f.flush; f.fsync }
+    if method == 'save_copy'
+      if File.exist?(args[1])
+        result = {'ok'=>false,'error'=>'OUTPUT_EXISTS','write_attempted'=>false,'transaction_started'=>false}
+      else
+        # save_copy already records before/after document bindings. Do not run
+        # two recursive geometry audits on SketchUp's UI thread for a save.
+        result = JSON.parse(save_copy(*args))
+        if result['ok']
+          result['saved_file'] = {'path'=>args[1],'bytes'=>File.size(args[1]),'sha256'=>Digest::SHA256.file(args[1]).hexdigest}
+          root_for(project_id,false).set_attribute(DICT,'operation_commit_' + request['operation_id'],Digest::SHA256.hexdigest(canonical_json(request)))
+        end
+      end
+    else
+      names = method == 'remove_phase' ? [args[1]] : JSON.parse(args[1])
+      result = JSON.parse(remove_phases(project_id,names,request))
+      result['post_action_audit'] = JSON.parse(deletion_readback(project_id)) if result['ok']
+      if method == 'remove_phase' && result['ok']
+        result['phase'] = args[1]
+        result['removed'] = result['removed'].length
+      end
+    end
+    temporary = target + '.tmp'
+    File.open(temporary,'wb') { |f| f.write(JSON.generate({'request'=>request,'status'=>'completed','result'=>result})); f.flush; f.fsync }
+    File.rename(temporary,target)
+    JSON.generate(result)
+  end
+
+  def execute_step_with_receipt(project_id, phase_name, step_index, script_path, projection_brief_json = nil, operation_id = nil, operation_context_json = nil)
+    raise ArgumentError, 'operation_id is required' if operation_id.to_s.empty?
+    target = operation_receipt_path(project_id, operation_id)
+    binding = JSON.parse(model_identity)
+    begin
+      operation_context = operation_context_json.to_s.empty? ? {} : JSON.parse(operation_context_json.to_s)
+      validate_operation_context(operation_context, operation_id)
+      expected_binding = operation_context['expected_model_binding']
+      if expected_binding && !model_binding_matches?(expected_binding, binding)
+        return JSON.generate({'ok'=>false, 'error'=>'DOCUMENT_BINDING_CHANGED', 'code'=>'DOCUMENT_BINDING_CHANGED', 'transaction_started'=>false, 'rollback_unconfirmed'=>false, 'request_model_binding'=>expected_binding, 'current_model_binding'=>binding})
+      end
+      source = File.binread(script_path.to_s)
+      expected = operation_context['expected_script_sha256']
+      raise 'SCRIPT_CHANGED_BEFORE_EXECUTION' if expected && Digest::SHA256.hexdigest(source) != expected
+      preflight_build_script(script_path, source)
+    rescue StandardError, SyntaxError => error
+      return JSON.generate({'ok'=>false, 'error'=>error.message, 'preflight'=>true, 'transaction_started'=>false, 'rollback_unconfirmed'=>false})
+    end
+    request = {'operation_id'=>operation_id, 'project_id'=>project_id, 'phase'=>phase_name, 'step_index'=>step_index, 'script_sha256'=>Digest::SHA256.hexdigest(source), 'model_binding'=>binding, 'operation_context'=>operation_context}
+    if File.file?(target)
+      prior = JSON.parse(File.binread(target))
+      raise 'OPERATION_ID_CONFLICT' unless prior['request'] == request
+      return JSON.generate(prior['result']) if prior['status'] == 'completed'
+      raise 'RESULT_UNKNOWN: operation already started; query its receipt, never replay'
+    end
+    FileUtils.mkdir_p(File.dirname(target))
+    File.open(target, File::WRONLY | File::CREAT | File::EXCL, 0600) do |file|
+      file.write(JSON.generate({'request'=>request, 'status'=>'started'})); file.flush; file.fsync
+    end
+    result = execute_step(project_id, phase_name, step_index, script_path, projection_brief_json, request, operation_context, source)
+    receipt = {'request'=>request, 'status'=>'completed', 'result'=>JSON.parse(result)}
+    temporary = target + '.tmp'
+    File.open(temporary, 'wb') { |file| file.write(JSON.generate(receipt)); file.flush; file.fsync }
+    File.rename(temporary, target)
+    result
+  end
+
+  # Diagnostic files identify affected roots with complete geometry digests.
+  # Full recursive records still drive protection, but retaining/serializing a
+  # second copy of every child can stall rollback and exhaust memory.
+  def isolation_diagnostic_record(entity)
+    entity_record(entity, 0, nil, nil, [], {}).reject { |key, _| key == 'children' }
+  end
+
+  def execute_step(project_id, phase_name, step_index, script_path, projection_brief_json = nil, operation_request = nil, operation_context = {}, verified_source = nil)
+    raise ArgumentError, 'project_id is required' if project_id.to_s.strip.empty?
+    raise ArgumentError, 'phase_name is required' if phase_name.to_s.strip.empty?
+    raise "Ruby build file not found: #{script_path}" unless File.file?(script_path.to_s)
+    begin
+      validate_operation_context(operation_context, operation_request && operation_request['operation_id']) unless operation_context.empty?
+      verified_source = build_source(verified_source || File.binread(script_path.to_s))
+      preflight_build_script(script_path, verified_source)
+    rescue Exception => error
+      raise if error.is_a?(Interrupt) || error.is_a?(SystemExit)
+      return JSON.generate({'ok'=>false, 'error'=>"#{error.class}: #{error.message}", 'exception'=>exception_payload(error), 'preflight'=>true, 'transaction_started'=>false, 'rollback_unconfirmed'=>false})
+    end
+    existing_root = root_for(project_id, false)
+    new_expert = operation_context['policy_version'] == 2
+    local = operation_context['local_update']
+    selected_targets = nil
+    scope = new_expert ? {'project_id'=>project_id.to_s, 'work_unit_id'=>operation_context.fetch('work_unit_id')} : phase_name
+    begin
+      if local
+        live = prepare_local_update(project_id, JSON.generate(local))
+        raise 'LOCAL_TARGET_CHANGED' unless live['container_pid'] == local['container_pid'] && live['fingerprint'] == local['fingerprint'] && live['targets'] == local['targets']
+        selected_targets = local['targets'].map { |s| resolve_target(target_rows(project_id),s) }
+      end
+      if new_expert
+        selected = work_unit_group(existing_root, operation_context['work_unit_id'])
+        expected = operation_context['expected_fingerprint']
+        if selected
+          raise 'UNIT_SCOPE_CHANGED' unless expected && unit_fingerprint(selected) == expected && selected.persistent_id == operation_context['expected_pid']
+          raise 'UNIT_LOCKED' if selected.locked? || (existing_root && existing_root.locked?)
+        elsif expected || operation_context['intent'] == 'update'
+          raise 'UNIT_TARGET_MISSING'
+        end
+      end
+    rescue StandardError => error
+      return JSON.generate({'ok'=>false, 'error'=>error.message, 'transaction_started'=>false, 'rollback_unconfirmed'=>false})
+    end
+    # Normalize existing SU bounds caches before taking the rollback baseline.
+    # Cache invalidation is not itself rolled back by SketchUp.
+    refresh_local_bounds(selected_targets) if local
+    apply_runtime_render_profile
+    include_protected_root = !existing_root.nil?
+    managed_visibility_pids = model.entities.grep(Sketchup::Group).select { |entity| entity.get_attribute(DICT, 'managed_root', false) }.map { |entity| (entity.persistent_id rescue entity.entityID).to_s }
+    before_records = model.entities.to_a.select { |e| e.valid? }.reject { |e| e.is_a?(Sketchup::Group) && e.get_attribute(DICT, 'project_id') == project_id.to_s }.map { |e| isolation_diagnostic_record(e) }
+    # Local updates keep face/edge/UV signatures, but hash each shared definition
+    # once per read instead of serializing its expanded instances repeatedly.
+    fingerprint_mode = local ? 'local_geometry_v1' : new_expert
+    protection_read = {}
+    before = external_fingerprint(project_id, scope, managed_visibility_pids, include_protected_root, protection_read, fingerprint_mode)
+    rollback_baseline = external_fingerprint(project_id, '__no_mutable_phase__', nil, true, protection_read, fingerprint_mode)
+    locked_before = (new_expert || local) ? locked_scope_fingerprint(existing_root) : nil
+    local_before = local ? local_boundary_fingerprint(selected_targets.first['container'],selected_targets,protection_read) : nil
+    protection_read = nil # No cached model data survives into the write.
+    started = false
+    committed = false
+    commit_attempted = false
+    begin
+      start_result = model.start_operation("Managed #{project_id} #{phase_name}", true)
+      raise 'start_operation returned false' if start_result == false
+      started = true
+      root = root_for(project_id, true)
+      # Separate revisions share a document: hide other tool-owned project roots.
+      # Preserve their geometry and source files; only display visibility changes.
+      model.entities.grep(Sketchup::Group).each do |other|
+        next unless other.get_attribute(DICT, 'managed_root', false)
+        other.hidden = other != root
+      end
+      root.hidden = false
+      expert = operation_context.is_a?(Hash) && operation_context['strategy'].to_s == 'expert_work_unit'
+      intent = operation_context.is_a?(Hash) ? operation_context['intent'].to_s : 'replace'
+      work_unit_id = operation_context['work_unit_id'].to_s
+      old = new_expert ? work_unit_group(root, work_unit_id) : phase_group(root, phase_name, expert ? work_unit_id : nil)
+      reusable = (expert || local) && intent != 'replace' && old && old.valid?
+      raise 'LOCAL_CONTAINER_MISSING' if local && (!reusable || old.persistent_id != local['container_pid'])
+      old.erase! if old && old.valid? && !reusable
+      phase = reusable ? old : root.entities.add_group
+      phase.name = new_expert ? operation_context.fetch('unit_name', 'Architectural system') : format('%02d_%s', step_index.to_i + 1, phase_name) unless reusable
+      phase.set_attribute(DICT, 'project_id', project_id.to_s)
+      phase.set_attribute(DICT, 'phase', phase_name.to_s)
+      phase.set_attribute(DICT, 'step_index', step_index.to_i)
+      phase.set_attribute(DICT, 'work_unit_id', work_unit_id) if expert
+      phase.set_attribute(DICT, 'created_at', Time.now.utc.strftime('%Y-%m-%dT%H:%M:%SZ')) unless reusable
+      # Keep a single hidden anchor for a newly created unit; append/update reuses
+      # the existing container and therefore preserves prior wall/window objects.
+      unless reusable
+        anchor = phase.entities.add_cpoint(ORIGIN)
+        anchor.hidden = true if anchor.respond_to?(:hidden=)
+        anchor.set_attribute(DICT, 'phase_anchor', true)
+      end
+
+      Object.send(:remove_const, :PipClawManagedBuild) if Object.const_defined?(:PipClawManagedBuild)
+      # Evaluate the exact bytes that were hashed/compiled, with the original
+      # file name so require_relative continues to resolve correctly.
+      eval(build_source(verified_source), TOPLEVEL_BINDING, File.expand_path(script_path.to_s), 1)
+      unless Object.const_defined?(:PipClawManagedBuild) && PipClawManagedBuild.respond_to?(:build)
+        raise 'Managed build file must define PipClawManagedBuild.build(entities, context)'
+      end
+      projection_brief = begin
+        projection_brief_json.to_s.empty? ? {} : JSON.parse(projection_brief_json.to_s)
+      rescue StandardError
+        {}
+      end
+      context = {
+        'project_id'=>project_id.to_s,
+        'phase'=>phase_name.to_s,
+        'step_index'=>step_index.to_i,
+        'phase_group'=>phase,
+        'project_root'=>root,
+        'model'=>model,
+        # SketchUp's internal lengths are inches. Supplying both conversions here
+        # prevents build files from inventing/reversing a metres conversion.
+        'working_units'=>'mm',
+        'geometry'=>Object.new.extend(ADAIConstructionGeometry),
+        'meters_to_inches'=>39.37007874015748,
+        'mm_to_inches'=>0.03937007874015748,
+        'projection_brief'=>projection_brief,
+        'operation_intent'=>operation_context['intent'].to_s,
+        'work_unit_id'=>operation_context['work_unit_id'],
+        'execution_policy_version'=>operation_context['policy_version'],
+        'dimension_targets'=>operation_context['dimension_targets'] || [],
+        'execution_strategy'=>operation_context['strategy'],
+        'typed_operations_allowed'=>operation_context['typed_operations_allowed'] == true
+      }
+      if local
+        context['edit_targets'] = selected_targets.map { |r| r['entity'] }
+        context['edit_target_rows'] = selected_targets
+        context['edit_scope'] = local['edit_scope']
+        context['local_update'] = true
+        # Placement/material operations keep shared definitions. Internal edits
+        # copy only selected component definitions unless all peers were requested.
+        if local['edit_scope'] == 'instance' && operation_context['local_shape_edit']
+          selected_targets.each do |r|
+            e=r['entity']
+            e.make_unique if e.is_a?(Sketchup::ComponentInstance) && e.definition.instances.count(&:valid?) > 1
+          end
+        end
+      end
+      result = PipClawManagedBuild.build(phase.entities, context)
+      raise 'LOCAL_TARGET_REMOVED' if local && selected_targets.any? { |r| !r['entity'].valid? }
+      refresh_local_bounds(selected_targets) if local
+      protection_after = {}
+      raise 'LOCAL_SCOPE_CHANGED' if local && local_before != local_boundary_fingerprint(phase,selected_targets,protection_after)
+      managed_roots = model.entities.grep(Sketchup::Group).select { |entity| entity.get_attribute(DICT, 'managed_root', false) }
+      visibility_violation = managed_roots.any? do |entity|
+        next false if entity.object_id == root.object_id
+        (entity.hidden? rescue false) != true
+      end
+      raise 'Managed isolation violation: tool-owned project roots must remain hidden during an isolated step' if visibility_violation
+      after = external_fingerprint(project_id, scope, managed_visibility_pids, include_protected_root, protection_after, fingerprint_mode)
+      protection_after = nil
+      unless before == after
+        after_records = model.entities.to_a.select { |e| e.valid? }.reject { |e| e.is_a?(Sketchup::Group) && e.get_attribute(DICT, 'project_id') == project_id.to_s }.map { |e| isolation_diagnostic_record(e) }
+        debug_path = File.join(ENV['APPDATA'].to_s, 'SketchUpLiveMCP', 'last-isolation-diff.json')
+        File.write(debug_path, JSON.generate({'project_id'=>project_id, 'detail'=>'root_summary', 'before_fingerprint'=>before, 'after_fingerprint'=>after, 'before'=>before_records, 'after'=>after_records}))
+        raise 'Managed isolation violation: geometry outside the project root changed; see last-isolation-diff.json'
+      end
+      raise 'LOCKED_ENTITY_CHANGED' if (new_expert || local) && locked_before != locked_scope_fingerprint(root)
+      # SketchUp may finalize group/definition bookkeeping when the operation
+      # commits. Compute the expert scope after commit so the fingerprint
+      # stored in the operation result is the same representation later used
+      # by project audits and checkpoint recovery.
+      unit_result = nil
+      counts = count_recursive(phase.entities)
+      bounds = bounds_signature(phase)
+      metrics = complexity_metrics(phase)
+      if operation_request
+        root.set_attribute(DICT, 'operation_commit_' + operation_request.fetch('operation_id'), Digest::SHA256.hexdigest(canonical_json(operation_request)))
+      end
+      commit_attempted = true
+      commit_result = model.commit_operation
+      raise 'commit_operation returned false' if commit_result == false
+      committed = true
+      unit_result = new_expert ? unit_scope_record(phase) : nil
+      JSON.generate({
+        'complexity_metrics'=>metrics,
+        'ok'=>true, 'project_id'=>project_id.to_s, 'phase'=>phase_name.to_s,
+        'step_index'=>step_index.to_i, 'phase_pid'=>(phase.persistent_id rescue nil),
+        'counts'=>counts, 'bounds_inches'=>bounds, 'build_result'=>result,
+        'unit_scope'=>unit_result
+      })
+    rescue Exception => error
+      propagate = error.is_a?(Interrupt) || error.is_a?(SystemExit) || error.is_a?(NoMemoryError)
+      rollback_error = nil
+      rollback_unconfirmed = false
+      commit_unconfirmed = started && commit_attempted && !committed
+      if started && !committed && !commit_attempted
+        begin
+          abort_result = model.abort_operation
+          if abort_result == false
+            rollback_unconfirmed = true
+            rollback_error = {'class'=>'Sketchup::AbortOperationFailed', 'message'=>'abort_operation returned false', 'line'=>nil}
+          end
+        rescue Exception => abort_error
+          rollback_error = exception_payload(abort_error)
+          rollback_unconfirmed = true
+        end
+      end
+      raise error if propagate
+      JSON.generate({
+        'ok'=>false,
+        'error'=>"#{error.class}: #{error.message}",
+        'exception'=>exception_payload(error),
+        'transaction_started'=>started,
+        'commit_unconfirmed'=>commit_unconfirmed,
+        'rollback_unconfirmed'=>rollback_unconfirmed,
+        'rollback_confirmed'=>started && !commit_attempted && !rollback_unconfirmed && rollback_baseline == external_fingerprint(project_id, '__no_mutable_phase__', nil, true, {}, fingerprint_mode),
+        'rollback_fingerprint'=>rollback_baseline,
+        'rollback_fingerprint_mode'=>local ? 'local_geometry_v1' : (new_expert ? 'boundary_attributes_v2' : 'full'),
+        'rollback_error'=>rollback_error
+      })
+    end
+  end
+
+  def remove_phase(project_id, phase_name, work_unit_id = nil)
+    started = false
+    committed = false
+    commit_attempted = false
+    begin
+      start_result = model.start_operation("Revise managed #{project_id} #{phase_name}", true)
+      raise 'start_operation returned false' if start_result == false
+      started = true
+      root = root_for(project_id, false)
+      removed = 0
+      raise 'EXPERT_SCOPED_REPLACEMENT_REQUIRED' if phase_name == 'work_unit'
+      if root
+        target = phase_group(root, phase_name, work_unit_id)
+        if target && target.valid?
+          target.erase!
+          removed = 1
+        end
+      end
+      commit_attempted = true
+      commit_result = model.commit_operation
+      raise 'commit_operation returned false' if commit_result == false
+      committed = true
+      JSON.generate({'ok'=>true, 'project_id'=>project_id.to_s, 'phase'=>phase_name.to_s, 'removed'=>removed})
+    rescue Exception => error
+      propagate = error.is_a?(Interrupt) || error.is_a?(SystemExit)
+      rollback_error = nil
+      rollback_unconfirmed = false
+      if started && !committed && !commit_attempted
+        begin
+          abort_result = model.abort_operation
+          rollback_unconfirmed = abort_result == false
+        rescue Exception => abort_error
+          rollback_error = exception_payload(abort_error)
+          rollback_unconfirmed = true
+        end
+      end
+      error.instance_variable_set(:@pipclaw_rollback_error, rollback_error) if rollback_error
+      raise error if propagate
+      if commit_attempted || rollback_unconfirmed
+        return JSON.generate({'ok'=>false, 'error'=>"#{error.class}: #{error.message}", 'exception'=>exception_payload(error), 'commit_unconfirmed'=>commit_attempted && !committed, 'rollback_unconfirmed'=>rollback_unconfirmed, 'rollback_error'=>rollback_error})
+      end
+      raise error
+    end
+  end
+
+
+  # Atomically removes a caller-supplied downstream phase set. The caller sends
+  # names in reverse dependency order so a failed operation never leaves a
+  # partially revised managed root.
+  def remove_phases(project_id, phase_names_json, operation_request = nil)
+    names = phase_names_json.is_a?(String) ? JSON.parse(phase_names_json) : phase_names_json
+    raise ArgumentError, 'phase_names must be a non-empty Array' unless names.is_a?(Array) && !names.empty?
+    normalized = names.map { |name| name.to_s.strip }
+    raise ArgumentError, 'phase_names contains an empty or duplicate phase' if normalized.any?(&:empty?) || normalized.uniq.length != normalized.length
+    rollback_baseline = external_fingerprint(project_id, '__no_mutable_phase__')
+    started = false
+    committed = false
+    commit_attempted = false
+    begin
+      start_result = model.start_operation("Revise managed #{project_id} from #{normalized.last}", true)
+      raise 'start_operation returned false' if start_result == false
+      started = true
+      root = root_for(project_id, false)
+      raise "Managed project not found: #{project_id}" unless root
+      removed = []
+      normalized.each do |phase_name|
+        unit_id = operation_request && operation_request.dig('operation_context','work_unit_id')
+        raise 'EXPERT_SCOPED_REPLACEMENT_REQUIRED' if phase_name == 'work_unit'
+        target = phase_group(root, phase_name, unit_id)
+        next unless target && target.valid?
+        target.erase!
+        removed << phase_name
+      end
+      if operation_request
+        # Removing the last phase can make SketchUp erase its empty root. Bind
+        # the deletion receipt to the document transaction, not that lost root.
+        model.set_attribute(DICT,'operation_commit_' + operation_request.fetch('operation_id'),Digest::SHA256.hexdigest(canonical_json(operation_request)))
+      end
+      commit_attempted = true
+      commit_result = model.commit_operation
+      raise 'commit_operation returned false' if commit_result == false
+      committed = true
+      JSON.generate({'ok'=>true, 'project_id'=>project_id.to_s, 'requested'=>normalized, 'removed'=>removed})
+    rescue Exception => error
+      propagate = error.is_a?(Interrupt) || error.is_a?(SystemExit)
+      rollback_error = nil
+      rollback_unconfirmed = false
+      if started && !committed && !commit_attempted
+        begin
+          abort_result = model.abort_operation
+          rollback_unconfirmed = abort_result == false
+        rescue Exception => abort_error
+          rollback_error = exception_payload(abort_error)
+          rollback_unconfirmed = true
+        end
+      end
+      error.instance_variable_set(:@pipclaw_rollback_error, rollback_error) if rollback_error
+      raise error if propagate
+      confirmed = started && !commit_attempted && !rollback_unconfirmed && rollback_baseline == external_fingerprint(project_id, '__no_mutable_phase__')
+      JSON.generate({'ok'=>false, 'error'=>"#{error.class}: #{error.message}", 'exception'=>exception_payload(error), 'transaction_started'=>started, 'commit_unconfirmed'=>commit_attempted && !committed, 'rollback_unconfirmed'=>rollback_unconfirmed, 'rollback_confirmed'=>confirmed, 'rollback_fingerprint'=>rollback_baseline, 'rollback_error'=>rollback_error})
+    end
+  end
+
+
+
+  def deletion_readback(project_id)
+    data = root_for(project_id,false) ? project_audit_data(project_id) : {'project_id'=>project_id,'root_absent'=>true,'document_fingerprint'=>external_fingerprint(project_id,'__no_mutable_phase__')}
+    JSON.generate(data.merge('ok'=>true))
+  end
+
+  def camera_state
+    JSON.generate(ADAIViewportCapture.snapshot(model.active_view).merge('ok'=>true))
+  end
+
+  def capture_camera_state
+    state = camera_state
+    raise 'TWO_POINT_CAMERA_RESTORE_UNSUPPORTED' if JSON.parse(state)['two_point'] == true
+    state
+  end
+
+  def restore_camera(state_json)
+    state = state_json.is_a?(String) ? JSON.parse(state_json) : state_json
+    # Refuse before looking up the view, as well as before changing it.
+    raise 'TWO_POINT_CAMERA_RESTORE_UNSUPPORTED' if state['two_point'] == true
+    ADAIViewportCapture.restore(model.active_view, state)
+    JSON.generate({'ok'=>true})
+  end
+
+  def safe_ratio(a, b)
+    aa = a.to_f
+    bb = b.to_f
+    return 0.0 if bb.abs <= 0.000001
+    (aa / bb).round(6)
+  end
+
+  # SketchUp BoundingBox width/height/depth are X/Y/Z; architectural height is Z.
+  def root_form_summary(entity)
+    b = entity.bounds
+    plan = [b.width.to_f, b.height.to_f].sort
+    short = plan[0].to_f
+    long = plan[1].to_f
+    height = b.depth.to_f
+    {
+      'width_inches'=>b.width.to_f.round(6),
+      'depth_inches'=>b.height.to_f.round(6),
+      'height_inches'=>height.round(6),
+      'plan_short'=>short.round(6),
+      'plan_long'=>long.round(6),
+      'plan_aspect'=>safe_ratio(long, short),
+      'height_to_width'=>safe_ratio(height, long),
+      'height_to_thickness'=>safe_ratio(height, short)
+    }
+  rescue StandardError
+    {}
+  end
+
+  def subject_kind(entity)
+    values = [
+      (entity.get_attribute(DICT, 'subject_kind') rescue nil),
+      (entity.get_attribute(DICT, 'role') rescue nil),
+      (entity.get_attribute(DICT, 'semantic_kind') rescue nil)
+    ].map { |value| value.to_s.strip.downcase }.reject(&:empty?)
+    values.first
+  end
+
+  def dominant_body_candidate?(entity)
+    return false unless entity.is_a?(Sketchup::Group) || entity.is_a?(Sketchup::ComponentInstance)
+    return false unless entity.valid?
+    kind = subject_kind(entity)
+    return false if kind == 'phase' || kind == 'phase_container' || kind == 'prototype' || kind == 'helper' || kind == 'context' || kind == 'site'
+    return true if %w[building body main_body wing].include?(kind)
+    # A managed phase container is never a physical body. Untagged direct
+    # children remain a compatibility fallback for older projects.
+    return false if (entity.get_attribute(DICT, 'phase') rescue nil)
+    true
+  end
+
+  # Resolve physical subjects through a managed phase container. A phase group
+  # is bookkeeping, never a building; its direct registered body children are
+  # the candidates. Roofs, entrances, context and helpers remain excluded by
+  # semantic kind. Untagged direct children are retained only as the legacy
+  # compatibility fallback, so an ambiguous nested structure is not silently
+  # inflated by every leaf detail.
+  def dominant_body_entities(entities, nested_phase = false, result = [])
+    entities.to_a.each do |entity|
+      next unless entity.valid? rescue false
+      next unless entity.is_a?(Sketchup::Group) || entity.is_a?(Sketchup::ComponentInstance)
+      if entity.get_attribute(DICT, 'phase')
+        children = child_entities(entity)
+        dominant_body_entities(children, true, result) if children
+        next
+      end
+      kind = subject_kind(entity)
+      next if %w[phase phase_container prototype helper context site roof roof_shell entrance entry facade_detail].include?(kind)
+      if %w[building body main_body wing].include?(kind) || !nested_phase
+        result << entity if dominant_body_candidate?(entity)
+      elsif nested_phase
+        # A phase child without a semantic kind is a supported legacy body
+        # candidate, but we do not recurse into it and count its details.
+        result << entity if dominant_body_candidate?(entity)
+      end
+    end
+    result
+  rescue StandardError
+    result
+  end
+
+  def dominant_bodies_summary(root)
+    candidates = dominant_body_entities(root.entities)
+    seen = {}
+    masses = candidates.select do |entity|
+      pid = (entity.persistent_id rescue entity.entityID rescue nil).to_i
+      key = pid > 0 ? pid : entity.object_id
+      next false if seen[key]
+      seen[key] = true
+      begin
+        entity.layer.visible?
+      rescue StandardError
+        true
+      end
+    end
+    bodies = masses.map do |group|
+      b = group.bounds
+      width = b.width.to_f
+      depth = b.height.to_f
+      height = b.depth.to_f
+      plan = [width, depth].sort
+      short = plan[0].to_f
+      long = plan[1].to_f
+      footprint = width * depth
+      {
+        'name'=>group.name.to_s,
+        'persistent_id'=>(group.persistent_id rescue nil),
+        'subject_kind'=>subject_kind(group),
+        'width_inches'=>width.round(6),
+        'depth_inches'=>depth.round(6),
+        'height_inches'=>height.round(6),
+        'plan_long'=>long.round(6),
+        'plan_short'=>short.round(6),
+        'plan_aspect'=>safe_ratio(long, short),
+        'height_to_width'=>safe_ratio(height, long),
+        'height_to_thickness'=>safe_ratio(height, short),
+        'footprint'=>footprint.round(6),
+        'bounds_inches'=>bounds_signature(group)
+      }
+    end
+    bodies.sort_by! { |item| -item['footprint'].to_f }
+    total = bodies.sum { |item| item['footprint'].to_f }
+    bodies.each do |item|
+      item['footprint_share'] = safe_ratio(item['footprint'].to_f, total)
+    end
+    main = bodies.select { |item| item['footprint_share'].to_f >= 0.08 }.first(8)
+    {
+      'main_body_count'=>main.length,
+      'dominant_body_footprint_ratio'=>(main.first ? main.first['footprint_share'].to_f.round(6) : 0.0),
+      'bodies'=>main,
+      'candidate_count'=>masses.length,
+      'excluded_container_count'=>root.entities.to_a.count { |entity| (entity.get_attribute(DICT, 'phase') rescue nil) },
+      'count_confidence'=>(bodies.any? { |item| !item['subject_kind'].to_s.empty? } ? 'semantic_or_mixed' : 'legacy_top_level_fallback')
+    }
+  rescue StandardError
+    { 'main_body_count'=>0, 'dominant_body_footprint_ratio'=>0.0, 'bodies'=>[], 'candidate_count'=>0, 'count_confidence'=>'unavailable' }
+  end
+
+  def scale_diagnostics(entity)
+    b = entity.bounds
+    spans = [b.width.to_f, b.height.to_f, b.depth.to_f]
+    largest = spans.max || 0.0
+    warning = if largest > 0 && largest < 1.0
+      'Managed subject is smaller than one inch across. Check metres/mm-to-inches conversion before accepting.'
+    elsif largest > 1_000_000.0
+      'Managed subject exceeds one million inches across. Check working-unit conversion before accepting.'
+    else
+      ''
+    end
+    {
+      'span_inches'=>spans.map { |v| v.round(6) },
+      'span_mm'=>spans.map { |v| (v * 25.4).round(3) },
+      'largest_span_inches'=>largest.round(6),
+      'warning'=>warning
+    }
+  rescue StandardError
+    {}
+  end
+
+  # The mutable phase may change, but locked objects inside it may not. Hashes
+  # bind recapture to the same protected scene used by transactional writes.
+  def recapture_protection(project_id, cache = nil)
+    root = root_for(project_id, false)
+    visibility = model.entities.grep(Sketchup::Group).select { |e| e.get_attribute(DICT, 'managed_root', false) }.map { |e| e.persistent_id.to_s }
+    locked = []
+    walk = lambda do |entity|
+      if entity.respond_to?(:locked?) && entity.locked?
+        record = entity_record(entity, 0, nil, nil, [], cache)
+        record['locked_paths'] = entity == root ? [{'world_transform'=>root.transformation.to_a}] : instance_paths_for(root,entity)
+        raise 'PROTECTION_READBACK_INCOMPLETE' if record['incomplete'] || record.dig('geometry_summary', 'complete') == false
+        locked << record
+      else
+        Array(child_entities(entity)).each { |child| walk.call(child) }
+      end
+    end
+    walk.call(root)
+    root.entities.grep(Sketchup::Group).each_with_object({}) do |group, result|
+      phase = group.get_attribute(DICT, 'phase').to_s
+      next if phase.empty?
+      scope = phase == 'work_unit' ? {'project_id'=>project_id.to_s,'work_unit_id'=>group.get_attribute(DICT,'work_unit_id')} : phase
+      key = phase == 'work_unit' ? group.get_attribute(DICT,'work_unit_id').to_s : phase
+      result[key] = {'boundary'=>external_fingerprint(project_id, scope, visibility, true, cache), 'locked'=>Digest::SHA256.hexdigest(canonical_json(locked))}
+    end
+  end
+
+  def project_audit_data(project_id, reuse_geometry = true, mode = 'full')
+    detail = mode.to_s == 'compact' ? 'compact' : 'full'
+    full = detail == 'full'
+    audit_cache = reuse_geometry ? {} : nil
+    root = root_for(project_id, false)
+    raise "Managed project not found: #{project_id}" unless root
+    phases = root.entities.grep(Sketchup::Group).select { |group| group.valid? }.map do |group|
+      {
+        'name'=>group.name.to_s,
+        'phase'=>group.get_attribute(DICT, 'phase').to_s,
+        'step_index'=>group.get_attribute(DICT, 'step_index'),
+        'persistent_id'=>(group.persistent_id rescue nil),
+        'bounds_inches'=>bounds_signature(group),
+        'counts'=>count_recursive(group.entities),
+        'work_unit_id'=>group.get_attribute(DICT, 'work_unit_id'),
+        'visible_detail_systems'=>audited_detail_systems(group),
+        'unique_details'=>phase_registry(group, 'unique_details_json')
+      }
+    end
+    detail_systems = phases.flat_map { |phase| phase['visible_detail_systems'] || [] }
+    unique_details = phases.flat_map { |phase| phase['unique_details'] || [] }.map do |item|
+      entity = model.find_entity_by_persistent_id(item['persistent_id'].to_i) rescue nil
+      item.merge(
+        'valid'=>!!(entity && entity.valid?),
+        'counts'=>(entity && entity.valid? ? count_recursive(child_entities(entity)) : {}),
+        'bounds_inches'=>(entity && entity.valid? ? bounds_signature(entity) : [])
+      )
+    end
+    root_counts = count_recursive(root.entities)
+    root_record = {
+      'name'=>root.name.to_s,
+      'persistent_id'=>(root.persistent_id rescue nil),
+      'bounds_inches'=>bounds_signature(root),
+      'counts'=>root_counts
+    }
+    if full
+      root_record['geometry_summary'] = geometry_summary(root, nil, audit_cache)
+    else
+      root_record['audit_detail'] = 'compact'
+    end
+    result = {
+      'schema_version'=>1,
+      'audit_detail'=>detail,
+      'project_id'=>project_id.to_s,
+      'model'=>JSON.parse(model_identity),
+      'root'=>root_record,
+      'phases'=>phases,
+      'work_units'=>registered_groups(root).select { |g| g.get_attribute(DICT,'phase') == 'work_unit' }.map { |g| unit_scope_record(g) },
+      'visible_detail_systems'=>detail_systems,
+      'unique_details'=>unique_details,
+      'projection_subjects'=>projection_subject_audit(root),
+      'structure'=>structure_audit(root),
+      'camera'=>JSON.parse(camera_state),
+      'root_form_summary'=>root_form_summary(root),
+      'massing_summary'=>dominant_bodies_summary(root),
+      'scale_diagnostics'=>scale_diagnostics(root),
+      'created_at'=>Time.now.utc.strftime('%Y-%m-%dT%H:%M:%SZ')
+    }
+    result['recapture_protection'] = recapture_protection(project_id, audit_cache) if full
+    result
+  end
+
+  def export_project_audit(project_id, output_path, mode = 'full')
+    data = project_audit_data(project_id, true, mode)
+    File.open(output_path.to_s, 'wb') { |file| file.write(JSON.pretty_generate(data)) }
+    JSON.generate({'ok'=>true, 'path'=>output_path.to_s, 'project_id'=>project_id.to_s, 'audit_detail'=>data['audit_detail'], 'counts'=>data['root']['counts']})
+  end
+
+  def save_copy(project_id, output_path, presentation = 'current')
+    root = root_for(project_id, false)
+    raise "Managed project not found: #{project_id}" unless root
+    FileUtils.mkdir_p(File.dirname(output_path.to_s))
+    binding_before = JSON.parse(model_identity)
+    view = model.active_view
+    original_camera = nil
+    delivery_camera = nil
+    if presentation == 'auto'
+      bounds = drawable_bounds(root.entities, root.transformation)
+      if bounds.valid? && ADAIViewportCapture.overview_needed?(view, bounds)
+        original_camera = capture_camera_state
+        restore_camera(ADAIViewportCapture.fitted_state(view,bounds,[1,-1,0.65],Z_AXIS,true))
+      end
+      delivery_camera = JSON.parse(camera_state)
+    end
+    ok = false
+    strategy = 'save_copy'
+    begin
+      ok = model.save_copy(output_path.to_s)
+    rescue ArgumentError => e
+      raise e unless e.message.to_s =~ /Model must be saved before copying/i
+      strategy = 'temporary_save_as_then_copy'
+      temp_dir = File.join(ENV['APPDATA'].to_s, 'SketchUpLiveMCP', 'temp-models')
+      FileUtils.mkdir_p(temp_dir)
+      temp_model = File.join(temp_dir, "managed-#{project_id}-#{Time.now.utc.strftime('%Y%m%d%H%M%S')}.skp")
+      ok = model.save(temp_model)
+      raise 'Temporary save before copy failed' unless ok && File.file?(temp_model)
+      FileUtils.cp(temp_model, output_path.to_s)
+      ok = File.file?(output_path.to_s)
+    end
+    size = File.file?(output_path.to_s) ? File.size(output_path.to_s) : 0
+    binding_after = JSON.parse(model_identity)
+    JSON.generate({'ok'=>!!ok && size > 0, 'path'=>output_path.to_s, 'bytes'=>size, 'active_model_path'=>model.path.to_s, 'strategy'=>strategy, 'model_binding_before'=>binding_before, 'model_binding_after'=>binding_after, 'path_migrated'=>binding_before['path'].to_s.empty? && !binding_after['path'].to_s.empty?, 'delivery_camera'=>delivery_camera})
+  ensure
+    restore_camera(original_camera) if original_camera
+  end
+
+  # Exports three source-camera-aligned facade close-ups. Overall screenshots
+  # cannot reveal whether a claimed "detail" is a real balcony/window/edge kit.
+  def capture_detail_views(project_id, output_directory)
+    root = root_for(project_id, false)
+    raise "Managed project not found: #{project_id}" unless root
+    FileUtils.mkdir_p(output_directory.to_s)
+    view = model.active_view
+    original_state = capture_camera_state
+    original = view.camera
+    direction = original.target - original.eye
+    # Facade close-ups need a horizontal viewing direction. A top/plan source
+    # camera is parallel to world-up and cannot construct a valid facade camera.
+    direction = Geom::Vector3d.new(direction.x, direction.y, 0) if direction
+    direction = Geom::Vector3d.new(0, 1, 0) if !direction || direction.length <= 0.0001
+    direction.length = 1.0
+    bounds = root.bounds
+    center = bounds.center
+    horizontal = [bounds.width.to_f, bounds.height.to_f].max
+    distance = [horizontal * 2.2, bounds.depth.to_f * 0.24, 120.0].max
+    up = Geom::Vector3d.new(0, 0, 1)
+    levels = [['lower', 0.23], ['middle', 0.52], ['upper', 0.81]]
+    paths = levels.map do |label, fraction|
+      target = Geom::Point3d.new(center.x, center.y, bounds.min.z + bounds.depth * fraction)
+      eye = Geom::Point3d.new(
+        target.x - direction.x.to_f * distance,
+        target.y - direction.y.to_f * distance,
+        target.z - direction.z.to_f * distance
+      )
+      camera = Sketchup::Camera.new(eye, target, up, true)
+      camera.fov = 34.0 if camera.respond_to?(:fov=)
+      view.camera = camera
+      path = File.join(output_directory.to_s, "detail-#{label}.png")
+      raise "Could not write detail view #{label}" unless write_evidence_image(view, path, 1600, 1200)
+      path
+    end
+    JSON.generate({'ok'=>true, 'paths'=>paths, 'labels'=>levels.map { |item| item[0] }})
+  ensure
+    if defined?(view) && defined?(original) && view && original
+      restore_camera(original_state)
+      view.refresh
+    end
+  end
+
+  # Use the full world-space drawable extent, including height, for both exporters.
+  def prototype_camera_state(entity, rise)
+    transform = world_transform_for(entity)
+    raise 'Prototype has no live world path' unless transform
+    bounds = drawable_bounds(entity.definition.entities, transform)
+    raise 'Prototype has no drawable extent' unless bounds.valid?
+    ADAIViewportCapture.fitted_state(model.active_view,bounds,[-0.58,-1.35,rise],Z_AXIS,true)
+  end
+
+  # Registration narrows the view; an unregistered phase still has real geometry.
+  # Both native image export and OS viewport capture use this same target selection.
+  def archetype_view_targets(phase)
+    return [] unless phase && phase.valid?
+    items = phase_registry(phase, 'archetypes_json')
+    if items.empty?
+      return drawable_bounds(phase.entities, world_transform_for(phase)).valid? ? [[phase, 'archetype_phase']] : []
+    end
+    items.each_with_index.map do |item, index|
+      entity = model.find_entity_by_persistent_id(item['persistent_id'].to_i)
+      raise 'Missing registered prototype geometry' unless entity && entity.valid?
+      [entity, "prototype_#{index+1}"]
+    end
+  end
+
+  # Capture real prototypes or the unregistered phase at a useful review scale.
+  def capture_archetype_views(project_id, output_directory)
+    root = root_for(project_id, false)
+    raise "Managed project not found: #{project_id}" unless root
+    phase = phase_group(root, 'archetypes')
+    raise 'Missing archetype phase' unless phase
+    FileUtils.mkdir_p(output_directory.to_s)
+    view = model.active_view
+    original_state = capture_camera_state
+    original = view.camera
+    paths = []; labels = []
+    archetype_view_targets(phase).each do |entity, prefix|
+      [['above', 0.48], ['underside', -0.20]].each do |label, rise|
+        restore_camera(JSON.generate(prototype_camera_state(entity, rise)))
+        path = File.join(output_directory.to_s, "#{prefix.tr('_','-')}-#{label}.png")
+        raise 'Prototype image export failed' unless write_evidence_image(view, path, 1600, 1200)
+        paths << path; labels << "#{prefix}_#{label}"
+      end
+    end
+    JSON.generate({'ok'=>true, 'paths'=>paths, 'labels'=>labels})
+  ensure
+    if defined?(view) && defined?(original) && view && original
+      restore_camera(original_state)
+      view.refresh
+    end
+  end
+
+  def evidence_framebuffer?
+    ADAIViewportCapture.framebuffer?
+  end
+  def evidence_image_size(view, width, height)
+    ADAIViewportCapture.image_size(view, width, height)
+  end
+  def write_evidence_image(view, path, width, height)
+    ADAIViewportCapture.write(view, path, width, height)
+  end
+
+  def capture_reference(project_id, output_path, camera_json = nil)
+    if camera_json
+      return ADAIViewportCapture.with_saved_camera(model.active_view) do
+        restore_camera(camera_json)
+        capture_reference(project_id, output_path)
+      end
+    end
+    root = root_for(project_id, false)
+    raise "Managed project not found: #{project_id}" unless root
+    directory = File.dirname(output_path.to_s)
+    Dir.mkdir(directory) unless Dir.exist?(directory)
+    view = model.active_view
+    ratio=view.camera.aspect_ratio.to_f rescue 0.0
+    ratio=view.vpwidth.to_f / [view.vpheight,1].max if ratio<=0
+    width=1600; height=[[ (width/ratio).round, 128].max, 4096].min
+    ok = with_project_visibility(root) { write_evidence_image(view, output_path.to_s, width, height) }
+    width,height=evidence_image_size(view,width,height)
+    JSON.generate({'ok'=>!!ok, 'path'=>output_path.to_s, 'width'=>width, 'height'=>height, 'viewport_width'=>view.vpwidth, 'viewport_height'=>view.vpheight, 'camera'=>JSON.parse(camera_state)})
+  end
+  # Camera preparation only. OS viewport capture occurs AFTER this request returns.
+  def viewport_plan(project_id, phase_name)
+    reference_camera = JSON.parse(capture_camera_state)
+    @viewport_selection = model.selection.to_a
+    model.selection.clear
+    root = root_for(project_id, false)
+    raise 'Missing managed root' unless root
+    b = drawable_bounds(root.entities, root.transformation)
+    raise 'NO_DRAWABLE_GEOMETRY' unless b.valid?
+    shots = [{'label'=>'reference', 'camera'=>reference_camera}]
+    [['perspective',[1,-1,0.7],[0,0,1]],['plan',[0,0,1],[0,1,0]],['front',[0,-1,0],[0,0,1]],['side',[1,0,0],[0,0,1]],['underside',[1,-1,-0.65],[0,0,1]]].each do |label,offset,up|
+      shots << {'label'=>label,'camera'=>ADAIViewportCapture.fitted_state(model.active_view,b,offset,Geom::Vector3d.new(*up),label=='perspective')}
+    end
+    if phase_name == 'archetypes'
+      pg = phase_group(root, 'archetypes')
+      archetype_view_targets(pg).each do |entity,prefix|
+        [['above',0.48],['underside',-0.20]].each do |label,rise|
+          shots << {'label'=>"#{prefix}_#{label}",'camera'=>prototype_camera_state(entity,rise)}
+        end
+      end
+    end
+    if phase_name == 'facade_detail'
+      base=JSON.parse(camera_state); dir=Geom::Vector3d.new(*3.times.map{|i|base['target'][i]-base['eye'][i]});dir.length=1
+      distance=[b.width,b.height].max*2.2
+      [['lower',0.23],['middle',0.52],['upper',0.81]].each do |label,f|
+        t=[b.center.x,b.center.y,b.min.z+b.depth*f]
+        shots << {'label'=>"detail_#{label}",'camera'=>{'eye'=>3.times.map{|i|t[i]-dir.to_a[i]*distance},'target'=>t,'up'=>[0,0,1],'perspective'=>true,'fov'=>34.0}}
+      end
+    end
+    shots.each do |shot|
+      ['eye','target','up'].each {|key| shot['camera'][key]=shot['camera'][key].map(&:to_f)}
+      shot['camera']['height']=shot['camera']['height'].to_f if shot['camera']['height']
+    end
+    JSON.generate({'ok'=>true,'shots'=>shots,'process_id'=>Process.pid,'render_options'=>model.rendering_options.keys.map{|k|[k,model.rendering_options[k]]}.to_h})
+  end
+
+  def restore_viewport_selection
+    model.selection.clear
+    model.selection.add((@viewport_selection || []).select(&:valid?))
+    @viewport_selection = nil
+    JSON.generate({'ok'=>true})
+  end
+
+end
+
+load File.join(File.dirname(__FILE__), 'geometry_views.rb')

@@ -1,0 +1,5 @@
+## 本机接口：SketchUp 建模
+
+选择SU且已授权制作时，调用 [professional-sketchup-modeling](../professional-sketchup-modeling/SKILL.md)：05的W5.2与06.6为主要入口，03及05其他空间验证按需调用；07调用同版导出，08核交付文件。已选择Rhino等软件时沿原任务，不强制换软件。
+
+输入沿现有建模任务单和主线/指标/模型版本，输出回到同一工作包；建模执行由GPT负责，用户保留设计拍板。调用、保存和确认规则见[建模章节接口](references/sketchup-modeling-entry.md)。此补充只部署方法路由，工具兼容性及真实建模另验。

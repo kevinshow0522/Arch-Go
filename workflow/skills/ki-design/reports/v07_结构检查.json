@@ -1,0 +1,100 @@
+{
+  "scope": "Static structure and evidence-state checks, not design validation",
+  "checks": [
+    {
+      "check": "YAML frontmatter boundaries",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "name matches install directory",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "nonempty description",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SKILL relative links resolve",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "check": "six distinct book IDs",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "ISBN13 check digits (not identity proof)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "body/read evidence gate",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "check": "unique current sources with http origins",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "eight operations with sources",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "operations expose limits and counterexamples",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "channel target identity registered",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "legacy 102 project title records retained",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "legacy 12 case cards retained",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "legacy 16 rules retained",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "three reviewed public figures, no invented book pages",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "active JSON resources parse",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "check": "active nested Markdown links resolve",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "check": "current theory and drawing source identities",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "condition map references registered operations and evidence",
+      "pass": true,
+      "detail": "[]"
+    }
+  ]
+}

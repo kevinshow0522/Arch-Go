@@ -1,0 +1,680 @@
+{
+  "schema_version": 3,
+  "project": {
+    "id": "demo-slope-hall",
+    "name": "坡地社区活动中心",
+    "summary": "保留旧礼堂，在约 6 米高差的坡地上补充社区活动与托育空间。",
+    "service_stage": "b",
+    "supplement_items": [
+      {
+        "id": "03.S1",
+        "chapter": "site",
+        "title": "北侧小学噪声与视线干扰",
+        "question": "托育与小学相邻，接送高峰的噪声和相互视线怎样影响托育活动室布置",
+        "reason": "固定条目 03.2 只覆盖一般环境干扰；本项目托育紧邻小学，需要单独判断。"
+      }
+    ]
+  },
+  "streams": [
+    {
+      "id": "s-site",
+      "title": "场地与高差",
+      "note": "以 03 为主"
+    },
+    {
+      "id": "s-hall",
+      "title": "旧礼堂保留",
+      "note": "跨 01 · 03 · 05"
+    },
+    {
+      "id": "s-scheme",
+      "title": "概念方向",
+      "note": "以 05 为主"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t6",
+      "status": "waiting_decision",
+      "executor": "Claude",
+      "revision": 1,
+      "stage_ids": [
+        "concept"
+      ],
+      "topic_ids": [
+        "05.9",
+        "05.2",
+        "05.5"
+      ],
+      "stream": "s-scheme",
+      "output": "概念方向比选",
+      "result": {
+        "title": "概念方向比选",
+        "narrative": "三个方向在礼堂的角色和高差利用上有实质差异；按同一面积口径比较，差别主要在入口组织、室外空间和挡土投入。",
+        "facts": [
+          "三个方向总建筑面积均控制在约 1,800㎡（02.3 口径）"
+        ],
+        "assumptions": [
+          "挡土与台地投入按经验区间估计，未做工程量计算"
+        ],
+        "questions": [
+          "深化哪个概念方向？"
+        ],
+        "actions": [
+          "方向确定后做 05.2 总平布局与 05.5 体量剖面"
+        ]
+      },
+      "checkpoint": {
+        "done": [
+          "形成 A／B／C 三个方向"
+        ],
+        "checks": [
+          "三个方向按同一规模口径（02.3）核对面积"
+        ],
+        "blockers": [],
+        "next": "等你选定方向后进入 05.2 总平布局",
+        "saved_at": "2026-10-13T11:05:00+08:00"
+      },
+      "wait": {
+        "question": "深化哪个概念方向？",
+        "recommendation": "B 礼堂为核心，向坡上叠台"
+      },
+      "sources": [
+        {
+          "name": "规模口径",
+          "version": "02.3 v1"
+        },
+        {
+          "name": "场地断面",
+          "version": "03.5 v1 · 部分"
+        }
+      ],
+      "ui_figure": "options",
+      "ui_figure_caption": "方向 A—C 的体量与高差关系",
+      "history": [
+        {
+          "revision": 1,
+          "saved_at": "2026-10-13T11:05:00+08:00"
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "status": "waiting_material",
+      "executor": "Claude",
+      "revision": 1,
+      "stage_ids": [
+        "site"
+      ],
+      "topic_ids": [
+        "03.5"
+      ],
+      "stream": "s-site",
+      "output": "地形、高程与关键断面",
+      "result": {
+        "title": "地形、高程与关键断面",
+        "narrative": "现有资料能确定城市道路与礼堂地坪的高差约 3.2 米；坡上段缺少测绘，关键断面无法闭合。",
+        "facts": [
+          "城市道路至礼堂室内地坪高差约 3.2 米（现场测量）"
+        ],
+        "assumptions": [
+          "坡上小路标高约 +6.1 米，取自公开高程，精度约 ±1 米"
+        ],
+        "questions": [],
+        "actions": [
+          "补齐坡上段后判断两个入口层的可行性"
+        ]
+      },
+      "checkpoint": {
+        "done": [],
+        "checks": [
+          "道路至礼堂地坪高差现场复测一次"
+        ],
+        "blockers": [
+          "需要 1:500 地形测绘（CAD 或高程点）"
+        ],
+        "next": "取得 1:500 地形测绘后补齐坡上段断面",
+        "saved_at": "2026-10-12T16:10:00+08:00"
+      },
+      "wait": {
+        "note": "不受阻的工作在继续：04.1 案例筛选"
+      },
+      "sources": [
+        {
+          "name": "现场测量记录",
+          "version": "10-12"
+        },
+        {
+          "name": "公开高程",
+          "version": "精度 ±1 m"
+        }
+      ],
+      "ui_figure": "section",
+      "ui_figure_caption": "关键断面（坡上段待测绘）",
+      "history": [
+        {
+          "revision": 1,
+          "saved_at": "2026-10-12T16:10:00+08:00"
+        }
+      ]
+    },
+    {
+      "id": "t1",
+      "status": "completed",
+      "executor": "Claude",
+      "revision": 2,
+      "stage_ids": [
+        "site"
+      ],
+      "topic_ids": [
+        "03.1"
+      ],
+      "stream": "s-site",
+      "output": "区位与周边关系",
+      "result": {
+        "title": "区位与周边关系",
+        "narrative": "基地位于坡地社区中部，西侧城市道路是主要到达面；北侧小路连通社区小学，可能为托育接送形成独立入口。",
+        "facts": [
+          "西侧城市道路是现状唯一机动车到达面",
+          "北侧小路连通社区小学，步行约 4 分钟"
+        ],
+        "assumptions": [
+          "托育接送高峰与小学放学时段部分重叠"
+        ],
+        "questions": [
+          "北侧小路能否作为托育专用入口？"
+        ],
+        "actions": [
+          "确认后进入 05.4 交通流线与出入口比较"
+        ]
+      },
+      "checkpoint": {
+        "done": [
+          "补充北侧小路"
+        ],
+        "checks": [
+          "公交站与小学位置与公开地图核对",
+          "基地边界按业主提供的红线图"
+        ],
+        "blockers": [],
+        "next": "确认北侧小路用途后进入 05.4",
+        "saved_at": "2026-10-12T10:30:00+08:00"
+      },
+      "wait": {
+        "note": "不阻塞当前工作",
+        "after": "确认后进入 05.4 出入口比较"
+      },
+      "sources": [
+        {
+          "name": "业主红线图",
+          "version": "v1"
+        },
+        {
+          "name": "公开地图底图",
+          "version": "2026-10"
+        }
+      ],
+      "ui_figure": "site",
+      "ui_figure_caption": "区位与到达关系",
+      "history": [
+        {
+          "revision": 1,
+          "saved_at": "2026-10-11T11:20:00+08:00"
+        },
+        {
+          "revision": 2,
+          "saved_at": "2026-10-12T10:30:00+08:00"
+        }
+      ]
+    },
+    {
+      "id": "t8",
+      "status": "completed",
+      "executor": "Claude",
+      "revision": 1,
+      "stage_ids": [
+        "site"
+      ],
+      "topic_ids": [
+        "03.2"
+      ],
+      "stream": "s-site",
+      "output": "气候与日照遮挡",
+      "result": {
+        "title": "气候与日照遮挡",
+        "narrative": "南侧 6 层住宅使礼堂南墙在冬季下午进入阴影；夏季主导风来自东南，坡上台地通风较好。",
+        "facts": [
+          "冬至日 14 时后礼堂南墙进入阴影（日照模拟）"
+        ],
+        "assumptions": [
+          "主导风向取最近气象站资料"
+        ],
+        "questions": [],
+        "actions": [
+          "托育主要活动室宜布置在坡上东南侧"
+        ]
+      },
+      "checkpoint": {
+        "done": [
+          "冬至日遮挡核对"
+        ],
+        "checks": [
+          "冬至日 9—15 时日照遮挡核对"
+        ],
+        "blockers": [],
+        "next": "托育活动室朝向在 05.3 中落实",
+        "saved_at": "2026-10-13T14:20:00+08:00"
+      },
+      "sources": [
+        {
+          "name": "日照模拟",
+          "version": "v1"
+        },
+        {
+          "name": "气象站资料",
+          "version": "近 30 年"
+        }
+      ],
+      "ui_figure": "climate",
+      "ui_figure_caption": "冬至日遮挡与夏季主导风",
+      "history": [
+        {
+          "revision": 1,
+          "saved_at": "2026-10-13T14:20:00+08:00"
+        }
+      ]
+    },
+    {
+      "id": "t10",
+      "status": "in_progress",
+      "executor": "Claude",
+      "revision": 0,
+      "stage_ids": [
+        "site"
+      ],
+      "topic_ids": [
+        "03.S1"
+      ],
+      "stream": "s-site",
+      "output": "北侧小学噪声与视线干扰",
+      "result": null,
+      "checkpoint": {
+        "done": [
+          "开始记录接送高峰"
+        ],
+        "checks": [],
+        "blockers": [],
+        "next": "记录接送高峰的噪声与视线，判断托育活动室朝向",
+        "saved_at": "2026-10-13T15:30:00+08:00"
+      },
+      "history": []
+    },
+    {
+      "id": "t3",
+      "status": "needs_review",
+      "executor": "GPT",
+      "revision": 1,
+      "stage_ids": [
+        "site",
+        "opportunity"
+      ],
+      "topic_ids": [
+        "03.3",
+        "01.4"
+      ],
+      "stream": "s-hall",
+      "output": "旧礼堂现状与保留价值",
+      "review_reasons": [
+        "结构检测报告更新为 v2，屋架评级由 B 调为 C，是否按新报告复核？"
+      ],
+      "result": {
+        "title": "旧礼堂现状与保留价值",
+        "narrative": "礼堂为砖墙承重、木屋架，净跨约 15 米，空间完整，适合作为社区大厅保留。",
+        "facts": [
+          "礼堂净跨约 15 米，6 开间",
+          "山墙与南侧窗洞保存完整"
+        ],
+        "assumptions": [
+          "屋架加固后可继续使用（依据检测报告 v1）"
+        ],
+        "questions": [],
+        "actions": [
+          "屋架评级变化后重新判断“加固”与“更换”"
+        ]
+      },
+      "checkpoint": {
+        "done": [],
+        "checks": [
+          "现场踏勘，记录 6 开间与屋架形式"
+        ],
+        "blockers": [],
+        "next": "按结构检测报告 v2 复核保留策略",
+        "saved_at": "2026-10-12T17:40:00+08:00"
+      },
+      "wait": {
+        "recommendation": "按 v2 复核并更新受影响内容"
+      },
+      "sources": [
+        {
+          "name": "结构检测报告",
+          "version": "v1（现已更新为 v2）"
+        },
+        {
+          "name": "现场踏勘照片",
+          "version": "10-10"
+        }
+      ],
+      "ui_figure": "hall",
+      "ui_figure_caption": "礼堂剖面：砖墙承重、木屋架",
+      "history": [
+        {
+          "revision": 1,
+          "saved_at": "2026-10-12T17:40:00+08:00"
+        }
+      ]
+    },
+    {
+      "id": "t7",
+      "status": "prepared",
+      "executor": "Claude",
+      "revision": 0,
+      "stage_ids": [
+        "concept"
+      ],
+      "topic_ids": [
+        "05.2"
+      ],
+      "stream": "s-scheme",
+      "output": "总平布局与场地组织",
+      "result": null,
+      "waiting_for": "t6",
+      "checkpoint": {
+        "done": [],
+        "checks": [],
+        "blockers": [],
+        "next": "方向确定后比较建筑落位、台地与室外空间",
+        "saved_at": "2026-10-13T11:05:00+08:00"
+      },
+      "history": []
+    },
+    {
+      "id": "t11",
+      "status": "prepared",
+      "executor": "GPT",
+      "revision": 0,
+      "stage_ids": [
+        "concept"
+      ],
+      "topic_ids": [
+        "05.7"
+      ],
+      "stream": "s-scheme",
+      "output": "方向 B 效果图（3 张）",
+      "result": null,
+      "waiting_for": "t6",
+      "handoff": {
+        "from": "Claude",
+        "note": "图片生成由 GPT 完成"
+      },
+      "checkpoint": {
+        "done": [],
+        "checks": [],
+        "blockers": [],
+        "next": "方向确定后，按 Claude 整理的视角与表达要求出图",
+        "saved_at": "2026-10-13T11:10:00+08:00"
+      },
+      "history": []
+    },
+    {
+      "id": "t4",
+      "status": "completed",
+      "executor": "GPT",
+      "revision": 1,
+      "stage_ids": [
+        "positioning"
+      ],
+      "topic_ids": [
+        "02.3"
+      ],
+      "output": "规模与面积口径",
+      "confirmed": true,
+      "result": {
+        "title": "规模与面积口径",
+        "narrative": "按服务人口与托育 3 个班测算，总建筑面积约 1,800㎡；礼堂既有 620㎡ 纳入统计。",
+        "facts": [
+          "礼堂既有建筑面积 620㎡（测绘）"
+        ],
+        "assumptions": [
+          "托育按 3 个班、每班 25 人估算"
+        ],
+        "questions": [],
+        "actions": [
+          "06.8 按同一口径复核"
+        ]
+      },
+      "checkpoint": {
+        "done": [
+          "你已确认总建筑面积约 1,800㎡"
+        ],
+        "checks": [
+          "礼堂既有面积按测绘图复核"
+        ],
+        "blockers": [],
+        "next": "06.8 按同一口径复核",
+        "saved_at": "2026-10-11T15:00:00+08:00"
+      },
+      "sources": [
+        {
+          "name": "礼堂测绘图",
+          "version": "v1"
+        },
+        {
+          "name": "服务人口估算",
+          "version": "02.1"
+        }
+      ],
+      "ui_figure": "table",
+      "ui_figure_caption": "面积构成",
+      "history": [
+        {
+          "revision": 1,
+          "saved_at": "2026-10-11T15:00:00+08:00"
+        }
+      ]
+    },
+    {
+      "id": "t9",
+      "status": "completed",
+      "executor": "GPT",
+      "revision": 1,
+      "stage_ids": [
+        "positioning"
+      ],
+      "topic_ids": [
+        "02.7"
+      ],
+      "output": "设计任务书",
+      "confirmed": true,
+      "result": {
+        "title": "设计任务书",
+        "narrative": "任务书汇总功能、规模、标准和投入：活动大厅（保留礼堂）、3 班托育、社区服务，总建筑面积约 1,800㎡，分两期实施。",
+        "facts": [
+          "业主确认托育为一期内容"
+        ],
+        "assumptions": [
+          "二期社区服务用房资金待落实"
+        ],
+        "questions": [],
+        "actions": [
+          "作为 05 方向比选的统一依据"
+        ]
+      },
+      "checkpoint": {
+        "done": [
+          "你已确认"
+        ],
+        "checks": [
+          "与业主会议纪要核对功能清单"
+        ],
+        "blockers": [],
+        "next": "作为 05 方向比选的统一依据",
+        "saved_at": "2026-10-11T18:00:00+08:00"
+      },
+      "sources": [],
+      "ui_figure": "brief",
+      "ui_figure_caption": "任务书构成",
+      "history": [
+        {
+          "revision": 1,
+          "saved_at": "2026-10-11T18:00:00+08:00"
+        }
+      ]
+    },
+    {
+      "id": "t5",
+      "status": "in_progress",
+      "executor": "GPT",
+      "revision": 1,
+      "stage_ids": [
+        "cases"
+      ],
+      "topic_ids": [
+        "04.1"
+      ],
+      "output": "借鉴问题与参考筛选",
+      "result": {
+        "title": "借鉴问题与参考筛选",
+        "narrative": "按“坡地＋保留旧建筑＋社区服务”筛出 10 个候选；6 个资料已核，4 个缺平剖面。",
+        "facts": [
+          "10 个候选均为已建成项目"
+        ],
+        "assumptions": [],
+        "questions": [],
+        "actions": [
+          "资料齐后进入 04.2—04.6，最终展示 2—4 个"
+        ]
+      },
+      "checkpoint": {
+        "done": [
+          "6 个参考已核资料等级"
+        ],
+        "checks": [
+          "6 个候选的来源与建成状态已核"
+        ],
+        "blockers": [],
+        "next": "补齐 4 个候选的平剖面资料",
+        "saved_at": "2026-10-12T09:20:00+08:00"
+      },
+      "sources": [
+        {
+          "name": "案例来源清单",
+          "version": "v1"
+        }
+      ],
+      "ui_figure": "cases",
+      "ui_figure_caption": "候选参考的资料等级",
+      "history": [
+        {
+          "revision": 1,
+          "saved_at": "2026-10-12T09:20:00+08:00"
+        }
+      ]
+    }
+  ],
+  "materials": [],
+  "artifacts": [
+    {
+      "id": "f1",
+      "artifact": {
+        "task_id": "t1",
+        "title": "03.1 区位主图",
+        "path": "项目成果目录/03.1_区位主图_v2.png",
+        "revision": 2
+      }
+    },
+    {
+      "id": "f2",
+      "artifact": {
+        "task_id": "t6",
+        "title": "方向 A—C 体量模型",
+        "path": "项目成果目录/05.8_方向比较.skp",
+        "revision": 1,
+        "topic_ids": [
+          "05.9"
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-10-13T15:30:00+08:00",
+      "task_id": "t10",
+      "executor": "Claude",
+      "kind": "active",
+      "text": "新增补充项 03.S1「北侧小学噪声与视线干扰」，开始记录接送高峰"
+    },
+    {
+      "at": "2026-10-13T14:20:00+08:00",
+      "task_id": "t8",
+      "executor": "Claude",
+      "kind": "done",
+      "text": "完成「气候与日照遮挡」，冬至日 9—15 时遮挡核对已记录"
+    },
+    {
+      "at": "2026-10-13T11:10:00+08:00",
+      "task_id": "t11",
+      "executor": "Claude",
+      "kind": "queued",
+      "text": "效果图任务转交 GPT：方向确定后出图"
+    },
+    {
+      "at": "2026-10-13T11:05:00+08:00",
+      "task_id": "t6",
+      "executor": "Claude",
+      "kind": "wait",
+      "text": "「概念方向比选」形成 A／B／C 三个方向，在对话中请你决定"
+    },
+    {
+      "at": "2026-10-12T17:40:00+08:00",
+      "task_id": "t3",
+      "executor": "GPT",
+      "kind": "wait",
+      "text": "结构检测报告更新为 v2，「旧礼堂现状」标为待复核"
+    },
+    {
+      "at": "2026-10-12T16:10:00+08:00",
+      "task_id": "t2",
+      "executor": "Claude",
+      "kind": "wait",
+      "text": "「地形高程」缺坡上段测绘，先推进不受阻的案例筛选"
+    },
+    {
+      "at": "2026-10-12T10:30:00+08:00",
+      "task_id": "t1",
+      "executor": "Claude",
+      "kind": "done",
+      "text": "「区位与周边关系」更新为第 2 版，补充北侧小路"
+    },
+    {
+      "at": "2026-10-12T09:20:00+08:00",
+      "task_id": "t5",
+      "executor": "GPT",
+      "kind": "active",
+      "text": "「案例筛选」完成 6 个候选的资料核对"
+    },
+    {
+      "at": "2026-10-11T18:00:00+08:00",
+      "task_id": "t9",
+      "executor": "GPT",
+      "kind": "done",
+      "text": "「设计任务书」完成，你已确认（a 阶段成果）"
+    },
+    {
+      "at": "2026-10-11T15:00:00+08:00",
+      "task_id": "t4",
+      "executor": "GPT",
+      "kind": "done",
+      "text": "「规模与面积口径」完成，你已确认总建筑面积约 1,800㎡"
+    }
+  ]
+}

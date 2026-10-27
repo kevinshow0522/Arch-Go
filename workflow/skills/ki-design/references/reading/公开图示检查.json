@@ -1,0 +1,32 @@
+[
+  {
+    "id": "F01",
+    "source_id": "E09",
+    "title": "城市更新绿色指引总体思路",
+    "url": "https://imagepphcloud.thepaper.cn/pph/image/330/136/681.jpg",
+    "visual_status": "VISUALLY_REVIEWED",
+    "book_page": null,
+    "supported": "主层级与实施阶段",
+    "excluded": "不转录不清小字；不假设书内页码"
+  },
+  {
+    "id": "F02",
+    "source_id": "E10",
+    "title": "目标协同",
+    "url": "https://imagepphcloud.thepaper.cn/pph/image/330/136/710.jpg",
+    "visual_status": "VISUALLY_REVIEWED",
+    "book_page": null,
+    "supported": "价值与目标关联",
+    "excluded": "不能直接推出固定权重或绩效值"
+  },
+  {
+    "id": "F03",
+    "source_id": "E11",
+    "title": "城市更新专业设置逻辑图（规划、建筑除外）",
+    "url": "https://imagepphcloud.thepaper.cn/pph/image/330/136/711.jpg",
+    "visual_status": "VISUALLY_REVIEWED",
+    "book_page": null,
+    "supported": "资源、专业与设计要素；排除范围",
+    "excluded": "不等同于包含规划建筑的全专业清单"
+  }
+]

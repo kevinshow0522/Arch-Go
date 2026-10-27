@@ -1,0 +1,34 @@
+# Runtime dependencies and generated output
+node_modules/
+__pycache__/
+*.pyc
+.next/
+.vinext/
+.wrangler/
+.sites-runtime/
+dist/
+test-output/
+diagnostics/
+tmp/
+*.tsbuildinfo
+*.log
+# Machine and account configuration; project data never belongs in this repository
+.env
+.env.*
+.dev.vars*
+.mcp.json
+mcp-gpt.json
+mcp-claude.json
+storage-location.json
+storage-maintenance.json
+connection-settings.txt
+tunnel-*.yaml*
+kigaga-tunnel-info.txt
+*.clixml
+*.pem
+*.key
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.bak

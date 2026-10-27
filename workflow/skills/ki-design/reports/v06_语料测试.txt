@@ -1,0 +1,18 @@
+test_broken_spine_stops (__main__.CorpusTests.test_broken_spine_stops) ... ok
+test_duplicate_not_overwritten (__main__.CorpusTests.test_duplicate_not_overwritten) ... ok
+test_epub_drm_stops (__main__.CorpusTests.test_epub_drm_stops) ... ok
+test_epub_spine_not_alphabetical (__main__.CorpusTests.test_epub_spine_not_alphabetical) ... ok
+test_external_resource_stops (__main__.CorpusTests.test_external_resource_stops) ... ok
+test_full_import_stays_unverified (__main__.CorpusTests.test_full_import_stays_unverified) ... ok
+test_mismatch_warns_not_complete (__main__.CorpusTests.test_mismatch_warns_not_complete) ... ok
+test_missing_permission_rejected (__main__.CorpusTests.test_missing_permission_rejected) ... ok
+test_pdf_pages_not_omitted_when_blank (__main__.CorpusTests.test_pdf_pages_not_omitted_when_blank) ... ok
+test_preview_does_not_promote_full_body (__main__.CorpusTests.test_preview_does_not_promote_full_body) ... ok
+test_public_archive_excludes_private_text (__main__.CorpusTests.test_public_archive_excludes_private_text) ... ok
+test_script_content_not_retrieved (__main__.CorpusTests.test_script_content_not_retrieved) ... ok
+test_unknown_id_rejected (__main__.CorpusTests.test_unknown_id_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.081s
+
+OK

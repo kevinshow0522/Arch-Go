@@ -1,0 +1,555 @@
+{
+  "schema_version": 1,
+  "skill": "professional-sketchup-modeling",
+  "method_adaptation": "ki-workflow-modeling-20261027-r1",
+  "date": "2026-10-27",
+  "inventory_scope": "Public source distribution excluding nine historical case PNGs; source model and MCP runtime not included.",
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "sha256": "670806cc488924af4702515575300c15c75799d4fed362246c7c92271f4a930d",
+      "bytes": 378
+    },
+    {
+      "path": "BUILD.json",
+      "sha256": "7607eedadbd87ceedd1403e970d36b3b2fae1a72aeafcafe177e69c569859bc2",
+      "bytes": 312
+    },
+    {
+      "path": "INSTALL.md",
+      "sha256": "e54ba039d4a0165fe0aa0ef37b748ff2eda555021a4962aaf9df95741c47dd4d",
+      "bytes": 2590
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "0bd4ac43b6a522528b05a7fb5f642c945f21b7c6631cd01516c91a632057aa89",
+      "bytes": 28318
+    },
+    {
+      "path": "LOCAL-ADAPTATION.json",
+      "sha256": "39890723d59f52ce9bd3e1f012db59a8fed42141a4c310d85e79e011cae0294e",
+      "bytes": 2971
+    },
+    {
+      "path": "NOTICE",
+      "sha256": "a2049e405417a7d46346fcf48255b79ca5c5d35f3860b85c44143fc298b49e2f",
+      "bytes": 622
+    },
+    {
+      "path": "references/ancient-detail-decomposition.md",
+      "sha256": "b583464401bb5d4af1f4ced91eae887ad6a4ecc24aa414025a3eee6c7c515e38",
+      "bytes": 2669
+    },
+    {
+      "path": "references/ancient-gates.md",
+      "sha256": "5a2e15f27962030c875676b9699e8b19cd87e453aa2951532bc72253e3fb4456",
+      "bytes": 245
+    },
+    {
+      "path": "references/assembly-review.md",
+      "sha256": "8b8979a298eb2f5f205c4ff541a7095e2845c95580dabe706d033c8318ee7183",
+      "bytes": 2149
+    },
+    {
+      "path": "references/ATTRIBUTION.md",
+      "sha256": "9f5f062973348bb4cc510d89712bd626675ef0be7b7eb75793c3062bdb35f178",
+      "bytes": 533
+    },
+    {
+      "path": "references/cad-to-su-fidelity.md",
+      "sha256": "16e22f544b8a493caf823f2cf65b804bf2b82f1c1846598a733979e5f2dddf74",
+      "bytes": 3866
+    },
+    {
+      "path": "references/camera-capture-review.md",
+      "sha256": "303e5712329ea88732aadab61a911d1c241f67f3470113a65c0e5949613b428b",
+      "bytes": 2061
+    },
+    {
+      "path": "references/change-focused-review.md",
+      "sha256": "8d0285aaa36077e467810cd87c2529ad57a097142c1be06179ad242e9124cec6",
+      "bytes": 326
+    },
+    {
+      "path": "references/chinese-ancient-architecture-rules.md",
+      "sha256": "cbf8415019a2ef3fd5409ad127099423cf7e9c160746786a02c88cd820b717b8",
+      "bytes": 6222
+    },
+    {
+      "path": "references/chinese-ancient-regression-findings.md",
+      "sha256": "0e025ef1f16d485064bc7188bfbace5e88438ef5b1b32dccad70001e81cba7cd",
+      "bytes": 9092
+    },
+    {
+      "path": "references/chinese-tower-case/README.md",
+      "sha256": "d83d2d3dfdd308548364e2991a662cc63e6b7dd3c5c757a1eb04ce3c6714c3b0",
+      "bytes": 870
+    },
+    {
+      "path": "references/chinese-tower-case-evidence.json",
+      "sha256": "60b87067bf9b8e022263b620801351054a65080ca7e9cce362ad5e34fdcd55e0",
+      "bytes": 47932
+    },
+    {
+      "path": "references/chinese-tower-image-modeling.md",
+      "sha256": "b1c382f5aa8b8a283b411805aa42f88075ed89741efa30ac2f2a016d525cb17c",
+      "bytes": 10623
+    },
+    {
+      "path": "references/commercial-street-lessons.md",
+      "sha256": "c39f001f4651744041fff164427e43df468a34d4ab1d8f0b46c5fa633465726a",
+      "bytes": 263
+    },
+    {
+      "path": "references/curved-architecture-rules.md",
+      "sha256": "c00bcaf6aafea186d6851f253d4e2df5384136f0f62ccbcaf3049d6e44b6687f",
+      "bytes": 5350
+    },
+    {
+      "path": "references/examples/recipe-and-batch.md",
+      "sha256": "f81725221844dee73d3c2d9a1b0eefed8bf2c6b9891eaf235848fca9833a4313",
+      "bytes": 2712
+    },
+    {
+      "path": "references/examples/roof-recipe.json",
+      "sha256": "8f09009daa46e883c5f0047527dc613cc19c868b3b8fd008715b1a840f73fd13",
+      "bytes": 1209
+    },
+    {
+      "path": "references/examples/ruby/ancient-construction-patterns.rb",
+      "sha256": "946da4baa2cc880f2d3dbe9846f916ce5f6d306cbfc409a41e6de970c5274d01",
+      "bytes": 4089
+    },
+    {
+      "path": "references/examples/ruby/polygon-eave-shell.rb",
+      "sha256": "ecab029d9940bdae4bccff436a6d5c38560c2ab2b4e3d2742b106042b550e294",
+      "bytes": 4691
+    },
+    {
+      "path": "references/examples/ruby/README.md",
+      "sha256": "42b7f5ae93c7d4478908a99ea2c153ca34d68f25691cca0afac5ea03171a1b92",
+      "bytes": 524
+    },
+    {
+      "path": "references/examples/ruby/representative-and-batch.rb",
+      "sha256": "d4ebbf80e464994e25cb03c650376ecf9144af93d82a0100d0f7831672a9d456",
+      "bytes": 3527
+    },
+    {
+      "path": "references/examples/ruby/shared-boundary-shell.rb",
+      "sha256": "90e4a6bdf599f35241b72e584d33a4c21f7a4d4d18730ef6fdd61183ec1a4c92",
+      "bytes": 2702
+    },
+    {
+      "path": "references/examples/shared-boundary-shell.md",
+      "sha256": "f529da0386b7178db7dbfd1a6e042fd7d5cf9aa3609c85daf7f43ba5bcfb4a06",
+      "bytes": 2116
+    },
+    {
+      "path": "references/expert-operation.md",
+      "sha256": "b885315245a812711b6c6b9025069302d0bd54ed1915312401b4a8dd1a17fe68",
+      "bytes": 5125
+    },
+    {
+      "path": "references/facade-skin-review.md",
+      "sha256": "3a5ef6053fa836a41a48a341f11cb2734939eaeb0625425a51e9910a607ce7b4",
+      "bytes": 2548
+    },
+    {
+      "path": "references/form-feature-review.md",
+      "sha256": "63068dcc27651ed3de410aa9c6614b79365afe36decd5857e7000c1069331c90",
+      "bytes": 2066
+    },
+    {
+      "path": "references/geometry-guard.md",
+      "sha256": "f89eb694fc720d2700dc03e9c2e2823fc73d5be66d1857e19433a5301d2ade45",
+      "bytes": 5184
+    },
+    {
+      "path": "references/guided-operation.md",
+      "sha256": "d8a96a2bf533e1bca5faf946db8884d62020d798abd73abb185ea4ee22c48035",
+      "bytes": 2601
+    },
+    {
+      "path": "references/hierarchical-component-workflow.md",
+      "sha256": "dcc4ffab28cc3183d265a156fb5ade884d41da03c641a66ee1dc37a8b138853a",
+      "bytes": 13406
+    },
+    {
+      "path": "references/HOST-ENABLEMENT.md",
+      "sha256": "49f17851d7fa1401468bebd00240d62381759182ec262e2eaf4e9a8c6c9f9d9b",
+      "bytes": 4729
+    },
+    {
+      "path": "references/image-to-su-staged-template.md",
+      "sha256": "9c1456678eb52169add531f4adfdd7f7e057ebe9d942714ed00b09bcb7b52edc",
+      "bytes": 3765
+    },
+    {
+      "path": "references/independent-review.md",
+      "sha256": "01ac3f0bbf248f25605d01dae934754c155132000ea6860ddafc75824fac3fe8",
+      "bytes": 1709
+    },
+    {
+      "path": "references/instance-layout-contract.md",
+      "sha256": "3b5c63f7d491d8da9986b6295ba2387235134a4db7d401b661b697730c6296fa",
+      "bytes": 6921
+    },
+    {
+      "path": "references/managed-quality-review.md",
+      "sha256": "c2674128ebb3988ba90795c4130cc66bb81fb4aed0258fcb4860345c5f354a3d",
+      "bytes": 3903
+    },
+    {
+      "path": "references/managed-recovery.md",
+      "sha256": "eb4462b8b9de96d670e9545b2c0a67aa68a99674c97b78ef24fa1644e57b2bf8",
+      "bytes": 2443
+    },
+    {
+      "path": "references/managed-ruby-api.md",
+      "sha256": "ee1f395d00f76ca2ee5f7079d02a440b12a612b21456884d568fda40d408cb2c",
+      "bytes": 16986
+    },
+    {
+      "path": "references/materials-editability-review.md",
+      "sha256": "01305a55ca7176229f85789e8ce68fcf3face7ef2b4bb15056b95b2d80a182ea",
+      "bytes": 1904
+    },
+    {
+      "path": "references/minimal-managed-example.md",
+      "sha256": "29acdf5b86d19f482e5557213be4ba80f8683be65c39fd06189c5e6dfce55411",
+      "bytes": 1526
+    },
+    {
+      "path": "references/modeling-method-playbook.md",
+      "sha256": "597da80507f6bafd44897c9519e6e97d96f79516a82a45ba45511f02014e539e",
+      "bytes": 10436
+    },
+    {
+      "path": "references/parameter-dependency-contract.md",
+      "sha256": "14a948402e8595fc9b5a994f1510463dc0e1a08164f31673b3ffea9a00670a72",
+      "bytes": 5206
+    },
+    {
+      "path": "references/progressive-image-reconstruction.md",
+      "sha256": "60cbfcd1ba33bedd734eee0b76880d1384c685214cf8f28dcf3d2753236c2d6f",
+      "bytes": 318
+    },
+    {
+      "path": "references/projection-brief-guide.md",
+      "sha256": "4190a491634ba53dc662f1f69fee8520e7153417ab86f446af8ca1b7eed94921",
+      "bytes": 1462
+    },
+    {
+      "path": "references/quality-check-contract.md",
+      "sha256": "3dbc6f427accb7259c6db21d63202d27f8565c00f53b8e597a01551a3bae7916",
+      "bytes": 6909
+    },
+    {
+      "path": "references/read-only-corpus-reader.md",
+      "sha256": "5f6604d978f0fdd27fa43d4f1ff57eb6216c043699b47da423cb8c7c986995ee",
+      "bytes": 396
+    },
+    {
+      "path": "references/ref-pack-guide.md",
+      "sha256": "89174dcf3d26da212f4372b58eee9f141e808f3d0060b0cd4da21b907ef997eb",
+      "bytes": 8321
+    },
+    {
+      "path": "references/reference-catalog.md",
+      "sha256": "2eedce109442a4f63d5f8c3d7737563d370dc1131cb326bc6a011357cad445ab",
+      "bytes": 3540
+    },
+    {
+      "path": "references/reference-comparison.md",
+      "sha256": "e9c949a764784154fc77a7078c7732882a803904317d0196bad672280ba0c3c4",
+      "bytes": 1679
+    },
+    {
+      "path": "references/reverse-modeling-index.md",
+      "sha256": "568cf77274f9df4e2fadaf48876fe83105c4d4302f9ded93297b309f17c2d2e8",
+      "bytes": 1266
+    },
+    {
+      "path": "references/ruby-snippets.md",
+      "sha256": "c84bc6d61468898379d1d7507bf16f7f8ba2e5718eac9183e954d0bb79dc250a",
+      "bytes": 12973
+    },
+    {
+      "path": "references/runtime-compatibility.md",
+      "sha256": "5d84cfb995359b4bf4d492e4bedfd0579b505f48a7eeec8a6e552a15c15bc39f",
+      "bytes": 4687
+    },
+    {
+      "path": "references/scoped-operations.md",
+      "sha256": "05d59c05fe62505423bc9e28e363aca016a0cfe9c2b9bf9e52b11ca5c26a33a0",
+      "bytes": 4042
+    },
+    {
+      "path": "references/semantic-validation.md",
+      "sha256": "6df992584e5bdffb9dcbe3c8607ac0446da133d4241261f8dc0d222de29335e1",
+      "bytes": 5495
+    },
+    {
+      "path": "references/shared-architectural-foundation.md",
+      "sha256": "9f94e3691729d531f66821f2b0da4569c9c33e1161fc7013937328a4f7ef068e",
+      "bytes": 3758
+    },
+    {
+      "path": "references/source-analyzer-prompt.md",
+      "sha256": "22f0fc3fcc73541d3b069145355e89fa4a0ac984170c35e1bce0522349c757d1",
+      "bytes": 1342
+    },
+    {
+      "path": "references/SOURCE-DIAGNOSIS.md",
+      "sha256": "227a357f5485f4e0d52bc4f8f2a3e49badd3e35b7736ff81e812ae68f967053d",
+      "bytes": 872
+    },
+    {
+      "path": "references/source-dimensions.md",
+      "sha256": "2351ba62e5436d577facde5558415fd2738eeba725254c85e487b06b07e0ce65",
+      "bytes": 1942
+    },
+    {
+      "path": "references/source-reading-diagnostics.md",
+      "sha256": "72d041d4670c3bae5f080477b1553dad409ccd25ef488a6c9fbb759c9a770aef",
+      "bytes": 2013
+    },
+    {
+      "path": "references/targeted-ancient-curved-study.md",
+      "sha256": "daef2407b7f8224c666f3306493b31eae47786bb48fb64ca00a472c2a17cb789",
+      "bytes": 3874
+    },
+    {
+      "path": "references/trace-manifest-schema.md",
+      "sha256": "e83020c8e1ef6606cef5a525fea253bb842a6af9ae51d31db92339c242164f2f",
+      "bytes": 9671
+    },
+    {
+      "path": "references/weak-model-starter.md",
+      "sha256": "cfb2bce5cdbedbd400318b8ca1b9177223d8bd37765202b99499bab4b929f1d0",
+      "bytes": 1123
+    },
+    {
+      "path": "references/workflow-integration.md",
+      "sha256": "b0404fd12a1fcb0d11940446f3b169105e92e9c9fe41c4a78b8b2efb3128090d",
+      "bytes": 7136
+    },
+    {
+      "path": "references/yellow-crane-tower-lessons.md",
+      "sha256": "8d10987a9494b037a64643a07eda18f12fd34342f36b716af9bf0e0560f1e78a",
+      "bytes": 7647
+    },
+    {
+      "path": "RELEASE.md",
+      "sha256": "cd0eb970f3ba78444fdcc841d68c9632a8f224738a559101f5ff961c020079aa",
+      "bytes": 2284
+    },
+    {
+      "path": "scripts/audit_active_model.rb",
+      "sha256": "575ac56bd979e211b5d7ed707c9a1b3567cc2c63ad0c152685e8b45bb76456c3",
+      "bytes": 10684
+    },
+    {
+      "path": "scripts/audit_subject_bounds.rb",
+      "sha256": "a78cf79299b131724ba507b8692fc7c65ba1938a7b6eedb5763c4c8d92660c30",
+      "bytes": 1960
+    },
+    {
+      "path": "scripts/build_from_trace_manifest.py",
+      "sha256": "fcb9188320a72a460d73b5b828679b591b6f91cef8835732acd75b6b356ffcce",
+      "bytes": 10882
+    },
+    {
+      "path": "scripts/call_sketchup_mcp.mjs",
+      "sha256": "3e8fcf65d34e3648e4dab02c424c3f8ab4c871434f69719da69586c79bc20bbd",
+      "bytes": 4480
+    },
+    {
+      "path": "scripts/capture_viewport.py",
+      "sha256": "58daef5d27da0135e71062d423730a2c48e861d2e5249e595b382286add61930",
+      "bytes": 193
+    },
+    {
+      "path": "scripts/capture_window.py",
+      "sha256": "5c8588c5be4b7689eb67f69743f7a4743d577a64089ca214eae073cd455f970c",
+      "bytes": 5855
+    },
+    {
+      "path": "scripts/construction_geometry.rb",
+      "sha256": "6d73cbbaf2199ecfa7a06a86223004569e0aeaff532e8d727718d87a9604791b",
+      "bytes": 20589
+    },
+    {
+      "path": "scripts/enable_host_mcp.py",
+      "sha256": "f160f11761ab39ddf2dd96bea524266872a51fd8c2489d9319a8d742f5585160",
+      "bytes": 12800
+    },
+    {
+      "path": "scripts/geometry_guard.rb",
+      "sha256": "e24140e95b889922291cd31bb597dca45438e3a0bde4726d0536847fec90e06f",
+      "bytes": 8020
+    },
+    {
+      "path": "scripts/geometry_views.rb",
+      "sha256": "8fe3cc9092a79306ca39463f66b0d2b56f647654aa05e0910e137eb41c4b1bad",
+      "bytes": 6892
+    },
+    {
+      "path": "scripts/inspect_sketchup_shortcut.ps1",
+      "sha256": "1be79776b982bf4b2eb20aeb489233ed5bc896362d7e81ca49c27e1b759fdbec",
+      "bytes": 2429
+    },
+    {
+      "path": "scripts/install_managed_mcp.py",
+      "sha256": "3f5d61186569c03f46533efdf2e71e8de5bdaa1d7ae067d6dddd7fcb2b45f3ae",
+      "bytes": 7304
+    },
+    {
+      "path": "scripts/learn_sketchup_models.ps1",
+      "sha256": "f7c4fe08bde90d7b0397bc53e173ca3f68b56112e9bfe84d34d2b100b490721e",
+      "bytes": 307
+    },
+    {
+      "path": "scripts/make_visual_review_sheet.py",
+      "sha256": "42b65dab0828fd43bb67f1a52e80d52105c4e7e650af24a7aaaac93e16d2b881",
+      "bytes": 12013
+    },
+    {
+      "path": "scripts/managed_operations.rb",
+      "sha256": "a3e7a899d32706771acd77cf550e08a43f3906b8b29af94e8af679ffea98ccba",
+      "bytes": 9813
+    },
+    {
+      "path": "scripts/managed_project.rb",
+      "sha256": "dc5b9f8bb1ed7a093e782f9bd2a590b0d0bc7722110ae0c884f423b4a74cced2",
+      "bytes": 110390
+    },
+    {
+      "path": "scripts/managed_targets.rb",
+      "sha256": "fd37847d950ca753462b0ba598112d8e53b6dd42a3c901f1d2de7dce7f2bf1f4",
+      "bytes": 9198
+    },
+    {
+      "path": "scripts/managed_unit_scope.rb",
+      "sha256": "560610c380af0219618dce95c34702b21bded557035751fe88b2b577979bacda",
+      "bytes": 5136
+    },
+    {
+      "path": "scripts/materialize_geometry_review.py",
+      "sha256": "f28a6caad738f563f4a6951e29b97099b47c6258ccae3ca643f603ac8104f56d",
+      "bytes": 3792
+    },
+    {
+      "path": "scripts/read_instance_layout.py",
+      "sha256": "8fc07075af3c30ab2a4dd519f93912e23b8e79cab760c9aed646d1e3b8a7b959",
+      "bytes": 3964
+    },
+    {
+      "path": "scripts/read_instance_layout.rb",
+      "sha256": "b7564bf7d770af6eeced290e9d4d95a9501319bfae4220ec91e18c45de5c36db",
+      "bytes": 4405
+    },
+    {
+      "path": "scripts/read_skp_batch.py",
+      "sha256": "455b956c748cb66712a51f0822bb272d865523bfdfcaf599155bc7f352e0dc7e",
+      "bytes": 2532
+    },
+    {
+      "path": "scripts/read_skp_structure.py",
+      "sha256": "1d6239135b6d2b986f9710c61ffd30649a674272ff9ff3b216ab77fba3f7272f",
+      "bytes": 11374
+    },
+    {
+      "path": "scripts/register_reference_library.py",
+      "sha256": "8f82fecec43574d7db97637a29321e98897c05213ac42cf01c233ca73522c546",
+      "bytes": 12577
+    },
+    {
+      "path": "scripts/scaffold_quality_review.py",
+      "sha256": "7c3055e519cbfcf54256e0b7a6c883c89b4fa88d4d1568e2e0389cb390a992ea",
+      "bytes": 4320
+    },
+    {
+      "path": "scripts/source_dimensions.rb",
+      "sha256": "86997d0e0b2faf098782d0f9629b687600f5d1d7eae7506f2503e61e303d4350",
+      "bytes": 4017
+    },
+    {
+      "path": "scripts/start_local_sketchup.ps1",
+      "sha256": "bb4f8844f8f984a8045555aad3460a742b1caa0701598af2bf8db2d780318ba8",
+      "bytes": 4700
+    },
+    {
+      "path": "scripts/stdio_bridge.py",
+      "sha256": "b281190fba1634bbd86a6651a6f91b16fc409dbce21b55805e3457e4abd72bbb",
+      "bytes": 16736
+    },
+    {
+      "path": "scripts/validate_cad_su_fidelity.py",
+      "sha256": "14b56275a684fc96c6703aa877f37a0c4df9dc096c5cbb227cdd908866ddff84",
+      "bytes": 9697
+    },
+    {
+      "path": "scripts/validate_geometry_measurements.py",
+      "sha256": "8c6ed0d0be2c85361e5d7ed1711bcf543379bc0e0b9910a12360d7946f1b39a8",
+      "bytes": 14625
+    },
+    {
+      "path": "scripts/validate_instance_layout.py",
+      "sha256": "afff48c0228969c2d8d026508f14c7e0b8bc46054b346d12742fbd072032def5",
+      "bytes": 2582
+    },
+    {
+      "path": "scripts/validate_parameter_dependencies.py",
+      "sha256": "aabc66f87c3e4191db75b3074f1bccf3a5b1b3dcc133cdfc31020d30511bc714",
+      "bytes": 8237
+    },
+    {
+      "path": "scripts/validate_reference_libraries.py",
+      "sha256": "5e0b938e5528822dbb8f4d0d78fde279b006107c197d7d1d550911125aa7d597",
+      "bytes": 3284
+    },
+    {
+      "path": "scripts/validate_trace.py",
+      "sha256": "9013a7f189795927acfc53def36bbb4fd940e71b4c3bd6fdbf1f3523414ccfc8",
+      "bytes": 12468
+    },
+    {
+      "path": "scripts/verify_model_delivery.py",
+      "sha256": "63c7b99dc4a9fe9ef79255f77f933a7daab391c642022da416b1c2824f93f573",
+      "bytes": 9078
+    },
+    {
+      "path": "scripts/viewport_capture.rb",
+      "sha256": "152c42e263c30ebc2dfb905ef2338934cf4ea99044f26a56ea4fe95c51cc0f8c",
+      "bytes": 5705
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "9ddc35f6bfed559c75404d4ede579ff6ddf5d4a2e4ed4470aff0626aa0bcc8fb",
+      "bytes": 14017
+    },
+    {
+      "path": "templates/experience-pack/case.json",
+      "sha256": "8d7556bf6b8ba1a61a5ff2c42c3438b11ba4bb91c39bd96582470ffca3eb09e3",
+      "bytes": 1016
+    },
+    {
+      "path": "templates/experience-pack/REF.md",
+      "sha256": "cc2090ca451f49f31735d764f065408c309be9dd3f2da2ab812b296d2f12dcb9",
+      "bytes": 1382
+    }
+  ],
+  "omitted_reference_images": [
+    "references/chinese-tower-case/C0493.png",
+    "references/chinese-tower-case/C0786.png",
+    "references/chinese-tower-case/C0797.png",
+    "references/chinese-tower-case/C0853.png",
+    "references/chinese-tower-case/C0988.png",
+    "references/chinese-tower-case/C0993.png",
+    "references/chinese-tower-case/C1021.png",
+    "references/chinese-tower-case/C1043.png",
+    "references/chinese-tower-case/embedded-preview.png"
+  ]
+}

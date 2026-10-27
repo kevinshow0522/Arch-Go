@@ -1,0 +1,16 @@
+{
+  "checked": [
+    "all rectangle corners inside assumed triangle",
+    "sum primary floor areas = 10080 m²",
+    "alternative floor areas = 10080 m²",
+    "B4 north edge meets B2 south edge at y138"
+  ],
+  "issues": [],
+  "does_not_check": [
+    "real cadastral boundary",
+    "flood planning",
+    "building codes",
+    "engineering calculations",
+    "visual consistency until images actually opened"
+  ]
+}

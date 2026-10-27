@@ -1,0 +1,55 @@
+test_current_generation_method_is_discoverable (__main__.PublicRetrievalTests.test_current_generation_method_is_discoverable) ... FAIL
+test_legacy_public_cards_remain_discoverable (__main__.PublicRetrievalTests.test_legacy_public_cards_remain_discoverable) ... ok
+test_nested_drawing_card_is_discoverable (__main__.PublicRetrievalTests.test_nested_drawing_card_is_discoverable) ... FAIL
+test_nested_theory_is_discoverable (__main__.PublicRetrievalTests.test_nested_theory_is_discoverable) ... FAIL
+test_private_archive_and_reports_are_not_public_research_hits (__main__.PublicRetrievalTests.test_private_archive_and_reports_are_not_public_research_hits) ... ok
+
+======================================================================
+FAIL: test_current_generation_method_is_discoverable (__main__.PublicRetrievalTests.test_current_generation_method_is_discoverable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/skills\cui-kai-local-design\scripts\test_retrieval.py", line 48, in test_current_generation_method_is_discoverable
+    self.assertEqual([x['path'] for x in self.query('同源空间底稿Z31')],
+AssertionError: Lists differ: [] != ['method/generation.md']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'method/generation.md'
+
+- []
++ ['method/generation.md']
+
+======================================================================
+FAIL: test_nested_drawing_card_is_discoverable (__main__.PublicRetrievalTests.test_nested_drawing_card_is_discoverable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/skills\cui-kai-local-design\scripts\test_retrieval.py", line 43, in test_nested_drawing_card_is_discoverable
+    self.assertEqual([x['path'] for x in self.query('剖面邻接Y29')],
+AssertionError: Lists differ: [] != ['references/reading/v06/drawing.md']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'references/reading/v06/drawing.md'
+
+- []
++ ['references/reading/v06/drawing.md']
+
+======================================================================
+FAIL: test_nested_theory_is_discoverable (__main__.PublicRetrievalTests.test_nested_theory_is_discoverable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/skills\cui-kai-local-design\scripts\test_retrieval.py", line 38, in test_nested_theory_is_discoverable
+    self.assertEqual([x['path'] for x in self.query('立体公共界面X17')],
+AssertionError: Lists differ: [] != ['references/theory/v06/idea.md']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'references/theory/v06/idea.md'
+
+- []
++ ['references/theory/v06/idea.md']
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.888s
+
+FAILED (failures=3)

@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "adaptation_id": "ki-workflow-modeling-20261027-r1",
+  "date": "2026-10-27",
+  "upstream_build": {
+    "version": "0.5.39",
+    "build_id": "0.5.39-construction-inspection-20261003-r1",
+    "source_baseline": "1c55ed976f781723885f5be08e3b7b875f81a735",
+    "source_digest": "da3cf72b52dbc11387216e6dcc2fb208a30d2485b63e8cf63f16e15c6694aebc",
+    "real_sketchup_acceptance": "scope_recorded_separately_for_this_build"
+  },
+  "scope": "Local Skill method and display adaptation for KI workflow",
+  "mcp_rbz_or_constructor_code_changed": false,
+  "live_sketchup_modeling_validation": "not_run",
+  "checks": {
+    "skill_format": "pass",
+    "local_markdown_links": 134,
+    "ui_metadata": "pass",
+    "offline_mode_policy_cases": 3
+  },
+  "changed_files": [
+    {
+      "path": "INSTALL.md",
+      "before_sha256": "de84c72086f4c9f9ea98cfd5bcdb18cda75e98379ddc9b7f9fca6e27a21f47b5",
+      "after_sha256": "e54ba039d4a0165fe0aa0ef37b748ff2eda555021a4962aaf9df95741c47dd4d"
+    },
+    {
+      "path": "SKILL.md",
+      "before_sha256": "0dcb4e4f73e09a0ac2709a049b4d553fe914815a9d5e21ffedcd095a999dbf19",
+      "after_sha256": "9ddc35f6bfed559c75404d4ede579ff6ddf5d4a2e4ed4470aff0626aa0bcc8fb"
+    },
+    {
+      "path": "agents/openai.yaml",
+      "before_sha256": "68bfd5ed66a3d125de15421602773a3f9739306de7f525bd9607833b85957b01",
+      "after_sha256": "670806cc488924af4702515575300c15c75799d4fed362246c7c92271f4a930d"
+    },
+    {
+      "path": "references/expert-operation.md",
+      "before_sha256": "adcae11da7c8f32d7591467651decd09008778a29619b2941fdaa978e229cde8",
+      "after_sha256": "b885315245a812711b6c6b9025069302d0bd54ed1915312401b4a8dd1a17fe68"
+    },
+    {
+      "path": "references/guided-operation.md",
+      "before_sha256": "b2c8c9349e8dfb62a1262bdf15a2c49fbf5e88c79a2a2d47093851700d079e60",
+      "after_sha256": "d8a96a2bf533e1bca5faf946db8884d62020d798abd73abb185ea4ee22c48035"
+    },
+    {
+      "path": "references/managed-quality-review.md",
+      "before_sha256": "ca492c5e3c88da0269189d3dd03e1bf1436f6c7f0a6ee2917009d61c1cc0d49c",
+      "after_sha256": "c2674128ebb3988ba90795c4130cc66bb81fb4aed0258fcb4860345c5f354a3d"
+    },
+    {
+      "path": "references/parameter-dependency-contract.md",
+      "before_sha256": "9c77e1c2c0277b0a076de3091825559ec9b4465724204339e7d6800db44815b2",
+      "after_sha256": "14a948402e8595fc9b5a994f1510463dc0e1a08164f31673b3ffea9a00670a72"
+    },
+    {
+      "path": "references/runtime-compatibility.md",
+      "before_sha256": null,
+      "after_sha256": "5d84cfb995359b4bf4d492e4bedfd0579b505f48a7eeec8a6e552a15c15bc39f"
+    },
+    {
+      "path": "references/workflow-integration.md",
+      "before_sha256": null,
+      "after_sha256": "b0404fd12a1fcb0d11940446f3b169105e92e9c9fe41c4a78b8b2efb3128090d"
+    }
+  ],
+  "manifest_scope": "Lists method changes only; BUILD.json retains original runtime baseline."
+}

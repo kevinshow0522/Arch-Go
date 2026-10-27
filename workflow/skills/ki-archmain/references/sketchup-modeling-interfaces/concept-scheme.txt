@@ -1,0 +1,5 @@
+## 本机接口：概念方案建模
+
+W5.2选用SU并已有本包制作授权时，明确调用 [professional-sketchup-modeling](../professional-sketchup-modeling/SKILL.md)；W5.3/W5.4按几何验证需要续用同方向模型。沿用当前步骤卡、C/P、尺寸与模型版本，每个步骤关联实际几何、场景及同机位导出；概念体量不自动扩展为完整立面和节点深化。
+
+工作流的米与工具毫米在接口边界统一转换。局部修改保留有效整体；05.9只比较已存成果，缺项回到对应制作包。已有Rhino路线及用户的设计确认规则保持；[建模章节接口](../ki-archmain/references/sketchup-modeling-entry.md)说明调用和返回。

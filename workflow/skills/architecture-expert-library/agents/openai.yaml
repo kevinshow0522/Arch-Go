@@ -1,0 +1,6 @@
+interface:
+  display_name: "建筑设计专家库"
+  short_description: "按需查询用户的建筑资料、绘图方法与构造依据，并保存分批学习进度"
+  default_prompt: "使用 $architecture-expert-library 查询相关建筑资料，核对来源并继续专题学习。"
+policy:
+  allow_implicit_invocation: true

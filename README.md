@@ -1,4 +1,8 @@
-# Claude Skills
+# KI建筑设计工作流 · Skills 与源码
+
+**当前完整工作流：** [workflow/README.md](workflow/README.md)。包含整合后的 10 个 Skill 包、项目服务、云端只读工作台，以及安装、构建和校验说明。同步版本：方法 1.30、KI-design 0.9.0、UI 0.6 / 视觉 0.6.1（2026-10-27）。
+
+下列根目录 Skill 保留为方法正本；完整安装请使用上述入口，避免同名 Skill 重复安装。`map2model/` 保持独立。
 
 KI建筑设计工作流（方法 1.30）的 skill 正本，以及建筑与城市设计分析图、场地建模相关的 skill。
 

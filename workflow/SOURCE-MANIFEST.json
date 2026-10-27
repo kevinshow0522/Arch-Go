@@ -1,0 +1,2767 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-10-27",
+  "scope": "Public workflow source only; excludes this manifest and ignored runtime data.",
+  "files": [
+    {
+      "path": "PUBLIC-SYNC.md",
+      "bytes": 3267,
+      "sha256": "536a6c3bec00d5761d4e3ff49041932e1a0e06a4d0f3516c5561bd7141856e28"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3700,
+      "sha256": "f6649fd1750ed97c0de45f9fda2d941e9307a81ea170b54e2a81268779ed8ab0"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/.gitattributes",
+      "bytes": 86,
+      "sha256": "f298d9e1563c1057fae316eef843948ce77fda72b1b51f2f3197d8020e794eda"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/.gitignore",
+      "bytes": 79,
+      "sha256": "74d123a9c9e0e3bd6aeba4af4e34d4f7f8f4324c83eb97338de4f82186af3a3a"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/README.md",
+      "bytes": 1046,
+      "sha256": "b245e31ce9efef81f840ad61016d57dedc53d2a671e6b61ede808044dc918954"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/assets/workbench-sidebar-icon-dark.png",
+      "bytes": 5950,
+      "sha256": "b5740ed15824359345ae137f043c7ba3b79215e4eb25942f0bd9e62a74794306"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/assets/workbench-sidebar-icon-dark.svg",
+      "bytes": 322,
+      "sha256": "6e77851d0ad375cb938513e8061658c69655869d3a303905a1e326e714d6be11"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/assets/workbench-sidebar-icon.png",
+      "bytes": 5981,
+      "sha256": "d7ace85a1881cd5ff21d42ca09b096d433a7eab8d69d5468562347aeb518af44"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/assets/workbench-sidebar-icon.svg",
+      "bytes": 322,
+      "sha256": "1d0039b46a79f51586b93a8ee5e356d1ba2741df93ed1bb7c590a312065ff312"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/assets/workbench.html",
+      "bytes": 678094,
+      "sha256": "9bc0571b387083c5c4da7dd15a5de0cb05334254362365f468f9c6c74d97e4ff"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/check-windows.cmd",
+      "bytes": 483,
+      "sha256": "b5d9ebfb98cabe8cc7c374162065c39e5b8f9a8141f13df5ac7c49b66d8a1dd9"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/check-work-connection.cmd",
+      "bytes": 146,
+      "sha256": "7b2b56a0d61624c16db8826bca601cf23f646d6a39601879d1a4ecd00f361ec6"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/disable-work-connection.cmd",
+      "bytes": 148,
+      "sha256": "49e71a0d4f00cbe71bd382f596937d093db8976e035c22976ac457f88b1b4cd7"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/docs/local-deployment.md",
+      "bytes": 1807,
+      "sha256": "e9d236c29fd30d4ed134c7f319521f5d4d482d281141c0cf73c72d1b39ce42cd"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/package-lock.json",
+      "bytes": 79334,
+      "sha256": "eebe87a2c3a173266ae6512dfb842369b42681dfa5f691a3ca4c63749ed082a5"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/package.json",
+      "bytes": 1071,
+      "sha256": "b6250829c3808001accea70b5ae26d29ba9b259582dfd8f43b7221e1261df5ae"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/build-v04.mjs",
+      "bytes": 1728,
+      "sha256": "d69ce94372890804a42360af37163aec0db9990e350ba1b7e319b2c83afe198f"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/build.mjs",
+      "bytes": 93,
+      "sha256": "fd7b96ff019879f8e45c64f56480773cc7a554b873e8063880c2037e0d1812df"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/check-work-connection.ps1",
+      "bytes": 1705,
+      "sha256": "9a4799e028d24b558a2d75cbe10f15b7d7fe70f44be09ebcf42574020296b261"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/configure.mjs",
+      "bytes": 906,
+      "sha256": "798df4a95901c850ea3703d66c8abb7b57aec8323c3b6f1bf0dba7db823d4d7f"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/disable-work-connection.ps1",
+      "bytes": 615,
+      "sha256": "33591ad47f8d0179a156aafe4a28261cbcc6f0cd63ae1b31502f492d037cb4a1"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/doctor.mjs",
+      "bytes": 4486,
+      "sha256": "55138fbbdced70986b5d48d82e0107dcd44cd6afef4898877455dff217cb7a25"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/export-progress.mjs",
+      "bytes": 2289,
+      "sha256": "f08a9a06b3dc74b30a042296806f86e4d9bcf582c6c104cce862eadcab2bf888"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/local-config.mjs",
+      "bytes": 2540,
+      "sha256": "81b81c480758ad76e4b2c9e8fcd9f501790bdc20f809316a664b746fe5d587bb"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/local-probe.mjs",
+      "bytes": 3650,
+      "sha256": "3fc98f78a4d2752fb6adbb35dbf310d03c96a695dc8e4fc71766906d4ba3ec8f"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/method-catalog.mjs",
+      "bytes": 1301,
+      "sha256": "952c77f76743c2e5cc284fc88203ebf239f06a8233f08abe3ff5c9108aaf2348"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/migrate-project-data.mjs",
+      "bytes": 3411,
+      "sha256": "6ef21a2f810539ba95094b94a37c845d12367a67f5bedbae7871d3fecb121f1d"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/run-tunnel-background.ps1",
+      "bytes": 2330,
+      "sha256": "4f2087ff222381c63ac5a4d4b9a3acca25e05e4a097b686fb72c7e9369ecbd27"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/setup-work-connection.ps1",
+      "bytes": 4940,
+      "sha256": "5b98532b44a8b68685e556699b00226e05070060d85773a242c261eed21049e9"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/snapshot-html.mjs",
+      "bytes": 941,
+      "sha256": "2f85feb178a464c5adf8b503b0fd547249e8392bdd0979df101d079cf3726a22"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/start-tunnel.ps1",
+      "bytes": 1205,
+      "sha256": "20eeb0cafc66237036f0188f1adb04c4028f0e51940c67ed6b28df07d2e577e7"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/sync-skills.mjs",
+      "bytes": 16038,
+      "sha256": "923b947abde0ab7b70a41c8143eb752023e2cfd7a6087fa0e23de49403e671b6"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/tunnel-runtime.psm1",
+      "bytes": 12904,
+      "sha256": "cb32bd478832f285e4a8b66900a605a81bbe0af2f3cab1ee79bb17f2521aba97"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/verify-storage.mjs",
+      "bytes": 1958,
+      "sha256": "8bd1d10232e0410b38575124dcd38034c1024dbe94ba7665765b8b5190221213"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/scripts/workbench-template.mjs",
+      "bytes": 723,
+      "sha256": "2a94e2177eb3bbbae2f93998f70a74535e21f26679639cf786143bb59799457e"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/setup-windows.cmd",
+      "bytes": 1541,
+      "sha256": "c0ff82dd4144616d2b5de325f904ddbcc06cc830143a93265e5a649860a2b7fd"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/setup-work-connection.cmd",
+      "bytes": 149,
+      "sha256": "68dfcfc74447ea614f43d6535d404610b230f593337bdd874785be3703332d45"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/artifacts.mjs",
+      "bytes": 763,
+      "sha256": "b39455b12fd8e471400784b113432dae6a1e1a15976082216ccdf1bade5c2e4b"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/context.mjs",
+      "bytes": 1847,
+      "sha256": "384f40be3b47c53222ba072132272de1cff2d77411e6b5105cd562432f35e77d"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/contracts.mjs",
+      "bytes": 1879,
+      "sha256": "2f18555f972f685440cefaee789b1f2963f12600ce2502000a8aa02c0582f34e"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/method-version.mjs",
+      "bytes": 213,
+      "sha256": "675d353c9c796949a681774c53b2de78c9a04d288e833b87d63bb571bbffb016"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/project-files.mjs",
+      "bytes": 8430,
+      "sha256": "7c319a07b014f76f54b43f14a132d3f8cce493fc8ec073cad6ccb0b8632e4548"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/project-progress.mjs",
+      "bytes": 8533,
+      "sha256": "b05244b3f346a5ff6b954ce5a6bd4d04d862e0c53746ed402e6dcb6c201848c8"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/project-read-api.mjs",
+      "bytes": 3254,
+      "sha256": "7e12180502903b99d3a9188c0d0de6cfe15efee1b278d023bc2049ee868dad51"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/project-storage.mjs",
+      "bytes": 3748,
+      "sha256": "6d503708291902e9b6b2fe8d8a177d0fd247b57db4339515f99d67ff30efd464"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/server-claude.mjs",
+      "bytes": 96,
+      "sha256": "99cf3ff74a881c65e8527e374b5bd7a28d7ed39bcb4eea4a24be8367cdf38ccb"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/server-gpt.mjs",
+      "bytes": 93,
+      "sha256": "27297a3173a849ce842266550a7fc27d90228fce7e4a8543495a4e3cc7313d19"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/server.mjs",
+      "bytes": 15741,
+      "sha256": "dde6690a7d87e68450b9e2a0b5c0bcdb76355dd62fba5a306e681e472a8180b5"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/stages.mjs",
+      "bytes": 1579,
+      "sha256": "a6603a9174187d0843b27e1f2fc815601cae2f6a3b78c055396b73ef8e3fe86f"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/storage-location.mjs",
+      "bytes": 959,
+      "sha256": "4490aeff6dba87abb4dbbb08d8da4459708a0906cce366878ffc51d4b5424a3b"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/store.mjs",
+      "bytes": 8379,
+      "sha256": "ec896554788c00539e39a662a174159e2bb5c37a749e8205311817a395f0802f"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/workbench-icons.mjs",
+      "bytes": 417,
+      "sha256": "dedb3cdd94b84fcf768a9c458bebfd993fd28751ff5f45785302c83dc4ca5f2a"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/workflow-contracts.mjs",
+      "bytes": 4720,
+      "sha256": "ed578bb19f9242bb3ca5f91f6214f39b22a9d3238989da2aef21326267e83c0e"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/workflow-records.mjs",
+      "bytes": 4942,
+      "sha256": "6db9ef687fbcf394d9f0df3706523b9b93477ccf74cc9b23ecbdb775d47a12b3"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/src/workflow-store.mjs",
+      "bytes": 29519,
+      "sha256": "43d222fd2343cd66ed832c76bec27f5c3954cae11bdbfcd4f11c93c113a784ab"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/start-tunnel-windows.cmd",
+      "bytes": 287,
+      "sha256": "a7a42c559410bcd9421a7c34ba76a547fea261d1945d81ffb1bab060b94b5776"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/dashboard-integration.test.mjs",
+      "bytes": 3931,
+      "sha256": "c06d533eb82d0cfbaa168cd3dc61f50b573b20e29e4e026de9046066a9d0f4d0"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/dashboard.test.mjs",
+      "bytes": 1710,
+      "sha256": "49539792e9ccc20d6d4c36b385226bf335381825a6f2d175d05e0d7872e3acca"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/dom-check.mjs",
+      "bytes": 246,
+      "sha256": "855c0167100a5dfa7a009315459d2a94e183bec70c41c9a4168adce4908d2316"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/dual-interface.test.mjs",
+      "bytes": 6664,
+      "sha256": "68530c215f17144b978588bf068d013d207fe826d3257f6aed1cf3e962853b4e"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/fixtures/workbench-118.mjs",
+      "bytes": 2518,
+      "sha256": "02284bb676cf9f32179cfd54d704b492ad99f35fc4284400a190b63844010026"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/fixtures/workbench-130.mjs",
+      "bytes": 1419,
+      "sha256": "9037bd464285ba5510edf07538f686aef118e7ba9c1f4d156a4751496af30823"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/fixtures/workbench-v04-demo.json",
+      "bytes": 18383,
+      "sha256": "1591164b7bf93a295ccab3d975c7e74c629b40bb7931ded71b812f1d0b6b868e"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/flow.test.mjs",
+      "bytes": 9164,
+      "sha256": "b8897056324ad6feb30dcbb1f246671acf15eca0a17bbb86c92babb072f00026"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/helpers/workbench-dom.mjs",
+      "bytes": 1272,
+      "sha256": "5d54059f04b81a67957dbfb764e478972a87e8683f8a6ba607925cbcd1a0f21c"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/ki-design-skill-sync.test.mjs",
+      "bytes": 5634,
+      "sha256": "498c37b2396933da47a5103ce90e8d3340e595c789dfe1c539a6e017ea1edf90"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/local-probe.test.mjs",
+      "bytes": 840,
+      "sha256": "1c2076ce7ffdfa9f581366eb7b1753d2e0396357748f5605f805a0d006d0e3e3"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/local-setup.test.mjs",
+      "bytes": 2257,
+      "sha256": "dc4b17d2e82071ed2d113c295a9793ebfd2445d3f46e8b028e10ca23aeea05eb"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/mcp.test.mjs",
+      "bytes": 3912,
+      "sha256": "ab2e35af68c1844f55db1c743888dcd335fbf572b1f78bc645ce9558616c4931"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/method-catalog-v04.test.mjs",
+      "bytes": 2733,
+      "sha256": "3cf97e92334f75f650b0ede642ed609a58dfcbe9fb925b4ab364ac792212ba86"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/process-browser.mjs",
+      "bytes": 2762,
+      "sha256": "cbdc8911628c31526920fdf6ea59e7e5f2fde982e66ab505ba54cd71e8975502"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/process-export.test.mjs",
+      "bytes": 1783,
+      "sha256": "bd17c2f304eba68bd25f726d2841856bc3051770e976153c1f6f7eb5a9d38c72"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/process-files.test.mjs",
+      "bytes": 2606,
+      "sha256": "75682c683215485ed2232cdb08d54a3af2a96bba1246a9437893f573db4429d5"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/process-progress-ui.test.mjs",
+      "bytes": 590,
+      "sha256": "e75f6d1080457dd620457e4530d87d700fa709e89c2ea4aa9474081443511381"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/process-service.test.mjs",
+      "bytes": 3496,
+      "sha256": "cd6b3cda3eb7690a59071a1bff822d6bf7a69b12a4ff6f4027ed02892d33fb02"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/process-skill-sync.test.mjs",
+      "bytes": 2342,
+      "sha256": "1d6df5752d45ac5b0bf83681e84e71604aa012bd586196c37bf95d60a7ba29d5"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/process-ui.test.mjs",
+      "bytes": 4610,
+      "sha256": "47751c2a68d11c43f42b6442ba657fabc501c468368775cc53c4155f9007f162"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/process-workflow.test.mjs",
+      "bytes": 11592,
+      "sha256": "ae9934de733f0ce779450b7cd695a6c4abe3fea462768221d86d56ef85df5012"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/project-cooperation.test.mjs",
+      "bytes": 16683,
+      "sha256": "7270c699a8825a955012fe1be1d7ef1715d08fbea3e9088509db894bd11151db"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/project-progress-ui.test.mjs",
+      "bytes": 2178,
+      "sha256": "67a732f8cf888726f296b4410d9c94c3ba4e2bd6d68f9a8842ac6a8eb851ab3e"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/project-storage.test.mjs",
+      "bytes": 5169,
+      "sha256": "54723a2b6bfec61798ddbfdec2f40fc3946c3c9428c11efc97082a922b30b52c"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/project-switch-browser.mjs",
+      "bytes": 7565,
+      "sha256": "0d0b92c4f677933fdfc37315003e5513d1a7b483c3f8c35d81b19034ff7f546c"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/project-workbench-service.test.mjs",
+      "bytes": 3362,
+      "sha256": "7dcfc85c2a67d2a2e7a26c3fd13245236121d4e9a0cbf7c2b8d56789dfd42e51"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/project-workbench.test.mjs",
+      "bytes": 13189,
+      "sha256": "ee07102d0cf269c2585811e6bcec4040bbb37d015f6c555cb7114518599994bd"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/review-regressions.test.mjs",
+      "bytes": 5869,
+      "sha256": "4dadd8abf8b8267bcca2035cd9947337b3d0e1a9b03ecc0d3a45803f03e572fe"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/sidebar-entrypoints.test.mjs",
+      "bytes": 1864,
+      "sha256": "42edad8a2cdb1f3b81cbc506a5f77fe9f461ca9886a5bea155143943691b2656"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/sketchup-skill-sync.test.mjs",
+      "bytes": 8505,
+      "sha256": "9c9b8bcc3f99df9a8c169b74444d4508f7715b0a99fdc7429fb2722eae62f586"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/snapshot-html.test.mjs",
+      "bytes": 1628,
+      "sha256": "100a0407fa9b017ae9a39f6ec5aa54ec4f6ee3e1615a44df13ecd334fb317a38"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/storage-config.test.mjs",
+      "bytes": 1871,
+      "sha256": "8cf0a05f6a7fcd3b6519b40e7d65b467e107a7d130682185ab6731de9a5ec637"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/storage-migration.test.mjs",
+      "bytes": 2354,
+      "sha256": "1d0c3a42b1252ba6d86f4ed33fddff84213fa67df9006b1134abad6c19b1efb7"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/store.test.mjs",
+      "bytes": 6382,
+      "sha256": "19971b7cc987523a4916cbf156e4ae9fd3b049d2cdbd64c26eacaf72f9c999a0"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/tunnel-runtime.test.mjs",
+      "bytes": 641,
+      "sha256": "c0a1dae77b8cd5df3185a7cf4af6b20b10872410b010ee3618f405675e8a74f7"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/tunnel-runtime.test.ps1",
+      "bytes": 11539,
+      "sha256": "fbc1842b95f809b1cd46add8e04bc944b8ac05d1bf6ad27280ee5b17ec09a875"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/workbench-sync.test.mjs",
+      "bytes": 4345,
+      "sha256": "483e9775146125380a41d5ac1edbbe30eeae6b03f69a90fec6a3e27487411b58"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/workbench-v04.test.mjs",
+      "bytes": 4476,
+      "sha256": "4fd49ee9a81fe8ab35555dc19d1be94c19b802995f37ebe499e7a9f375698890"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/workflow-mcp.test.mjs",
+      "bytes": 8324,
+      "sha256": "22db8fccb7af5c836bc1a9d8658ed210cb6957b2a20752eb1449ae23f3855aa5"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/workflow.test.mjs",
+      "bytes": 15663,
+      "sha256": "1f7f841a367dc221ff4466bbebf9fa265497dbf472a09387464082b66da3858f"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/app.mjs",
+      "bytes": 33535,
+      "sha256": "df7015bf740394d3b2558aec979e3e8bd9c65f089af6d0d5a835c0d8f1e8e007"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/bridge.mjs",
+      "bytes": 3767,
+      "sha256": "ae3b97cca5dfeed9bfa94c12f05c46a3e066d0942fd8bf9173cb6a6805d93409"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/dashboard-model.mjs",
+      "bytes": 2372,
+      "sha256": "c3ccb9f56531de5ecb10dca967aae268bde8216f23a22a1d50d92ec27a0dc889"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/dashboard.css",
+      "bytes": 27333,
+      "sha256": "f3026ad2902b6ab9c2de1da9a338523e40e62df75bb4db5e4bd66b119822fc1d"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/dashboard.mjs",
+      "bytes": 23389,
+      "sha256": "6e14069a2331f5b726dbde8a4c62897fca408379cdadb38aadc0e6c7f42a7c1a"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/flow.mjs",
+      "bytes": 5715,
+      "sha256": "bc23373a6c349849c99b50d08180c170514fbb00dce2faa5fc1d9e2fa1fb5f89"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/presentation.mjs",
+      "bytes": 14306,
+      "sha256": "f5b310eb84891166c3148b7703cf6cb8360ca26be88cc7ffd7144cfa60982188"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/project-progress.mjs",
+      "bytes": 3191,
+      "sha256": "c5a5a4cda43c3fb0f800ce04a80e057dc9e4bc62cd4fbe3e75e69269580941ba"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/project-workbench.mjs",
+      "bytes": 9558,
+      "sha256": "31919c383202b981d1ee3234b251730de6aa5488b85ab236c14435cb9ab71426"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/style.css",
+      "bytes": 13160,
+      "sha256": "d26a555cf62cba92308d124c9d60e4b7436ca1d78c6be089c6823206e3643f10"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/template.html",
+      "bytes": 348,
+      "sha256": "5a9266f280873731b2e056b33e8b5f8f9a48c5b06b6e53e90ab47cc6a83832f1"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/workbench-v04-host.mjs",
+      "bytes": 3908,
+      "sha256": "bd7f4ec5e1737e662bf9fb94cc53dce317e0f9aec83da95a9dd5c5295d0034df"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/workbench-v04.html",
+      "bytes": 23470,
+      "sha256": "30065fa5cd51782cb1c889b28d5ab99ccb1d7629944dfcd9f68ec7e8d8f5aa86"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/web/workbench-visual.css",
+      "bytes": 12390,
+      "sha256": "c64d4678cab3de2da77dd1388deb17b074a1f9f7a8a8c4bb12248802d771e0e5"
+    },
+    {
+      "path": "scripts/verify-source.mjs",
+      "bytes": 2246,
+      "sha256": "d4871da00381b1e435ae9339e99d9c9b511e786b1b1d02ddf7bf98974ccab086"
+    },
+    {
+      "path": "sites/ki-workbench/.gitignore",
+      "bytes": 614,
+      "sha256": "5ca3c39bdc1288c108a1931b3f6bc5795464b6253e9457390617774259deed0c"
+    },
+    {
+      "path": "sites/ki-workbench/.npmrc",
+      "bytes": 45,
+      "sha256": "a3909ac0447c469fda12c57374993be70f47ce73e49fd3124678c7c047f2214d"
+    },
+    {
+      "path": "sites/ki-workbench/.openai/hosting.json",
+      "bytes": 77,
+      "sha256": "babb8498cab2c38da080873a4fc92b5bbd05a12296be5dea31904dd18341c627"
+    },
+    {
+      "path": "sites/ki-workbench/README.md",
+      "bytes": 3443,
+      "sha256": "9453ad52fdc6c3575f756f49ebac9c64301677f7ba9f5552e201bf2d7a69c907"
+    },
+    {
+      "path": "sites/ki-workbench/app/api/artifacts/[id]/route.ts",
+      "bytes": 482,
+      "sha256": "e40402a9eab32304955b9f1af65a4daa26d5ceaca019259945a97d5419bd5328"
+    },
+    {
+      "path": "sites/ki-workbench/app/api/projects/[key]/route.ts",
+      "bytes": 534,
+      "sha256": "ac958cbd5780613fc8af75ff29f1110369f24d6be0c58f5fd5e9b734cb3c0e27"
+    },
+    {
+      "path": "sites/ki-workbench/app/api/projects/route.ts",
+      "bytes": 264,
+      "sha256": "5a231f4c99496934e3173bc2e556a0ef144f19c197108402dcccb2839f53f058"
+    },
+    {
+      "path": "sites/ki-workbench/app/api/publication/route.ts",
+      "bytes": 244,
+      "sha256": "232d4059d1e84708026909bcde0fb52837195457e18a7c5cc9a2cb5bdf998f30"
+    },
+    {
+      "path": "sites/ki-workbench/app/chatgpt-auth.ts",
+      "bytes": 2550,
+      "sha256": "4265a2e7c2dcb3a6f4b7026f762bf5b6e4caec76cc13c0a45987ee9a9f2e42cc"
+    },
+    {
+      "path": "sites/ki-workbench/app/globals.css",
+      "bytes": 3928,
+      "sha256": "8546d9b115f0addd582f7ceaaa6b1c069310bcc77c43ee7b8acfe0020be3afd7"
+    },
+    {
+      "path": "sites/ki-workbench/app/layout.tsx",
+      "bytes": 499,
+      "sha256": "92102dd6a6163b013a757da5da41038f953b4dff348318cdec817e5ac73de439"
+    },
+    {
+      "path": "sites/ki-workbench/app/mcp/route.ts",
+      "bytes": 509,
+      "sha256": "acd13edbd0744286059bb58eabecbabf84f00bac5857ce00992e56eec46fbb09"
+    },
+    {
+      "path": "sites/ki-workbench/app/route.ts",
+      "bytes": 229,
+      "sha256": "86039773aa889cdd3b0b0d620ba14aec9eccd4c68216e8019381397b2cec1b4c"
+    },
+    {
+      "path": "sites/ki-workbench/cloudflare-env.d.ts",
+      "bytes": 99,
+      "sha256": "8b0eca84aa3364cc7ccc43cc3af6beb88dd34ebd410de08690bf094ce39fbcb0"
+    },
+    {
+      "path": "sites/ki-workbench/components.json",
+      "bytes": 420,
+      "sha256": "31f4ca67a4a62572571003d3d5aac85ee6fbfca67a192924bac6b168d95e98fd"
+    },
+    {
+      "path": "sites/ki-workbench/components/connector-error.tsx",
+      "bytes": 1082,
+      "sha256": "2d0d04559952ce9c9a327cca499f4b99f35d885cccfce375230e116695d3f155"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/accordion.tsx",
+      "bytes": 2048,
+      "sha256": "a4f153089ba886dfcf73fac26b5c01ca933fa12fbe88df6fb723912bfffdfbb0"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/alert-dialog.tsx",
+      "bytes": 5439,
+      "sha256": "9a8d950f2b9b4352d5ebb762fb44d5c28c2d353aa29712071973656a8736e311"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/alert.tsx",
+      "bytes": 1614,
+      "sha256": "2cc59b5f7bda91c1670884b1bf46bfc8a2a6f226cef184f5762acc037188885b"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/aspect-ratio.tsx",
+      "bytes": 274,
+      "sha256": "b1c157886236782cb92d8fbcd4749532aaf6d8aabefd6e157ca40358f902f407"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/attachment.tsx",
+      "bytes": 6002,
+      "sha256": "ae8a25dd1a896d3964e3ef54d97e51221b418cde287dfd794428b89951c5c790"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/avatar.tsx",
+      "bytes": 2916,
+      "sha256": "58a846bf1617b94b9681921db9b8461d0145f311424663d11678a06b6153cb34"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/badge.tsx",
+      "bytes": 1776,
+      "sha256": "46a0de5224f6a5d5d63d45246534288518dce888f031064bff925bbc7fe6ad97"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/breadcrumb.tsx",
+      "bytes": 2350,
+      "sha256": "d4c0831bba2212e778248f54a6ace6ef378df8bba4616d1abf27787a31eabae5"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/bubble.tsx",
+      "bytes": 4699,
+      "sha256": "870cc0c5cfc8a515053f7e41e706a6bd017a909b45f1305fd3b164a52cc4483b"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/button-group.tsx",
+      "bytes": 2202,
+      "sha256": "784c89d8ee683e1bc972ae69e6ea8225a7f63abe22aa1b5fc3423ae8a2a399c0"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/button.tsx",
+      "bytes": 2392,
+      "sha256": "cc36af0f8b5019c33cc039fbf03bb952a513072b15b55b53c592b78af3e5f4c4"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/calendar.tsx",
+      "bytes": 7832,
+      "sha256": "3855fbe0d3f8ad3a4b93071f98b76a9f6782d46ec8b05f5d2ddbee1e4e39bc84"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/card.tsx",
+      "bytes": 1987,
+      "sha256": "c48dd3b96be90a7066f1aebf294f0af9d00ebcdc367d5d4aca55429ade570c1c"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/carousel.tsx",
+      "bytes": 5556,
+      "sha256": "b7ea0dda3903d972c186f739e23da61f547bc83b5a0bf13b16856577846d5fc3"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/chart.tsx",
+      "bytes": 10614,
+      "sha256": "45aa5ea4a386f4fb5b8869ff4bab3a08cf89255190ee322043baf84c3e950b6a"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/checkbox.tsx",
+      "bytes": 1214,
+      "sha256": "b23ab9d4deeedf2ac8f512c368361ede681aa383437ef48563a6f9b7dbe95f27"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/collapsible.tsx",
+      "bytes": 795,
+      "sha256": "c6598e5584f4258b5d9fefadbc5ad6a66888ad58729f4b634a0bb2d9c513188b"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/combobox.tsx",
+      "bytes": 9158,
+      "sha256": "2d68e78b2dc7e38a085f222dede60a80b4f8229a6e91732c484605e204d46735"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/command.tsx",
+      "bytes": 4818,
+      "sha256": "361193df1e3d64a9e9b5048f045264782fcb387aab3f00f2b805fdcbf538b16a"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/context-menu.tsx",
+      "bytes": 8268,
+      "sha256": "2cf1fcf59df0649a3e2a126d1df2f639145f6b6bf5689ee54af1f40ab1245017"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/dialog.tsx",
+      "bytes": 4303,
+      "sha256": "dce39c6adc47d997bd2567f8b7a72f466b0134715105cd42f9194007b8ecdb14"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/direction.tsx",
+      "bytes": 506,
+      "sha256": "84ae2ad658207f0e0f367978e5508cd8027cd00c29c41d3d13db21a708c3d1e6"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/drawer.tsx",
+      "bytes": 4255,
+      "sha256": "cb6eaf58eb0757ca91af284e5d925b89a42ad7eb19cb3f44c575a3487aa9350f"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/dropdown-menu.tsx",
+      "bytes": 8418,
+      "sha256": "98f0dcdae38225b73734aceeb9213dd751fea2c72ea520df31003cd133deac8a"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/empty.tsx",
+      "bytes": 2396,
+      "sha256": "ae95bdcf367a076ae02e7925f14522a148798f72d9651749c6d55497dba584c0"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/field.tsx",
+      "bytes": 6159,
+      "sha256": "ba67d76f017ac059fc86cf8c344e0b2991c4322d3619e125498c19b87f6eefbd"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/form.tsx",
+      "bytes": 3757,
+      "sha256": "315b46bb75ab7d1c6061b5d750aa4bedf6e7a455e15e2d7f9182f053d5972b1e"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/hover-card.tsx",
+      "bytes": 1526,
+      "sha256": "f5d8df42c59370ec14d61bcc54f7d68e9bb7dfa0d6a872b2f7cffc2aafbf23b8"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/input-group.tsx",
+      "bytes": 5065,
+      "sha256": "6afbd58fea4c438e6252dc4568bddc122e84ababead4ad5cee50ace01100c9a0"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/input-otp.tsx",
+      "bytes": 2254,
+      "sha256": "161946daa89f0eda2575b9271c0494e35807c4ffb55598a49f67160c17fec299"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/input.tsx",
+      "bytes": 962,
+      "sha256": "8c4612a7c41319ac5049daa3b34b080f9784b6245c17780eb87c127e58e473db"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/item.tsx",
+      "bytes": 4486,
+      "sha256": "6e2144d6d87142dbbe56d568810bf546318c8aa661447ebb0d76ebbf382cb45f"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/kbd.tsx",
+      "bytes": 862,
+      "sha256": "6088c3a5432338b1719c17e9b5d0e1fa74fd1f66060f248fc88909d33a82cd13"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/label.tsx",
+      "bytes": 606,
+      "sha256": "a476e41f08b9de5bd447de66a33d8bc2ad18f2fa6b96c064778bab4b6f439f4c"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/marker.tsx",
+      "bytes": 1864,
+      "sha256": "3d798763f094b2bb5e7ade2d5cd1b9bab498bc8ca7fd4cfaf4e5835bdedc34a0"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/menubar.tsx",
+      "bytes": 8389,
+      "sha256": "9243af8afcea03703398ccd1c2a8c0a87ad6cbaf2bd272fb609f5b79fe46aebb"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/message-scroller.tsx",
+      "bytes": 3992,
+      "sha256": "bb7660a248e4e9589c3816c7c1c199ea1381a70d2c8476ae895b567a7a4d86cf"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/message.tsx",
+      "bytes": 2232,
+      "sha256": "9d2952bf3b641081f09aa2739535e6bbd1be0a4946789752a2c20d8aaef43185"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/native-select.tsx",
+      "bytes": 1995,
+      "sha256": "007516b111fca8c98a6c40c94ab91bb68cc5b52afce1ed1f5e510c3d86e7347c"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/navigation-menu.tsx",
+      "bytes": 6658,
+      "sha256": "889d358a77de88e9cb6f39ea4895ea4c76eaf01d731b74e44f1c41e97a78a044"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/pagination.tsx",
+      "bytes": 2717,
+      "sha256": "374ad135c3d4ff3ec080a0009cd9745cdd0e12faa89d2b0e86074f11e5127fd1"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/popover.tsx",
+      "bytes": 2357,
+      "sha256": "31c350309ff5d3034e6ecf1b0eda75ba8855bdbf987fc7ad6d71f0ef07c5a447"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/progress.tsx",
+      "bytes": 755,
+      "sha256": "c8c26e8f5f041c3cdf4915347dc1d9c022f9448f149990fadcaf303e952fa57d"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/radio-group.tsx",
+      "bytes": 1460,
+      "sha256": "fe5ce39636d0818c2bf9c4eebddff893d1225fa2c81b5fa4bb8cbb39a8c913ce"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/resizable.tsx",
+      "bytes": 1815,
+      "sha256": "bc63958467aa00557c551bb0d96a5ae4c965c1e1ba2380e595949d933b132f7c"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/scroll-area.tsx",
+      "bytes": 1639,
+      "sha256": "8bd9d986b2844c9a87de825c6de4787b6739b36c3dc9a05ccf3eb107160e4043"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/select.tsx",
+      "bytes": 6353,
+      "sha256": "0b796a108a4eb5ba52d9ad938b7aea36dc56ae66c703a6d0a23dbc24f96daff3"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/separator.tsx",
+      "bytes": 694,
+      "sha256": "6da346505c8629a4668420d2a5ca48891383bbe0b0ceb14163537c671879427e"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/sheet.tsx",
+      "bytes": 4188,
+      "sha256": "63863cf2df8f8973e52b3459ac9bdbf81be1262dbc70eb53d5271ffb03488e16"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/sidebar.tsx",
+      "bytes": 21526,
+      "sha256": "4a8d73e7730a2b1fcecfca31299ed26db65c2307b84197a59c6ec7c01c7ad28e"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/skeleton.tsx",
+      "bytes": 276,
+      "sha256": "ba48dd5be5a6a1378bd4e011028654b5bf419f1e7d20ee4b9f8330c1264e7239"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/slider.tsx",
+      "bytes": 1991,
+      "sha256": "0e37484f4b416e79ac18c655cac961aefacf6e67085cfc2b320ea8af545635a3"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/sonner.tsx",
+      "bytes": 1034,
+      "sha256": "13ccc9b0fe4248e622f83a1d3b2f0566b72b5e04162d7d0c8db8945ecc71b55f"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/spinner.tsx",
+      "bytes": 331,
+      "sha256": "3e6e6e8d37fb4069f8e43e55318f8db06fbc36e6c8be0096da3c9337c1c798b9"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/switch.tsx",
+      "bytes": 1408,
+      "sha256": "386d4d4deb39f34126f9700fe9bf5393d238485dd94018bba9d154dda84c62ae"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/table.tsx",
+      "bytes": 2478,
+      "sha256": "20e5a7f224959c6b75802995706a97e9da171f693d4b6b1b436388fcd9df96f3"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/tabs.tsx",
+      "bytes": 3782,
+      "sha256": "865d0194331b9b2be36723fa79d3575dc83078b4cb941cafee87cb72fc2cff46"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/textarea.tsx",
+      "bytes": 759,
+      "sha256": "253cdeb487c73beaaccdf47fc163e36e7d5b7ae6ddf09a4f64998a109a112979"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/toggle-group.tsx",
+      "bytes": 2308,
+      "sha256": "69f643e889e933f05c1439084480d8646f66a161c7d1cf0730ee926382ade35e"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/toggle.tsx",
+      "bytes": 1565,
+      "sha256": "ba4d0b0a2b2fee75dc36dfc19e32082e721024b919050c97fd5dc70faa924e16"
+    },
+    {
+      "path": "sites/ki-workbench/components/ui/tooltip.tsx",
+      "bytes": 1830,
+      "sha256": "a0784eb77831a799fad7991df4f1b666f876201565a80175e1aa68733574a2e4"
+    },
+    {
+      "path": "sites/ki-workbench/db/index.ts",
+      "bytes": 423,
+      "sha256": "dc7610b00b918e0ffff1360a63626f16655ced3064b2eaf96095a4101fb14bcd"
+    },
+    {
+      "path": "sites/ki-workbench/db/schema.ts",
+      "bytes": 1357,
+      "sha256": "1725d6aad219fb0a613f33f4e2e023a3f0b3ddcc745f9c582c3ff22f7628dc50"
+    },
+    {
+      "path": "sites/ki-workbench/drizzle.config.ts",
+      "bytes": 148,
+      "sha256": "af081f7384aaeb0082cf422e29f139d137ca2f6a57c69b2c37b9fb1f8479867b"
+    },
+    {
+      "path": "sites/ki-workbench/drizzle/0000_simple_jackpot.sql",
+      "bytes": 866,
+      "sha256": "33d76e4ceef29eed10c9efb9c4fca159d97f8decaf2f90cc9c6578c6650bfc99"
+    },
+    {
+      "path": "sites/ki-workbench/drizzle/meta/0000_snapshot.json",
+      "bytes": 5188,
+      "sha256": "165136667797052b75b4c969093e8748cb312f495d5efcc1910bac2a328555fb"
+    },
+    {
+      "path": "sites/ki-workbench/drizzle/meta/_journal.json",
+      "bytes": 204,
+      "sha256": "e39f090a4639e5e5bf97c81040559f8f781cdaac86f1a63d15a39538ffcdf088"
+    },
+    {
+      "path": "sites/ki-workbench/eslint.config.mjs",
+      "bytes": 791,
+      "sha256": "eeda7faabe9560fa9fdb26675b0011fa78461ca7061989732f5da9245b87e315"
+    },
+    {
+      "path": "sites/ki-workbench/examples/d1/app/api/notes/route.ts",
+      "bytes": 1700,
+      "sha256": "a3d4a74fd53b7bf53e2df41f169d9d9d44a8b22aeb6d92f4e754956079af8909"
+    },
+    {
+      "path": "sites/ki-workbench/examples/d1/db/schema.ts",
+      "bytes": 370,
+      "sha256": "d89eabd95716ce404f5f7ca2a254220435be8ddce7c899d7ef461ff22ec80454"
+    },
+    {
+      "path": "sites/ki-workbench/hooks/use-mobile.ts",
+      "bytes": 565,
+      "sha256": "ad0936f84f1df79d3697bfbff9c18f8ad58431c1cbaf2359c6a853b0fcc9f28b"
+    },
+    {
+      "path": "sites/ki-workbench/lib/connector-context.ts",
+      "bytes": 612,
+      "sha256": "bbddff68689cb0f6926fecd4b8b96f12f2054277c296e97b0df07d4ad5ece24e"
+    },
+    {
+      "path": "sites/ki-workbench/lib/connector-contract.mts",
+      "bytes": 5362,
+      "sha256": "e1a7b24a8793af34b595690d9b1300c897c7321c14f215cedf58ad95799d7c3e"
+    },
+    {
+      "path": "sites/ki-workbench/lib/connector-errors.mts",
+      "bytes": 2717,
+      "sha256": "a22edf13d6873ae832c4a2a0d579fc666c73ec996ef0722d39172649d38f0871"
+    },
+    {
+      "path": "sites/ki-workbench/lib/connector-preview.d.ts",
+      "bytes": 433,
+      "sha256": "abd69a94f7f61f1359063bb557574faae35e8ff5a028cc4c04b9ee248ef52642"
+    },
+    {
+      "path": "sites/ki-workbench/lib/connectors.ts",
+      "bytes": 416,
+      "sha256": "1c93d747e384c8e17e3e3dd5361b24412babf5eba2a11d2ae7a75f4e0924112c"
+    },
+    {
+      "path": "sites/ki-workbench/lib/mcp.mjs",
+      "bytes": 8190,
+      "sha256": "f26359c7b05e3aea2f2f682141e318e5f96c0c2e353809f9d3911293eddb77cf"
+    },
+    {
+      "path": "sites/ki-workbench/lib/publication-service.mjs",
+      "bytes": 1590,
+      "sha256": "6de8026d097ca7c03bffa10378a60c245788bb0c98ef91f456320c2f1a9bbef2"
+    },
+    {
+      "path": "sites/ki-workbench/lib/publication.mjs",
+      "bytes": 10382,
+      "sha256": "86acb6066a79474936686dc7d4e87d58b7a947a02e89d0585a3df078b9effac9"
+    },
+    {
+      "path": "sites/ki-workbench/lib/utils.ts",
+      "bytes": 177,
+      "sha256": "53f3d3d070f0a9082934da25b875f9499855c2b0693868dd28be8c23d8730f68"
+    },
+    {
+      "path": "sites/ki-workbench/lib/workbench-icons.mjs",
+      "bytes": 1162,
+      "sha256": "399f84fdd490ea7140ef784130d73b5e6bfc5213b7b88952d2d6dc67a01cbe2e"
+    },
+    {
+      "path": "sites/ki-workbench/lib/workbench-ui.mjs",
+      "bytes": 1618,
+      "sha256": "be7a401704369c8000713899953626dcd107e605ef49f4e85be9e8f598e9cfa5"
+    },
+    {
+      "path": "sites/ki-workbench/next.config.ts",
+      "bytes": 133,
+      "sha256": "614bce25b089c3f19b1e17a6346c74b858034040154c6621e7d35303004767cc"
+    },
+    {
+      "path": "sites/ki-workbench/package-lock.json",
+      "bytes": 504152,
+      "sha256": "eedaeab6870c0f70f9db869fcaa24abae9b0f945cbc9acb8a43b6e7ed6bcbfca"
+    },
+    {
+      "path": "sites/ki-workbench/package.json",
+      "bytes": 2102,
+      "sha256": "eb7b53ec5bdce1db5a8576b2ffc3b63ddd8c5fdee0f97dcb341674abbf69843a"
+    },
+    {
+      "path": "sites/ki-workbench/postcss.config.mjs",
+      "bytes": 94,
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    },
+    {
+      "path": "sites/ki-workbench/public/cloud-client.js",
+      "bytes": 4199,
+      "sha256": "1ac32706bb3d6c03217bea8ee614564aacd776149087a3b779abed9827cec2d2"
+    },
+    {
+      "path": "sites/ki-workbench/public/favicon.svg",
+      "bytes": 322,
+      "sha256": "1d0039b46a79f51586b93a8ee5e356d1ba2741df93ed1bb7c590a312065ff312"
+    },
+    {
+      "path": "sites/ki-workbench/public/workbench-host.js",
+      "bytes": 599187,
+      "sha256": "024a86ee603c39a8906e9c7373f2a5a61030ed0d909084512881a0456b52c952"
+    },
+    {
+      "path": "sites/ki-workbench/public/workbench-icon-dark.svg",
+      "bytes": 322,
+      "sha256": "6e77851d0ad375cb938513e8061658c69655869d3a303905a1e326e714d6be11"
+    },
+    {
+      "path": "sites/ki-workbench/public/workbench-method.js",
+      "bytes": 28094,
+      "sha256": "a2c915d3dc02f142c293d2575f1d89f1b9578c37dbc64c8203eff7410fb4c5f2"
+    },
+    {
+      "path": "sites/ki-workbench/public/workbench-runtime.js",
+      "bytes": 9637,
+      "sha256": "b00903a0505358235412c37269e876495736107b9a9c94e8d045abcae1017224"
+    },
+    {
+      "path": "sites/ki-workbench/raw.d.ts",
+      "bytes": 73,
+      "sha256": "b3b43e50882ae7599b3ec67dec62defc9f7a22bfcef151e1e455e674776e352a"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/build-mcp-host.mjs",
+      "bytes": 791,
+      "sha256": "4170905b628e2a450155b6a60a059baed63e19974517f23d660d984c99027713"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/build-verified.sh",
+      "bytes": 661,
+      "sha256": "2ae5329ac860076070c9217a43106a15cb5ecf907a0f7baeb9ef903f76b53c68"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/connector-preview/connector-preview-session.mjs",
+      "bytes": 6855,
+      "sha256": "57224ad185a25115a14fccc68d3217e55b199260c3dd98a2c807beffec1a0a9b"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/connector-preview/host-binding.mjs",
+      "bytes": 7793,
+      "sha256": "9e44ab6864133a5c82f834a5904ebb7d6104cb783c24efba3c0fe1a161182cea"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/connector-preview/protocol.mjs",
+      "bytes": 1781,
+      "sha256": "111e062ebf08d3f180130f5bc3dcb3c1414c1d7be3c032c9d675a61c0c7513a8"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/connector-preview/worker.mjs",
+      "bytes": 618,
+      "sha256": "bd9c98fc68f29d975fe10508dfc9029bb681dc5789a62861d5c938bdea2064bb"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/execution-profile.mjs",
+      "bytes": 624,
+      "sha256": "2e71116f4d2b70cff8bb70436f8dd5c709ec7ff62893424530f404e0193d3630"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/import-workbench.mjs",
+      "bytes": 4814,
+      "sha256": "8428ce9923647fc0a10f377750ee965be13022b8706558934429d45bd4bc34ac"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/install-ci.mjs",
+      "bytes": 1685,
+      "sha256": "4a5a92d60a08d0ba54effd8373da2da06284312c55b767287c68a0bec7200da7"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/install-ci.sh",
+      "bytes": 6783,
+      "sha256": "10d8764a61be50351dc3496e13588270de7956f0aa5f1189c49cabb2d89fe5c0"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/install-pnpm.sh",
+      "bytes": 9015,
+      "sha256": "a684c02c2b493dfbf262a66252a5cd36f81ca995a4024761728662ae63aa40c0"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/npm-install.mjs",
+      "bytes": 7025,
+      "sha256": "9715c6a32d1d4a0289ef6376a0e819c3b6a6416b8a9877733d9fb4339ce626b6"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/pnpm-install.mjs",
+      "bytes": 10633,
+      "sha256": "a83164e344c1947053def83b546be8115deaa827314bbaead7afe6b6451c5cdf"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/run-framework.mjs",
+      "bytes": 993,
+      "sha256": "9bf9f41a29314cabe0238b8e9c540ec3f7b5a6adafc7c8fb6c3940722d061dca"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/sites-env.mjs",
+      "bytes": 522,
+      "sha256": "21d7bde6acb9f716287e652c1b0e43ae4803d79be367ca2192fcba14740b5338"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/sites-env.sh",
+      "bytes": 1600,
+      "sha256": "d18af7b222db748c9de257d5955b9d7f77ec350dab6321f114f0bc44c20388ac"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/tool-environment.mjs",
+      "bytes": 791,
+      "sha256": "6da99286e0eb7905595ca851e68983bedf94a0f93814819d61f2b1f3a0342ba2"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/vite/connector-preview-plugin.mjs",
+      "bytes": 7211,
+      "sha256": "a6a9fe2086e302f94a3f91e3c1a68a45bb3aa07d4a79faf01b14732191eb4e80"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/vite/sites-vite-plugin.LICENSE",
+      "bytes": 1063,
+      "sha256": "7de1e115d165f176e68f962acdb809b5ab8d8ae78d3981e0701392b2ac50c713"
+    },
+    {
+      "path": "sites/ki-workbench/scripts/vite/sites-vite-plugin.ts",
+      "bytes": 7185,
+      "sha256": "07af20e7097d9ed1d76f7c446d02997550b8fc5ca89668b249e25eabd62c6834"
+    },
+    {
+      "path": "sites/ki-workbench/tests/browser.mjs",
+      "bytes": 5010,
+      "sha256": "f6995cfc6b82f7d4789be0d0bf347bccfead74ed28c4c600b7fddd4925c51d18"
+    },
+    {
+      "path": "sites/ki-workbench/tests/publication.test.mjs",
+      "bytes": 7321,
+      "sha256": "3dcd7412082bdd75d2ef40e85db09ce2a4f9a6d9a1f7fba12ff26fce56880f74"
+    },
+    {
+      "path": "sites/ki-workbench/tests/sidebar.test.mjs",
+      "bytes": 8304,
+      "sha256": "0a5cbe46a78d2132407dffdb85d3883de10e44a42f3f891e7cabc35c98d3191e"
+    },
+    {
+      "path": "sites/ki-workbench/tsconfig.json",
+      "bytes": 893,
+      "sha256": "a4c1cc83b63ef9d39641d3babaefffa063dccbbc93338e18017b5013d713163e"
+    },
+    {
+      "path": "sites/ki-workbench/vendor/mcp-apps.LICENSE",
+      "bytes": 12227,
+      "sha256": "0382b0057770ca05e9c350a50aa3b1c1fea84da0bc81d723bf00b9aa841be58a"
+    },
+    {
+      "path": "sites/ki-workbench/vendor/shadcn-tailwind-4.13.0.LICENSE.md",
+      "bytes": 1063,
+      "sha256": "1564074e13439397221ffd522e2e504d56561994a23d371aa5e3ad43e4f5423f"
+    },
+    {
+      "path": "sites/ki-workbench/vendor/shadcn-tailwind-4.13.0.css",
+      "bytes": 16041,
+      "sha256": "bc7d83425702955b4cb67cb14ede9d603f9d912376d57a2d81d661094d2a782a"
+    },
+    {
+      "path": "sites/ki-workbench/vite.config.ts",
+      "bytes": 2673,
+      "sha256": "22ff558b1636d251e076f74c1697c7166079861667af10922d6bc505cb8f8290"
+    },
+    {
+      "path": "sites/ki-workbench/workbench/mcp-host.mjs",
+      "bytes": 771,
+      "sha256": "57d7fe4b9d19d714fbabbba72c105f3979d37863640792072ccc5a55f25027b8"
+    },
+    {
+      "path": "sites/ki-workbench/workbench/page.html",
+      "bytes": 38723,
+      "sha256": "d96a1359195334e46dcd5020265d6f7fec62014d3550b764051647d047ef6458"
+    },
+    {
+      "path": "sites/ki-workbench/worker/index.ts",
+      "bytes": 1303,
+      "sha256": "a0a10229cdda6f5fdb32234e3539007412233bb4938a671866c9295a44a3bdb6"
+    },
+    {
+      "path": "skills/architecture-analysis-diagrams/SKILL.md",
+      "bytes": 12021,
+      "sha256": "49157d9c65e3b813e3cae7fd0d80325e4b6a662929ba30f7a6c19316608ff9ed"
+    },
+    {
+      "path": "skills/architecture-analysis-diagrams/assets/分析图交互方案.html",
+      "bytes": 39782,
+      "sha256": "7280822e65143a3ac2840c2b88415a6b3290d13d2ac2ae55999cd3ef7ff80a31"
+    },
+    {
+      "path": "skills/architecture-analysis-diagrams/assets/分析图画法与表达_建筑设计参考_v1.1.md",
+      "bytes": 24106,
+      "sha256": "0bb2e9e038824caf4c28413f135e11cee89c003fda0fd005b2f8fe778387a395"
+    },
+    {
+      "path": "skills/architecture-analysis-diagrams/assets/建筑分析图模板_B1-B9.html",
+      "bytes": 39045,
+      "sha256": "fb87896f5fd473213a04b1ea7e7e8dbdad9c25d9d1b9c199dc8d997a72a7bf65"
+    },
+    {
+      "path": "skills/architecture-expert-library/SKILL.md",
+      "bytes": 2901,
+      "sha256": "42e5f352068381e2b26080aca1be3500e9e670c00588922c44af0698f0442e8f"
+    },
+    {
+      "path": "skills/architecture-expert-library/agents/openai.yaml",
+      "bytes": 330,
+      "sha256": "a0e08d65c6385889ffa1ef61a779b9f7115d26890c30ba15dfcfb2164088681b"
+    },
+    {
+      "path": "skills/brief-and-metrics/SKILL.md",
+      "bytes": 8239,
+      "sha256": "811197e39fb85d190ac425547cc87a77c31103e9ca714ff35e07a559490581d4"
+    },
+    {
+      "path": "skills/case-study/SKILL.md",
+      "bytes": 8430,
+      "sha256": "34cc859d4bd31df2872dac53c9ac57033b38520e3f58e42c6badb2781084a16f"
+    },
+    {
+      "path": "skills/concept-scheme/SKILL.md",
+      "bytes": 14671,
+      "sha256": "fc3f0b3ae975063dcfa46a7d8100069457a9b157a4b67b19d0a0d533cd0c8481"
+    },
+    {
+      "path": "skills/ki-archmain/LOCAL-SHA256SUMS.txt",
+      "bytes": 35081,
+      "sha256": "4256defb2eb48fd0e83dfb7f2f468647651d1d90803bbfcedf35657acf0d186e"
+    },
+    {
+      "path": "skills/ki-archmain/SKILL.md",
+      "bytes": 24959,
+      "sha256": "da539b684fe2d2103485c9b08a3e338a37306571d7d06f5052fc4953e74c7bf4"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/README.md",
+      "bytes": 267,
+      "sha256": "39321597250f80daa27a1bc02ad5ff8128acb341698bf567236441f82e901d0e"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/assets/design-change-record.md",
+      "bytes": 4797,
+      "sha256": "f58c4b1ce676f7f7db9a7231dfbff3f6c69a3bc741a8c20d36d3a92a26854bea"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/architectural-review-basis.md",
+      "bytes": 4968,
+      "sha256": "a19aa737ba5d015372238a6a34c9fc42a50f034035cce6e5b945f1f63284e62d"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/context.md",
+      "bytes": 3757,
+      "sha256": "2a65b789f79d8be09215ed893538f33bafc76d9dc0b086d1c8b14e10eecdd821"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/cross-cutting.md",
+      "bytes": 2029,
+      "sha256": "7447442870db4d3eda8ea11ee8cdc5b995549b2d6666d4173d0b1632385bf894"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/expression-interface.md",
+      "bytes": 12751,
+      "sha256": "c72bd0eefa5cef5918c0f5871e56bc5c08d301fce3ec753d486feafbe3b2f4c5"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/extend-methods.md",
+      "bytes": 3244,
+      "sha256": "d3d55b4c07451cabf1c7746a0bca5a4378e63986764fb85b18a78a1368a7dd83"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/local-design-integration.md",
+      "bytes": 7582,
+      "sha256": "a5651b55586dceda30dbd9850a9818f2385b6be9d252be35a9af70d67146836e"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/m06-development.md",
+      "bytes": 31245,
+      "sha256": "596ec61b72d4ac1f9db57fa997ab03760671ffd889bf4864b315e7e5c163159b"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/m07-delivery.md",
+      "bytes": 9204,
+      "sha256": "633ac22b24c969b4069cc3b048d0fc5cd745fd8f054be6d3428d3eb3d2c4fe12"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/m08-handover.md",
+      "bytes": 5816,
+      "sha256": "f971c2c3a6da8b442dcabe3462e85a7c0ddd182da83451bb6d68b0696d011c57"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/modeling-source-notes.md",
+      "bytes": 1339,
+      "sha256": "e63b1495c6fc5bbd6d5d68fc80d2e24e9675fcc8ba734748638f4b43352d8320"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/modeling-verification.md",
+      "bytes": 7720,
+      "sha256": "71c5eb4b21cd88eaf844b8374dda248df2e6eef0df8812d537cf2c843e2e9677"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/project-service.md",
+      "bytes": 19080,
+      "sha256": "9a8e4c8ce967278198a42245e6cd8a82634d9b46b7b7bb8e1d9194a0408e2c14"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/project-types.md",
+      "bytes": 1397,
+      "sha256": "ea42e880dc91c9751210d641e7eef0b877b294b6558e9e2a8dfc25e780564dc8"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/subprojects.md",
+      "bytes": 4241,
+      "sha256": "30f2388d7882cb60b74ec53d8f7f291ae1f32d153d24cd6a3b8937d1b154308f"
+    },
+    {
+      "path": "skills/ki-archmain/legacy/references/workflow-coordination.md",
+      "bytes": 11757,
+      "sha256": "47416c2fcdf1b301dd4468a8dd5ab2e73fc5a6c94580d4c0160f4054b6da1e74"
+    },
+    {
+      "path": "skills/ki-archmain/references/framework-catalog.json",
+      "bytes": 54935,
+      "sha256": "d3b772570e0dc8af532dfae87ea46d58762f0aea8898c8928d41c743d245a5b2"
+    },
+    {
+      "path": "skills/ki-archmain/references/ki-design-entry.md",
+      "bytes": 1607,
+      "sha256": "5e2b1b3bfa3d5c3a311eb281e8a5dec01ce07e91d4a920b822aeec68bc8e73a4"
+    },
+    {
+      "path": "skills/ki-archmain/references/ki-design-interfaces/case-study.txt",
+      "bytes": 608,
+      "sha256": "80a5b829f53aa03ed8b622045854663727a6fe9fda34e7def5d17e12f34ea2ed"
+    },
+    {
+      "path": "skills/ki-archmain/references/ki-design-interfaces/concept-scheme.txt",
+      "bytes": 796,
+      "sha256": "641cd1ce2db49935ed529fb4c01fb3dd3a655f69f2c0a5b881b6b1aa1a5ebea3"
+    },
+    {
+      "path": "skills/ki-archmain/references/ki-design-interfaces/ki-archmain.txt",
+      "bytes": 655,
+      "sha256": "e7f4830467e20545f518cabb891a4ab5a9c859ffd8fd6bb4f703ff21e2c5019d"
+    },
+    {
+      "path": "skills/ki-archmain/references/ki-design-interfaces/site-study.txt",
+      "bytes": 588,
+      "sha256": "8a7006614ac84b6d7d9076f591ad9b8cd461702c3ee265fd9d4be8f2c74bda92"
+    },
+    {
+      "path": "skills/ki-archmain/references/local-skill-adapters.json",
+      "bytes": 2738,
+      "sha256": "2a6e007f1aebb3f4469c32424b5ba18f7d3ff54737b4fe80d674d3a398ddd4e0"
+    },
+    {
+      "path": "skills/ki-archmain/references/project-service.md",
+      "bytes": 6032,
+      "sha256": "915d48e94b62a93b3d5716fdfa1b7b9504e72f42868593f60ba47d8b9cf53e74"
+    },
+    {
+      "path": "skills/ki-archmain/references/sketchup-modeling-entry.md",
+      "bytes": 4057,
+      "sha256": "ccd98f8a94412963d06da08eff7217ddc5b3378019adeb2df519ef1dba7a45e7"
+    },
+    {
+      "path": "skills/ki-archmain/references/sketchup-modeling-interfaces/architecture-analysis-diagrams.txt",
+      "bytes": 825,
+      "sha256": "74c1eb125f5f59a163e3b7ed0b6ef1b44f1fa79c0bd89f131f7065e1b6496bee"
+    },
+    {
+      "path": "skills/ki-archmain/references/sketchup-modeling-interfaces/concept-scheme.txt",
+      "bytes": 711,
+      "sha256": "e585ca3771d9bde9d6faa45ed17ebe276b4b3592506e3f0bea78461353cd2aff"
+    },
+    {
+      "path": "skills/ki-archmain/references/sketchup-modeling-interfaces/ki-archmain.txt",
+      "bytes": 648,
+      "sha256": "95309b1a0bcb11f20a0c66922f0ad5d5fe058db68cf8f0ec15e7755806d5a63d"
+    },
+    {
+      "path": "skills/ki-archmain/references/sketchup-modeling-interfaces/site-study.txt",
+      "bytes": 584,
+      "sha256": "761c9a778c26edb84f2e6fd712200b7894a9be1df8e0fc62552c7de2fad40349"
+    },
+    {
+      "path": "skills/ki-design/CHANGELOG.md",
+      "bytes": 4268,
+      "sha256": "e88a4221b5578631817cc2a674b0f9a0ee57cacca06d8ff3b1986a7a416c684b"
+    },
+    {
+      "path": "skills/ki-design/README.md",
+      "bytes": 2759,
+      "sha256": "cac66f6a2b96f86fc27fd8a3390222e68e6cc09d66e7a7c6a8224868dde8c765"
+    },
+    {
+      "path": "skills/ki-design/SKILL.md",
+      "bytes": 5049,
+      "sha256": "64cab2abc389d84088843fc59f2f3cc92cda127ca79febf47ef72164a3be168e"
+    },
+    {
+      "path": "skills/ki-design/agents/openai.yaml",
+      "bytes": 348,
+      "sha256": "b0a17de240d03eaf3ec295493b05ad64e112e5feb4d2b15b55a35d8ea050b2dc"
+    },
+    {
+      "path": "skills/ki-design/archive/v03_README.md",
+      "bytes": 2727,
+      "sha256": "7517b36dd8a51860f6bf72438dc32e6c36ebe20f48265f8fdee301cc59768e1f"
+    },
+    {
+      "path": "skills/ki-design/archive/v03_SKILL.md",
+      "bytes": 4595,
+      "sha256": "18c1c6b6ae025b1aa7635462c55eaf0f6f2e05b268ed2fae137530353415f76b"
+    },
+    {
+      "path": "skills/ki-design/archive/v03_import_books.py",
+      "bytes": 4857,
+      "sha256": "0b5b1fd7c8344b3fe4d0edadf6e05905175b0108f7e0becb2f71700a1633dbdc"
+    },
+    {
+      "path": "skills/ki-design/archive/v03_search_books.py",
+      "bytes": 1283,
+      "sha256": "b02cbb7496f15b7bd1e2185f28e070ed2b7c85741a191526e5e2afb7535e0a1a"
+    },
+    {
+      "path": "skills/ki-design/archive/v03_validate.py",
+      "bytes": 1045,
+      "sha256": "4b688f062d257fe5835f148d9ceec50b1164fb3ed5fdb1dc065f7d9c94d87887"
+    },
+    {
+      "path": "skills/ki-design/archive/v03_出版物与全文状态.json",
+      "bytes": 3242,
+      "sha256": "f20f695d927fa7eecd02ccc8fd48a52808a1f8d6062a0ab3609c499a22c011a7"
+    },
+    {
+      "path": "skills/ki-design/archive/v06_before_v07/v06__CHANGELOG.md",
+      "bytes": 2171,
+      "sha256": "4c2f62f851eccc4119b1f2935b40322c2236313e4e4ede1a8bddf9b1cad7b16b"
+    },
+    {
+      "path": "skills/ki-design/archive/v06_before_v07/v06__README.md",
+      "bytes": 3525,
+      "sha256": "2a860308bc1848d350bfe4a8f9d60a1b97d2f613d6dcb5de6c4ee90452aec37f"
+    },
+    {
+      "path": "skills/ki-design/archive/v06_before_v07/v06__SKILL.md",
+      "bytes": 8254,
+      "sha256": "9cdc829ce182bda7f7e9b2069a22186fc3fe911140af10ae6d409dda7ceeed9d"
+    },
+    {
+      "path": "skills/ki-design/archive/v06_before_v07/v06__manifest.json",
+      "bytes": 18964,
+      "sha256": "7b0dc141d2167fa9e4ed06a910774c04f4f96ad0f3774173bfbe4ab27f289329"
+    },
+    {
+      "path": "skills/ki-design/archive/v06_before_v07/v06__method__rules.json",
+      "bytes": 8331,
+      "sha256": "2aa2e178cefd37878db2ed5ab7accb2a3881e9408ca20f5d5ba3698c515ec7a3"
+    },
+    {
+      "path": "skills/ki-design/archive/v06_before_v07/v06__method__方法规则表.csv",
+      "bytes": 3493,
+      "sha256": "440a5dede588f74c02275fc07d45aa3b8dd84845316ee314949c3b23c123346f"
+    },
+    {
+      "path": "skills/ki-design/archive/v06_before_v07/v06__method__生成工作模式.md",
+      "bytes": 7119,
+      "sha256": "1b169e0db627892c394a44dcf0ffb583481b5d96a3884491175ace78e5ad8ee6"
+    },
+    {
+      "path": "skills/ki-design/archive/v06_before_v07/v06__references__theory__00_理论与团队分层.md",
+      "bytes": 1867,
+      "sha256": "b381c703ff181d23f3da1cead9edb126b1168228140a7d3d1a2b3b4ad7e270ec"
+    },
+    {
+      "path": "skills/ki-design/archive/v06_before_v07/v06__schemas__数据字典.md",
+      "bytes": 1637,
+      "sha256": "8f28400823476d3f740da2b035c9bdd201954175952756fc93431990a9a1577b"
+    },
+    {
+      "path": "skills/ki-design/archive/v06_before_v07/v06__scripts__query_skill.py",
+      "bytes": 1392,
+      "sha256": "ba7f86c0f2fddc350627779a5cdd47f6310a28ba49e27d027b7667cb9ddfa354"
+    },
+    {
+      "path": "skills/ki-design/archive/v06_before_v07/v06__scripts__validate.py",
+      "bytes": 3535,
+      "sha256": "ca47976cda0f4aafc4a65f3cc723f692e4b012d0049959107c711bb6813510b3"
+    },
+    {
+      "path": "skills/ki-design/archive/v06_before_v07/v06__templates__空间生成简报.md",
+      "bytes": 3692,
+      "sha256": "48dab18b20a56c2dd0ac5bbd0ced1f2d9183e5fc272a4745f6b8950c0ff2945e"
+    },
+    {
+      "path": "skills/ki-design/archive/崔愷本土设计_研究台账_v0.2.xlsx",
+      "bytes": 23961,
+      "sha256": "0bec209950568ba7807558f95419c2635fc729d5ee13b825f42bc98b2c73a00f"
+    },
+    {
+      "path": "skills/ki-design/evals/01_设计测试.md",
+      "bytes": 1980,
+      "sha256": "0ab55954ddc9c1f770724648d2c85d712f4207c36a2c858e12125bcdba559eb4"
+    },
+    {
+      "path": "skills/ki-design/evals/02_六册全文接入质量检查.md",
+      "bytes": 806,
+      "sha256": "af824554e6b0c093196a46e6f63acb0511adba7a59d18a5488bd74f39f16bbe8"
+    },
+    {
+      "path": "skills/ki-design/evals/03_设计盲评与证据门槛.md",
+      "bytes": 1397,
+      "sha256": "eb756a93e73b6dd223f6617cbd07bea94b36aa0e66e9f1303c0e1aa31ab4f1f6"
+    },
+    {
+      "path": "skills/ki-design/evals/04_方法特征验收_v05.md",
+      "bytes": 3580,
+      "sha256": "834e5a94d0bb5cbe6e21b862ab212a0d343ff931733d01f82b34f58fa07c2b3f"
+    },
+    {
+      "path": "skills/ki-design/evals/05_空间生成验收_v06.md",
+      "bytes": 2117,
+      "sha256": "deef4353337cf2296c16efa18419bdd08657dc8cde75c8c502985a30c4ea870b"
+    },
+    {
+      "path": "skills/ki-design/evals/06_跨场景设计验证_v07.md",
+      "bytes": 2488,
+      "sha256": "12cd12bcffb828c3a6b0560c53d411389a7583cc39a3df3818aa0be7fe34657f"
+    },
+    {
+      "path": "skills/ki-design/evals/07_任务边界与证据检验_v08.md",
+      "bytes": 1750,
+      "sha256": "8d2d5bb29f3f44a8b52075228c5879b7017f5e73a1cf38553dd6896c4f5cd09d"
+    },
+    {
+      "path": "skills/ki-design/evals/08_工作流接入情境_v09.md",
+      "bytes": 1707,
+      "sha256": "93bf61d4b4fe3b56f00415441a489060487763c3dbf32bf9b8172b39f8c96c94"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/00_自然入口与验收约定.md",
+      "bytes": 2417,
+      "sha256": "ae6d2a430e96a13dfb6db35d13cc493654bd2dcba0915be9828f1788dc486534"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/check_geometry.py",
+      "bytes": 1293,
+      "sha256": "bf0d36eb021b3c074e8ad25a6fe1de31c957e91f55b38e20af662a01d3fabd37"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/geometry_check_r00.json",
+      "bytes": 978,
+      "sha256": "2f88de0c08522be84c3c96026ef3f623c9c5e3ab997c148677d4d38fbdc5372f"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/geometry_check_v1.1.json",
+      "bytes": 924,
+      "sha256": "4690120bc08c8ddedfd3013c5c2554f7e54b35ddcc7e29d05007d4e1f73ff336"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/read_log.json",
+      "bytes": 1316,
+      "sha256": "4e5560decb06d2d2e9c7fcc6022d43eb668eb36b287fda511425266fb4f9d577"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/v1.1/draw_concept.py",
+      "bytes": 18198,
+      "sha256": "db087812bb8e1eeb1e888b206ba3d65af0af39617a1e65133c4d38c47395e65b"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/v1.1/geometry.json",
+      "bytes": 7348,
+      "sha256": "d51e64664f88049f786f61adaa9721bc40c11bb0ed1e40d223dfaeaf7aa77de5"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/v1.1/render-r00/01_plan_v1-1.svg",
+      "bytes": 307934,
+      "sha256": "32b38fad02d468c104e502a04b65594c5c52e3334f3766bca5db179044192b34"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/v1.1/render-r00/02_sections_v1-1.svg",
+      "bytes": 315900,
+      "sha256": "c26d7b8f1642a2cae24b1c6181d6812a374e19764d490dce3a3c321fda8e31d5"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/v1.1/render-r00/03_axon_v1-1.svg",
+      "bytes": 278439,
+      "sha256": "19375a4ed1dfb491753f213012a20663ac6944d467b550137f0e88c4011ff696"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/v1.1/render-r00/numeric_checks.json",
+      "bytes": 430,
+      "sha256": "71aef8b48a6ecdb168a7a731fb50b4506887f89955c40bc086b677ea7b78af92"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/v1/draw_concept.py",
+      "bytes": 18158,
+      "sha256": "147ed2084ef91371e703fc86fa6dae2467efa877d505f59e353cf88d16913fef"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/v1/geometry.json",
+      "bytes": 4493,
+      "sha256": "50adedeab48d5daa9f332fd47c9e691f5232740c47a13a5be3aacc370fbf8eb9"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/v1/render-r00/01_plan_v1.svg",
+      "bytes": 308934,
+      "sha256": "09f0fcbc56f1719212795306ed9a432ad281577cbaa3780d78e5b6058095c791"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/v1/render-r00/02_sections_v1.svg",
+      "bytes": 315724,
+      "sha256": "dc6badded614c5f0481a30b7175cb07ab88f21b6cb5077f712c332cda2f2683d"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/v1/render-r00/03_axon_v1.svg",
+      "bytes": 278261,
+      "sha256": "59b77583bf3b19b1820f8c559b6b4a49dfc9ff15b4138d7a2ab1b717e968de20"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/v1/render-r00/numeric_checks.json",
+      "bytes": 413,
+      "sha256": "5d3a3c77ccb06d1741b211ff6b7df426f47f2bbbacbe2999ef406fb1816b9db3"
+    },
+    {
+      "path": "skills/ki-design/evals/v06_artifacts/概念说明与两案比较.txt",
+      "bytes": 12018,
+      "sha256": "6c996df109d98ea8fab439b201c40e70b8e9769447a21934af126de1a4a2d209"
+    },
+    {
+      "path": "skills/ki-design/evals/v07/control-raw.md",
+      "bytes": 5574,
+      "sha256": "b043ebbd8aad2dba1f4023bdb943f709a2711bf837491308c9e1b1a4aeba5679"
+    },
+    {
+      "path": "skills/ki-design/evals/v07/v06_baseline.md",
+      "bytes": 3025,
+      "sha256": "2e9579d0c6337173763f8c022e8521eb4854049f6f3dbfd732dda9ed9abf0859"
+    },
+    {
+      "path": "skills/ki-design/evals/v07/v07-final-raw.md",
+      "bytes": 6709,
+      "sha256": "58e80cb9e60002a138199f2871d189a5e149469071c36f9d8f892d01bc08420e"
+    },
+    {
+      "path": "skills/ki-design/evals/v07/v07-initial-raw.md",
+      "bytes": 5314,
+      "sha256": "dd5247990cc118f12a361d86e04c9035ad349fc77cdb7ca66381e76f15805fdd"
+    },
+    {
+      "path": "skills/ki-design/evals/v07/任务集.json",
+      "bytes": 1943,
+      "sha256": "97e31eb2e3019d30e42751cf951fb2f6176f6f69fe82933cbaa625b2b6aa5eb4"
+    },
+    {
+      "path": "skills/ki-design/manifest.json",
+      "bytes": 26395,
+      "sha256": "ebe966e3b76292024cb5c21428357c71201d1682afd8a7c75be968a84780b4ea"
+    },
+    {
+      "path": "skills/ki-design/method/operations.json",
+      "bytes": 8912,
+      "sha256": "19b0e26bd199fcd313843546a46c08caa16d4fe2359d1d51ce9006bf2aab9863"
+    },
+    {
+      "path": "skills/ki-design/method/operations/W01.md",
+      "bytes": 1410,
+      "sha256": "32a5eb0eb7e377aa88e4a4726fb733f96ae1655bae7296093fd0554617b93ae4"
+    },
+    {
+      "path": "skills/ki-design/method/operations/W02.md",
+      "bytes": 1204,
+      "sha256": "625587a70e529b4c419e58ac17b7092aa46894af848ad17d307a2630cf27ff20"
+    },
+    {
+      "path": "skills/ki-design/method/operations/W03.md",
+      "bytes": 1163,
+      "sha256": "b628fa676926b9e8f08f7e7c562d2f923d57b37621a325f0c6b9aa88c8325e8e"
+    },
+    {
+      "path": "skills/ki-design/method/operations/W04.md",
+      "bytes": 1663,
+      "sha256": "005cfdc6614c827439290cdad04723459dafb03ee9d0499b06bf6bc637cdebc8"
+    },
+    {
+      "path": "skills/ki-design/method/operations/W05.md",
+      "bytes": 1070,
+      "sha256": "f3c676fec068e8fb8c3cdf54ec933781914c05ade89cc5e8546c9b63753cc8e3"
+    },
+    {
+      "path": "skills/ki-design/method/operations/W06.md",
+      "bytes": 1432,
+      "sha256": "9287a0ff9fed0c4d54dfbc37139ea5b5a7453dd21267a6530fd1b17e2980f1eb"
+    },
+    {
+      "path": "skills/ki-design/method/operations/W07.md",
+      "bytes": 1114,
+      "sha256": "f0fe534ea97318caea9739682dc97dd889f12f92e6374ba82b7b5704ca2c1ce9"
+    },
+    {
+      "path": "skills/ki-design/method/operations/W08.md",
+      "bytes": 1141,
+      "sha256": "d49d8d9fd1ad15177d06441112876157bcb1cbbf3da9625f2583b662ed5f7b44"
+    },
+    {
+      "path": "skills/ki-design/method/rules.json",
+      "bytes": 8451,
+      "sha256": "d6b7508ed72ebbae323f03b8caff64ef06c8dd31f9f2099681470e05a37bf06a"
+    },
+    {
+      "path": "skills/ki-design/method/决策引擎.md",
+      "bytes": 4990,
+      "sha256": "a58bf65aa29f0e548c9585af0bf85352c82440de51aca6cbfa0a5bbb83375557"
+    },
+    {
+      "path": "skills/ki-design/method/图像生成与跨图一致性.md",
+      "bytes": 3223,
+      "sha256": "286f1a2f7e66ea4619297f42d29de9734d295720171cba9d42503de9ef6b34c5"
+    },
+    {
+      "path": "skills/ki-design/method/操作卡登记.csv",
+      "bytes": 6391,
+      "sha256": "1ff4c74d163a31ff957a5fbdc21f418fbcfc44e6ef8bf75409d4d8a7f0a552f8"
+    },
+    {
+      "path": "skills/ki-design/method/方法规则表.csv",
+      "bytes": 3613,
+      "sha256": "b1af2afc5d6ad1b2e0755a304e5445114725fa14457f5dd840d8b8219552b025"
+    },
+    {
+      "path": "skills/ki-design/method/条件到空间操作对照.md",
+      "bytes": 5205,
+      "sha256": "8e397ecdad63a4d518716982c3c075f6d0ffc062861bb314bebb9ca9dcd12420"
+    },
+    {
+      "path": "skills/ki-design/method/生成工作模式.md",
+      "bytes": 9352,
+      "sha256": "9a2b175f1d04d4e63812742ac812061ebae6dff61824719b1333a1cc9f44ac2d"
+    },
+    {
+      "path": "skills/ki-design/private_corpus/README_不公开分发.md",
+      "bytes": 335,
+      "sha256": "b92cf2fab404a139bcab918193aa8e137af39eaa3559054e2ada94f8a3b0b957"
+    },
+    {
+      "path": "skills/ki-design/references/books/全文获取与导入说明.md",
+      "bytes": 2661,
+      "sha256": "7721c08c8a1d0e5ef19e48ec299ec27a1b66b0318d8093e0c8b6deb3021e1e01"
+    },
+    {
+      "path": "skills/ki-design/references/books/出版物与全文状态.json",
+      "bytes": 8096,
+      "sha256": "573693e98cb1f9abe8dd7c723f93b961e72f03fd88457101a4d8552c38c58142"
+    },
+    {
+      "path": "skills/ki-design/references/books/出版物登记表.csv",
+      "bytes": 3472,
+      "sha256": "f14db9f1497f72a70c93f60e113862ce91b9b389faf29c84f0c95939c29fd1e7"
+    },
+    {
+      "path": "skills/ki-design/references/books/检索日志.csv",
+      "bytes": 1645,
+      "sha256": "ca83efec8ea4dfdd63939eb38e43c6b4bffdf87b491fc995a48594737414c0c5"
+    },
+    {
+      "path": "skills/ki-design/references/books/电子资源渠道核验.csv",
+      "bytes": 1830,
+      "sha256": "6eca595c167ab990ee903e5dc898de4b4749e57e46a3ff7ae5fe2b9c0b7152dc"
+    },
+    {
+      "path": "skills/ki-design/references/books/电子资源渠道核验.json",
+      "bytes": 3126,
+      "sha256": "7f8994726bc7ddbc003e2aa683bdac46581a6289fe5cea1ee62fa11cbc0479c6"
+    },
+    {
+      "path": "skills/ki-design/references/books/章节级知识卡模板.md",
+      "bytes": 827,
+      "sha256": "0bc9e38e4f66c71fb37823f41d364311508f58e81a909be3ca25dc2b512d42f0"
+    },
+    {
+      "path": "skills/ki-design/references/cases/C01_苏州火车站站房.md",
+      "bytes": 1610,
+      "sha256": "16128553ec034db8ace8f2422ce8e14649abc12ee02f8065c2a66fe2ff1c6964"
+    },
+    {
+      "path": "skills/ki-design/references/cases/C02_北京德胜尚城.md",
+      "bytes": 1585,
+      "sha256": "877b3e8bc72cf68d9fa3cf977b4c6acc354f2961e28ffbb5f0f777a428b6a4f0"
+    },
+    {
+      "path": "skills/ki-design/references/cases/C03_敦煌莫高窟数字展示中心.md",
+      "bytes": 1650,
+      "sha256": "340cdd0f119f24127c218e21e0acc5d933e9eadbf52ab83ab784a701ae07a808"
+    },
+    {
+      "path": "skills/ki-design/references/cases/C04_祝家甸村砖窑改造_砖博物馆_.md",
+      "bytes": 1562,
+      "sha256": "ed0022ab88fa04c82b9aee3f9f46ee4b1bf2997498695094564e7f76edb4f0b7"
+    },
+    {
+      "path": "skills/ki-design/references/cases/C05_西安大华1935.md",
+      "bytes": 1595,
+      "sha256": "5ad860335ece8eaee8aa6ddb3b40ff8f02588864e81bcedb4af9f6f8c2f4c38a"
+    },
+    {
+      "path": "skills/ki-design/references/cases/C06_老司城遗址游客服务中心.md",
+      "bytes": 1531,
+      "sha256": "f4411465403aa1567c207c644f832da0fc5b7d6c9f08c149a4c0b2ac331a3ae6"
+    },
+    {
+      "path": "skills/ki-design/references/cases/C07_老司城遗址博物馆.md",
+      "bytes": 1512,
+      "sha256": "4cee07a9a3ab4c89f8ec17e478802eedf507a408e892ef57441d2613256f986c"
+    },
+    {
+      "path": "skills/ki-design/references/cases/C08_西浜村农房改造工程.md",
+      "bytes": 1464,
+      "sha256": "7c2044d5322890479d7eb97131e9adf0c6d43280cbd2de9fc17481c8fb0e0ee6"
+    },
+    {
+      "path": "skills/ki-design/references/cases/C09_大同博物馆.md",
+      "bytes": 1516,
+      "sha256": "455ca5ae9c44489e1349a8842cd388eba25fead498a7a1e994aa358cd5c1bfec"
+    },
+    {
+      "path": "skills/ki-design/references/cases/C10_雄安市民服务中心企业临时办公区.md",
+      "bytes": 1631,
+      "sha256": "7f47485ea7069c61f3ed9d43f76eb61679ccf2e5db0da3d661c3471d34f1b479"
+    },
+    {
+      "path": "skills/ki-design/references/cases/C11_昆山大戏院.md",
+      "bytes": 1583,
+      "sha256": "0a8d4ac4a296e7cbb354a325741d1fe4211d4d66e2160613b6c42246d04bb0f5"
+    },
+    {
+      "path": "skills/ki-design/references/cases/C12_南宁园博会昆山园.md",
+      "bytes": 1487,
+      "sha256": "8168f8fa71db32a053a9aa2195abbc2046278e003c8cf262c0341debcb8ce483"
+    },
+    {
+      "path": "skills/ki-design/references/evidence-use.md",
+      "bytes": 3293,
+      "sha256": "c200b431f1e98ae72a8766cb7baa4f831a23c040ed5d8398ec10546e56b9bb1f"
+    },
+    {
+      "path": "skills/ki-design/references/index/projects.json",
+      "bytes": 30473,
+      "sha256": "0d6d92a443fea435ba7549c86e7cfe2a9c267dbb84b1b025778ec609e2c4e088"
+    },
+    {
+      "path": "skills/ki-design/references/index/sources.json",
+      "bytes": 10646,
+      "sha256": "2c9ba461ed4f9907632722bc484321d73d8d1ba1a1f3520cc05dfa0e20b7da69"
+    },
+    {
+      "path": "skills/ki-design/references/index/sources_v04.json",
+      "bytes": 7664,
+      "sha256": "63ecba58d1af874bbaa582c8de5c3bae19287560830250362cc5af4aae293788"
+    },
+    {
+      "path": "skills/ki-design/references/index/sources_v05_cases.json",
+      "bytes": 7943,
+      "sha256": "a51250a4d282437bfbc2c37a1f106e2932b132cab91921b50ff65962decd712a"
+    },
+    {
+      "path": "skills/ki-design/references/index/sources_v06.json",
+      "bytes": 43662,
+      "sha256": "67789e53adba680af599ee68e4234ba43f2168cbc2bbd784e22c04b050018d1a"
+    },
+    {
+      "path": "skills/ki-design/references/index/sources_v06_drawings.json",
+      "bytes": 37416,
+      "sha256": "e23a371ef15fc192aaa3cae202d6e4cf98c5b8a33f06ef49640b2274e9243fe7"
+    },
+    {
+      "path": "skills/ki-design/references/index/sources_v06_theory.json",
+      "bytes": 5851,
+      "sha256": "36c806acd5fff0722d8d2e45c91b1c702dbc3bdd504411f3aa3f89fd41a266b0"
+    },
+    {
+      "path": "skills/ki-design/references/index/verified_cases.json",
+      "bytes": 11182,
+      "sha256": "c5f383c93e392d283bc3e5f27e41b912f62d6ea6555d409fad783dc787d726d3"
+    },
+    {
+      "path": "skills/ki-design/references/index/官网项目目录_102条.csv",
+      "bytes": 16518,
+      "sha256": "fa54ec361726531021168653bbe284a65300e863c48e6e09f70f2edd7d78503f"
+    },
+    {
+      "path": "skills/ki-design/references/index/已核实案例.csv",
+      "bytes": 3211,
+      "sha256": "bc2686c676d40c57cef8ac29264f24ced7ff99bf8afb71275d7a745215f8698c"
+    },
+    {
+      "path": "skills/ki-design/references/index/本轮来源核验.csv",
+      "bytes": 4742,
+      "sha256": "1420e68065ff0eea5733e8ef388b9adba2b44cce2d5d4f435e717cc7824398d5"
+    },
+    {
+      "path": "skills/ki-design/references/index/来源索引.csv",
+      "bytes": 5560,
+      "sha256": "1434525174267f6692f951835c79e828a326c30512e2e0b53598a43751e1a79f"
+    },
+    {
+      "path": "skills/ki-design/references/kigaga-integration.md",
+      "bytes": 1959,
+      "sha256": "dcce0900cf8506914629938f0355de050ce1bbb17544a9fc778819e5eddc2dd2"
+    },
+    {
+      "path": "skills/ki-design/references/reading/v06/图纸阅读卡.md",
+      "bytes": 15318,
+      "sha256": "13fc2aaa5d926e9b3faee6d86adee6d435919af6605ae7a61c27b7cd663f0377"
+    },
+    {
+      "path": "skills/ki-design/references/reading/公开图示检查.csv",
+      "bytes": 676,
+      "sha256": "d88413069335be50714342c31a63b7826c996011b62d96ab50e1716e59c53b1b"
+    },
+    {
+      "path": "skills/ki-design/references/reading/公开图示检查.json",
+      "bytes": 1074,
+      "sha256": "b7b9bd44e0a50189895f50fd750b5d54612bad6267f494a4dc78151fbff4f0f5"
+    },
+    {
+      "path": "skills/ki-design/references/reading/本轮公开证据卡.md",
+      "bytes": 3729,
+      "sha256": "6049b8e26852f1f266db7d66357b5d1a1e1775167d764bd4b13f60fdb86fb459"
+    },
+    {
+      "path": "skills/ki-design/references/reading/条件性空间策略与对照案例_v05.md",
+      "bytes": 17649,
+      "sha256": "9c151f3766588a41d31062493e4566408ba44ca231370a16f3375dbf3aa9fe7a"
+    },
+    {
+      "path": "skills/ki-design/references/theory/00_理论与团队分层.md",
+      "bytes": 2162,
+      "sha256": "1cf09b2cb76e6fb62d0fc1ba420bd6004bcac7942cf4f7622ff04923ebaf42f2"
+    },
+    {
+      "path": "skills/ki-design/references/theory/01_理论命题摘要.md",
+      "bytes": 4110,
+      "sha256": "db6d84c2e946b16f96a43be38e76fec5146bd77565b59c20875bf60df9396f21"
+    },
+    {
+      "path": "skills/ki-design/references/theory/v06/理念生成判断.md",
+      "bytes": 12312,
+      "sha256": "fcecc05da6a5caac2a1572d7ae8be5d050ba69da12a8e77f728f49f4d39a723e"
+    },
+    {
+      "path": "skills/ki-design/references/workflow-call-proposal.md",
+      "bytes": 371,
+      "sha256": "696f5c4172a673219bdbcdb4a91ea2ac601c17012f184f368b118c075ecf8f12"
+    },
+    {
+      "path": "skills/ki-design/references/workflow-contract.md",
+      "bytes": 5540,
+      "sha256": "9d262c5425841adaabdbdcdd906bb373471332d47bcc464377c40777b7cbf5f9"
+    },
+    {
+      "path": "skills/ki-design/reports/v05_验收报告.md",
+      "bytes": 19586,
+      "sha256": "c72243ab3dc9d847c18d967ee4ab02dfb6a01194402a110df1f478b87970c5e5"
+    },
+    {
+      "path": "skills/ki-design/reports/v06_独立空间生成验收.md",
+      "bytes": 6976,
+      "sha256": "572da2b1767c5f8ab6c1746882e68b753340344fcbf83c18eeec311243c81980"
+    },
+    {
+      "path": "skills/ki-design/reports/v06_结构校验.json",
+      "bytes": 1653,
+      "sha256": "791a02d403b270f26c1bb251f72e67b8fa7f554ff198c4297f424ca6d8cc3480"
+    },
+    {
+      "path": "skills/ki-design/reports/v06_语料测试.txt",
+      "bytes": 1321,
+      "sha256": "b8a66fcff94cf67f63b059705febef73777987d77dc661e5c50982ee7874d9db"
+    },
+    {
+      "path": "skills/ki-design/reports/v06_集成检查.md",
+      "bytes": 3014,
+      "sha256": "82f3dc91eabb2a3a24d7512fbd0a28cacdcee43167093ab2904e6df3dd699465"
+    },
+    {
+      "path": "skills/ki-design/reports/v07_KiGAGA接入试读.md",
+      "bytes": 7941,
+      "sha256": "d5ffcabd12aad50d7e4137f11461bcc0ad17f09cbb67fed283da94fd4c99c30c"
+    },
+    {
+      "path": "skills/ki-design/reports/v07_更新与检查记录.md",
+      "bytes": 3443,
+      "sha256": "1bf042e29d141b78241a592eea07ffc4a87be8f1cf3b2a2ed765f4ff146a6fae"
+    },
+    {
+      "path": "skills/ki-design/reports/v07_校验修复前.txt",
+      "bytes": 1678,
+      "sha256": "e68c33500678fd9552caf3357f4e9b6cb1da92d92cb305fef84d63688bc89b5d"
+    },
+    {
+      "path": "skills/ki-design/reports/v07_检索修复前.txt",
+      "bytes": 2909,
+      "sha256": "6bece9f166202a0032eede32c745f943c0ac890896dc0a005c12ce8fd3a64e14"
+    },
+    {
+      "path": "skills/ki-design/reports/v07_独立复核.md",
+      "bytes": 1371,
+      "sha256": "214980a1e8dff886a4e85b12686dd75d0050b53b015f09143eff7dc8a77e267d"
+    },
+    {
+      "path": "skills/ki-design/reports/v07_程序回归.txt",
+      "bytes": 2412,
+      "sha256": "d97e0fdb1f16be218b1f4935e4af6aeee48cf49e3736d13d96694fd23c30a169"
+    },
+    {
+      "path": "skills/ki-design/reports/v07_结构检查.json",
+      "bytes": 2209,
+      "sha256": "6aa0c34ba23213a2e5f66726dfc7dbfc7801bf4db19f2b4e05f783bbc9a8f372"
+    },
+    {
+      "path": "skills/ki-design/reports/v07_行为试读复核.md",
+      "bytes": 3240,
+      "sha256": "fa07fe88e1972b075bfadbc9b0eaccfbc0f57078db0e0d1106846b6607f876e6"
+    },
+    {
+      "path": "skills/ki-design/reports/v07_资料保留清单.json",
+      "bytes": 23401,
+      "sha256": "0b22544d3b72b31c676ab3879ae0db65de79883b0ed5b39997543468d23f6f84"
+    },
+    {
+      "path": "skills/ki-design/reports/交付检查.md",
+      "bytes": 591,
+      "sha256": "c93cbd8b0952a6a2e61605e1218b58c348613b487cfd53aa2262c2c26c569cf8"
+    },
+    {
+      "path": "skills/ki-design/reports/电子资源核验与重构报告.md",
+      "bytes": 3817,
+      "sha256": "7e8f9c9da4d1b708c0e3b846384fd648137aa2658c1c41f884a40c67f3bd8b13"
+    },
+    {
+      "path": "skills/ki-design/reports/程序测试结果.txt",
+      "bytes": 1321,
+      "sha256": "4cd04102e92f5d42e40f40a5f4fa65cefdd25d2967bd83290d948f4aafc3925f"
+    },
+    {
+      "path": "skills/ki-design/reports/结构校验结果.json",
+      "bytes": 1653,
+      "sha256": "791a02d403b270f26c1bb251f72e67b8fa7f554ff198c4297f424ca6d8cc3480"
+    },
+    {
+      "path": "skills/ki-design/schemas/数据字典.md",
+      "bytes": 1789,
+      "sha256": "a2ca671d4d1d4b9c7214ac52d2fec25c7a920997c744e01f1dc3a290f2529c1c"
+    },
+    {
+      "path": "skills/ki-design/schemas/证据状态字典_v04.md",
+      "bytes": 1022,
+      "sha256": "aaf4545026b3e10676bb26c78e405ff50ee30fa81eea87f40d2ffdaeb88d1b07"
+    },
+    {
+      "path": "skills/ki-design/scripts/import_books.py",
+      "bytes": 12263,
+      "sha256": "c50fb7d5a49b57149fc4d5a377f80e3eb41b49a924e92c00030e4bcb88d6b984"
+    },
+    {
+      "path": "skills/ki-design/scripts/package_public.py",
+      "bytes": 1329,
+      "sha256": "d741f9a2c4415beab5f70cb9e9c91a1cb2be534f0eabdbb0da5b0c3e84b11910"
+    },
+    {
+      "path": "skills/ki-design/scripts/query_skill.py",
+      "bytes": 3974,
+      "sha256": "bbafac969e96ecaa6dd0ad884485f39164d79be2840423729175ab1d13754808"
+    },
+    {
+      "path": "skills/ki-design/scripts/search_books.py",
+      "bytes": 1882,
+      "sha256": "1f1746163922440aab65750c4f63f7584fadd05c86df654f413773e28420005e"
+    },
+    {
+      "path": "skills/ki-design/scripts/test_corpus.py",
+      "bytes": 4936,
+      "sha256": "4d7c29ca9851397c790b5f6c8cc7693200f6b9b9069b4325abbb9cad2fa1d413"
+    },
+    {
+      "path": "skills/ki-design/scripts/test_retrieval.py",
+      "bytes": 4178,
+      "sha256": "9a12215c44531a55c80807f23ebe3a6ee060ec4c2ea09e2a8c01f8f955b5dca1"
+    },
+    {
+      "path": "skills/ki-design/scripts/test_v08_integrity.py",
+      "bytes": 4538,
+      "sha256": "e248b6bd2dab43cdc6211fdbb288dfc05c3698835004e343add5abf3b441d896"
+    },
+    {
+      "path": "skills/ki-design/scripts/test_validation.py",
+      "bytes": 1621,
+      "sha256": "7f4a5c0b6106d743069ec8b5829cff36746273cd377f6750a24084be9742f449"
+    },
+    {
+      "path": "skills/ki-design/scripts/validate.py",
+      "bytes": 10561,
+      "sha256": "6e7dcf6975e68adc8c10829bbf240df984aeca7322d9aa2b8368f162a02f1dba"
+    },
+    {
+      "path": "skills/ki-design/templates/CASE_CARD_TEMPLATE.md",
+      "bytes": 587,
+      "sha256": "ca10eca127e5f1fbb955064f178d44df57f99471c5d60ff0c4b9a8197d8eed38"
+    },
+    {
+      "path": "skills/ki-design/templates/授权电子版询问信模板.md",
+      "bytes": 820,
+      "sha256": "330dcea25640d7a2464439a2204f5ce3f6251abb6c5ddf841c301d025e3e0ac9"
+    },
+    {
+      "path": "skills/ki-design/templates/空间生成简报.md",
+      "bytes": 5024,
+      "sha256": "577a18b24b48ea3a04a8bfaf26b11a6db662d7ab71945f43aecc96d3170e4f10"
+    },
+    {
+      "path": "skills/ki-design/templates/设计推演报告.md",
+      "bytes": 3709,
+      "sha256": "224c90e4e34531fe4705bba5cbcc30f03913f2136724910439e11b3bcea1b90c"
+    },
+    {
+      "path": "skills/ki-design/崔愷本土设计_电子资源与方法台账_v0.4.xlsx",
+      "bytes": 31113,
+      "sha256": "40ee52b7cc552332dc34d17c4c9516175ff6a24d9c67eec6eadaa69d25e7f06f"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/BUILD.json",
+      "bytes": 312,
+      "sha256": "7607eedadbd87ceedd1403e970d36b3b2fae1a72aeafcafe177e69c569859bc2"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/INSTALL.md",
+      "bytes": 2590,
+      "sha256": "e54ba039d4a0165fe0aa0ef37b748ff2eda555021a4962aaf9df95741c47dd4d"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/LICENSE",
+      "bytes": 28318,
+      "sha256": "0bd4ac43b6a522528b05a7fb5f642c945f21b7c6631cd01516c91a632057aa89"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/LOCAL-ADAPTATION.json",
+      "bytes": 2971,
+      "sha256": "39890723d59f52ce9bd3e1f012db59a8fed42141a4c310d85e79e011cae0294e"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/LOCAL-PACKAGE.json",
+      "bytes": 19300,
+      "sha256": "b938d2fe51861f360547649bef6f510f1ab7b8fb1f8cb268dcd1d670f2471858"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/NOTICE",
+      "bytes": 622,
+      "sha256": "a2049e405417a7d46346fcf48255b79ca5c5d35f3860b85c44143fc298b49e2f"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/RELEASE.md",
+      "bytes": 2284,
+      "sha256": "cd0eb970f3ba78444fdcc841d68c9632a8f224738a559101f5ff961c020079aa"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/SKILL.md",
+      "bytes": 14017,
+      "sha256": "9ddc35f6bfed559c75404d4ede579ff6ddf5d4a2e4ed4470aff0626aa0bcc8fb"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/agents/openai.yaml",
+      "bytes": 378,
+      "sha256": "670806cc488924af4702515575300c15c75799d4fed362246c7c92271f4a930d"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/ATTRIBUTION.md",
+      "bytes": 533,
+      "sha256": "9f5f062973348bb4cc510d89712bd626675ef0be7b7eb75793c3062bdb35f178"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/HOST-ENABLEMENT.md",
+      "bytes": 4729,
+      "sha256": "49f17851d7fa1401468bebd00240d62381759182ec262e2eaf4e9a8c6c9f9d9b"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/SOURCE-DIAGNOSIS.md",
+      "bytes": 872,
+      "sha256": "227a357f5485f4e0d52bc4f8f2a3e49badd3e35b7736ff81e812ae68f967053d"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/ancient-detail-decomposition.md",
+      "bytes": 2669,
+      "sha256": "b583464401bb5d4af1f4ced91eae887ad6a4ecc24aa414025a3eee6c7c515e38"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/ancient-gates.md",
+      "bytes": 245,
+      "sha256": "5a2e15f27962030c875676b9699e8b19cd87e453aa2951532bc72253e3fb4456"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/assembly-review.md",
+      "bytes": 2149,
+      "sha256": "8b8979a298eb2f5f205c4ff541a7095e2845c95580dabe706d033c8318ee7183"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/cad-to-su-fidelity.md",
+      "bytes": 3866,
+      "sha256": "16e22f544b8a493caf823f2cf65b804bf2b82f1c1846598a733979e5f2dddf74"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/camera-capture-review.md",
+      "bytes": 2061,
+      "sha256": "303e5712329ea88732aadab61a911d1c241f67f3470113a65c0e5949613b428b"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/change-focused-review.md",
+      "bytes": 326,
+      "sha256": "8d0285aaa36077e467810cd87c2529ad57a097142c1be06179ad242e9124cec6"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/chinese-ancient-architecture-rules.md",
+      "bytes": 6222,
+      "sha256": "cbf8415019a2ef3fd5409ad127099423cf7e9c160746786a02c88cd820b717b8"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/chinese-ancient-regression-findings.md",
+      "bytes": 9092,
+      "sha256": "0e025ef1f16d485064bc7188bfbace5e88438ef5b1b32dccad70001e81cba7cd"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/chinese-tower-case-evidence.json",
+      "bytes": 47932,
+      "sha256": "60b87067bf9b8e022263b620801351054a65080ca7e9cce362ad5e34fdcd55e0"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/chinese-tower-case/README.md",
+      "bytes": 870,
+      "sha256": "d83d2d3dfdd308548364e2991a662cc63e6b7dd3c5c757a1eb04ce3c6714c3b0"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/chinese-tower-image-modeling.md",
+      "bytes": 10623,
+      "sha256": "b1c382f5aa8b8a283b411805aa42f88075ed89741efa30ac2f2a016d525cb17c"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/commercial-street-lessons.md",
+      "bytes": 263,
+      "sha256": "c39f001f4651744041fff164427e43df468a34d4ab1d8f0b46c5fa633465726a"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/curved-architecture-rules.md",
+      "bytes": 5350,
+      "sha256": "c00bcaf6aafea186d6851f253d4e2df5384136f0f62ccbcaf3049d6e44b6687f"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/examples/recipe-and-batch.md",
+      "bytes": 2712,
+      "sha256": "f81725221844dee73d3c2d9a1b0eefed8bf2c6b9891eaf235848fca9833a4313"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/examples/roof-recipe.json",
+      "bytes": 1209,
+      "sha256": "8f09009daa46e883c5f0047527dc613cc19c868b3b8fd008715b1a840f73fd13"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/examples/ruby/README.md",
+      "bytes": 524,
+      "sha256": "42b7f5ae93c7d4478908a99ea2c153ca34d68f25691cca0afac5ea03171a1b92"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/examples/ruby/ancient-construction-patterns.rb",
+      "bytes": 4089,
+      "sha256": "946da4baa2cc880f2d3dbe9846f916ce5f6d306cbfc409a41e6de970c5274d01"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/examples/ruby/polygon-eave-shell.rb",
+      "bytes": 4691,
+      "sha256": "ecab029d9940bdae4bccff436a6d5c38560c2ab2b4e3d2742b106042b550e294"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/examples/ruby/representative-and-batch.rb",
+      "bytes": 3527,
+      "sha256": "d4ebbf80e464994e25cb03c650376ecf9144af93d82a0100d0f7831672a9d456"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/examples/ruby/shared-boundary-shell.rb",
+      "bytes": 2702,
+      "sha256": "90e4a6bdf599f35241b72e584d33a4c21f7a4d4d18730ef6fdd61183ec1a4c92"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/examples/shared-boundary-shell.md",
+      "bytes": 2116,
+      "sha256": "f529da0386b7178db7dbfd1a6e042fd7d5cf9aa3609c85daf7f43ba5bcfb4a06"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/expert-operation.md",
+      "bytes": 5125,
+      "sha256": "b885315245a812711b6c6b9025069302d0bd54ed1915312401b4a8dd1a17fe68"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/facade-skin-review.md",
+      "bytes": 2548,
+      "sha256": "3a5ef6053fa836a41a48a341f11cb2734939eaeb0625425a51e9910a607ce7b4"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/form-feature-review.md",
+      "bytes": 2066,
+      "sha256": "63068dcc27651ed3de410aa9c6614b79365afe36decd5857e7000c1069331c90"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/geometry-guard.md",
+      "bytes": 5184,
+      "sha256": "f89eb694fc720d2700dc03e9c2e2823fc73d5be66d1857e19433a5301d2ade45"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/guided-operation.md",
+      "bytes": 2601,
+      "sha256": "d8a96a2bf533e1bca5faf946db8884d62020d798abd73abb185ea4ee22c48035"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/hierarchical-component-workflow.md",
+      "bytes": 13406,
+      "sha256": "dcc4ffab28cc3183d265a156fb5ade884d41da03c641a66ee1dc37a8b138853a"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/image-to-su-staged-template.md",
+      "bytes": 3765,
+      "sha256": "9c1456678eb52169add531f4adfdd7f7e057ebe9d942714ed00b09bcb7b52edc"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/independent-review.md",
+      "bytes": 1709,
+      "sha256": "01ac3f0bbf248f25605d01dae934754c155132000ea6860ddafc75824fac3fe8"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/instance-layout-contract.md",
+      "bytes": 6921,
+      "sha256": "3b5c63f7d491d8da9986b6295ba2387235134a4db7d401b661b697730c6296fa"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/managed-quality-review.md",
+      "bytes": 3903,
+      "sha256": "c2674128ebb3988ba90795c4130cc66bb81fb4aed0258fcb4860345c5f354a3d"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/managed-recovery.md",
+      "bytes": 2443,
+      "sha256": "eb4462b8b9de96d670e9545b2c0a67aa68a99674c97b78ef24fa1644e57b2bf8"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/managed-ruby-api.md",
+      "bytes": 16986,
+      "sha256": "ee1f395d00f76ca2ee5f7079d02a440b12a612b21456884d568fda40d408cb2c"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/materials-editability-review.md",
+      "bytes": 1904,
+      "sha256": "01305a55ca7176229f85789e8ce68fcf3face7ef2b4bb15056b95b2d80a182ea"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/minimal-managed-example.md",
+      "bytes": 1526,
+      "sha256": "29acdf5b86d19f482e5557213be4ba80f8683be65c39fd06189c5e6dfce55411"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/modeling-method-playbook.md",
+      "bytes": 10436,
+      "sha256": "597da80507f6bafd44897c9519e6e97d96f79516a82a45ba45511f02014e539e"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/parameter-dependency-contract.md",
+      "bytes": 5206,
+      "sha256": "14a948402e8595fc9b5a994f1510463dc0e1a08164f31673b3ffea9a00670a72"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/progressive-image-reconstruction.md",
+      "bytes": 318,
+      "sha256": "60cbfcd1ba33bedd734eee0b76880d1384c685214cf8f28dcf3d2753236c2d6f"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/projection-brief-guide.md",
+      "bytes": 1462,
+      "sha256": "4190a491634ba53dc662f1f69fee8520e7153417ab86f446af8ca1b7eed94921"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/quality-check-contract.md",
+      "bytes": 6909,
+      "sha256": "3dbc6f427accb7259c6db21d63202d27f8565c00f53b8e597a01551a3bae7916"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/read-only-corpus-reader.md",
+      "bytes": 396,
+      "sha256": "5f6604d978f0fdd27fa43d4f1ff57eb6216c043699b47da423cb8c7c986995ee"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/ref-pack-guide.md",
+      "bytes": 8321,
+      "sha256": "89174dcf3d26da212f4372b58eee9f141e808f3d0060b0cd4da21b907ef997eb"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/reference-catalog.md",
+      "bytes": 3540,
+      "sha256": "2eedce109442a4f63d5f8c3d7737563d370dc1131cb326bc6a011357cad445ab"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/reference-comparison.md",
+      "bytes": 1679,
+      "sha256": "e9c949a764784154fc77a7078c7732882a803904317d0196bad672280ba0c3c4"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/reverse-modeling-index.md",
+      "bytes": 1266,
+      "sha256": "568cf77274f9df4e2fadaf48876fe83105c4d4302f9ded93297b309f17c2d2e8"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/ruby-snippets.md",
+      "bytes": 12973,
+      "sha256": "c84bc6d61468898379d1d7507bf16f7f8ba2e5718eac9183e954d0bb79dc250a"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/runtime-compatibility.md",
+      "bytes": 4687,
+      "sha256": "5d84cfb995359b4bf4d492e4bedfd0579b505f48a7eeec8a6e552a15c15bc39f"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/scoped-operations.md",
+      "bytes": 4042,
+      "sha256": "05d59c05fe62505423bc9e28e363aca016a0cfe9c2b9bf9e52b11ca5c26a33a0"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/semantic-validation.md",
+      "bytes": 5495,
+      "sha256": "6df992584e5bdffb9dcbe3c8607ac0446da133d4241261f8dc0d222de29335e1"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/shared-architectural-foundation.md",
+      "bytes": 3758,
+      "sha256": "9f94e3691729d531f66821f2b0da4569c9c33e1161fc7013937328a4f7ef068e"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/source-analyzer-prompt.md",
+      "bytes": 1342,
+      "sha256": "22f0fc3fcc73541d3b069145355e89fa4a0ac984170c35e1bce0522349c757d1"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/source-dimensions.md",
+      "bytes": 1942,
+      "sha256": "2351ba62e5436d577facde5558415fd2738eeba725254c85e487b06b07e0ce65"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/source-reading-diagnostics.md",
+      "bytes": 2013,
+      "sha256": "72d041d4670c3bae5f080477b1553dad409ccd25ef488a6c9fbb759c9a770aef"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/targeted-ancient-curved-study.md",
+      "bytes": 3874,
+      "sha256": "daef2407b7f8224c666f3306493b31eae47786bb48fb64ca00a472c2a17cb789"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/trace-manifest-schema.md",
+      "bytes": 9671,
+      "sha256": "e83020c8e1ef6606cef5a525fea253bb842a6af9ae51d31db92339c242164f2f"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/weak-model-starter.md",
+      "bytes": 1123,
+      "sha256": "cfb2bce5cdbedbd400318b8ca1b9177223d8bd37765202b99499bab4b929f1d0"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/workflow-integration.md",
+      "bytes": 7136,
+      "sha256": "b0404fd12a1fcb0d11940446f3b169105e92e9c9fe41c4a78b8b2efb3128090d"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/references/yellow-crane-tower-lessons.md",
+      "bytes": 7647,
+      "sha256": "8d10987a9494b037a64643a07eda18f12fd34342f36b716af9bf0e0560f1e78a"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/audit_active_model.rb",
+      "bytes": 10684,
+      "sha256": "575ac56bd979e211b5d7ed707c9a1b3567cc2c63ad0c152685e8b45bb76456c3"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/audit_subject_bounds.rb",
+      "bytes": 1960,
+      "sha256": "a78cf79299b131724ba507b8692fc7c65ba1938a7b6eedb5763c4c8d92660c30"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/build_from_trace_manifest.py",
+      "bytes": 10882,
+      "sha256": "fcb9188320a72a460d73b5b828679b591b6f91cef8835732acd75b6b356ffcce"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/call_sketchup_mcp.mjs",
+      "bytes": 4480,
+      "sha256": "3e8fcf65d34e3648e4dab02c424c3f8ab4c871434f69719da69586c79bc20bbd"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/capture_viewport.py",
+      "bytes": 193,
+      "sha256": "58daef5d27da0135e71062d423730a2c48e861d2e5249e595b382286add61930"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/capture_window.py",
+      "bytes": 5855,
+      "sha256": "5c8588c5be4b7689eb67f69743f7a4743d577a64089ca214eae073cd455f970c"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/construction_geometry.rb",
+      "bytes": 20589,
+      "sha256": "6d73cbbaf2199ecfa7a06a86223004569e0aeaff532e8d727718d87a9604791b"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/enable_host_mcp.py",
+      "bytes": 12800,
+      "sha256": "f160f11761ab39ddf2dd96bea524266872a51fd8c2489d9319a8d742f5585160"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/geometry_guard.rb",
+      "bytes": 8020,
+      "sha256": "e24140e95b889922291cd31bb597dca45438e3a0bde4726d0536847fec90e06f"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/geometry_views.rb",
+      "bytes": 6892,
+      "sha256": "8fe3cc9092a79306ca39463f66b0d2b56f647654aa05e0910e137eb41c4b1bad"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/inspect_sketchup_shortcut.ps1",
+      "bytes": 2429,
+      "sha256": "1be79776b982bf4b2eb20aeb489233ed5bc896362d7e81ca49c27e1b759fdbec"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/install_managed_mcp.py",
+      "bytes": 7304,
+      "sha256": "3f5d61186569c03f46533efdf2e71e8de5bdaa1d7ae067d6dddd7fcb2b45f3ae"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/learn_sketchup_models.ps1",
+      "bytes": 307,
+      "sha256": "f7c4fe08bde90d7b0397bc53e173ca3f68b56112e9bfe84d34d2b100b490721e"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/make_visual_review_sheet.py",
+      "bytes": 12013,
+      "sha256": "42b65dab0828fd43bb67f1a52e80d52105c4e7e650af24a7aaaac93e16d2b881"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/managed_operations.rb",
+      "bytes": 9813,
+      "sha256": "a3e7a899d32706771acd77cf550e08a43f3906b8b29af94e8af679ffea98ccba"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/managed_project.rb",
+      "bytes": 110390,
+      "sha256": "dc5b9f8bb1ed7a093e782f9bd2a590b0d0bc7722110ae0c884f423b4a74cced2"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/managed_targets.rb",
+      "bytes": 9198,
+      "sha256": "fd37847d950ca753462b0ba598112d8e53b6dd42a3c901f1d2de7dce7f2bf1f4"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/managed_unit_scope.rb",
+      "bytes": 5136,
+      "sha256": "560610c380af0219618dce95c34702b21bded557035751fe88b2b577979bacda"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/materialize_geometry_review.py",
+      "bytes": 3792,
+      "sha256": "f28a6caad738f563f4a6951e29b97099b47c6258ccae3ca643f603ac8104f56d"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/read_instance_layout.py",
+      "bytes": 3964,
+      "sha256": "8fc07075af3c30ab2a4dd519f93912e23b8e79cab760c9aed646d1e3b8a7b959"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/read_instance_layout.rb",
+      "bytes": 4405,
+      "sha256": "b7564bf7d770af6eeced290e9d4d95a9501319bfae4220ec91e18c45de5c36db"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/read_skp_batch.py",
+      "bytes": 2532,
+      "sha256": "455b956c748cb66712a51f0822bb272d865523bfdfcaf599155bc7f352e0dc7e"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/read_skp_structure.py",
+      "bytes": 11374,
+      "sha256": "1d6239135b6d2b986f9710c61ffd30649a674272ff9ff3b216ab77fba3f7272f"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/register_reference_library.py",
+      "bytes": 12577,
+      "sha256": "8f82fecec43574d7db97637a29321e98897c05213ac42cf01c233ca73522c546"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/scaffold_quality_review.py",
+      "bytes": 4320,
+      "sha256": "7c3055e519cbfcf54256e0b7a6c883c89b4fa88d4d1568e2e0389cb390a992ea"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/source_dimensions.rb",
+      "bytes": 4017,
+      "sha256": "86997d0e0b2faf098782d0f9629b687600f5d1d7eae7506f2503e61e303d4350"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/start_local_sketchup.ps1",
+      "bytes": 4700,
+      "sha256": "bb4f8844f8f984a8045555aad3460a742b1caa0701598af2bf8db2d780318ba8"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/stdio_bridge.py",
+      "bytes": 16736,
+      "sha256": "b281190fba1634bbd86a6651a6f91b16fc409dbce21b55805e3457e4abd72bbb"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/validate_cad_su_fidelity.py",
+      "bytes": 9697,
+      "sha256": "14b56275a684fc96c6703aa877f37a0c4df9dc096c5cbb227cdd908866ddff84"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/validate_geometry_measurements.py",
+      "bytes": 14625,
+      "sha256": "8c6ed0d0be2c85361e5d7ed1711bcf543379bc0e0b9910a12360d7946f1b39a8"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/validate_instance_layout.py",
+      "bytes": 2582,
+      "sha256": "afff48c0228969c2d8d026508f14c7e0b8bc46054b346d12742fbd072032def5"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/validate_parameter_dependencies.py",
+      "bytes": 8237,
+      "sha256": "aabc66f87c3e4191db75b3074f1bccf3a5b1b3dcc133cdfc31020d30511bc714"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/validate_reference_libraries.py",
+      "bytes": 3284,
+      "sha256": "5e0b938e5528822dbb8f4d0d78fde279b006107c197d7d1d550911125aa7d597"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/validate_trace.py",
+      "bytes": 12468,
+      "sha256": "9013a7f189795927acfc53def36bbb4fd940e71b4c3bd6fdbf1f3523414ccfc8"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/verify_model_delivery.py",
+      "bytes": 9078,
+      "sha256": "63c7b99dc4a9fe9ef79255f77f933a7daab391c642022da416b1c2824f93f573"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/scripts/viewport_capture.rb",
+      "bytes": 5705,
+      "sha256": "152c42e263c30ebc2dfb905ef2338934cf4ea99044f26a56ea4fe95c51cc0f8c"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/templates/experience-pack/REF.md",
+      "bytes": 1382,
+      "sha256": "cc2090ca451f49f31735d764f065408c309be9dd3f2da2ab812b296d2f12dcb9"
+    },
+    {
+      "path": "skills/professional-sketchup-modeling/templates/experience-pack/case.json",
+      "bytes": 1016,
+      "sha256": "8d7556bf6b8ba1a61a5ff2c42c3438b11ba4bb91c39bd96582470ffca3eb09e3"
+    },
+    {
+      "path": "skills/site-study/SKILL.md",
+      "bytes": 9925,
+      "sha256": "6526b81a492309fe4dae204114b2cd97ef8c7df606d2f9f78d3c581398363bf0"
+    },
+    {
+      "path": "skills/urban-design-analysis/SKILL.md",
+      "bytes": 21932,
+      "sha256": "c8b2cbd906e7517384921359b35e3591e4dec591649296ef4b9c5db959207bfa"
+    }
+  ]
+}

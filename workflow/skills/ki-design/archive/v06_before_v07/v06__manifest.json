@@ -1,0 +1,557 @@
+{
+  "release": "0.6.0",
+  "date": "2026-10-10",
+  "full_books_imported": 0,
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 2171,
+      "sha256": "4c2f62f851eccc4119b1f2935b40322c2236313e4e4ede1a8bddf9b1cad7b16b"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3525,
+      "sha256": "2a860308bc1848d350bfe4a8f9d60a1b97d2f613d6dcb5de6c4ee90452aec37f"
+    },
+    {
+      "path": "SKILL.md",
+      "bytes": 8254,
+      "sha256": "9cdc829ce182bda7f7e9b2069a22186fc3fe911140af10ae6d409dda7ceeed9d"
+    },
+    {
+      "path": "archive/v03_README.md",
+      "bytes": 2727,
+      "sha256": "7517b36dd8a51860f6bf72438dc32e6c36ebe20f48265f8fdee301cc59768e1f"
+    },
+    {
+      "path": "archive/v03_SKILL.md",
+      "bytes": 4595,
+      "sha256": "18c1c6b6ae025b1aa7635462c55eaf0f6f2e05b268ed2fae137530353415f76b"
+    },
+    {
+      "path": "archive/v03_import_books.py",
+      "bytes": 4857,
+      "sha256": "0b5b1fd7c8344b3fe4d0edadf6e05905175b0108f7e0becb2f71700a1633dbdc"
+    },
+    {
+      "path": "archive/v03_search_books.py",
+      "bytes": 1283,
+      "sha256": "b02cbb7496f15b7bd1e2185f28e070ed2b7c85741a191526e5e2afb7535e0a1a"
+    },
+    {
+      "path": "archive/v03_validate.py",
+      "bytes": 1045,
+      "sha256": "4b688f062d257fe5835f148d9ceec50b1164fb3ed5fdb1dc065f7d9c94d87887"
+    },
+    {
+      "path": "archive/v03_出版物与全文状态.json",
+      "bytes": 3242,
+      "sha256": "f20f695d927fa7eecd02ccc8fd48a52808a1f8d6062a0ab3609c499a22c011a7"
+    },
+    {
+      "path": "archive/崔愷本土设计_研究台账_v0.2.xlsx",
+      "bytes": 23961,
+      "sha256": "0bec209950568ba7807558f95419c2635fc729d5ee13b825f42bc98b2c73a00f"
+    },
+    {
+      "path": "evals/01_设计测试.md",
+      "bytes": 1980,
+      "sha256": "0ab55954ddc9c1f770724648d2c85d712f4207c36a2c858e12125bcdba559eb4"
+    },
+    {
+      "path": "evals/02_六册全文接入质量检查.md",
+      "bytes": 806,
+      "sha256": "af824554e6b0c093196a46e6f63acb0511adba7a59d18a5488bd74f39f16bbe8"
+    },
+    {
+      "path": "evals/03_设计盲评与证据门槛.md",
+      "bytes": 1397,
+      "sha256": "eb756a93e73b6dd223f6617cbd07bea94b36aa0e66e9f1303c0e1aa31ab4f1f6"
+    },
+    {
+      "path": "evals/04_方法特征验收_v05.md",
+      "bytes": 3580,
+      "sha256": "834e5a94d0bb5cbe6e21b862ab212a0d343ff931733d01f82b34f58fa07c2b3f"
+    },
+    {
+      "path": "evals/05_空间生成验收_v06.md",
+      "bytes": 2117,
+      "sha256": "deef4353337cf2296c16efa18419bdd08657dc8cde75c8c502985a30c4ea870b"
+    },
+    {
+      "path": "evals/v06_artifacts/00_自然入口与验收约定.md",
+      "bytes": 2417,
+      "sha256": "ae6d2a430e96a13dfb6db35d13cc493654bd2dcba0915be9828f1788dc486534"
+    },
+    {
+      "path": "evals/v06_artifacts/check_geometry.py",
+      "bytes": 1293,
+      "sha256": "bf0d36eb021b3c074e8ad25a6fe1de31c957e91f55b38e20af662a01d3fabd37"
+    },
+    {
+      "path": "evals/v06_artifacts/geometry_check_r00.json",
+      "bytes": 978,
+      "sha256": "2f88de0c08522be84c3c96026ef3f623c9c5e3ab997c148677d4d38fbdc5372f"
+    },
+    {
+      "path": "evals/v06_artifacts/geometry_check_v1.1.json",
+      "bytes": 924,
+      "sha256": "4690120bc08c8ddedfd3013c5c2554f7e54b35ddcc7e29d05007d4e1f73ff336"
+    },
+    {
+      "path": "evals/v06_artifacts/read_log.json",
+      "bytes": 1316,
+      "sha256": "4e5560decb06d2d2e9c7fcc6022d43eb668eb36b287fda511425266fb4f9d577"
+    },
+    {
+      "path": "evals/v06_artifacts/v1/draw_concept.py",
+      "bytes": 18158,
+      "sha256": "147ed2084ef91371e703fc86fa6dae2467efa877d505f59e353cf88d16913fef"
+    },
+    {
+      "path": "evals/v06_artifacts/v1/geometry.json",
+      "bytes": 4493,
+      "sha256": "50adedeab48d5daa9f332fd47c9e691f5232740c47a13a5be3aacc370fbf8eb9"
+    },
+    {
+      "path": "evals/v06_artifacts/v1/render-r00/01_plan_v1.svg",
+      "bytes": 308934,
+      "sha256": "09f0fcbc56f1719212795306ed9a432ad281577cbaa3780d78e5b6058095c791"
+    },
+    {
+      "path": "evals/v06_artifacts/v1/render-r00/02_sections_v1.svg",
+      "bytes": 315724,
+      "sha256": "dc6badded614c5f0481a30b7175cb07ab88f21b6cb5077f712c332cda2f2683d"
+    },
+    {
+      "path": "evals/v06_artifacts/v1/render-r00/03_axon_v1.svg",
+      "bytes": 278261,
+      "sha256": "59b77583bf3b19b1820f8c559b6b4a49dfc9ff15b4138d7a2ab1b717e968de20"
+    },
+    {
+      "path": "evals/v06_artifacts/v1/render-r00/numeric_checks.json",
+      "bytes": 413,
+      "sha256": "5d3a3c77ccb06d1741b211ff6b7df426f47f2bbbacbe2999ef406fb1816b9db3"
+    },
+    {
+      "path": "evals/v06_artifacts/v1.1/draw_concept.py",
+      "bytes": 18198,
+      "sha256": "db087812bb8e1eeb1e888b206ba3d65af0af39617a1e65133c4d38c47395e65b"
+    },
+    {
+      "path": "evals/v06_artifacts/v1.1/geometry.json",
+      "bytes": 7348,
+      "sha256": "d51e64664f88049f786f61adaa9721bc40c11bb0ed1e40d223dfaeaf7aa77de5"
+    },
+    {
+      "path": "evals/v06_artifacts/v1.1/render-r00/01_plan_v1-1.svg",
+      "bytes": 307934,
+      "sha256": "32b38fad02d468c104e502a04b65594c5c52e3334f3766bca5db179044192b34"
+    },
+    {
+      "path": "evals/v06_artifacts/v1.1/render-r00/02_sections_v1-1.svg",
+      "bytes": 315900,
+      "sha256": "c26d7b8f1642a2cae24b1c6181d6812a374e19764d490dce3a3c321fda8e31d5"
+    },
+    {
+      "path": "evals/v06_artifacts/v1.1/render-r00/03_axon_v1-1.svg",
+      "bytes": 278439,
+      "sha256": "19375a4ed1dfb491753f213012a20663ac6944d467b550137f0e88c4011ff696"
+    },
+    {
+      "path": "evals/v06_artifacts/v1.1/render-r00/numeric_checks.json",
+      "bytes": 430,
+      "sha256": "71aef8b48a6ecdb168a7a731fb50b4506887f89955c40bc086b677ea7b78af92"
+    },
+    {
+      "path": "evals/v06_artifacts/概念说明与两案比较.txt",
+      "bytes": 12018,
+      "sha256": "6c996df109d98ea8fab439b201c40e70b8e9769447a21934af126de1a4a2d209"
+    },
+    {
+      "path": "method/operations/W01.md",
+      "bytes": 1166,
+      "sha256": "85e18bfe5e6968805b85d06593528817a3e60292243da05b19ae09a61f7ac86e"
+    },
+    {
+      "path": "method/operations/W02.md",
+      "bytes": 1204,
+      "sha256": "625587a70e529b4c419e58ac17b7092aa46894af848ad17d307a2630cf27ff20"
+    },
+    {
+      "path": "method/operations/W03.md",
+      "bytes": 1163,
+      "sha256": "b628fa676926b9e8f08f7e7c562d2f923d57b37621a325f0c6b9aa88c8325e8e"
+    },
+    {
+      "path": "method/operations/W04.md",
+      "bytes": 1476,
+      "sha256": "d65d1aedbdcf7f58219a3f0fa3466d08c73877952b1eb165e0bf01a802d2e4f5"
+    },
+    {
+      "path": "method/operations/W05.md",
+      "bytes": 1070,
+      "sha256": "f3c676fec068e8fb8c3cdf54ec933781914c05ade89cc5e8546c9b63753cc8e3"
+    },
+    {
+      "path": "method/operations/W06.md",
+      "bytes": 1224,
+      "sha256": "43a85b5821564b45d2f846b3fc1513f22b095aea727a930a3dc502fd7356e421"
+    },
+    {
+      "path": "method/operations/W07.md",
+      "bytes": 920,
+      "sha256": "56548dc29f10eeb76fe0cbf5d50618a062826a895e132bdb0b23f662567b69e4"
+    },
+    {
+      "path": "method/operations/W08.md",
+      "bytes": 1141,
+      "sha256": "d49d8d9fd1ad15177d06441112876157bcb1cbbf3da9625f2583b662ed5f7b44"
+    },
+    {
+      "path": "method/operations.json",
+      "bytes": 8445,
+      "sha256": "f8caad5023d5ff0f3b7bdde5540121feab835aaa27e80ebeed74a0c12dd9d50c"
+    },
+    {
+      "path": "method/rules.json",
+      "bytes": 8331,
+      "sha256": "2aa2e178cefd37878db2ed5ab7accb2a3881e9408ca20f5d5ba3698c515ec7a3"
+    },
+    {
+      "path": "method/决策引擎.md",
+      "bytes": 4726,
+      "sha256": "1f6b6a0340b2c8abfc8eca904850b1141ec517ed098fa35aa7a4588d200d1f52"
+    },
+    {
+      "path": "method/图像生成与跨图一致性.md",
+      "bytes": 2541,
+      "sha256": "68cb9f6d5c1def9e54da6426f8fd8f1b6ccef5df7e1108b8ae90a0c20a624015"
+    },
+    {
+      "path": "method/操作卡登记.csv",
+      "bytes": 6094,
+      "sha256": "3c7f14218c544077f9e500be84432b913693cfa1fa31db3e139755a8674f3a12"
+    },
+    {
+      "path": "method/方法规则表.csv",
+      "bytes": 3493,
+      "sha256": "440a5dede588f74c02275fc07d45aa3b8dd84845316ee314949c3b23c123346f"
+    },
+    {
+      "path": "method/生成工作模式.md",
+      "bytes": 7119,
+      "sha256": "1b169e0db627892c394a44dcf0ffb583481b5d96a3884491175ace78e5ad8ee6"
+    },
+    {
+      "path": "private_corpus/README_不公开分发.md",
+      "bytes": 335,
+      "sha256": "b92cf2fab404a139bcab918193aa8e137af39eaa3559054e2ada94f8a3b0b957"
+    },
+    {
+      "path": "references/books/全文获取与导入说明.md",
+      "bytes": 2661,
+      "sha256": "7721c08c8a1d0e5ef19e48ec299ec27a1b66b0318d8093e0c8b6deb3021e1e01"
+    },
+    {
+      "path": "references/books/出版物与全文状态.json",
+      "bytes": 8096,
+      "sha256": "573693e98cb1f9abe8dd7c723f93b961e72f03fd88457101a4d8552c38c58142"
+    },
+    {
+      "path": "references/books/出版物登记表.csv",
+      "bytes": 3472,
+      "sha256": "f14db9f1497f72a70c93f60e113862ce91b9b389faf29c84f0c95939c29fd1e7"
+    },
+    {
+      "path": "references/books/检索日志.csv",
+      "bytes": 1645,
+      "sha256": "ca83efec8ea4dfdd63939eb38e43c6b4bffdf87b491fc995a48594737414c0c5"
+    },
+    {
+      "path": "references/books/电子资源渠道核验.csv",
+      "bytes": 1830,
+      "sha256": "6eca595c167ab990ee903e5dc898de4b4749e57e46a3ff7ae5fe2b9c0b7152dc"
+    },
+    {
+      "path": "references/books/电子资源渠道核验.json",
+      "bytes": 3126,
+      "sha256": "7f8994726bc7ddbc003e2aa683bdac46581a6289fe5cea1ee62fa11cbc0479c6"
+    },
+    {
+      "path": "references/books/章节级知识卡模板.md",
+      "bytes": 827,
+      "sha256": "0bc9e38e4f66c71fb37823f41d364311508f58e81a909be3ca25dc2b512d42f0"
+    },
+    {
+      "path": "references/cases/C01_苏州火车站站房.md",
+      "bytes": 1610,
+      "sha256": "16128553ec034db8ace8f2422ce8e14649abc12ee02f8065c2a66fe2ff1c6964"
+    },
+    {
+      "path": "references/cases/C02_北京德胜尚城.md",
+      "bytes": 1585,
+      "sha256": "877b3e8bc72cf68d9fa3cf977b4c6acc354f2961e28ffbb5f0f777a428b6a4f0"
+    },
+    {
+      "path": "references/cases/C03_敦煌莫高窟数字展示中心.md",
+      "bytes": 1650,
+      "sha256": "340cdd0f119f24127c218e21e0acc5d933e9eadbf52ab83ab784a701ae07a808"
+    },
+    {
+      "path": "references/cases/C04_祝家甸村砖窑改造_砖博物馆_.md",
+      "bytes": 1562,
+      "sha256": "ed0022ab88fa04c82b9aee3f9f46ee4b1bf2997498695094564e7f76edb4f0b7"
+    },
+    {
+      "path": "references/cases/C05_西安大华1935.md",
+      "bytes": 1595,
+      "sha256": "5ad860335ece8eaee8aa6ddb3b40ff8f02588864e81bcedb4af9f6f8c2f4c38a"
+    },
+    {
+      "path": "references/cases/C06_老司城遗址游客服务中心.md",
+      "bytes": 1531,
+      "sha256": "f4411465403aa1567c207c644f832da0fc5b7d6c9f08c149a4c0b2ac331a3ae6"
+    },
+    {
+      "path": "references/cases/C07_老司城遗址博物馆.md",
+      "bytes": 1512,
+      "sha256": "4cee07a9a3ab4c89f8ec17e478802eedf507a408e892ef57441d2613256f986c"
+    },
+    {
+      "path": "references/cases/C08_西浜村农房改造工程.md",
+      "bytes": 1464,
+      "sha256": "7c2044d5322890479d7eb97131e9adf0c6d43280cbd2de9fc17481c8fb0e0ee6"
+    },
+    {
+      "path": "references/cases/C09_大同博物馆.md",
+      "bytes": 1516,
+      "sha256": "455ca5ae9c44489e1349a8842cd388eba25fead498a7a1e994aa358cd5c1bfec"
+    },
+    {
+      "path": "references/cases/C10_雄安市民服务中心企业临时办公区.md",
+      "bytes": 1631,
+      "sha256": "7f47485ea7069c61f3ed9d43f76eb61679ccf2e5db0da3d661c3471d34f1b479"
+    },
+    {
+      "path": "references/cases/C11_昆山大戏院.md",
+      "bytes": 1583,
+      "sha256": "0a8d4ac4a296e7cbb354a325741d1fe4211d4d66e2160613b6c42246d04bb0f5"
+    },
+    {
+      "path": "references/cases/C12_南宁园博会昆山园.md",
+      "bytes": 1487,
+      "sha256": "8168f8fa71db32a053a9aa2195abbc2046278e003c8cf262c0341debcb8ce483"
+    },
+    {
+      "path": "references/index/projects.json",
+      "bytes": 30473,
+      "sha256": "0d6d92a443fea435ba7549c86e7cfe2a9c267dbb84b1b025778ec609e2c4e088"
+    },
+    {
+      "path": "references/index/sources.json",
+      "bytes": 10646,
+      "sha256": "2c9ba461ed4f9907632722bc484321d73d8d1ba1a1f3520cc05dfa0e20b7da69"
+    },
+    {
+      "path": "references/index/sources_v04.json",
+      "bytes": 7664,
+      "sha256": "63ecba58d1af874bbaa582c8de5c3bae19287560830250362cc5af4aae293788"
+    },
+    {
+      "path": "references/index/sources_v05_cases.json",
+      "bytes": 7943,
+      "sha256": "a51250a4d282437bfbc2c37a1f106e2932b132cab91921b50ff65962decd712a"
+    },
+    {
+      "path": "references/index/sources_v06.json",
+      "bytes": 43662,
+      "sha256": "67789e53adba680af599ee68e4234ba43f2168cbc2bbd784e22c04b050018d1a"
+    },
+    {
+      "path": "references/index/sources_v06_drawings.json",
+      "bytes": 37416,
+      "sha256": "e23a371ef15fc192aaa3cae202d6e4cf98c5b8a33f06ef49640b2274e9243fe7"
+    },
+    {
+      "path": "references/index/sources_v06_theory.json",
+      "bytes": 5851,
+      "sha256": "36c806acd5fff0722d8d2e45c91b1c702dbc3bdd504411f3aa3f89fd41a266b0"
+    },
+    {
+      "path": "references/index/verified_cases.json",
+      "bytes": 11182,
+      "sha256": "c5f383c93e392d283bc3e5f27e41b912f62d6ea6555d409fad783dc787d726d3"
+    },
+    {
+      "path": "references/index/官网项目目录_102条.csv",
+      "bytes": 16518,
+      "sha256": "fa54ec361726531021168653bbe284a65300e863c48e6e09f70f2edd7d78503f"
+    },
+    {
+      "path": "references/index/已核实案例.csv",
+      "bytes": 3211,
+      "sha256": "bc2686c676d40c57cef8ac29264f24ced7ff99bf8afb71275d7a745215f8698c"
+    },
+    {
+      "path": "references/index/本轮来源核验.csv",
+      "bytes": 4742,
+      "sha256": "1420e68065ff0eea5733e8ef388b9adba2b44cce2d5d4f435e717cc7824398d5"
+    },
+    {
+      "path": "references/index/来源索引.csv",
+      "bytes": 5560,
+      "sha256": "1434525174267f6692f951835c79e828a326c30512e2e0b53598a43751e1a79f"
+    },
+    {
+      "path": "references/reading/v06/图纸阅读卡.md",
+      "bytes": 15318,
+      "sha256": "13fc2aaa5d926e9b3faee6d86adee6d435919af6605ae7a61c27b7cd663f0377"
+    },
+    {
+      "path": "references/reading/公开图示检查.csv",
+      "bytes": 676,
+      "sha256": "d88413069335be50714342c31a63b7826c996011b62d96ab50e1716e59c53b1b"
+    },
+    {
+      "path": "references/reading/公开图示检查.json",
+      "bytes": 1074,
+      "sha256": "b7b9bd44e0a50189895f50fd750b5d54612bad6267f494a4dc78151fbff4f0f5"
+    },
+    {
+      "path": "references/reading/本轮公开证据卡.md",
+      "bytes": 3729,
+      "sha256": "6049b8e26852f1f266db7d66357b5d1a1e1775167d764bd4b13f60fdb86fb459"
+    },
+    {
+      "path": "references/reading/条件性空间策略与对照案例_v05.md",
+      "bytes": 17649,
+      "sha256": "9c151f3766588a41d31062493e4566408ba44ca231370a16f3375dbf3aa9fe7a"
+    },
+    {
+      "path": "references/theory/00_理论与团队分层.md",
+      "bytes": 1867,
+      "sha256": "b381c703ff181d23f3da1cead9edb126b1168228140a7d3d1a2b3b4ad7e270ec"
+    },
+    {
+      "path": "references/theory/01_理论命题摘要.md",
+      "bytes": 4110,
+      "sha256": "db6d84c2e946b16f96a43be38e76fec5146bd77565b59c20875bf60df9396f21"
+    },
+    {
+      "path": "references/theory/v06/理念生成判断.md",
+      "bytes": 12312,
+      "sha256": "fcecc05da6a5caac2a1572d7ae8be5d050ba69da12a8e77f728f49f4d39a723e"
+    },
+    {
+      "path": "reports/v05_验收报告.md",
+      "bytes": 19586,
+      "sha256": "c72243ab3dc9d847c18d967ee4ab02dfb6a01194402a110df1f478b87970c5e5"
+    },
+    {
+      "path": "reports/v06_独立空间生成验收.md",
+      "bytes": 6976,
+      "sha256": "572da2b1767c5f8ab6c1746882e68b753340344fcbf83c18eeec311243c81980"
+    },
+    {
+      "path": "reports/v06_结构校验.json",
+      "bytes": 1653,
+      "sha256": "791a02d403b270f26c1bb251f72e67b8fa7f554ff198c4297f424ca6d8cc3480"
+    },
+    {
+      "path": "reports/v06_语料测试.txt",
+      "bytes": 1321,
+      "sha256": "b8a66fcff94cf67f63b059705febef73777987d77dc661e5c50982ee7874d9db"
+    },
+    {
+      "path": "reports/v06_集成检查.md",
+      "bytes": 3014,
+      "sha256": "82f3dc91eabb2a3a24d7512fbd0a28cacdcee43167093ab2904e6df3dd699465"
+    },
+    {
+      "path": "reports/交付检查.md",
+      "bytes": 591,
+      "sha256": "c93cbd8b0952a6a2e61605e1218b58c348613b487cfd53aa2262c2c26c569cf8"
+    },
+    {
+      "path": "reports/电子资源核验与重构报告.md",
+      "bytes": 3817,
+      "sha256": "7e8f9c9da4d1b708c0e3b846384fd648137aa2658c1c41f884a40c67f3bd8b13"
+    },
+    {
+      "path": "reports/程序测试结果.txt",
+      "bytes": 1321,
+      "sha256": "4cd04102e92f5d42e40f40a5f4fa65cefdd25d2967bd83290d948f4aafc3925f"
+    },
+    {
+      "path": "reports/结构校验结果.json",
+      "bytes": 1653,
+      "sha256": "791a02d403b270f26c1bb251f72e67b8fa7f554ff198c4297f424ca6d8cc3480"
+    },
+    {
+      "path": "schemas/数据字典.md",
+      "bytes": 1637,
+      "sha256": "8f28400823476d3f740da2b035c9bdd201954175952756fc93431990a9a1577b"
+    },
+    {
+      "path": "schemas/证据状态字典_v04.md",
+      "bytes": 1022,
+      "sha256": "aaf4545026b3e10676bb26c78e405ff50ee30fa81eea87f40d2ffdaeb88d1b07"
+    },
+    {
+      "path": "scripts/import_books.py",
+      "bytes": 12263,
+      "sha256": "c50fb7d5a49b57149fc4d5a377f80e3eb41b49a924e92c00030e4bcb88d6b984"
+    },
+    {
+      "path": "scripts/package_public.py",
+      "bytes": 1329,
+      "sha256": "d741f9a2c4415beab5f70cb9e9c91a1cb2be534f0eabdbb0da5b0c3e84b11910"
+    },
+    {
+      "path": "scripts/query_skill.py",
+      "bytes": 1392,
+      "sha256": "ba7f86c0f2fddc350627779a5cdd47f6310a28ba49e27d027b7667cb9ddfa354"
+    },
+    {
+      "path": "scripts/search_books.py",
+      "bytes": 1882,
+      "sha256": "1f1746163922440aab65750c4f63f7584fadd05c86df654f413773e28420005e"
+    },
+    {
+      "path": "scripts/test_corpus.py",
+      "bytes": 4936,
+      "sha256": "4d7c29ca9851397c790b5f6c8cc7693200f6b9b9069b4325abbb9cad2fa1d413"
+    },
+    {
+      "path": "scripts/validate.py",
+      "bytes": 3535,
+      "sha256": "ca47976cda0f4aafc4a65f3cc723f692e4b012d0049959107c711bb6813510b3"
+    },
+    {
+      "path": "templates/CASE_CARD_TEMPLATE.md",
+      "bytes": 587,
+      "sha256": "ca10eca127e5f1fbb955064f178d44df57f99471c5d60ff0c4b9a8197d8eed38"
+    },
+    {
+      "path": "templates/授权电子版询问信模板.md",
+      "bytes": 820,
+      "sha256": "330dcea25640d7a2464439a2204f5ce3f6251abb6c5ddf841c301d025e3e0ac9"
+    },
+    {
+      "path": "templates/空间生成简报.md",
+      "bytes": 3692,
+      "sha256": "48dab18b20a56c2dd0ac5bbd0ced1f2d9183e5fc272a4745f6b8950c0ff2945e"
+    },
+    {
+      "path": "templates/设计推演报告.md",
+      "bytes": 3163,
+      "sha256": "c4aa067b265d706d432107d0378cdfc42e41f1758409c18cd982f402becf92c2"
+    },
+    {
+      "path": "崔愷本土设计_电子资源与方法台账_v0.4.xlsx",
+      "bytes": 31113,
+      "sha256": "40ee52b7cc552332dc34d17c4c9516175ff6a24d9c67eec6eadaa69d25e7f06f"
+    }
+  ]
+}

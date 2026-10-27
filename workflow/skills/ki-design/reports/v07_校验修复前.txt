@@ -1,0 +1,23 @@
+test_broken_link_inside_current_theory_is_rejected (__main__.CurrentResearchValidationTests.test_broken_link_inside_current_theory_is_rejected) ... FAIL
+test_corrupt_current_theory_index_is_rejected (__main__.CurrentResearchValidationTests.test_corrupt_current_theory_index_is_rejected) ... FAIL
+
+======================================================================
+FAIL: test_broken_link_inside_current_theory_is_rejected (__main__.CurrentResearchValidationTests.test_broken_link_inside_current_theory_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/skills\cui-kai-local-design\scripts\test_validation.py", line 38, in test_broken_link_inside_current_theory_is_rejected
+    self.assertTrue(self.rejected(), 'Nested current-method link was silently ignored')
+AssertionError: False is not true : Nested current-method link was silently ignored
+
+======================================================================
+FAIL: test_corrupt_current_theory_index_is_rejected (__main__.CurrentResearchValidationTests.test_corrupt_current_theory_index_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/skills\cui-kai-local-design\scripts\test_validation.py", line 32, in test_corrupt_current_theory_index_is_rejected
+    self.assertTrue(self.rejected(), 'Current theory source index was silently ignored')
+AssertionError: False is not true : Current theory source index was silently ignored
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.439s
+
+FAILED (failures=2)

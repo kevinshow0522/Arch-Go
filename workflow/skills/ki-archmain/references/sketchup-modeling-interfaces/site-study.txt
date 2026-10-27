@@ -1,0 +1,5 @@
+## 本机接口：场地模型
+
+03章需要三维地形、周边体量或场地关系验证，且已授权用SU制作时，调用 [professional-sketchup-modeling](../professional-sketchup-modeling/SKILL.md)，交回本包的可编辑模型与核对视图。继承可靠场地来源、单位、原点/北向/标高及保留对象；未知高度和边界不补成正式控制条件。
+
+只获取地图或矢量不等于模型完成；不因场地建模提前选定05方案。具体输入、保存与返回见[建模章节接口](../ki-archmain/references/sketchup-modeling-entry.md)。

@@ -1,0 +1,62 @@
+{
+  "schema_version": 2,
+  "purpose": "Independent KI-design and SketchUp modeling interfaces; local only",
+  "adapters": [
+    {
+      "target": "ki-archmain/SKILL.md",
+      "base_sha256": "171fa8ab5dc33a842a1676dfe373e7b48bb097f346dbf1b910d049eba3133a04",
+      "anchor": "# KI建筑设计工作流 1.30",
+      "source": "ki-archmain/references/ki-design-interfaces/ki-archmain.txt",
+      "interface": "ki-design"
+    },
+    {
+      "target": "site-study/SKILL.md",
+      "base_sha256": "6cc9232177474b9926eb21d4d8c2cee03e961e4c26fc3cd7b8323db8cdaa4e2c",
+      "anchor": "# 场地研究（03 章）v0.2",
+      "source": "ki-archmain/references/ki-design-interfaces/site-study.txt",
+      "interface": "ki-design"
+    },
+    {
+      "target": "case-study/SKILL.md",
+      "base_sha256": "cc39c42c598dca913629c5cba740a9645a00e0e17e3d9e4f581f2aeab396594d",
+      "anchor": "# 案例研究（04 章）v0.1",
+      "source": "ki-archmain/references/ki-design-interfaces/case-study.txt",
+      "interface": "ki-design"
+    },
+    {
+      "target": "concept-scheme/SKILL.md",
+      "base_sha256": "32dc19f84b0a99842503f2192ee75bf920b0c69b06e925a0c9a9f75d41d0595f",
+      "anchor": "# 概念方案推演（05 章）v0.2",
+      "source": "ki-archmain/references/ki-design-interfaces/concept-scheme.txt",
+      "interface": "ki-design"
+    },
+    {
+      "interface": "sketchup-modeling",
+      "target": "ki-archmain/SKILL.md",
+      "base_sha256": "171fa8ab5dc33a842a1676dfe373e7b48bb097f346dbf1b910d049eba3133a04",
+      "anchor": "# KI建筑设计工作流 1.30",
+      "source": "ki-archmain/references/sketchup-modeling-interfaces/ki-archmain.txt"
+    },
+    {
+      "interface": "sketchup-modeling",
+      "target": "site-study/SKILL.md",
+      "base_sha256": "6cc9232177474b9926eb21d4d8c2cee03e961e4c26fc3cd7b8323db8cdaa4e2c",
+      "anchor": "# 场地研究（03 章）v0.2",
+      "source": "ki-archmain/references/sketchup-modeling-interfaces/site-study.txt"
+    },
+    {
+      "interface": "sketchup-modeling",
+      "target": "concept-scheme/SKILL.md",
+      "base_sha256": "32dc19f84b0a99842503f2192ee75bf920b0c69b06e925a0c9a9f75d41d0595f",
+      "anchor": "# 概念方案推演（05 章）v0.2",
+      "source": "ki-archmain/references/sketchup-modeling-interfaces/concept-scheme.txt"
+    },
+    {
+      "interface": "sketchup-modeling",
+      "target": "architecture-analysis-diagrams/SKILL.md",
+      "base_sha256": "3b4b30df17dd4a2af563690e72ca0262f689a18e2f8790d00446ffd0aab91b04",
+      "anchor": "# 建筑设计分析图（建筑单体）",
+      "source": "ki-archmain/references/sketchup-modeling-interfaces/architecture-analysis-diagrams.txt"
+    }
+  ]
+}

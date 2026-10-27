@@ -1,0 +1,43 @@
+{
+  "geometry": "outputs/cui-v06-research/eval/first-pass/v1.1/geometry.json",
+  "checks": [
+    {
+      "id": "B1",
+      "within_assumed_site": true,
+      "outside_corners": []
+    },
+    {
+      "id": "B2",
+      "within_assumed_site": true,
+      "outside_corners": []
+    },
+    {
+      "id": "B3",
+      "within_assumed_site": true,
+      "outside_corners": []
+    },
+    {
+      "id": "B4",
+      "within_assumed_site": true,
+      "outside_corners": []
+    },
+    {
+      "id": "C1",
+      "within_assumed_site": true,
+      "outside_corners": []
+    },
+    {
+      "P0_blocked_by_ground_enclosure": false,
+      "hits": []
+    },
+    {
+      "gfa_sum": 10080,
+      "declared_gfa": 10080
+    },
+    {
+      "alternative_gfa_sum": 10080,
+      "declared_alt_gfa": 10080
+    }
+  ],
+  "scope": "Independent concept-only containment, sampled P0 collision, arithmetic checks; no engineering or regulatory validation"
+}

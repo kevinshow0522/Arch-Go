@@ -1,0 +1,5 @@
+## 本机接口：KI-design
+
+05章默认调用 [KI-design](../ki-design/SKILL.md) 提供设计判断与空间动作；03/04/06按具体问题调用，01/02/07/08不默认调用。入口与返回边界见 [章节接口](references/ki-design-entry.md)，内部规则见 [调用约定](../ki-design/references/workflow-contract.md)。
+
+KI-design沿用当前项目目录、编号、主线/指标/模型版本、分工、确认和保存规则。进入06时，已选机制受深化或变更影响才回查，不重新生成未受影响方案；结构等内容只记建筑空间预留与专业接口。该接口是本机补充，GitHub正本内容保留。

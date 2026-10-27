@@ -1,0 +1,4 @@
+# Preserve the bytes covered by the canonical and public-source SHA256 manifests.
+* -text whitespace=trailing-space,space-before-tab,cr-at-eol,-blank-at-eof
+# Preserve generated research-vector formatting without treating path spacing as source errors.
+workflow/skills/ki-design/evals/**/*.svg -whitespace

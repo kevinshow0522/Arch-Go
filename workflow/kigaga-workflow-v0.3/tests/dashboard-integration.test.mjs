@@ -1,0 +1,34 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync,mkdtempSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join,resolve,sep} from 'node:path';
+import {randomUUID} from 'node:crypto';
+import {JSDOM} from 'jsdom';
+import {Client} from '@modelcontextprotocol/client';
+import {InMemoryTransport} from '@modelcontextprotocol/sdk/inMemory.js';
+import {createWorkbenchServer} from '../src/server.mjs';
+const pause=()=>new Promise(resolve=>setTimeout(resolve,10));
+async function until(predicate){for(let i=0;i<100;i++){if(predicate())return;await pause();}assert.fail('工作台未读回当前项目');}
+test('connected workbench reads project directories, switches host projects and refreshes without stale tasks',async t=>{
+ const dir=mkdtempSync(join(tmpdir(),'kg-dashboard-118-')),calls=[];
+ const {server,store}=createWorkbenchServer({dbPath:join(dir,'test.db'),projectsRoot:dir});
+ const client=new Client({name:'ISOLATED WORKBENCH TEST',version:'1'});const [a,b]=InMemoryTransport.createLinkedPair();await server.connect(a);await client.connect(b);
+ const p=store.createProject({name:'项目甲',request_id:randomUUID()}).project,q=store.createProject({name:'项目乙',request_id:randomUUID()}).project;
+ store.saveRecord({project_id:p.id,request_id:randomUUID(),kind:'note',title:'项目目录',content:'## 03 本项目场地研究\n03.1｜交通与到达｜核心｜章末｜M03.4',status:'active'});
+ const task=store.prepareTask({project_id:p.id,material_ids:[],stage_ids:[],tags:['条目:03.1','执行:GPT'],instruction:'场地分析',output:'场地成果',request_id:randomUUID()});
+ store.saveResult({task_id:task.id,expected_revision:0,result:{title:'项目甲场地成果',narrative:'初步成果',facts:[],assumptions:[],questions:[],actions:[]}});
+ const dom=new JSDOM(readFileSync(new URL('../assets/workbench.html',import.meta.url)),{url:'https://workbench.invalid/',runScripts:'outside-only'}),w=dom.window;
+ t.after(async()=>{w.close();await client.close();await server.close();store.close();const target=resolve(dir);assert.ok(target.startsWith(resolve(tmpdir())+sep)&&target.split(sep).at(-1).startsWith('kg-dashboard-118-'));rmSync(target,{recursive:true,force:true});});
+ w.TextEncoder=TextEncoder;w.TextDecoder=TextDecoder;w.structuredClone=structuredClone;w.scrollTo=()=>{};
+ w.openai={toolInput:{project_id:p.id},callTool:async(name,args)=>{calls.push({name,args});return client.callTool({name,arguments:args});},sendFollowUpMessage:()=>assert.fail('只读工作台不发送任务')};
+ for(const script of w.document.querySelectorAll('script'))if(!script.src)w.eval(script.textContent);
+ await until(()=>w.KiGAGAWorkbench?.getState().project==='项目甲');assert.equal(w.KiGAGAWorkbench.getState().catalogVersion,1);
+ w.document.querySelector('[data-act="view"][data-v="method"]').click();assert.match(w.document.querySelector('[data-project-catalog]').textContent,/本项目场地研究/);
+ w.openai.toolResponseMetadata={workbench:(await client.callTool({name:'kg_open_workbench',arguments:{project_id:q.id}}))._meta.workbench};w.dispatchEvent(new w.Event('openai:set_globals'));
+ await until(()=>w.KiGAGAWorkbench.getState().project==='项目乙');assert.equal(w.KiGAGAWorkbench.getState().view,'method');assert.equal(w.KiGAGAWorkbench.getState().tasks,0);assert.doesNotMatch(w.document.querySelector('#app').textContent,/项目甲场地成果|本项目场地研究/);
+ w.dispatchEvent(new w.Event('focus'));await until(()=>calls.at(-1)?.args.project_id===q.id);
+ assert.ok(calls.every(call=>['kg_open_workbench','kg_get_project_progress'].includes(call.name)),'界面只调用快照与进度两个只读接口');
+ assert.ok(calls.filter(call=>call.name==='kg_get_project_progress').every(call=>[p.id,q.id].includes(call.args.project_id)),'进度读取必须明确当前项目');
+ assert.equal(store.listTasks({project_id:q.id}).total,0);
+});

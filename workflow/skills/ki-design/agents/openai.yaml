@@ -1,0 +1,4 @@
+interface:
+  display_name: "KI-design"
+  short_description: "结合场地、案例与现有设计主线的建筑空间判断、方案推演和深化复核"
+  default_prompt: "请用 $ki-design，沿当前工作包的条件、主线与已确认范围提出空间判断和动作，说明依据、代价和失效条件，并接回现有成果。"

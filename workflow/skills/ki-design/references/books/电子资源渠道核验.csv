@@ -1,0 +1,7 @@
+﻿id,book_id,channel,status,format,drm,url,identity_basis,access_result,preview_result,importable,checked_at
+A01,GU02,楽天Kobo电子书商店,CONFIRMED_EBOOK_LISTING,电子书；具体格式由A02交叉核实,Adobe DRM（A02）,https://books.rakuten.co.jp/rk/3d4c729a9a4a3a88adbc0c4fbabd6061/,书名、商品号9787112303724、景泉、中国建设科技集团,商品元数据可读；未进入正文,页面显示预览保存字样，未取得可读试读页,未确认,2026-10-10
+A02,GU02,bol／Kobo销售体系,CONFIRMED_EBOOK_LISTING,EPUB2,Adobe DRM,https://www.bol.com/nl/nl/p/-/9300000239734493/,书名、作者、EAN9787112303724,电子书销售与格式信息可读；未购买,存在Inkijkexemplaar字样，无可提取正文链接,未确认,2026-10-10
+A03,GU02,Kobo国际站（搜索索引）,INDEX_ONLY_NOT_PAGE_VERIFIED,索引标示EPUB2,索引标示Adobe DRM,https://www.kobo.com/gb/en/ebook/mnJMPUqaiDqtvAxPur1gYQ,搜索索引书名及ISBN吻合；直访失败,搜索摘要可见，独立页面未成功打开,未取得,未确认,2026-10-10
+A04,BD02,三民网络书店,PRINT_ONLY_THIS_PAGE,平装纸本,不适用,https://www.sanmin.com.tw/product/index/005813606,ISBN9787513041560,书目信息可读，不是电子书入口,商品简介而非试读正文,否，仅元数据,2026-10-10
+A05,BD03,新华书店书目链接,METADATA_ONLY_RETRY_TIMEOUT,未确认电子格式,未知,https://www.96192.com/product/detail/1042804,旧台账及本轮书目检索记录；复查超时,曾打开书目，最后复查超时；不作为正文证据,未取得,未确认,2026-10-10
+A06,GU01,博客来书目线索,SEARCH_METADATA_ONLY,纸本商品线索,未知,https://www.books.com.tw/products/CN12376747,题名与编者检索结果；直访失败,搜索摘要可见，独立页未成功读取,未取得,未确认,2026-10-10

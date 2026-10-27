@@ -1,0 +1,30 @@
+{
+  "project_id": "UIA-BJ-CONCEPT-EXERCISE",
+  "option_id": "A-RIVER-COMMONS",
+  "revision": "v1",
+  "status": "概念练习；非实际UIA委托；非红线、测绘或规划确认",
+  "units": "m",
+  "coordinate_system": {"x": "east", "y": "north", "z": "up", "origin": "虚构三角地南端", "ground_z": 0, "absolute_elevation": null},
+  "site": {"polygon": [[0,0],[260,200],[0,200]], "area_m2": 26000, "assumed_only": true, "river_hint": "west; symbolic only", "bridge_hint": "northwest; symbolic only"},
+  "masses": [
+    {"id": "B1", "name": "公共翼", "rect": [30,82,48,166], "levels": [0,4.8], "roof": 9.6, "ground_void": [30,108,48,120], "gfa_m2": 2808, "program": "首层展览、咖啡与书店；二层图书、工作坊、小会议", "structure": "常规约6m网格；穿堂上方仅一处12m跨越，支承在y=108/120"},
+    {"id": "B2", "name": "大会堂", "rect": [60,138,120,174], "levels": [0], "roof": 12, "hall_rect": [60,138,102,174], "service_rect": [102,138,120,174], "service_levels": [0,4.8], "clear_height": 10.2, "roof_structure_zone": [10.2,12], "gfa_m2": 2808, "hall_capacity_assumption": 600, "structure": "概念钢桁架沿南北跨36m；东西每约6m一道；支座y=138/174，截面待算"},
+    {"id": "B3", "name": "会议办公翼", "rect": [132,126,156,174], "levels": [0,4.8,9.6], "roof": 14.4, "gfa_m2": 3456, "program": "首层分会、工作间；二三层办公室和研究空间", "structure": "约6m常规柱网；楼梯、电梯在端部预留"},
+    {"id": "B4", "name": "冬季门厅", "rect": [48,126,132,138], "levels": [0], "roof": 4.8, "gfa_m2": 1008, "program": "共享到达、登记、衣帽与等候；北接大会堂、东西接两翼", "structure": "南北跨12m概念梁；东西每约6m支承；连接处留结构缝"}
+  ],
+  "outdoor": [{"id":"C1","name":"开放论坛","rect":[48,88,120,126],"area_m2":2736,"enclosure":"west B1; north B4; east/south open","gfa_included":false}],
+  "paths": {
+    "P0_public": [[176.8,136],[150,120],[124,118],[84,114],[48,114],[30,114],[18,114]],
+    "P1_conference": [[84,114],[84,126],[84,132],[84,138],[84,152]],
+    "P2_office": [[100,132],[132,132],[144,132],[144,144]],
+    "S1_staff": [[232,180],[166,180],[156,166]],
+    "S2_delivery": [[230,190],[111,190],[111,174],[111,166]]
+  },
+  "entries": {"E0_city": [176.8,136],"E1_river": [18,114],"E2_staff": [232,180],"E3_delivery": [230,190]},
+  "management": {"hall_line": [[60,138],[102,138]],"office_line": [[132,126],[132,138]],"public_after_hours": "P0在地块内可独立保留；室内门关闭。河侧接口与开放制度尚待确认。"},
+  "sections": {"AA":{"axis":"y","fixed_x":84,"from":84,"to":188,"view":"west","sequence":["C1","B4","B2"]},"BB":{"axis":"x","fixed_y":114,"from":20,"to":60,"view":"north","sequence":["river-side","B1 ground void","C1"]}},
+  "areas": {"gfa_total_m2":10080,"ground_enclosed_m2":5616,"upper_floor_m2":4464,"roof_projection_m2":5832,"site_m2":26000,"concept_gfa_site_ratio":0.3876923077,"roof_projection_site_ratio":0.2243076923,"counting_note":"示意几何粗算，不是法定计容/建筑密度。B1首层216平方米穿堂不计入本轮室内面积；B2大厅不重复计入通高上部。"},
+  "alternative": {"id":"B-COMPACT","site_same":true,"rect":[60,120,132,174],"ground_area":3888,"floor_areas":[3888,2592,2592,1008],"gfa_total_m2":10080,"hall_rect":[60,138,96,174],"hall_capacity_assumption":600,"south_bar_rect":[60,120,132,138],"east_bar_rect":[96,138,132,174],"fourth_floor_rect":[60,120,116,138],"roof_max":19.2,"levels":[0,4.8,9.6,14.4],"hall_roof":12,"public_route":"外部沿西侧绕行；公共展览、图书及部分会议转至上层，竖向转换增多。","selection_trigger":"获批可建范围显著收缩、公共穿行需求不成立、维护预算偏紧，且更高体量获准时重选。"},
+  "unknowns": ["真实红线和面积","地形及绝对标高","河道管理和防洪退界/水位","地勘与地下水","桥路噪声与风环境","规划用途、容积率和限高","实际城市/河岸步行接口","UIA正式需求及合法名称使用","消防、疏散与无障碍工程校核","交通、停车及运营制度"],
+  "invariants": ["B1西、B2北、B3东、B4居中连接；不得换位","P0在B1的y108-120穿堂连续到河侧","B4与B2共边y138，会议管理线在此","AA沿x84依次切C1/B4/B2","所有地面均为假设z0，不冒充防洪抬高或实测地形","三层办公14.4m，两层公共翼9.6m，大会堂12m，门厅4.8m"]
+}

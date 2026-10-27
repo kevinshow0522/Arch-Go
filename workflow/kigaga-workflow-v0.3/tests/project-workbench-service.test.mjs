@@ -1,0 +1,37 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtempSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join,resolve,sep} from 'node:path';
+import {randomUUID} from 'node:crypto';
+import {Client} from '@modelcontextprotocol/client';
+import {InMemoryTransport} from '@modelcontextprotocol/sdk/inMemory.js';
+import {createWorkbenchServer} from '../src/server.mjs';
+
+test('工作台快照只读提供完整项目目录和相关记录，跨过索引分页并隔离其他项目',async t=>{
+ const dir=mkdtempSync(join(tmpdir(),'kg-catalog-118-'));
+ const {server,store}=createWorkbenchServer({dbPath:join(dir,'test.db'),projectsRoot:dir});
+ const client=new Client({name:'isolated-workbench-118-test',version:'1'});
+ t.after(async()=>{await client.close();await server.close();store.close();const target=resolve(dir);assert.ok(target.startsWith(resolve(tmpdir())+sep)&&target.split(sep).at(-1).startsWith('kg-catalog-118-'));rmSync(target,{recursive:true,force:true});});
+ const [a,b]=InMemoryTransport.createLinkedPair();await server.connect(a);await client.connect(b);
+ const call=async(name,args)=>{const r=await client.callTool({name,arguments:args});assert.ok(!r.isError,JSON.stringify(r));return r;};
+ const create=async name=>(await call('kg_create_project',{name,request_id:randomUUID()}))._meta.workbench.project;
+ const p=await create('隔离目录读取');
+ for(let i=0;i<51;i++)await call('kg_save_record',{request_id:randomUUID(),project_id:p.id,kind:'note',title:'无关笔记'+i,content:'DO-NOT-EXPOSE-UNRELATED-NOTE',status:'active'});
+ const content='## 03 本项目场地判断\n03.1｜场地判断｜核心｜章末｜M03.8\n'+'说明'.repeat(5500);
+ const saved=(await call('kg_save_record',{request_id:randomUUID(),project_id:p.id,kind:'note',title:'项目目录',content,status:'active'})).structuredContent;
+ await call('kg_save_record',{request_id:randomUUID(),project_id:p.id,kind:'subproject',title:'入口深化',content:'服务深度：c\n深化入口',status:'active'});
+ await call('kg_save_record',{request_id:randomUUID(),project_id:p.id,kind:'decision',title:'确认目录',content:'已在对话确认',status:'confirmed',source:'对话确认 2026-10-15'});
+ const other=await create('其他隔离项目');await call('kg_save_record',{request_id:randomUUID(),project_id:other.id,kind:'note',title:'项目目录',content:'OTHER-PROJECT-PRIVATE',status:'active'});
+ const before=store.project(p.id).context_version;
+ const result=await call('kg_open_workbench',{project_id:p.id});
+ const records=result._meta.workbench.records;
+ assert.ok(Array.isArray(records),'项目目录需要进入只读工作台快照');
+ assert.equal(records.find(record=>record.id===saved.id).content,content);
+ assert.equal(records.find(record=>record.id===saved.id).version,1);
+ assert.ok(records.some(record=>record.kind==='subproject'));assert.ok(records.some(record=>record.kind==='decision'));
+ assert.doesNotMatch(JSON.stringify(result),/OTHER-PROJECT-PRIVATE|DO-NOT-EXPOSE-UNRELATED-NOTE/);
+ assert.ok(!JSON.stringify(result.structuredContent).includes(content));
+ assert.equal(store.project(p.id).context_version,before,'只读快照不修改项目状态或目录版本');
+ assert.equal((await client.listTools()).tools.find(tool=>tool.name==='kg_open_workbench').annotations.readOnlyHint,true);
+});

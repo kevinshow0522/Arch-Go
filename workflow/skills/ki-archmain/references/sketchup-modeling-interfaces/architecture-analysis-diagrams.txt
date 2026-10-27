@@ -1,0 +1,5 @@
+## 本机接口：模型底图与分析图交接
+
+KI工作流中，SU底图由GPT通过 [professional-sketchup-modeling](../professional-sketchup-modeling/SKILL.md) 按建模/导出任务单提供；用户已有的合格导出图可直接核对沿用。下文“用户导出”同时包括这条已授权的工作流交接，不要求用户重复手动制作。Rhino与CAD底图按原软件分工处理。
+
+接收实际模型版本、方向/步骤、机位和导出尺寸，再做分析叠层。检查截图不自动等于符合图件规格的正式底图；底图缺失或需要改几何时返回对应制作任务，不凭效果图补造几何。读写在本包已有授权范围内连续进行，不逐文件重复询问。具体返回规则见[建模章节接口](../ki-archmain/references/sketchup-modeling-entry.md)。

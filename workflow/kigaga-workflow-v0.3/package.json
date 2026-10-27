@@ -1,0 +1,35 @@
+{
+  "name": "kigaga-workflow",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "build": "node scripts/build-v04.mjs",
+    "sync-skills": "node scripts/sync-skills.mjs",
+    "export-progress": "node scripts/export-progress.mjs",
+    "configure": "node scripts/configure.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:workbench-v04": "node --test tests/workbench-v04.test.mjs",
+    "start:gpt": "node src/server-gpt.mjs",
+    "start:claude": "node src/server-claude.mjs",
+    "test:sync": "node --test tests/dual-interface.test.mjs tests/workbench-sync.test.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": "2.0.0",
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "esbuild": "0.28.2",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "2.0.0",
+    "jsdom": "^30.1.0"
+  },
+  "overrides": {
+    "@xmldom/xmldom": "0.9.12"
+  }
+}

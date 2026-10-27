@@ -1,0 +1,14 @@
+﻿id,legacy_id,title,kind,attribution,publication_date,url,read_status,boundary,supports,locator,checked_at
+E01,S001,对建筑本土设计的思考,本人署名文章,崔愷,2013-12-09,https://news.sciencenet.cn/sbhtmlnews/2013/12/281066.shtm,ARTICLE_READ,署名正文；网页只是一篇文章，不是书籍正文,自然与人文场地、得体性、材料与技术,网页单篇正文,2026-10-10
+E02,S005,UED第148期：对话崔愷,本人访谈节选,答者崔愷；问者孔宇航；编者另列,2024年4月刊背景；网页无精确日,https://www.uedmagazine.net/?a=index&aid=3452&c=View&m=home,EXCERPT_READ,仅公开问答节选；未获取整期杂志或Ⅲ／Ⅳ全书,气候适应、定量验证；问者解读不能归于答者,对话崔愷，三组问答,2026-10-10
+E03,S006,写在《城市更新绿色指引》发布之际,序言及团队署名书介,崔愷／任祖华／景泉，分段归属,2024-11-16,https://www.thepaper.cn/newsDetail_forward_29371934,EXCERPT_AND_FIGURES_READ,已读公开文字和另列三张图；不是两分册完整正文,存量路径、流程方法实践、协同与时序,序言；任祖华署名段；景泉署名段,2026-10-10
+E04,S004,本土设计研究中心20年展览暨新书发布,团队官方报道,中国建设科技集团,2023-11-25,https://www.cctc.cn/jtyw/2023/85810.shtml,ARTICLE_READ,出版与展览主题信息；不证明逐章读过Ⅲ／Ⅳ,七大主题与两本新著的侧重,展览导览；新书发布会,2026-10-10
+E05,S012,西安大华1935,团队官方项目说明,原页合作建筑师名录；未单列崔愷主创,网页未标刊登日,https://cuikaistudio.cadg.com.cn/pro/173/,PROJECT_TEXT_READ,本轮重读文字；未核全部图纸与使用后绩效,差异化加减法,项目说明第2—3段；合作建筑师名录,2026-10-10
+E06,S013,湖南永顺老司城遗址游客服务中心,团队官方项目说明,建筑设计：崔愷、张男、李喆,网页未标刊登日,https://cuikaistudio.cadg.com.cn/pro/239/,PROJECT_TEXT_READ,本轮重读文字；未核全部图纸与工程数据,地域工艺、钢结构与工期协同,项目说明及建筑设计署名,2026-10-10
+E07,,城市更新绿色指引 多专业分册｜楽天Kobo,电子书销售元数据,平台写崔凱、景泉；编辑中国建设科技集团,平台发行2025-09-02,https://books.rakuten.co.jp/rk/3d4c729a9a4a3a88adbc0c4fbabd6061/,EBOOK_LISTING_CONFIRMED,商品号9787112303724匹配；没有进入正文,证明有电子书渠道，不能证明取得或允许全文导入,商品情報：電子書籍版／発売日／商品番号,2026-10-10
+E08,,城市更新绿色指引 多专业分册｜bol,电子书销售元数据,崔愷、景泉；编辑中国建设科技集团,商品原始发行日2024-07-01,https://www.bol.com/nl/nl/p/-/9300000239734493/,EBOOK_LISTING_CONFIRMED,ISBN匹配；明确EPUB2、Adobe DRM；未取得试读正文,电子格式与访问限制；不作为书内论述,Productspecificaties：EPUB2／Ebook beveiliging／EAN,2026-10-10
+E09,,城市更新绿色指引总体思路（公开图）,团队公开框架图,图示未列独立作者；随E03发布,2024-11-16随文发布,https://imagepphcloud.thepaper.cn/pph/image/330/136/681.jpg,FIGURE_VISUALLY_REVIEWED,已视觉检查整张；小字不清处不转录；无书内页码,知识组织层级与工作阶段,图上五个左侧主栏目与实施路径区,2026-10-10
+E10,,目标协同（公开图）,团队公开框架图,图示未列独立作者；随E03发布,2024-11-16随文发布,https://imagepphcloud.thepaper.cn/pph/image/330/136/710.jpg,FIGURE_VISUALLY_REVIEWED,已视觉检查；不能自动扩充成全书策略清单,价值与目标不是一一映射,左右主框及中间关系带,2026-10-10
+E11,,城市更新专业设置逻辑图（规划、建筑除外）,团队公开框架图,图示未列独立作者；随E03发布,2024-11-16随文发布,https://imagepphcloud.thepaper.cn/pph/image/330/136/711.jpg,FIGURE_VISUALLY_REVIEWED,已视觉检查；保留图题排除范围；不是所有专业全集,资源、专业、更新要素关联,中部八专业主框；图底分册编码表,2026-10-10
+E12,,本土設計Ⅱ｜三民书目,纸质书销售元数据,崔愷,2016-05-01书目日期,https://www.sanmin.com.tw/product/index/005813606,PRINT_METADATA_CONFIRMED,9787513041560；平装368页；未找到该页电子版入口,纸质书身份；不证明存在电子版,ISBN13／装订页数／商品简介,2026-10-10
+E13,,Agent Skills Specification,运行格式规范,Agent Skills项目,动态网页，本轮核查,https://agentskills.io/specification,SPEC_READ,只用于打包与指令格式；不是建筑方法来源,目录名和name一致；渐进式读取,name field；progressive disclosure,2026-10-10

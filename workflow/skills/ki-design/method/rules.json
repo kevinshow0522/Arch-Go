@@ -1,0 +1,211 @@
+[
+  {
+    "id": "R01",
+    "name": "先研究具体土地与使用者",
+    "operation": "理解自然地貌、城市肌理、地方生活和现实建设要求，不得仅靠造型灵感。",
+    "evidence_ids": "S001",
+    "evidence_type": "作者论述",
+    "scope": "任何类型",
+    "caution": "现场资料不足时，区分事实、假设与未知；以明确可撤回的概念假设先给条件方案，仅暂停依赖实测或关键安全资料的结论",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [
+      "E01"
+    ],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R02",
+    "name": "设计应得体而非用力过猛",
+    "operation": "比较使用、环境、技术、成本与设计特色的平衡。",
+    "evidence_ids": "S001",
+    "evidence_type": "作者论述",
+    "scope": "任何类型",
+    "caution": "得体并非统一风格或简单低造价",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [
+      "E01"
+    ],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R03",
+    "name": "文化传承不等于复制传统符号",
+    "operation": "先识别空间秩序、材料建造、生活活动的真实价值再考虑表达。",
+    "evidence_ids": "S001;S009;S013",
+    "evidence_type": "跨资料研究归纳",
+    "scope": "历史环境",
+    "caution": "避免凭几个项目断言所有地方禁用符号",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [
+      "E01",
+      "E06"
+    ],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R04",
+    "name": "以问题矛盾统筹策略",
+    "operation": "将项目功能与场地冲突提出后再选择设计方法。",
+    "evidence_ids": "S008;S009;S010",
+    "evidence_type": "跨案例推论",
+    "scope": "任何类型",
+    "caution": "无证据时不可代替当年主创动机",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R05",
+    "name": "巨构应建立中间尺度",
+    "operation": "当大建筑面对细腻城市场所时，可通过院落、廊、分节和公共界面中介。",
+    "evidence_ids": "S008",
+    "evidence_type": "项目说明支持的方法观察",
+    "scope": "大型公共建筑",
+    "caution": "菱形/灰白色并非可直接移植公式",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R06",
+    "name": "历史街区先理解路径与颗粒",
+    "operation": "用步行网络、尺度、建筑群关系和记忆组织新的功能。",
+    "evidence_ids": "S009",
+    "evidence_type": "项目说明支持的方法观察",
+    "scope": "城市更新",
+    "caution": "公共开放性需建成后验证",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R07",
+    "name": "遗产保护先处理服务容量与分流",
+    "operation": "保护边界及游客管理优先于配套建筑的形象。",
+    "evidence_ids": "S010",
+    "evidence_type": "项目说明支持的方法观察",
+    "scope": "文物景区",
+    "caution": "不替代文保审批和专项论证",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R08",
+    "name": "既有建筑分类使用加法和减法",
+    "operation": "针对不同时期、结构、价值与使用潜力制定差异化动作。",
+    "evidence_ids": "S012",
+    "evidence_type": "项目说明直接提出的策略",
+    "scope": "工业/城市更新",
+    "caution": "先文保核定、结构检查、合法手续",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [
+      "E05"
+    ],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R09",
+    "name": "传统工艺与现代技术协作",
+    "operation": "在工期、安全、结构可实施前提下融入地方工艺及材料。",
+    "evidence_ids": "S013;S014",
+    "evidence_type": "跨案例研究归纳",
+    "scope": "乡村/遗址配套",
+    "caution": "不得捏造工艺和成本数据",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [
+      "E06"
+    ],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R10",
+    "name": "从地形与灾害约束推导剖面",
+    "operation": "以洪水、地势、视线、采光通风约束配置建筑剖面与流线。",
+    "evidence_ids": "S014",
+    "evidence_type": "项目说明支持的方法观察",
+    "scope": "坡地/遗产",
+    "caution": "必须专业核查水文、边坡和消防",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R11",
+    "name": "以地方公共生活赋予改造新功能",
+    "operation": "既有建筑更新应同时研究文化活动、公共性和运营机制。",
+    "evidence_ids": "S011;S015",
+    "evidence_type": "跨案例研究归纳",
+    "scope": "乡村/遗产更新",
+    "caution": "活动预设不等于真实运营成效",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R12",
+    "name": "使用周期成为建造策略依据",
+    "operation": "临时建筑对可迁移、工业化、建造时序及共享服务提出要求。",
+    "evidence_ids": "S017",
+    "evidence_type": "项目说明直接支持",
+    "scope": "临时设施/园区",
+    "caution": "核算全寿命成本与可复用性",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R13",
+    "name": "绿色设计要因气候制宜并走向定量",
+    "operation": "分析朝向、遮阳、通风、材料、运营碳并明确模拟校核需求。",
+    "evidence_ids": "S005",
+    "evidence_type": "访谈本人论述",
+    "scope": "任何类型",
+    "caution": "不编造节能率和碳数据",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [
+      "E02"
+    ],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R14",
+    "name": "存量更新要渐进、节俭、协同",
+    "operation": "先清查资源、生活需求、分期及多专业问题，再谈新增建设。",
+    "evidence_ids": "S006",
+    "evidence_type": "本人序言及团队方法材料",
+    "scope": "城市更新",
+    "caution": "不是无条件否定新建或禁止拆除",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [
+      "E03"
+    ],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R15",
+    "name": "空间与构造应形成一致的设计语言",
+    "operation": "建筑体量、结构、室内和景观表达可统一，但先满足技术约束。",
+    "evidence_ids": "S008;S018",
+    "evidence_type": "跨案例研究归纳",
+    "scope": "建筑方案深化",
+    "caution": "不意味着所有构件必须同构同形",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [],
+    "operation_includes_research_inference": true
+  },
+  {
+    "id": "R16",
+    "name": "AI做可核查的理性工作，建筑师负责人文判断",
+    "operation": "辅助搭建分析、空间初形和验证计划，不冒充设计者本人。",
+    "evidence_ids": "S005",
+    "evidence_type": "本人访谈观点转写为AI工作边界",
+    "scope": "所有调用",
+    "caution": "不模拟崔愷本人语气作权威结论",
+    "v04_status": "INHERITED_CANDIDATE_NOT_AUTOMATICALLY_VALIDATED",
+    "current_primary_source_matches": [
+      "E02"
+    ],
+    "operation_includes_research_inference": true
+  }
+]
