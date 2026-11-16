@@ -1,7 +1,7 @@
 {
   "framework_version": "0.4",
   "integration_date": "2026-10-26",
-  "source_sha256": "da539b684fe2d2103485c9b08a3e338a37306571d7d06f5052fc4953e74c7bf4",
+  "source_sha256": "24d237508f2d97bbcd84025c6c9bc1adf9172b2d73b93c09eda678b06eae2b7b",
   "service_stages": {
     "0": "项目启动",
     "a": "项目策划",
@@ -1620,7 +1620,7 @@
     "未涉及",
     "不适用"
   ],
-  "source_document": "ki-archmain/SKILL.md (2026-10-26 second revision)",
+  "source_document": "ki-archmain/SKILL.md (2026-11-16 revision)",
   "declared_core_by_stage": {
     "0": [
       "01.1",
@@ -2103,7 +2103,7 @@
         "a",
         "b"
       ],
-      "stage_note": "c（a/b 按需）",
+      "stage_note": "a/b/c（a、b 做简版）",
       "skill": "本 skill 第 12 节",
       "chapter": "08",
       "chapter_end": true
