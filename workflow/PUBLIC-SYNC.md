@@ -28,3 +28,13 @@
 - 本目录完整源码的文件数、大小与 SHA256 在 `SOURCE-MANIFEST.json` 记录，可用 `node workflow/scripts/verify-source.mjs` 复核。
 
 构建和自动检查只证明公开源码及隔离流程通过验证；本次未重新发布云端站点、重启客户端，或执行真实建筑项目验收。
+
+## 2026-11-16 收口修订
+
+只改方法文字，不改项目服务和工作台代码。方法版本号仍为 1.30，服务端的版本校验不受影响。
+
+- 根目录正本：`ki-archmain`（1.30 修订）、`brief-and-metrics` v0.3、`site-study` v0.3、`case-study` v0.2、`concept-scheme` v0.3。四个章节 Skill 按主流程第 5、6、7、9 节改齐可信度叫法、编号、主线卡栏目和授权节奏；主流程明确 ✔ 只由用户确认产生、符号只表示可信度、08.3 在 a、b 阶段做简版。
+- 随之更新：根目录 `SHA256SUMS.txt`；`local-skill-adapters.json` 的正本哈希和三个章节的标题锚点；`framework-catalog.json` 的 `source_sha256`、W8.2 阶段说明；`LOCAL-SHA256SUMS.txt` 中这两个文件的哈希；用 `sync-skills.mjs` 重新生成 `skills/` 下 5 个整合入口；重新构建 `assets/workbench.html` 和云端 `public/workbench-method.js`（两处只有方法目录的三处文字变化）；`SOURCE-MANIFEST.json`。
+- 检查（Node 24，隔离环境）：项目服务测试 146 项中 144 项通过、2 项跳过、0 项失败；云端工作台 12 项通过；`sync-skills` 在隔离目录安装并回读 600 次哈希；`sha256sum -c SHA256SUMS.txt` 与 `verify-source.mjs` 通过。
+
+本次没有回装到任何已安装的 Skill 目录，没有重启服务或重新发布云端站点，也没有做真实项目验收。类型参考卡里原来的“已核”改成了“● 已对照原文”，是否升 ✔ 由用户逐条确认。
