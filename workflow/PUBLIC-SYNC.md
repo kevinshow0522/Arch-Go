@@ -49,3 +49,8 @@
 - 检查（Node 24，隔离环境）：项目服务测试 146 项中 144 项通过、2 项跳过、0 项失败；云端工作台 12 项通过；哈希清单与源码清单校验通过。
 
 “中途进场”还没有在真实项目上试过；进场卡按主线卡记录保存的做法只核对了服务代码里的规则，没有连真实项目库验证。
+
+## 2026-11-18 修订：旧版文档坏链
+
+- `skills/ki-archmain/legacy/references/subprojects.md` 第 53 行“框架与服务深度”原指向 `framework-v04.md`，该文件在仓库历史中从未存在；改为指向 `../../references/framework-catalog.json`。
+- 随之更新：`LOCAL-SHA256SUMS.txt` 中该文件的哈希；`SOURCE-MANIFEST.json` 中该文件、`LOCAL-SHA256SUMS.txt` 和本文件的大小与哈希。只改 1.20 旧版参考文字，方法版本号 1.30、主入口、整合入口和工作台资产均不变。

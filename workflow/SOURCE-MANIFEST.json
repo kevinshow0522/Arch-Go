@@ -5,8 +5,8 @@
   "files": [
     {
       "path": "PUBLIC-SYNC.md",
-      "bytes": 6015,
-      "sha256": "f943226baa75b8f7a2c37612f5d608c9faee5761931b8106c5301f71d6c78224"
+      "bytes": 6552,
+      "sha256": "c327fa036b20f8212758e952c346477f2b2444bc76214191d92c2edd6aadaf78"
     },
     {
       "path": "README.md",
@@ -1311,7 +1311,7 @@
     {
       "path": "skills/ki-archmain/LOCAL-SHA256SUMS.txt",
       "bytes": 35081,
-      "sha256": "de2550eb37fa1848995153a80fedf12effafcac3c918bc0c85fc82da55bc9c6b"
+      "sha256": "cd8c3f3b4d1d9af09ebf3b6b8e6040a92502b426a1c808d4da8fb73506412ea0"
     },
     {
       "path": "skills/ki-archmain/SKILL.md",
@@ -1395,8 +1395,8 @@
     },
     {
       "path": "skills/ki-archmain/legacy/references/subprojects.md",
-      "bytes": 4241,
-      "sha256": "30f2388d7882cb60b74ec53d8f7f291ae1f32d153d24cd6a3b8937d1b154308f"
+      "bytes": 4264,
+      "sha256": "25289b5a036cfbf2bcb207ec7a93ae1e01391ec68ff69b90a68050287bd8cb73"
     },
     {
       "path": "skills/ki-archmain/legacy/references/workflow-coordination.md",
