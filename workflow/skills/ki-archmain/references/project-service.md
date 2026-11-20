@@ -1,5 +1,9 @@
 # 本机项目服务 · 方法1.30适配
 
+## 当前执行补充（2026-10-27）
+
+实际连接返回execution_policy_version=1后，遵循[工作包执行检查](work-package-execution.md)。开工用kg_checkpoint_task传authorization_record_id，得到execution.id；续接和kg_save_result都传execution_id，保存另传最新任务及项目版本。kg_bind_task_context按真实用户授权补已有任务的工作包、章节和输入，保留历史。ready/context_complete只说明上下文完整，execution_readiness判断能否开工。开工授权purpose=work_authorization，与成果确认分开；已授权同包续接无需重复询问。后文仍适用，但不得沿旧调用直接从prepared写成果。
+
 2026-10-26 用户要求：工作台只查看工作流程；取消工作台地图、定位、配准、地图绘制与导出。位置、方位、现状图或坐标由用户在对话中提供，AI按已确认范围判断和画图。不要要求用户先在工作台操作地图。
 
 本文件是本机服务适配说明。主方法正本仍为上级 `SKILL.md`；工具字段以当前实际 schema 为准。本机补充文件由 `LOCAL-SHA256SUMS.txt` 单独校验，不改动 GitHub 十项正本的哈希。

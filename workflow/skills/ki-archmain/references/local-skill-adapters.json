@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "purpose": "Independent KI-design and SketchUp modeling interfaces; local only",
+  "purpose": "Independent KI-design, SketchUp and work package execution interfaces; local only",
   "adapters": [
     {
       "target": "ki-archmain/SKILL.md",
@@ -57,6 +57,13 @@
       "base_sha256": "3b4b30df17dd4a2af563690e72ca0262f689a18e2f8790d00446ffd0aab91b04",
       "anchor": "# 建筑设计分析图（建筑单体）",
       "source": "ki-archmain/references/sketchup-modeling-interfaces/architecture-analysis-diagrams.txt"
+    },
+    {
+      "interface": "work-package-execution",
+      "target": "ki-archmain/SKILL.md",
+      "base_sha256": "dbf16c43e2ca8930dc6ee5e868093e692bf5a46af8d1817369e5886e270b9de4",
+      "anchor": "# KI建筑设计工作流 1.30",
+      "source": "ki-archmain/references/execution-interfaces/ki-archmain.txt"
     }
   ]
 }

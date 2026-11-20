@@ -21,6 +21,14 @@ KI-design沿用当前项目目录、编号、主线/指标/模型版本、分工
 输入沿现有建模任务单和主线/指标/模型版本，输出回到同一工作包；建模执行由GPT负责，用户保留设计拍板。调用、保存和确认规则见[建模章节接口](references/sketchup-modeling-entry.md)。此补充只部署方法路由，工具兼容性及真实建模另验。
 <!-- /SKETCHUP-MODELING-INTERFACE -->
 
+<!-- WORK-PACKAGE-EXECUTION -->
+## 本机接口：工作包执行检查
+
+项目任务写入前必须核对连接返回execution_policy_version=1；缺少时只读核对并提示重新连接，不用旧写工具绕过。新连接按[本机工作包执行说明](references/work-package-execution.md)开工和续接。先明确本任务，读取execution_readiness；ready只表示上下文返回完整。工作包、执行者、用户实际授权、上游和文件版本核对后才分析、画图、建模或写成果。同包已授权范围持续执行，跨包或范围变化按实际用户决定推进。
+
+开工许可、草稿、检查完成和成果确认分别记录。不得用工作包开工许可确认方案，不得为通过检查补造确认或缺失资料。工具字段见[项目服务](references/project-service.md)；旧连接与实际新规则加载分别验收。GitHub正本内容保留。
+<!-- /WORK-PACKAGE-EXECUTION -->
+
 本 skill 只管各章共用的东西：章节与阶段、工作包怎么拆、调哪个章节 skill、等级与编号怎么写、主线卡和交接记录、成果存在哪里。各章怎么研究、怎么判断，在章节 skill 里写，本 skill 不重复。两边说法不一致时，等级、编号、主线卡、交接以本 skill 为准，章节方法以章节 skill 为准。
 
 ## 1 原则

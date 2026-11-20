@@ -54,3 +54,12 @@
 
 - `skills/ki-archmain/legacy/references/subprojects.md` 第 53 行“框架与服务深度”原指向 `framework-v04.md`，该文件在仓库历史中从未存在；改为指向 `../../references/framework-catalog.json`。
 - 随之更新：`LOCAL-SHA256SUMS.txt` 中该文件的哈希；`SOURCE-MANIFEST.json` 中该文件、`LOCAL-SHA256SUMS.txt` 和本文件的大小与哈希。只改 1.20 旧版参考文字，方法版本号 1.30、主入口、整合入口和工作台资产均不变。
+
+## 2026-11-19 修订：工作包执行检查接口
+
+把本机 2026-10-27 起随项目服务“执行规则1”使用的 `ki-archmain` 接口并入公开源码。方法版本号仍为 1.30，根目录正本不变。
+
+- `skills/ki-archmain`：新增接口片段 `references/execution-interfaces/ki-archmain.txt` 和说明 `references/work-package-execution.md`；`local-skill-adapters.json` 登记 `work-package-execution` 接口（正本基线 dbf16c43…）；`references/project-service.md` 开头加“当前执行补充”。整合入口 `SKILL.md` 由 `sync-skills.mjs` 生成，三段接口依次为 KI-design、SketchUp、工作包执行检查；`framework-catalog.json` 的 `source_sha256` 和 `LOCAL-SHA256SUMS.txt` 随之更新。
+- `kigaga-workflow-v0.3/scripts/sync-skills.mjs`：增加 `work-package-execution` 接口类型，不依赖其他本机 Skill 包，只允许挂在 `ki-archmain/SKILL.md`。
+- 检查：`sync-skills` 演练对仓库 `skills/` 与一处已安装目录均为 0 项变化，接口 9 段；三组 Skill 同步测试 15 项通过；`verify-source.mjs` 通过。未运行项目服务全量测试，未重新发布云端站点。
+- 本机私有版里的云端工作台地址与具体项目名未带入公开包。

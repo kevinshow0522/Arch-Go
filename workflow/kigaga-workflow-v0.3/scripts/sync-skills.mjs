@@ -142,6 +142,7 @@ if(modeling.length){
 }
 
 const interfaceKinds={
+  'work-package-execution':{marker:'WORK-PACKAGE-EXECUTION',prefix:'ki-archmain/references/execution-interfaces/',skill:null},
   'ki-design':{marker:'KI-DESIGN-INTERFACE',prefix:'ki-archmain/references/ki-design-interfaces/',skill:'ki-design'},
   'sketchup-modeling':{marker:'SKETCHUP-MODELING-INTERFACE',prefix:'ki-archmain/references/sketchup-modeling-interfaces/',skill:'professional-sketchup-modeling'},
 };
@@ -158,7 +159,8 @@ if(adapters){
     const kindName=adapters.schema_version===1?'ki-design':adapter.interface;
     const kind=Object.hasOwn(interfaceKinds,kindName)?interfaceKinds[kindName]:null;
     if(!kind)throw new Error('Invalid local interface kind');
-    if(!localSkills.includes(kind.skill))throw new Error(kindName==='ki-design'?'KI-design interfaces require a complete KI-design package':'SketchUp interfaces require a complete SketchUp modeling package');
+    if(kind.skill&&!localSkills.includes(kind.skill))throw new Error(kindName==='ki-design'?'KI-design interfaces require a complete KI-design package':'SketchUp interfaces require a complete SketchUp modeling package');
+    if(kindName==='work-package-execution'&&adapter.target!=='ki-archmain/SKILL.md')throw new Error('Work package execution interface belongs to ki-archmain');
     const entry=entries.slice(0,canonicalCount).find(item=>item.relative===adapter.target);
     const identity=`${adapter.target}:${kindName}`;
     if(!entry||!skills.some(name=>adapter.target===`${name}/SKILL.md`)||identities.has(identity))throw new Error('Invalid or duplicate canonical adapter target/interface');
