@@ -5,8 +5,8 @@
   "files": [
     {
       "path": "PUBLIC-SYNC.md",
-      "bytes": 7799,
-      "sha256": "cae1baf8cd48eb9e375063bcf3e69518365c4d03f0dd3390892e405406463cc2"
+      "bytes": 8930,
+      "sha256": "aa8eb80518fdb8fbbf30776cfc5a77ab302de594e88a8be3e1803870c0c37ebc"
     },
     {
       "path": "README.md",
@@ -275,13 +275,18 @@
     },
     {
       "path": "kigaga-workflow-v0.3/src/workflow-store.mjs",
-      "bytes": 29519,
-      "sha256": "43d222fd2343cd66ed832c76bec27f5c3954cae11bdbfcd4f11c93c113a784ab"
+      "bytes": 30255,
+      "sha256": "9239786634ba20a1c8177009a0e8186c9f4cc21ba0e57f647f934e497984c358"
     },
     {
       "path": "kigaga-workflow-v0.3/start-tunnel-windows.cmd",
       "bytes": 287,
       "sha256": "a7a42c559410bcd9421a7c34ba76a547fea261d1945d81ffb1bab060b94b5776"
+    },
+    {
+      "path": "kigaga-workflow-v0.3/tests/confirmation-scope.test.mjs",
+      "bytes": 5415,
+      "sha256": "5cf0f1ef43331c9060b49ec6d6a708e24d0cf6b6af581bbf95fe986caced4b23"
     },
     {
       "path": "kigaga-workflow-v0.3/tests/dashboard-integration.test.mjs",

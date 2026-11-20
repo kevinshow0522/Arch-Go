@@ -63,3 +63,11 @@
 - `kigaga-workflow-v0.3/scripts/sync-skills.mjs`：增加 `work-package-execution` 接口类型，不依赖其他本机 Skill 包，只允许挂在 `ki-archmain/SKILL.md`。
 - 检查：`sync-skills` 演练对仓库 `skills/` 与一处已安装目录均为 0 项变化，接口 9 段；三组 Skill 同步测试 15 项通过；`verify-source.mjs` 通过。未运行项目服务全量测试，未重新发布云端站点。
 - 本机私有版里的云端工作台地址与具体项目名未带入公开包。
+
+## 2026-11-20 修订：确认不再连带整章复核
+
+项目服务在子项目里写入任何 `decision` 记录时，会把整个子项目的任务及其下游都标为待复核。各章都是子项目，成果确认也是 `decision` 记录，于是确认一个成果会把本章和后面各章的任务全部标为待复核，尽管这些任务的内容没有变。
+
+- `kigaga-workflow-v0.3/src/workflow-store.mjs`：成果确认（带 `task_id` 与版本的确认记录，确认和撤回都算）不再按子项目范围连带复核，只复核明确引用这条记录的任务；章末摘要只改确认状态（`status`、`decision_ref` 等）、正文不变并改为“已确认”时，不复核引用它的任务。普通决定仍按子项目范围复核；章末改回“待确认”或连同正文一起修改时照常复核。
+- 新增 `tests/confirmation-scope.test.mjs` 4 项；其中 2 项在修改前失败、修改后通过，另 2 项确认原有复核仍然生效。
+- 检查：项目服务测试 150 项全部通过；`verify-source.mjs` 通过。本机运行中的服务需重新连接后才加载新规则。

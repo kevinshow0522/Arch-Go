@@ -10,6 +10,10 @@ import {getProjectProgress} from './project-progress.mjs';
 import {defaultReferenceRoots} from './storage-location.mjs';
 import {METHOD_VERSION,assertMethodVersion} from './method-version.mjs';
 import {recordBody,canonicalActor,taskItems,workPackage,confirmationRef,matchesMainline,versionAdvances,currentMainline,chapterConfirmed,validateStructuredRecord} from './workflow-records.mjs';
+// 成果确认只表示用户认可某个任务的某一版，不改变任何设计条件；章末摘要只改确认状态时内容也没变。
+// 这两种写入不应像普通决定那样，把整个子项目及其下游都标为待复核。
+const SUMMARY_STATUS_KEYS=['status','decision_ref','confirmed_via','retracted_via'];
+const sameExcept=(a,b,keys)=>{const strip=o=>JSON.stringify(Object.keys(o).filter(k=>!keys.includes(k)).sort().map(k=>[k,o[k]]));return strip(a)===strip(b);};
 const now=()=>new Date().toISOString();
 const json=JSON.stringify;
 const parse=r=>JSON.parse(r.payload);
@@ -105,9 +109,9 @@ export class WorkflowStore extends ProjectStore {
    const current=currentMainline(list(this.db,'workflow_records',a.project_id));
    if(current?.content!==previousMainline?.content)this.invalidate(r.project_id,t=>!!t.result?.mainline_ref&&(!current||!matchesMainline(t.result.mainline_ref,current)),`设计主线卡已升版，请复核旧版引用。`);
   }
-  if(r.kind==='condition'||r.kind==='decision'||old)this.invalidate(r.project_id,t=>{
+  const resultConfirmation=r.kind==='decision'&&!!confirmationRef(r),statusOnly=!!old&&r.kind==='chapter_summary'&&recordBody(r).status==='已确认'&&sameExcept(recordBody(old),recordBody(r),SUMMARY_STATUS_KEYS);if(!statusOnly&&(r.kind==='condition'||r.kind==='decision'||old))this.invalidate(r.project_id,t=>{
    if(confirmation?.task_id===t.id)return false;
-   const linked=t.record_refs.some(ref=>ref.id===r.id)||(r.kind==='subproject'&&t.subproject_id===r.id)||(['condition','decision'].includes(r.kind)&&!!r.subproject_id&&t.subproject_id===r.subproject_id);
+   const linked=t.record_refs.some(ref=>ref.id===r.id)||(r.kind==='subproject'&&t.subproject_id===r.id)||(!resultConfirmation&&['condition','decision'].includes(r.kind)&&!!r.subproject_id&&t.subproject_id===r.subproject_id);
    return linked||!!(old&&r.kind==='mainline'&&matchesMainline(t.result?.mainline_ref,old));
   },`记录 ${r.id} 更新为版本 ${r.version}`);
   return r;
