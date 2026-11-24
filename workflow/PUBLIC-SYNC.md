@@ -71,3 +71,13 @@
 - `kigaga-workflow-v0.3/src/workflow-store.mjs`：成果确认（带 `task_id` 与版本的确认记录，确认和撤回都算）不再按子项目范围连带复核，只复核明确引用这条记录的任务；章末摘要只改确认状态（`status`、`decision_ref` 等）、正文不变并改为“已确认”时，不复核引用它的任务。普通决定仍按子项目范围复核；章末改回“待确认”或连同正文一起修改时照常复核。
 - 新增 `tests/confirmation-scope.test.mjs` 4 项；其中 2 项在修改前失败、修改后通过，另 2 项确认原有复核仍然生效。
 - 检查：项目服务测试 150 项全部通过；`verify-source.mjs` 通过。本机运行中的服务需重新连接后才加载新规则。
+
+## 2026-11-23 修订：开工先选起点，门槛按任务定
+
+只改方法文字，方法版本号仍为 1.30，项目服务和工作台代码不变。起因：一个测试项目只有一份简版 02.7 就进了 05 章，01、03、04 都缺，方法没有拦住；用户接手的项目进度各不相同，不采用固定门槛，改为每次开工由用户选起点、按任务定门槛。
+
+- 根目录 `ki-archmain`：第 4 节开头加“开工前先选起点、定门槛”。新项目、续接、开新工作包前，AI 先列项目进度，由用户选从哪里开始、这次做什么；门槛内容由用户按这次任务定，缺项由用户定现在补、登记“外部已有”或“这次不做”，“这次不做”写成记录、不算缺项，没表态的不能静默跳过。第 1 节第 1 条、第 2 节“从任何阶段进入”和中途进场第 3 步、第 3 节 b 阶段常用顺序随之改写；第 14 节加修订记录。
+- 随之更新：根目录 `SHA256SUMS.txt`；`local-skill-adapters.json` 中三段 `ki-archmain` 接口的正本基线；用 `sync-skills.mjs` 重新生成 `skills/ki-archmain/SKILL.md`；`framework-catalog.json` 的 `source_sha256`；`LOCAL-SHA256SUMS.txt` 中这两个文件的哈希；`assets/workbench.html` 和云端 `public/workbench-method.js` 内嵌方法目录的 `source_sha256`（11-19 起没有跟上，这次一并对齐；内嵌目录其余内容与 `framework-catalog.json` 一致，没有重新打包）；`SOURCE-MANIFEST.json`。
+- 检查（Node 25，独立 worktree）：项目服务测试 150 项全部通过；`sync-skills` 演练对仓库 `skills/` 和一处临时安装目录均为 0 项变化，接口 9 段；两个工作台资产内嵌的方法目录与生成脚本的输出逐字节一致；`SHA256SUMS.txt`、`LOCAL-SHA256SUMS.txt` 与 `verify-source.mjs` 校验通过。
+
+没有回装到任何已安装的 Skill 目录，没有重新发布云端站点，新规则也还没有在真实项目上试过。
