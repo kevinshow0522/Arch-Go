@@ -5,8 +5,8 @@
   "files": [
     {
       "path": "PUBLIC-SYNC.md",
-      "bytes": 8930,
-      "sha256": "aa8eb80518fdb8fbbf30776cfc5a77ab302de594e88a8be3e1803870c0c37ebc"
+      "bytes": 10919,
+      "sha256": "9ae3202bb61fabce4049d8ea1305cd70afc1fbcc6c8753e5d74a8f6475eba0c1"
     },
     {
       "path": "README.md",
@@ -51,7 +51,7 @@
     {
       "path": "kigaga-workflow-v0.3/assets/workbench.html",
       "bytes": 678096,
-      "sha256": "36585e377f881d660c28197c7c40ff7880cf17a787eeb63e8e63d964c73be883"
+      "sha256": "38468e178ed888059d3f900a2bd166c0a61c502914eafaf491bd3809558dc383"
     },
     {
       "path": "kigaga-workflow-v0.3/check-windows.cmd",
@@ -1101,7 +1101,7 @@
     {
       "path": "sites/ki-workbench/public/workbench-method.js",
       "bytes": 28096,
-      "sha256": "de8733d0ffa5b892a0076740802bc7d6de3b8b30020491db60c5b290b390b04c"
+      "sha256": "52d2ace788fe2b6b375ca55cd95ca1da4259ec5b91404b73d289a5e3f2ee0c78"
     },
     {
       "path": "sites/ki-workbench/public/workbench-runtime.js",
@@ -1316,12 +1316,12 @@
     {
       "path": "skills/ki-archmain/LOCAL-SHA256SUMS.txt",
       "bytes": 35324,
-      "sha256": "1c1cc927af119b77265bbc3a28499c94b7bcd7a86f4484c7846bf42e636a2f73"
+      "sha256": "0bf36939ef283511e50a8609bf00342ee4049126a32da12c8ea98b725e3f1c4c"
     },
     {
       "path": "skills/ki-archmain/SKILL.md",
-      "bytes": 31380,
-      "sha256": "07812d7c46c152e309326be80e6207e56fa54352e380571624dd34183d15f7f2"
+      "bytes": 35124,
+      "sha256": "30d8b7c0b2587c3ef47d884f5ea5304c5ca0efcc72989dcd6bd47144ce2a8e67"
     },
     {
       "path": "skills/ki-archmain/legacy/README.md",
@@ -1416,7 +1416,7 @@
     {
       "path": "skills/ki-archmain/references/framework-catalog.json",
       "bytes": 54937,
-      "sha256": "fdd701b5d6640bd6ddd53d187ea1e4f9fdc87c2283f4740cda2cd786da19d1f4"
+      "sha256": "bdfabebbaaf778510671b5d4752911b61009128caecd1f43bb9fa9eca61b508b"
     },
     {
       "path": "skills/ki-archmain/references/ki-design-entry.md",
@@ -1446,7 +1446,7 @@
     {
       "path": "skills/ki-archmain/references/local-skill-adapters.json",
       "bytes": 3075,
-      "sha256": "b338d28dbef78aaec0fefad9201e4354f9a5a28822429ece45f87d1edc74f849"
+      "sha256": "53d712b392867c71072e20243ad7e03daa04edd3ab891d44c168813ea2556e89"
     },
     {
       "path": "skills/ki-archmain/references/project-service.md",

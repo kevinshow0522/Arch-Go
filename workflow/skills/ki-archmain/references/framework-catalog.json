@@ -1,7 +1,7 @@
 {
   "framework_version": "0.4",
   "integration_date": "2026-10-26",
-  "source_sha256": "07812d7c46c152e309326be80e6207e56fa54352e380571624dd34183d15f7f2",
+  "source_sha256": "30d8b7c0b2587c3ef47d884f5ea5304c5ca0efcc72989dcd6bd47144ce2a8e67",
   "service_stages": {
     "0": "项目启动",
     "a": "项目策划",
