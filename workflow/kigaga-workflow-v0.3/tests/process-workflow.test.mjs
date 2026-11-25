@@ -23,14 +23,34 @@ function handoff(s,p,t,extra={}){
  return rec(s,p,{kind:'handoff',title:'交接｜W3.1',content:JSON.stringify({from:'gpt',to:'any',work_package:'W3.1',task_ids:[t.id],done:'本包已核对',next:'继续下一步',waiting_on_user:[],files:[],method_version:'1.30',created_at:new Date().toISOString(),...extra})});
 }
 
-test('1.30目录分别表示表列核心与章末必做，包含所有工作包且停用旧主入口',()=>{
- const catalog=readMethodCatalog();assert.equal(catalog.version,'1.30');
- assert.equal(catalog.framework.declared_core_by_stage.a.length,8);
- assert.equal(catalog.framework.core_by_stage.a.length,10);
- assert.equal(catalog.framework.declared_core_by_stage.b.length,13);
- assert.equal(catalog.framework.core_by_stage.b.length,15);
- for(const id of ['W5.5a','W7.1','W7.4','W8.2'])assert.ok(catalog.framework.work_packages.some(p=>p.id===id));
- assert.equal(catalog.framework.chapters.find(c=>c.number==='06').topics.find(i=>i.id==='06.9').end,true);
+test('1.30目录分别表示表列核心与章末必做，包含所有工作包且停用旧主入口；合并掉的包号注明并到哪里',()=>{
+ const catalog=readMethodCatalog(),f=catalog.framework;assert.equal(catalog.version,'1.30');
+ // 2026-11-25 三个深度的子项划分：a 加 01.4 与对标案例，b 加 03.1、04.7，c 加 08.2。
+ assert.equal(f.declared_core_by_stage['0'].length,3);
+ assert.equal(f.declared_core_by_stage.a.length,12);
+ assert.equal(f.core_by_stage.a.length,16);
+ assert.equal(f.declared_core_by_stage.b.length,15);
+ assert.equal(f.core_by_stage.b.length,16);
+ assert.equal(f.declared_core_by_stage.c.length,10);
+ assert.equal(f.core_by_stage.c.length,10);
+ // 两张清单与条目表一致，07 不计入。
+ const topics=f.chapters.flatMap(c=>c.topics).filter(t=>t.counted);
+ for(const stage of ['0','a','b','c']){
+  assert.deepEqual(f.core_by_stage[stage],topics.filter(t=>t.stages[stage]?.req==='core').map(t=>t.id),stage);
+  assert.deepEqual(f.declared_core_by_stage[stage],topics.filter(t=>t.stages[stage]?.declared_core).map(t=>t.id),stage);
+ }
+ for(const id of ['06.6','06.8','06.9'])assert.equal(topics.find(t=>t.id===id).stages.b.req,'skip',id);
+ // 工作包合并：在用的包齐全；停用的编号保留并指向并入的包，老项目的旧编号仍能查到。
+ const active=f.work_packages.filter(p=>!p.retired).map(p=>p.id);
+ for(const id of ['W1.1','W1.2','W2.1','W2.3','W3.1','W3.2','W3.4','W4.1','W4.2','W5.1','W5.2','W5.5','W6.5','W7.1','W7.4','W8.1'])assert.ok(active.includes(id),id);
+ assert.deepEqual(Object.fromEntries(f.work_packages.filter(p=>p.retired).map(p=>[p.id,p.merged_into])),{'W2.2':'W2.1','W3.3':'W3.2','W4.3':'W4.1','W5.5a':'W5.5','W8.2':'W8.1'});
+ assert.ok(f.work_packages.filter(p=>p.retired).every(p=>active.includes(p.merged_into)));
+ for(const t of f.chapters.flatMap(c=>c.topics))assert.ok(f.work_packages.some(p=>!p.retired&&p.items.includes(t.id)),t.id);
+ assert.equal(f.work_packages.find(p=>p.id==='W4.1').chapter_end,true);
+ assert.equal(f.work_packages.find(p=>p.id==='W8.1').chapter_end,true);
+ // 中途进入只补下游要引用的：b 的 03.1 已是本深度核心，c 不再回补场地研究。
+ assert.deepEqual(f.entry_backfill,{a:['01.1','01.3','01.5'],b:['01.1','01.3','01.5','02.7'],c:['01.1','01.3','01.5','02.7','05.9']});
+ assert.equal(f.chapters.find(c=>c.number==='06').topics.find(i=>i.id==='06.9').end,true);
 });
 
 test('S1 明确旧方法版本的写入被拒绝，现行版本可创建任务',t=>{

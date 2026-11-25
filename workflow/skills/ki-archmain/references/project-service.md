@@ -4,6 +4,17 @@
 
 实际连接返回execution_policy_version=1后，遵循[工作包执行检查](work-package-execution.md)。开工用kg_checkpoint_task传authorization_record_id，得到execution.id；续接和kg_save_result都传execution_id，保存另传最新任务及项目版本。kg_bind_task_context按真实用户授权补已有任务的工作包、章节和输入，保留历史。ready/context_complete只说明上下文完整，execution_readiness判断能否开工。开工授权purpose=work_authorization，与成果确认分开；已授权同包续接无需重复询问。后文仍适用，但不得沿旧调用直接从prepared写成果。
 
+## 分段连续推进补充（2026-11-25）
+
+下面的规则要求项目服务已更新到含分段连续推进规则的版本（对应测试 `tests/chapter-flow.test.mjs`）并重新连接；旧版服务仍按旧规则拦下游、打回任务，那时照服务返回的阻塞原因处理，不绕过。细则见[工作包执行检查](work-package-execution.md)。
+
+- 包做完默认结案：开工授权一次带齐analyze、save_draft、complete，不另存结案授权。用户确认集中在段末的确认点，由主总控一次问。
+- 五段：立项与任务书（01–02）、场地与案例（03–04）、概念方案（05）、深化（06）、展示与交付（07–08）。同段上游已结案（不是条件性讨论稿）就能开下包；跨段上游要有该包当前成果的用户确认，或该章章末摘要已确认。条件性开工只在跨段上游未确认时用。
+- 各包默认要已确认的上游章末：W2.x不要求；W3.x和W4.x都只要02.7；W5.1要02.7、03.8、04.7；W5.2起要02.7、03.8、05.1；W6.x要05.9。
+- note（标题不含“主线卡”）和handoff是参考类记录，升版、退役不打回任务、不卡开工；主线卡新建或升版也不自动打回。要打回时在content的JSON里写affects.task_ids或affects.items。
+- 旧成果确认被新确认接替：未结案的引用任务自动改引用新确认；已结案的待复核，续做时kg_checkpoint_task传refresh_evidence=true自动换成新确认。内容没变的复核重存，原确认继续有效。
+- 换对话续做同一个包：新对话读kg_get_task拿execution.id即可续存。每步存续接点；一个包只存一版成果。
+
 2026-10-26 用户要求：工作台只查看工作流程；取消工作台地图、定位、配准、地图绘制与导出。位置、方位、现状图或坐标由用户在对话中提供，AI按已确认范围判断和画图。不要要求用户先在工作台操作地图。
 
 本文件是本机服务适配说明。主方法正本仍为上级 `SKILL.md`；工具字段以当前实际 schema 为准。本机补充文件由 `LOCAL-SHA256SUMS.txt` 单独校验，不改动 GitHub 十项正本的哈希。
@@ -13,14 +24,18 @@
 1. 用本地 `kg_get_connection` 核对服务方法1.30和共享数据源；`kg_find_projects`定位唯一项目，`kg_get_context`读取有效条件、当前工作包、最近交接、章末摘要、主线及指标。`ready=false`按工具给出的分页入口补读，不能用摘要代替完整依据。
 2. 写入时传 `method_version: "1.30"`；显式不同版本被拒绝。历史项目缺失版本保持未记录，不以服务版本代替项目事实。
 3. 按本工作包实际需要说明项目文件范围和读写用途。当前任务已授权的范围持续执行，扩大项目、目录或用途时再确认。参考库只读，先用已有索引再按页读取。
+4. 读取要窄：查状态用 `kg_get_task`、`kg_list_tasks`、`kg_list_records`（按 `kind` 筛），不用 `kg_get_project_progress`（一次返回几万字）。章节 skill 只读本包用到的那一节。
+5. 项目运行规则存成一条 note 记录，新开的主总控、段总控开头先读；它是参考类记录，可以直接升版。
 
 ## 任务与成果
 
-- `kg_prepare_task` 使用 `work_package`（如W3.3）、`executor`（gpt／claude／user）、`tags`（条目:03.4 等）及实际记录/依赖。新协议任务记录 `method_version: "1.30"`。
+- `kg_prepare_task` 使用 `work_package`（如W3.2；停用的旧包号在老任务里照旧认，新任务用并入后的包号）、`executor`（gpt／claude／user）、`tags`（条目:03.4 等）及实际记录/依赖。新协议任务记录 `method_version: "1.30"`。
 - 进入 `in_progress`、写入成果和更新执行中任务时明确 `executor`。当前执行者负责本任务；其他执行者须先完成交接再接手，不能只改标签。
-- 后加依赖用 `kg_add_dependency`。依赖必须同项目且不成环；依赖未完成或依据有变化时下游不能完成。
+- 后加依赖用 `kg_add_dependency`。依赖必须同项目且不成环；依赖未完成或依据有变化时下游不能完成。互不依赖的包可以同时开工。
+- 段内的包由段总控派子代理执行，一个包只派一个子代理。子代理交回不超过约 15 行：结论、成果版本、记录编号、待用户决定的事；细节留在项目库。同一件事只由一个对话向用户汇报。
+- 按任务选模型：策略与判断类（章末结论、主线卡、方向与比选、变更影响判断）用最强模型，其余建筑任务不低于次强一档，不用轻量模型做建筑任务；分档表见上级 `SKILL.md` 第 3 节。
 - 05／06及07成果写 `mainline_ref`，引用当前主线卡版本；05／06另传 `upstream_record_ids`，至少一条有效的本项目上游 `chapter_summary` 记录。保存草稿、检查完成和用户确认分别记录。
-- 用户确认具体成果时保存 `decision, confirmed`，`source` 写实际用户确认依据；`content` JSON包含 `task_id`、当前 `revision`、`item`。同条目新版确认会退役旧确认，旧版本仍可读取。
+- 用户确认具体成果时保存 `decision, confirmed`，`source` 写实际用户确认依据；`content` JSON包含 `task_id`、当前 `revision`、`item`。同条目新版确认会退役旧确认，旧版本仍可读取；还没结案的引用任务自动改引用新确认。确认不在每个包里各问，集中到确认点由主总控一次问（01.5和02.7；03.8和04.7；05.1连同挑方向；05.9；06.9；08.3）。
 
 ## 交接与章末同步
 
@@ -30,7 +45,7 @@
 
 章末保存 `chapter_summary` JSON，含chapter、item、summary、key_points、ids、open_questions、status、decision_ref、files、mainline_ref、method_version、created_at。已确认状态必须引用同条目当前成果的有效确认记录；未确认结论照样同步并标待确认。
 
-主线用 `kind: "mainline"`，指标表用 `kind: "metrics"`，均为项目级记录，content JSON带版本。主线内容改变必须升版，无论更新原记录还是另存新记录，引用旧主线的成果都要复核。指标表使用rows，保留指标、数值/单位、口径、性质、来源等级、可信度/状态和影响条目。
+主线用 `kind: "mainline"`，指标表用 `kind: "metrics"`，均为项目级记录，content JSON带版本。主线内容改变必须升版。新建或升版不自动打回任务：确认点之后补写新栏不影响已做完的包；做变更判断时在content里写 `affects.task_ids` 或 `affects.items`，服务只打回写明的任务及其下游。05／06／07成果保存时 `mainline_ref` 仍须等于当前主线卡版本。主线卡只在回主线时由主总控更新，在各确认点之后一次写入对应的栏。指标表使用rows，保留指标、数值/单位、口径、性质、来源等级、可信度/状态和影响条目。
 
 ## 文件和只读工作台
 
