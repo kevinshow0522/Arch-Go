@@ -1,7 +1,7 @@
 {
   "framework_version": "0.4",
   "integration_date": "2026-10-26",
-  "source_sha256": "30d8b7c0b2587c3ef47d884f5ea5304c5ca0efcc72989dcd6bd47144ce2a8e67",
+  "source_sha256": "8387b0a63bbae80328bb21e683617c80e75b23a8719d76cd825479563403f352",
   "service_stages": {
     "0": "项目启动",
     "a": "项目策划",
@@ -58,7 +58,7 @@
             },
             "a": {
               "req": "opt",
-              "condition": "",
+              "condition": "改造、更新或有现状使用者的项目",
               "declared_core": false
             },
             "b": {
@@ -117,9 +117,9 @@
               "declared_core": false
             },
             "a": {
-              "req": "opt",
+              "req": "core",
               "condition": "",
-              "declared_core": false
+              "declared_core": true
             },
             "b": {
               "req": "keep",
@@ -147,8 +147,8 @@
               "declared_core": true
             },
             "a": {
-              "req": "keep",
-              "condition": "",
+              "req": "core",
+              "condition": "已有的沿用，没有的补做；和02.7在第一段末一起确认",
               "declared_core": false
             },
             "b": {
@@ -304,7 +304,7 @@
             },
             "a": {
               "req": "core",
-              "condition": "",
+              "condition": "做成立项测算表：投资估算、资金与分期、收益或运营、一两项敏感性；每个数写来源和可信度",
               "declared_core": true
             },
             "b": {
@@ -400,13 +400,13 @@
             },
             "a": {
               "req": "core",
-              "condition": "",
+              "condition": "含选址核查、周边建筑清单",
               "declared_core": true
             },
             "b": {
-              "req": "keep",
+              "req": "core",
               "condition": "",
-              "declared_core": false
+              "declared_core": true
             },
             "c": {
               "req": "keep",
@@ -429,7 +429,7 @@
               "declared_core": false
             },
             "a": {
-              "req": "opt",
+              "req": "skip",
               "condition": "",
               "declared_core": false
             },
@@ -460,12 +460,12 @@
             },
             "a": {
               "req": "opt",
-              "condition": "",
+              "condition": "场地上有房子时",
               "declared_core": false
             },
             "b": {
               "req": "opt",
-              "condition": "",
+              "condition": "场地上有房子时",
               "declared_core": false
             },
             "c": {
@@ -490,7 +490,7 @@
             },
             "a": {
               "req": "opt",
-              "condition": "",
+              "condition": "停车、商业、物流这类靠到达的项目",
               "declared_core": false
             },
             "b": {
@@ -519,8 +519,8 @@
               "declared_core": false
             },
             "a": {
-              "req": "opt",
-              "condition": "有明显高差时",
+              "req": "skip",
+              "condition": "",
               "declared_core": false
             },
             "b": {
@@ -549,7 +549,7 @@
               "declared_core": false
             },
             "a": {
-              "req": "opt",
+              "req": "skip",
               "condition": "",
               "declared_core": false
             },
@@ -584,8 +584,8 @@
               "declared_core": false
             },
             "b": {
-              "req": "opt",
-              "condition": "有接入或场地风险时",
+              "req": "skip",
+              "condition": "",
               "declared_core": false
             },
             "c": {
@@ -645,13 +645,13 @@
               "declared_core": false
             },
             "a": {
-              "req": "opt",
-              "condition": "定位、运营参考",
-              "declared_core": false
+              "req": "core",
+              "condition": "对标案例：并在W2.1里做，给立项测算当依据，不另开W4.1",
+              "declared_core": true
             },
             "b": {
               "req": "core",
-              "condition": "没有合适参考时与04.7合并为一份简版",
+              "condition": "与04.7同在W4.1一个包里做；先按C02-写借鉴问题，03.8出来后补C03-",
               "declared_core": true
             },
             "c": {
@@ -681,7 +681,7 @@
             },
             "b": {
               "req": "opt",
-              "condition": "有总平资料时",
+              "condition": "案例卡上的栏目，不单做；要看平面剖面时按需深拆（W4.2）",
               "declared_core": false
             },
             "c": {
@@ -705,13 +705,13 @@
               "declared_core": false
             },
             "a": {
-              "req": "opt",
-              "condition": "有规模数据时",
-              "declared_core": false
+              "req": "core",
+              "condition": "对标的规模与指标",
+              "declared_core": true
             },
             "b": {
               "req": "opt",
-              "condition": "",
+              "condition": "案例卡上的栏目，不单做",
               "declared_core": false
             },
             "c": {
@@ -741,7 +741,7 @@
             },
             "b": {
               "req": "opt",
-              "condition": "有A级资料时",
+              "condition": "案例卡上的栏目，不单做；要看平面剖面时按需深拆（W4.2）",
               "declared_core": false
             },
             "c": {
@@ -771,7 +771,7 @@
             },
             "b": {
               "req": "opt",
-              "condition": "有A或B级资料时",
+              "condition": "案例卡上的栏目，不单做",
               "declared_core": false
             },
             "c": {
@@ -795,13 +795,13 @@
               "declared_core": false
             },
             "a": {
-              "req": "opt",
-              "condition": "有运营资料时",
-              "declared_core": false
+              "req": "core",
+              "condition": "对标的投资、建设与运营",
+              "declared_core": true
             },
             "b": {
               "req": "opt",
-              "condition": "",
+              "condition": "案例卡上的栏目，不单做",
               "declared_core": false
             },
             "c": {
@@ -825,14 +825,14 @@
               "declared_core": false
             },
             "a": {
-              "req": "opt",
-              "condition": "",
+              "req": "core",
+              "condition": "简版：对标结论，写明本项目的规模、投资、运营口径参照了什么",
               "declared_core": false
             },
             "b": {
               "req": "core",
-              "condition": "简版；没有合适参考时写明原因、替代依据和对05的启示，并含04.1的检索范围，与04.1合并为一份简版",
-              "declared_core": false
+              "condition": "没有合适参考时写明原因、替代依据和对05的启示",
+              "declared_core": true
             },
             "c": {
               "req": "keep",
@@ -861,8 +861,8 @@
               "declared_core": false
             },
             "a": {
-              "req": "opt",
-              "condition": "初步设想",
+              "req": "skip",
+              "condition": "",
               "declared_core": false
             },
             "b": {
@@ -892,7 +892,7 @@
             },
             "a": {
               "req": "opt",
-              "condition": "容量试排",
+              "condition": "强排示意：一个方向，只验证规模放不放得下，挂W5.2",
               "declared_core": false
             },
             "b": {
@@ -982,7 +982,7 @@
             },
             "a": {
               "req": "opt",
-              "condition": "体量试排",
+              "condition": "强排示意：一个方向，只验证规模放不放得下，挂W5.2",
               "declared_core": false
             },
             "b": {
@@ -1292,8 +1292,8 @@
               "declared_core": false
             },
             "b": {
-              "req": "opt",
-              "condition": "体量模型",
+              "req": "skip",
+              "condition": "",
               "declared_core": false
             },
             "c": {
@@ -1352,8 +1352,8 @@
               "declared_core": false
             },
             "b": {
-              "req": "opt",
-              "condition": "概念面积核对",
+              "req": "skip",
+              "condition": "",
               "declared_core": false
             },
             "c": {
@@ -1382,8 +1382,8 @@
               "declared_core": false
             },
             "b": {
-              "req": "opt",
-              "condition": "投资估算",
+              "req": "skip",
+              "condition": "",
               "declared_core": false
             },
             "c": {
@@ -1406,7 +1406,23 @@
           "counted": false,
           "kind": "presentation_entry",
           "question": "以阅读为主的连续成果页面",
-          "stages": {}
+          "stages": {
+            "a": {
+              "req": "core",
+              "condition": "文本展示必做；意向图按需。不计入完成情况",
+              "declared_core": false
+            },
+            "b": {
+              "req": "core",
+              "condition": "文本展示必做。不计入完成情况",
+              "declared_core": false
+            },
+            "c": {
+              "req": "core",
+              "condition": "文本展示必做。不计入完成情况",
+              "declared_core": false
+            }
+          }
         },
         {
           "id": "07.2",
@@ -1415,7 +1431,23 @@
           "counted": false,
           "kind": "presentation_entry",
           "question": "主图、点位、说明联动的交互页面；分析动画由Claude制作",
-          "stages": {}
+          "stages": {
+            "a": {
+              "req": "skip",
+              "condition": "",
+              "declared_core": false
+            },
+            "b": {
+              "req": "opt",
+              "condition": "交互展示、效果图、影片按需",
+              "declared_core": false
+            },
+            "c": {
+              "req": "core",
+              "condition": "交互展示必做；效果图、影片按需。不计入完成情况",
+              "declared_core": false
+            }
+          }
         }
       ]
     },
@@ -1477,9 +1509,9 @@
               "declared_core": false
             },
             "c": {
-              "req": "opt",
+              "req": "core",
               "condition": "",
-              "declared_core": false
+              "declared_core": true
             }
           }
         },
@@ -1523,6 +1555,8 @@
       "01.5"
     ],
     "a": [
+      "01.4",
+      "01.5",
       "02.1",
       "02.2",
       "02.3",
@@ -1531,10 +1565,15 @@
       "02.7",
       "03.1",
       "03.8",
+      "04.1",
+      "04.3",
+      "04.6",
+      "04.7",
       "08.1",
       "08.3"
     ],
     "b": [
+      "03.1",
       "03.2",
       "03.4",
       "03.6",
@@ -1560,6 +1599,7 @@
       "06.8",
       "06.9",
       "08.1",
+      "08.2",
       "08.3"
     ]
   },
@@ -1586,7 +1626,7 @@
     }
   ],
   "method_version": "1.30",
-  "revision_note": "Local adapter: explicit core rows and chapter-end requirements are separate.",
+  "revision_note": "Local adapter: explicit core rows and chapter-end requirements are separate. 2026-11-25: three-depth matrix, merged work packages (retired ids keep merged_into) and entry backfill follow the user decisions of that day.",
   "catalog_policy": "方法库目录是默认版本；项目目录由AI按项目拟定并与用户讨论，章名、编号、标题、条目均可调整；项目条目注明参考的方法索引（M+库内编号）；项目目录保存为“项目目录”记录并记曾用编号",
   "entry_backfill": {
     "a": [
@@ -1598,16 +1638,13 @@
       "01.1",
       "01.3",
       "01.5",
-      "02.7",
-      "03.1"
+      "02.7"
     ],
     "c": [
       "01.1",
       "01.3",
       "01.5",
       "02.7",
-      "03.1",
-      "03.8",
       "05.9"
     ]
   },
@@ -1620,7 +1657,7 @@
     "未涉及",
     "不适用"
   ],
-  "source_document": "ki-archmain/SKILL.md (2026-11-16 revision)",
+  "source_document": "ki-archmain/SKILL.md (2026-11-25 revision)",
   "declared_core_by_stage": {
     "0": [
       "01.1",
@@ -1628,6 +1665,7 @@
       "01.5"
     ],
     "a": [
+      "01.4",
       "02.1",
       "02.2",
       "02.3",
@@ -1635,14 +1673,19 @@
       "02.5",
       "02.7",
       "03.1",
+      "04.1",
+      "04.3",
+      "04.6",
       "08.1"
     ],
     "b": [
+      "03.1",
       "03.2",
       "03.4",
       "03.6",
       "03.8",
       "04.1",
+      "04.7",
       "05.1",
       "05.2",
       "05.3",
@@ -1661,6 +1704,7 @@
       "06.8",
       "06.9",
       "08.1",
+      "08.2",
       "08.3"
     ]
   },
@@ -1689,33 +1733,21 @@
         "01.5"
       ],
       "stages": [
-        "0"
+        "0",
+        "a"
       ],
-      "stage_note": "0",
+      "stage_note": "0；a 做 01.4",
       "skill": "本 skill 第 8 节",
       "chapter": "01",
       "chapter_end": true
     },
     {
       "id": "W2.1",
-      "title": "使用者、功能与规模",
+      "title": "使用、条件与立项测算",
       "items": [
         "02.1",
         "02.2",
-        "02.3"
-      ],
-      "stages": [
-        "a"
-      ],
-      "stage_note": "a",
-      "skill": "brief-and-metrics",
-      "chapter": "02",
-      "chapter_end": false
-    },
-    {
-      "id": "W2.2",
-      "title": "条件、投资与运营",
-      "items": [
+        "02.3",
         "02.4",
         "02.5",
         "02.6"
@@ -1723,10 +1755,26 @@
       "stages": [
         "a"
       ],
-      "stage_note": "a",
+      "stage_note": "a（策划深度的对标案例 04.1、04.3、04.6、简版 04.7 也在本包做）",
       "skill": "brief-and-metrics",
       "chapter": "02",
       "chapter_end": false
+    },
+    {
+      "id": "W2.2",
+      "title": "条件、投资与运营（停用，并入 W2.1）",
+      "items": [
+        "02.4",
+        "02.5",
+        "02.6"
+      ],
+      "stages": [],
+      "stage_note": "停用",
+      "skill": "brief-and-metrics",
+      "chapter": "02",
+      "chapter_end": false,
+      "retired": true,
+      "merged_into": "W2.1"
     },
     {
       "id": "W2.3",
@@ -1744,49 +1792,54 @@
     },
     {
       "id": "W3.1",
-      "title": "定位与区位",
+      "title": "定位、选址核查与周边建筑",
       "items": [
         "03.1"
       ],
       "stages": [
-        "a"
+        "a",
+        "b"
       ],
-      "stage_note": "a",
+      "stage_note": "a/b",
       "skill": "site-study；画图用 urban-design-analysis",
       "chapter": "03",
       "chapter_end": false
     },
     {
       "id": "W3.2",
-      "title": "气候、环境与地形",
+      "title": "场地条件",
       "items": [
         "03.2",
-        "03.5"
-      ],
-      "stages": [
-        "b"
-      ],
-      "stage_note": "b",
-      "skill": "site-study",
-      "chapter": "03",
-      "chapter_end": false
-    },
-    {
-      "id": "W3.3",
-      "title": "到达、现状、景观与市政",
-      "items": [
         "03.3",
         "03.4",
+        "03.5",
         "03.6",
         "03.7"
       ],
       "stages": [
         "b"
       ],
-      "stage_note": "b",
+      "stage_note": "b（03.3 场地上有房子时做，03.5 有高差时做，03.7 概念深度不做）",
       "skill": "site-study；画图用 architecture-analysis-diagrams",
       "chapter": "03",
       "chapter_end": false
+    },
+    {
+      "id": "W3.3",
+      "title": "到达、现状、景观与市政（停用，并入 W3.2）",
+      "items": [
+        "03.3",
+        "03.4",
+        "03.6",
+        "03.7"
+      ],
+      "stages": [],
+      "stage_note": "停用",
+      "skill": "site-study；画图用 architecture-analysis-diagrams",
+      "chapter": "03",
+      "chapter_end": false,
+      "retired": true,
+      "merged_into": "W3.2"
     },
     {
       "id": "W3.4",
@@ -1795,30 +1848,37 @@
         "03.8"
       ],
       "stages": [
+        "a",
         "b"
       ],
-      "stage_note": "b",
+      "stage_note": "b（a 做简版）",
       "skill": "site-study",
       "chapter": "03",
       "chapter_end": true
     },
     {
       "id": "W4.1",
-      "title": "借鉴问题与检索",
+      "title": "案例借鉴（章末）",
       "items": [
-        "04.1"
+        "04.1",
+        "04.2",
+        "04.3",
+        "04.4",
+        "04.5",
+        "04.6",
+        "04.7"
       ],
       "stages": [
         "b"
       ],
-      "stage_note": "b",
+      "stage_note": "b（与 03 并行；04.2–04.6 是案例卡上的栏目）",
       "skill": "case-study",
       "chapter": "04",
-      "chapter_end": false
+      "chapter_end": true
     },
     {
       "id": "W4.2",
-      "title": "案例拆解（每 1–2 个案例一个对话）",
+      "title": "案例深拆（按需，每 1–2 个案例一个子代理或对话）",
       "items": [
         "04.2",
         "04.3",
@@ -1827,53 +1887,54 @@
         "04.6"
       ],
       "stages": [
-        "b"
+        "b",
+        "c"
       ],
-      "stage_note": "b 按需",
+      "stage_note": "b/c 按需（某个问题要看平面剖面时）",
       "skill": "case-study",
       "chapter": "04",
       "chapter_end": false
     },
     {
       "id": "W4.3",
-      "title": "借鉴结论（章末）",
+      "title": "借鉴结论（停用，并入 W4.1）",
       "items": [
         "04.7"
       ],
-      "stages": [
-        "b"
-      ],
-      "stage_note": "b",
+      "stages": [],
+      "stage_note": "停用",
       "skill": "case-study",
       "chapter": "04",
-      "chapter_end": true
+      "chapter_end": false,
+      "retired": true,
+      "merged_into": "W4.1"
     },
     {
       "id": "W5.1",
-      "title": "设计主线",
+      "title": "设计主线与方向粗选",
       "items": [
         "05.1"
       ],
       "stages": [
         "b"
       ],
-      "stage_note": "b",
-      "skill": "concept-scheme",
+      "stage_note": "b（含各方向的大关系体量草模）",
+      "skill": "concept-scheme；草模交 GPT",
       "chapter": "05",
       "chapter_end": false
     },
     {
       "id": "W5.2",
-      "title": "总平与体量推演（每个方向一个对话）",
+      "title": "总平与体量推演（只做挑中的方向，每个方向一个子代理或对话）",
       "items": [
         "05.2",
-        "05.5",
-        "06.6"
+        "05.5"
       ],
       "stages": [
+        "a",
         "b"
       ],
-      "stage_note": "b",
+      "stage_note": "b（a 只做按需的强排示意）",
       "skill": "concept-scheme",
       "chapter": "05",
       "chapter_end": false
@@ -1888,7 +1949,7 @@
       "stages": [
         "b"
       ],
-      "stage_note": "b",
+      "stage_note": "b（只做挑中的方向）",
       "skill": "concept-scheme",
       "chapter": "05",
       "chapter_end": false
@@ -1904,29 +1965,29 @@
       "stages": [
         "b"
       ],
-      "stage_note": "b",
+      "stage_note": "b（只做挑中的方向）",
       "skill": "concept-scheme；效果图交 GPT",
       "chapter": "05",
       "chapter_end": false
     },
     {
       "id": "W5.5a",
-      "title": "指标与估算速核",
+      "title": "指标与估算速核（停用，并入 W5.5）",
       "items": [
         "06.8",
         "06.9"
       ],
-      "stages": [
-        "b"
-      ],
-      "stage_note": "b",
+      "stages": [],
+      "stage_note": "停用",
       "skill": "本 skill 第 10 节",
       "chapter": "05",
-      "chapter_end": false
+      "chapter_end": false,
+      "retired": true,
+      "merged_into": "W5.5"
     },
     {
       "id": "W5.5",
-      "title": "比选与定向（章末）",
+      "title": "比选与定向（章末，含指标与估算速核）",
       "items": [
         "05.9"
       ],
@@ -1934,7 +1995,7 @@
         "b"
       ],
       "stage_note": "b",
-      "skill": "concept-scheme",
+      "skill": "concept-scheme；速核见本 skill 第 10 节",
       "chapter": "05",
       "chapter_end": true
     },
@@ -2077,36 +2138,35 @@
     },
     {
       "id": "W8.1",
-      "title": "交付清单与记录",
+      "title": "收尾（章末）：交付清单、交付记录、归档复盘",
       "items": [
         "08.1",
-        "08.2"
+        "08.2",
+        "08.3"
       ],
       "stages": [
         "a",
         "b",
         "c"
       ],
-      "stage_note": "a/b/c",
-      "skill": "本 skill 第 12 节",
-      "chapter": "08",
-      "chapter_end": false
-    },
-    {
-      "id": "W8.2",
-      "title": "归档与复盘（章末）",
-      "items": [
-        "08.3"
-      ],
-      "stages": [
-        "c",
-        "a",
-        "b"
-      ],
-      "stage_note": "a/b/c（a、b 做简版）",
+      "stage_note": "a/b/c（a、b 做简版；主总控做）",
       "skill": "本 skill 第 12 节",
       "chapter": "08",
       "chapter_end": true
+    },
+    {
+      "id": "W8.2",
+      "title": "归档与复盘（停用，并入 W8.1）",
+      "items": [
+        "08.3"
+      ],
+      "stages": [],
+      "stage_note": "停用",
+      "skill": "本 skill 第 12 节",
+      "chapter": "08",
+      "chapter_end": false,
+      "retired": true,
+      "merged_into": "W8.1"
     }
   ]
 }

@@ -81,3 +81,36 @@
 - 检查（Node 25，独立 worktree）：项目服务测试 150 项全部通过；`sync-skills` 演练对仓库 `skills/` 和一处临时安装目录均为 0 项变化，接口 9 段；两个工作台资产内嵌的方法目录与生成脚本的输出逐字节一致；`SHA256SUMS.txt`、`LOCAL-SHA256SUMS.txt` 与 `verify-source.mjs` 校验通过。
 
 没有回装到任何已安装的 Skill 目录，没有重新发布云端站点，新规则也还没有在真实项目上试过。
+
+## 2026-11-25 修订：流程反馈、按段推进与三个深度
+
+改方法文字、方法目录和依赖目录的测试断言，方法版本号仍为 1.30；本包里的项目服务代码（`kigaga-workflow-v0.3/src`）和工作台源码没有动。分两轮：先按用户在一个测试项目里攒下的 10 条流程反馈改，再按用户当天定的框架取舍、三个深度的子项、中途进入的衔接和第七章接口改。
+
+第一轮（流程反馈）：
+
+- 根目录 `ki-archmain`：工作包做完默认结案，用户确认集中由主总控问一次，一个包只存一版成果；总控派子代理做包，没有方向抉择就接着做，做完才回主线，主线卡只在回主线时更新；互不依赖的包可以并行（随用户提速要求补）；防对话过长、项目运行规则存项目库、汇报短和读取窄、按任务选模型；分析阶段（01–04 章）的图只出够下判断的草图，内容照样核对，要正式画的列进交接记录的正式图清单，出图的线程直接开在 07 章；加“已确认的上游前提被推翻”的处理。
+- 根目录 `site-study` v0.4：加“选址核查与周边建筑（必做）”一节，选址候选卡必须核现状建筑和历史资源，周边建筑清单和图、紧邻建筑从按需改为必做。`brief-and-metrics` v0.4、`case-study` v0.3、`concept-scheme` v0.5 只把和新规则冲突的句子改齐。
+- `skills/ki-archmain`：接口片段 `references/execution-interfaces/ki-archmain.txt`；`references/work-package-execution.md`（开工授权默认带 `complete`，新增“上游与用户确认”，参考类记录、主线卡和确认接替的打回规则，换对话凭 `execution_id` 续做）；`references/project-service.md`（加连续推进补充和读取工具的选用，主线卡升版一句改写）。
+
+第二轮（框架取舍与三个深度，2026-11-25 用户定）：
+
+- 01 章不动，W1.1、W1.2 不合并、内容不减：业主更看重立项分析和立项阶段的经济测算，前期分析要加深。
+- 工作包合并，编号不重排：W2.2 并入 W2.1（使用、条件与立项测算），W3.3 并入 W3.2（场地条件），W4.3 并入 W4.1（案例借鉴，一个包出借鉴问题、案例卡和 04.7），W5.5a 并入 W5.5，W8.2 并入 W8.1（收尾，由主总控做）。停用的编号在 `framework-catalog.json` 的 `work_packages` 里保留，标 `retired: true` 和 `merged_into`，老项目的旧编号仍能查到。W5.1 改为带草模的方向粗选，W5.2–W5.4 只做挑中的方向。06、07 的包不变。
+- 总控按五段合并，代替每章一个章总控：立项与任务书（01–02）、场地与案例（03–04）、概念方案（05）、深化（06）、展示与交付（07–08）。确认点：01.5 和 02.7、03.8 和 04.7、05.1 连同挑方向、05.9、06.9、08.3，主线卡在确认之后一次写入对应的栏。03 和 04 并行。
+- 三个深度各用哪些子项：`ki-archmain` 第 2 节改成项目策划、概念方案、方案设计三张表；`framework-catalog.json` 的条目要求、`core_by_stage`、`declared_core_by_stage`、`entry_backfill`、`source_document`、`revision_note` 随之更新。项目策划加 01.4、立项测算表和对标案例（04.1、04.3、04.6、简版 04.7，并在 W2.1 里做）；概念方案把 03.1、04.7 列为核心，不做 06 和 03.7；方案设计把 08.2 列为核心。07 两个条目登记了各深度做不做，仍不计入完成情况。表列核心由 0／a／b／c 的 3／8／13／9 项变为 3／12／15／10 项，加上章末必做为 3／16／16／10 项。
+- 中途进场：所有中途进入的项目先做接收包、出进场卡，按进入位置只补下游要引用的那几项；原“直出”作为细则保留。`entry_backfill` 去掉 b 的 03.1（已是本深度核心）和 c 的 03.1、03.8。
+- 第七章只留接口：`ki-archmain` 第 11 节加“分析图出图风格”和“输出文件与交互界面版式”两个接口，风格和版式待跑完一个项目后讨论，没有设计具体风格。
+- 章节 Skill 同步：`brief-and-metrics` v0.5（立项测算表、策划深度的对标案例）、`site-study` v0.5（各深度做哪些）、`case-study` v0.4（W4.1 一个包、先按 C02- 写借鉴问题）、`concept-scheme` v0.6（草模粗选、W5.5 含速核、强排示意）。
+- 接口片段、`work-package-execution.md`、`project-service.md` 里的“同章／跨章”改为“同段／跨段”，各包默认要已确认的上游章末改为：W2.x 不要求；W3.x 和 W4.x 都只要 02.7；W5.1 要 02.7、03.8、04.7；W5.2 起要 02.7、03.8、05.1；W6.x 要 05.9。
+
+随之更新：
+
+- 根目录 `SHA256SUMS.txt`（五个 Skill）；`local-skill-adapters.json` 八段接口的正本基线和 `site-study`、`case-study`、`concept-scheme` 的标题锚点；用 `sync-skills.mjs` 重新生成 `skills/` 下 `ki-archmain`、`site-study`、`brief-and-metrics`、`case-study`、`concept-scheme` 五个入口；`framework-catalog.json` 的 `source_sha256`；`LOCAL-SHA256SUMS.txt` 中五个文件的哈希；`SOURCE-MANIFEST.json`。
+- 工作台内嵌的方法目录这次内容变了，用构建脚本重新生成：在 `kigaga-workflow-v0.3` 目录运行 `node scripts/build-v04.mjs`（即 `npm run build`，esbuild 0.28.2）生成 `assets/workbench.html`；在 `sites/ki-workbench` 目录运行 `node scripts/import-workbench.mjs` 生成云端 `public/workbench-method.js`。重建前后对比：`workbench.html` 除内嵌目录一段外逐字节相同；云端 `public/workbench-runtime.js` 和 `workbench/page.html` 重新生成后与原文件相同，没有变化。
+- `tests/process-workflow.test.mjs`：目录测试改为按新目录断言核心项个数、两张清单与条目表一致、停用包号的 `merged_into`、每个条目都挂在在用的包上、`entry_backfill`。
+
+检查（Node 25，独立 worktree）：项目服务测试 150 项全部通过；`sync-skills` 演练对仓库 `skills/` 和一处临时安装目录均为 0 项变化，接口 9 段；两个工作台资产内嵌的方法目录与生成脚本的算法输出一致；`SHA256SUMS.txt`、`LOCAL-SHA256SUMS.txt` 与 `verify-source.mjs` 校验通过。云端工作台测试这次没有跑。
+
+**服务代码这次没有同步。** `work-package-execution.md` 和 `project-service.md` 写的放行规则（同段上游结案即可开下包，跨段上游要本包确认或该章章末已确认；W2.x 不必等 01.5，W3.x 和 W4.x 只要 02.7；笔记、交接和主线卡升版不自动打回；确认被接替后自动改引用；内容没变的复核重存保留原确认）是私有维护版项目服务 2026-11-25 的行为。本包 `kigaga-workflow-v0.3/src` 仍是 2026-11-20 的快照，会按旧规则拦下游、打回任务；要对齐，需另做一次服务代码同步，连同 `tests/chapter-flow.test.mjs`。
+
+没有回装到任何已安装的 Skill 目录，没有重新发布云端站点（云端仍是旧的方法目录）；按段推进和三个深度的新写法还没有在真实项目上完整走过一遍。
