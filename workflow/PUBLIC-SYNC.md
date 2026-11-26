@@ -114,3 +114,25 @@
 **服务代码这次没有同步。** `work-package-execution.md` 和 `project-service.md` 写的放行规则（同段上游结案即可开下包，跨段上游要本包确认或该章章末已确认；W2.x 不必等 01.5，W3.x 和 W4.x 只要 02.7；笔记、交接和主线卡升版不自动打回；确认被接替后自动改引用；内容没变的复核重存保留原确认）是私有维护版项目服务 2026-11-25 的行为。本包 `kigaga-workflow-v0.3/src` 仍是 2026-11-20 的快照，会按旧规则拦下游、打回任务；要对齐，需另做一次服务代码同步，连同 `tests/chapter-flow.test.mjs`。
 
 没有回装到任何已安装的 Skill 目录，没有重新发布云端站点（云端仍是旧的方法目录）；按段推进和三个深度的新写法还没有在真实项目上完整走过一遍。
+
+## 2026-11-26 修订：测试项目跑完后的流程补充
+
+改方法文字和方法目录里两个工作包的说明，方法版本号仍为 1.30；本包里的项目服务代码（`kigaga-workflow-v0.3/src`）和工作台源码没有动。起因是一个测试项目跑完后留下的流程问题。
+
+- 根目录 `ki-archmain`：第 4 节确认点表加“谁来问”一列（05.1 连同挑方向由概念方案段总控在段内直接问，其余由主总控问），写明章末摘要由待确认改成已确认时怎么改、段末汇总正式图清单；第 6 节编号体系加 03.8 启示的编号（必n、可n、不n）；第 7 节主线卡第 3 栏逐条带编号写入，交接记录给出项目服务能通过的完整写法，加“正式图清单”记录和章末摘要确认的说明；第 9 节写明成果文件分服务导出的机器副本和按章的人读版，以项目库的成果版本为准；第 11 节 07 只读“正式图清单”一条记录，可以存一条不计入完成情况的章末摘要；第 3、12 节 W8.1 改由展示与交付段总控派子代理做，05 的方向草模在没有 GPT 端可用时由 Claude 出体量简图代替；第 13 节章末结论要修订时另开同包号的修订任务；第 14 节加修订记录。另按用户当天定的改一处：05.1 确认后主线卡不马上写，矛盾、方向、策略三栏留到概念方案段末，和 05.9 的第 8 栏一起由主总控写入，卡升 v1；段内以 05.1 的章末摘要和确认记录为依据（第 4、7 节，`concept-scheme` 和两个引用文件同步）。
+- 根目录 `brief-and-metrics` v0.6（02.7 的指标表目标行必须有容量类指标和单位面积效率指标）、`site-study` v0.6（03.8 的启示逐条编号）、`concept-scheme` v0.7（草模的替代做法、05.1 谁来问、逐条核“05 必须”）。`case-study` 没有改。
+- `skills/ki-archmain`：`references/work-package-execution.md`（`task_readiness`、版本变化的报错、上游章末引用的报错、复核重存用 `review_note`、条件性开工只在用户明确只要讨论稿时用、交接记录模板、章末摘要确认时的 `affects`、章末结论修订、记录长度上限）；`references/project-service.md`（加“测试项目跑完后的补充”一节，改交接字段、07 章末摘要、两套成果文件）；`references/framework-catalog.json`（W8.1、W5.1 两个包的说明和 `source_document`）。
+- 随之更新：根目录 `SHA256SUMS.txt`；`local-skill-adapters.json` 中 `ki-archmain` 三段、`site-study` 两段、`concept-scheme` 两段接口的正本基线和后两个 Skill 的标题锚点；用 `sync-skills.mjs` 重新生成 `skills/` 下 `ki-archmain`、`site-study`、`brief-and-metrics`、`concept-scheme` 四个入口；`framework-catalog.json` 的 `source_sha256`；`LOCAL-SHA256SUMS.txt` 中四个文件的哈希；方法目录内容有变，按 2026-11-25 的两条命令重新生成 `assets/workbench.html` 和云端 `public/workbench-method.js`（`workbench.html` 除内嵌目录一段外逐字节相同；云端 `workbench-runtime.js`、`workbench/page.html` 重新生成后没有变化）；`SOURCE-MANIFEST.json`。
+- 检查（Node 25，独立 worktree）：项目服务测试 150 项全部通过；`sync-skills` 演练对仓库 `skills/` 和一处临时安装目录均为 0 项变化，接口 9 段；两个工作台资产内嵌的方法目录与生成脚本的算法输出一致；`SHA256SUMS.txt`、`LOCAL-SHA256SUMS.txt` 与 `verify-source.mjs` 校验通过。云端工作台测试这次没有跑。
+
+同日第二轮（2026-11-26 用户定四个目标和六条做法），仍只改方法文字，方法目录内容没有变：
+
+- 根目录 `ki-archmain`：第 1 节加第 8 条“四个目标”（质量、速度、省 token、不跑偏，冲突时按这个次序取舍）；第 4 节加“把关与对齐”六条：每包验收清单、确认点前独立复核、交回时三行对齐检查、偏离当场报告、固定简报和一页子代理操作卡、会话按段精简配置（01–06 各段只开用得上的工具，展示与交付段保留动效和出图连接器）；第 8、11、12 节加 W1.1、W1.2、W7.x、W8.1 的验收清单，第 12 节加每个项目记四组数；第 11 节把“07 用哪些动效、出图连接器”列为待讨论。
+- 控制正本篇幅：模板和格式放新文件 `skills/ki-archmain/references/briefing-and-review.md`，子代理操作卡放 `references/subagent-card.md`；第 14 节的历次修订记录原样挪到 `references/revision-history.md`，正本只留当前版本一行。三个新文件都进了 `LOCAL-SHA256SUMS.txt`，随 `sync-skills.mjs` 安装。没有测试、锚点或脚本依赖第 14 节的内容。
+- 根目录 `brief-and-metrics` v0.7、`site-study` v0.7、`case-study` v0.5、`concept-scheme` v0.8：各加“验收清单”一节，每个包 3–6 条，都从各自已有的硬规则里提出来，没有新增要求。
+- `references/work-package-execution.md`、`references/project-service.md`、接口片段 `references/execution-interfaces/ki-archmain.txt` 各加一句，指向操作卡和模板文件。
+- 随之更新：根目录 `SHA256SUMS.txt`（五个 Skill）；`local-skill-adapters.json` 八段接口的正本基线和 `site-study`、`case-study`、`concept-scheme` 的标题锚点；重新生成 `skills/` 下五个入口；`framework-catalog.json` 的 `source_sha256`，两处工作台资产只按字节换这一个值；`SOURCE-MANIFEST.json`（文件数 555 变为 558）。检查结果同上，补充文件由 292 个变为 295 个。
+
+**服务代码仍然没有同步。** 这次写进 `work-package-execution.md` 和 `project-service.md` 的行为，是私有维护版项目服务 2026-11-26 的行为：章末摘要确认时只改确认信息不打回、改了正文按 `affects` 打回；`kg_save_result` 的 `review_note` 和内容相同的复核重存保留原确认；主线卡和指标表 40000 字上限；`task_readiness`；版本变化和缺上游章末引用的报错内容。本包 `kigaga-workflow-v0.3/src` 仍是 2026-11-20 的快照，没有这些行为，放行和打回也仍按旧规则。交接记录模板不在此列：对交接字段的校验，公开快照和私有版代码相同。要对齐，需另做一次服务代码同步。
+
+没有回装到任何已安装的 Skill 目录，没有重新发布云端站点（云端仍是旧的方法目录）。

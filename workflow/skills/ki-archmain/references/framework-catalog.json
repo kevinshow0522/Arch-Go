@@ -1,7 +1,7 @@
 {
   "framework_version": "0.4",
   "integration_date": "2026-10-26",
-  "source_sha256": "8387b0a63bbae80328bb21e683617c80e75b23a8719d76cd825479563403f352",
+  "source_sha256": "72f60d46596e93980d05e8b9858bb35588da61beb9cb36a8f71ffb6cd2de919a",
   "service_stages": {
     "0": "项目启动",
     "a": "项目策划",
@@ -1657,7 +1657,7 @@
     "未涉及",
     "不适用"
   ],
-  "source_document": "ki-archmain/SKILL.md (2026-11-25 revision)",
+  "source_document": "ki-archmain/SKILL.md (2026-11-26 revision)",
   "declared_core_by_stage": {
     "0": [
       "01.1",
@@ -1919,7 +1919,7 @@
         "b"
       ],
       "stage_note": "b（含各方向的大关系体量草模）",
-      "skill": "concept-scheme；草模交 GPT",
+      "skill": "concept-scheme；草模交 GPT，没有 GPT 端可用时由 Claude 出体量简图代替",
       "chapter": "05",
       "chapter_end": false
     },
@@ -2149,7 +2149,7 @@
         "b",
         "c"
       ],
-      "stage_note": "a/b/c（a、b 做简版；主总控做）",
+      "stage_note": "a/b/c（a、b 做简版；展示与交付段总控派子代理做）",
       "skill": "本 skill 第 12 节",
       "chapter": "08",
       "chapter_end": true
