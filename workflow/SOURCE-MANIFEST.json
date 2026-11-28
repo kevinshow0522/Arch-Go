@@ -5,8 +5,8 @@
   "files": [
     {
       "path": "PUBLIC-SYNC.md",
-      "bytes": 31332,
-      "sha256": "294d61dc0409c7078d890941f14b7f46feb6bbfd9b984a99c82d97bc71032dfc"
+      "bytes": 31325,
+      "sha256": "44cb263f83f3ad05169deaefcfc5977032de40ea22f1b06365a09ce00bd2465b"
     },
     {
       "path": "README.md",
@@ -1305,8 +1305,8 @@
     },
     {
       "path": "skills/brief-and-metrics/SKILL.md",
-      "bytes": 19357,
-      "sha256": "bcd28424a020e2cc9e6420e5ee9842a4e46cdcd1be66c87acb6d11c01841c6a8"
+      "bytes": 19646,
+      "sha256": "7ec8283a702ec4f20690a3554a1d477172e9244ea406a49c39f4965bbdda4e27"
     },
     {
       "path": "skills/case-study/SKILL.md",
