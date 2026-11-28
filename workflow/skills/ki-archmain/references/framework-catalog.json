@@ -1,7 +1,7 @@
 {
   "framework_version": "0.4",
   "integration_date": "2026-10-26",
-  "source_sha256": "72f60d46596e93980d05e8b9858bb35588da61beb9cb36a8f71ffb6cd2de919a",
+  "source_sha256": "30b7250929cd1500bbffec2042de496a75bcf11436531e3067d2121a0ed7eaba",
   "service_stages": {
     "0": "项目启动",
     "a": "项目策划",
@@ -143,12 +143,12 @@
           "stages": {
             "0": {
               "req": "core",
-              "condition": "",
+              "condition": "只做项目启动时，做完由主总控单独确认，确认后建主线卡；不设段总控",
               "declared_core": true
             },
             "a": {
               "req": "core",
-              "condition": "已有的沿用，没有的补做；和02.7在第一段末一起确认",
+              "condition": "项目启动时确认过的沿用；没有的补做，和02.7在第一段末一起确认",
               "declared_core": false
             },
             "b": {
@@ -646,7 +646,7 @@
             },
             "a": {
               "req": "core",
-              "condition": "对标案例：并在W2.1里做，给立项测算当依据，不另开W4.1",
+              "condition": "对标问题：并在W2.1里做，给立项测算当依据，不另开W4.1；不用案例等级，每个数字直接标可信度",
               "declared_core": true
             },
             "b": {
@@ -826,7 +826,7 @@
             },
             "a": {
               "req": "core",
-              "condition": "简版：对标结论，写明本项目的规模、投资、运营口径参照了什么",
+              "condition": "简版：对标结论，写明本项目的规模、投资、运营口径参照了什么；和02.7在第一段末一起确认",
               "declared_core": false
             },
             "b": {
@@ -867,7 +867,7 @@
             },
             "b": {
               "req": "core",
-              "condition": "",
+              "condition": "W5.1单开对话：先由前四章的章末结论得出设计思路并和用户谈定，再提方向；05.1连同挑方向在同一个对话里确认",
               "declared_core": true
             },
             "c": {
@@ -1626,7 +1626,8 @@
     }
   ],
   "method_version": "1.30",
-  "revision_note": "Local adapter: explicit core rows and chapter-end requirements are separate. 2026-11-25: three-depth matrix, merged work packages (retired ids keep merged_into) and entry backfill follow the user decisions of that day.",
+  "method_revision": "2026-11-28",
+  "revision_note": "Local adapter: explicit core rows and chapter-end requirements are separate. 2026-11-25: three-depth matrix, merged work packages (retired ids keep merged_into) and entry backfill follow the user decisions of that day. 2026-11-28: method_revision added; stage 0 confirms 01.5 on its own with no segment controller; planning-depth benchmark figures carry credibility marks only and the benchmark conclusion is confirmed with 02.7; 05 starts by agreeing the design approach with the user in the W5.1 conversation; reverse-derived mainline cards are dropped.",
   "catalog_policy": "方法库目录是默认版本；项目目录由AI按项目拟定并与用户讨论，章名、编号、标题、条目均可调整；项目条目注明参考的方法索引（M+库内编号）；项目目录保存为“项目目录”记录并记曾用编号",
   "entry_backfill": {
     "a": [
@@ -1657,7 +1658,7 @@
     "未涉及",
     "不适用"
   ],
-  "source_document": "ki-archmain/SKILL.md (2026-11-26 revision)",
+  "source_document": "ki-archmain/SKILL.md (2026-11-28 revision)",
   "declared_core_by_stage": {
     "0": [
       "01.1",
@@ -1918,7 +1919,7 @@
       "stages": [
         "b"
       ],
-      "stage_note": "b（含各方向的大关系体量草模）",
+      "stage_note": "b（单开对话；先谈定设计思路，再提方向和各方向的大关系体量草模）",
       "skill": "concept-scheme；草模交 GPT，没有 GPT 端可用时由 Claude 出体量简图代替",
       "chapter": "05",
       "chapter_end": false

@@ -30,12 +30,12 @@
 
 2026-10-26 用户要求：工作台只查看工作流程；取消工作台地图、定位、配准、地图绘制与导出。位置、方位、现状图或坐标由用户在对话中提供，AI按已确认范围判断和画图。不要要求用户先在工作台操作地图。
 
-本文件是本机服务适配说明。主方法正本仍为上级 `SKILL.md`；工具字段以当前实际 schema 为准。本机补充文件由 `LOCAL-SHA256SUMS.txt` 单独校验，不改动 GitHub 十项正本的哈希。
+本文件是本机服务适配说明。主方法正本仍为上级 `SKILL.md`；工具字段以当前实际 schema 为准。本机补充文件由 `LOCAL-SHA256SUMS.txt` 单独校验，不改动 GitHub 正本文件的哈希。
 
 ## 连接与开工
 
 1. 用本地 `kg_get_connection` 核对服务方法1.30和共享数据源；`kg_find_projects`定位唯一项目，`kg_get_context`读取有效条件、当前工作包、最近交接、章末摘要、主线及指标。`ready=false`按工具给出的分页入口补读，不能用摘要代替完整依据。
-2. 写入时传 `method_version: "1.30"`；显式不同版本被拒绝。历史项目缺失版本保持未记录，不以服务版本代替项目事实。
+2. 写入时传 `method_version: "1.30"`；显式不同版本被拒绝。方法修订不改这个版本号，修订日期写进交接和章末摘要 content 的 `method_revision`（上级 `SKILL.md` 第 7 节），服务不校验它，有没有这个字段的记录都收。`kg_get_connection` 返回 `rules_revision` 时，它是服务放行和打回规则的日期，见[工作包执行检查](work-package-execution.md)。历史项目缺失版本保持未记录，不以服务版本代替项目事实。
 3. 按本工作包实际需要说明项目文件范围和读写用途。当前任务已授权的范围持续执行，扩大项目、目录或用途时再确认。参考库只读，先用已有索引再按页读取。
 4. 读取要窄：查状态用 `kg_get_task`、`kg_list_tasks`、`kg_list_records`（按 `kind` 筛），不用 `kg_get_project_progress`（一次返回几万字）。章节 skill 只读本包用到的那一节。
 5. 项目运行规则存成一条 note 记录，新开的主总控、段总控开头先读；它是参考类记录，可以直接升版。
@@ -47,17 +47,17 @@
 - 后加依赖用 `kg_add_dependency`。依赖必须同项目且不成环；依赖未完成或依据有变化时下游不能完成。互不依赖的包可以同时开工。
 - 段内的包由段总控派子代理执行，一个包只派一个子代理。子代理交回不超过约 15 行：结论、成果版本、记录编号、待用户决定的事；细节留在项目库。同一件事只由一个对话向用户汇报。
 - 把关与对齐（2026-11-26 用户定）：做包的子代理只读简报、[子代理操作卡](subagent-card.md)和章节 skill 里本包那一节。验收清单逐条结果和对齐检查三行写进结案的 `checkpoint.checks`。确认点前的“复核意见｜<确认点>”和“偏离记录”都存成 note 记录，不另建任务。简报模板、复核子代理的简报、偏离记录和四组数的格式见[简报、复核与对齐](briefing-and-review.md)。
-- 按任务选模型：策略与判断类（章末结论、主线卡、方向与比选、变更影响判断）用最强模型，其余建筑任务不低于次强一档，不用轻量模型做建筑任务；分档表见上级 `SKILL.md` 第 3 节。
+- 按任务选模型：策略与判断类（章末结论、主线卡、方向与比选、变更影响判断）用最强模型，其余建筑任务不低于次强一档，不用轻量模型做建筑任务；分档见上级 `SKILL.md` 第 3 节。
 - 05／06及07成果写 `mainline_ref`，引用当前主线卡版本；05／06另传 `upstream_record_ids`，至少一条有效的本项目上游 `chapter_summary` 记录。保存草稿、检查完成和用户确认分别记录。
-- 用户确认具体成果时保存 `decision, confirmed`，`source` 写实际用户确认依据；`content` JSON包含 `task_id`、当前 `revision`、`item`。同条目新版确认会退役旧确认，旧版本仍可读取；还没结案的引用任务自动改引用新确认。确认不在每个包里各问，集中到确认点问一次：05.1连同挑方向由概念方案段总控在段内直接问用户；01.5和02.7、03.8和04.7、05.9、06.9、08.3由段总控交回主总控，主总控问。
+- 用户确认具体成果时保存 `decision, confirmed`，`source` 写实际用户确认依据；`content` JSON包含 `task_id`、当前 `revision`、`item`。同条目新版确认会退役旧确认，旧版本仍可读取；还没结案的引用任务自动改引用新确认。确认不在每个包里各问，集中到确认点问一次：05.1连同挑方向由用户在W5.1的单开对话里直接确认；01.5和02.7、03.8和04.7、05.9、06.9、08.3由段总控交回主总控，主总控问。只做项目启动时不设段总控，01.5做完由主总控单独问；策划深度的对标结论（04.7简版）随02.7确认。进入05先在W5.1的单开对话里和用户谈定设计思路，存成确认记录。
 
 ## 交接与章末同步
 
-`kg_save_record(kind: "handoff")` 的 content 写 JSON：from、to、to_role、work_package、task_ids、execution_id、done、next、waiting_on_user、files、mainline_ref、method_version、created_at。from、to写执行者名（claude、gpt、user，to可以是any），角色另写在to_role；done是一个字符串，不是数组；task_ids写完整编号。`files`只写项目资料／工作文件／成果输出中的相对路径。完整模板和服务核对哪些字段见[工作包执行检查](work-package-execution.md)的“交接记录模板”。每段段末，段总控把本段各包交接里的正式图清单汇成一条标题为“正式图清单”的note记录，逐条编号、后面的段接着往下编，07只读这一条。
+`kg_save_record(kind: "handoff")` 的 content 写 JSON：from、to、to_role、work_package、task_ids、execution_id、done、next、waiting_on_user、files、mainline_ref、method_version、method_revision、created_at。from、to写执行者名（claude、gpt、user，to可以是any），角色另写在to_role；done是一个字符串，不是数组；task_ids写完整编号。`files`只写项目资料／工作文件／成果输出中的相对路径。完整模板和服务核对哪些字段见[工作包执行检查](work-package-execution.md)的“交接记录模板”。每段段末，段总控把本段各包交接里的正式图清单汇成一条标题为“正式图清单”的note记录，逐条编号、后面的段接着往下编，07只读这一条。
 
 离开 `in_progress` 时，先保存本任务的新交接，再把返回的 `handoff_record_id` 传给 `kg_checkpoint_task`。交接须对应当前任务、工作包和执行者，不可重用已消费的交接。完成还要有真实成果、检查及已完成依赖。
 
-章末保存 `chapter_summary` JSON，含chapter、item、summary、key_points、ids、open_questions、status、decision_ref、files、mainline_ref、method_version、created_at。已确认状态必须引用同条目当前成果的有效确认记录；未确认结论照样同步并标待确认。07可以存一条章末摘要（选了哪些图、暂用风格、待用户看的事），item写07.1或07.2，不计入完成情况。
+章末保存 `chapter_summary` JSON，含chapter、item、summary、key_points、ids、open_questions、status、decision_ref、files、mainline_ref、method_version、method_revision、created_at。已确认状态必须引用同条目当前成果的有效确认记录；未确认结论照样同步并标待确认。07可以存一条章末摘要（选了哪些图、暂用风格、待用户看的事），item写07.1或07.2，不计入完成情况。
 
 主线用 `kind: "mainline"`，指标表用 `kind: "metrics"`，均为项目级记录，content JSON带版本。主线内容改变必须升版。新建或升版不自动打回任务：确认点之后补写新栏不影响已做完的包；做变更判断时在content里写 `affects.task_ids` 或 `affects.items`，服务只打回写明的任务及其下游。05／06／07成果保存时 `mainline_ref` 仍须等于当前主线卡版本。主线卡只在回主线时由主总控更新，在各确认点之后一次写入对应的栏；05.1是例外，确认后先不写，第5、6、7栏留到05.9确认后和第8栏一起写入，05段内以05.1的章末摘要和确认记录为依据，`mainline_ref` 写的当前主线卡版本在段内不变。指标表使用rows，保留指标、数值/单位、口径、性质、来源等级、可信度/状态和影响条目。
 

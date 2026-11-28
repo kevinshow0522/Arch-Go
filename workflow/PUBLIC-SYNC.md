@@ -136,3 +136,35 @@
 **服务代码仍然没有同步。** 这次写进 `work-package-execution.md` 和 `project-service.md` 的行为，是私有维护版项目服务 2026-11-26 的行为：章末摘要确认时只改确认信息不打回、改了正文按 `affects` 打回；`kg_save_result` 的 `review_note` 和内容相同的复核重存保留原确认；主线卡和指标表 40000 字上限；`task_readiness`；版本变化和缺上游章末引用的报错内容。本包 `kigaga-workflow-v0.3/src` 仍是 2026-11-20 的快照，没有这些行为，放行和打回也仍按旧规则。交接记录模板不在此列：对交接字段的校验，公开快照和私有版代码相同。要对齐，需另做一次服务代码同步。
 
 没有回装到任何已安装的 Skill 目录，没有重新发布云端站点（云端仍是旧的方法目录）。
+
+## 2026-11-28 修订：整体审查后的方法修订与修订日期
+
+起因是对整个公开包做的一次审查。方向和四处细则由用户 2026-11-28 在对话里逐条定；方法版本号仍为 1.30。这次修订做在 2026-11-26 两轮修订之上（先在云端分支上改，后把 main 合进来、在 main 的文字上重新套了一遍）。
+
+**已知限制：公开包里没有“执行规则1”的服务代码，不计划补。** `skills/ki-archmain/SKILL.md` 的接口要求写入前核对连接返回 `execution_policy_version=1`，没有就只读；`references/work-package-execution.md` 用到的 `authorization_record_id`、`execution_id`、`execution_readiness`、`task_readiness`、`kg_bind_task_context`、`entry_mode`、`required_summary_items`、`affects` 等字段和工具，在本包 `kigaga-workflow-v0.3/src` 和测试里都不存在。2026-11-19 并入的只是接口文字。所以只用本包的 Skill 加本包的项目服务，按 Skill 自己的规则只能读、不能写；另外本包服务在主线卡升版时仍会把引用旧版的任务标为待复核，和“主线卡升版不自动打回”的方法文字相反。前几条记录里“服务代码没有同步”说的是分段放行和确认规则，实际缺的是 2026-10-27 起的整套执行规则。用户 2026-11-28 说明另一台电脑上的私有版只是测试项目，不做同步。
+
+方法文字（根目录正本）：
+
+- `ki-archmain`：第 14 节“最近修订”改为 2026-11-28，这个日期写进交接记录和章末摘要的 `method_revision`（第 7 节），简报里带上给子代理用（第 4 节）。项目启动（0）单独做时不设段总控，主总控直接派子代理，01.5 做完单独确认并建主线卡 v0.1；默认不做 W8.1，要交服务建议时按需做 08.1，项目到此为止时在确认记录里写归档说明。从策划深度直接做 01 和 02 的，01.5 仍随 02.7 确认，三种情况先停下单独确认：不值得推进、服务范围要变、缺关键条件。策划深度的对标结论（04.7 简版）随 02.7 确认，场地与案例段末在策划深度只确认 03.8 简版（第 2、3、4 节）。第 5 节：用户确认不改变来源等级，内容分外部事实、甲方的目标和要求、用户能定的事三类；“待取得正式文件”的销项分物理事实和法定权属事实两种；当门槛用的甲方口头目标记“待甲方书面确认”；没销掉的在 08.1 列成交付条件（第 12 节）。第 6 节：策划深度的对标问题沿用 Q 编号。
+- `ki-archmain` 和 `concept-scheme`（同日用户补定的两条）：进入 05 先谈定设计思路。设计思路从前四章的分析和总结里得出，W5.1 固定单开对话、用最强模型，先出一页讨论底稿，不提方向、不做草模，和用户谈定后存确认记录“设计思路”，再提方向；这一步不派复核；05.1 连同挑方向也改为用户在 W5.1 的对话里直接确认（原来由概念方案段总控问），05.1 的复核由 W5.1 的对话在问之前派；主线卡第 5 栏开头写确认过的设计思路。取消逆向补卡：中途进入的项目不从已有成果反推矛盾和策略，从进入的那一章起照方法定的章节和条目接着做，已有方案的方向和锁定项写在进场卡里；接收包和进场卡照旧。
+- `brief-and-metrics` v0.8：“策划深度的对标案例”重写，先写对标问题；不用案例等级甲／乙／丙，也不另设等级，每个数字直接标可信度（能点开责任方原始文件的 ●，只有转述的 ◐ 并写成区间，没出处的不进卡）；口径加“哪个阶段的数”；五栏对标卡；验收清单 W2.1 改第 6 条、加第 7 条。
+- `case-study` v0.6：写明案例等级只用于概念方案和方案设计深度的设计借鉴。
+- `site-study` v0.8：选址条件和硬限制随第 5 节改写；验收清单 W3.4 第 2 条随之改写。
+- `concept-scheme` v0.9：05.9 门槛关用到记着“待取得正式文件”“待甲方书面确认”的条目时在比选表注明，靠它过关或出局的结论写成以取得为条件；验收清单 W5.5 第 2 条补一句。审查时指出的“门槛关缺 05 必须”已由 2026-11-26 的修订补上，这次没有重复改。
+
+05.1 改在 W5.1 的对话里确认后，确认前的独立复核保留、改由这个对话派，中途进场的接收包和进场卡保留，这两点用户 2026-11-28 确认。转述数字互相印证不升 ●、只能追到原件或由用户确认来升，用户 2026-11-28 确认。
+
+同日精简（用户要求整体速度快、省 token，规则不变）：四个章节 Skill 的“版本”一节挪到 `skills/ki-archmain/references/revision-history.md`，原处只留当前版本一行；停车楼类型卡从 `brief-and-metrics/SKILL.md` 挪到新文件 `brief-and-metrics/type-cards/停车楼.md`，做停车楼项目时才读，根目录 `SHA256SUMS.txt` 因此从 10 项变为 11 项；这次修订加的文字压缩了一遍。结果：四个章节 Skill 都比 2026-11-26 的版本短（`brief-and-metrics` 12%、`site-study` 8%、`case-study` 5%、`concept-scheme` 1%），主流程多 7%，五个正本合计基本持平。随后再精简主流程（用户同意）：正文里逐处标的“某日用户定”去掉，原标注存进 `references/revision-history.md` 的“正文标注存档”；“中途进场”和“直出”两节挪到新文件 `skills/ki-archmain/references/mid-entry.md`，正文留四条要点，中途进入的项目开工时才读；“按任务选模型”原地压成三条，没有挪走，因为总控每次派子代理都要用。主流程因此比 2026-11-26 的版本短 5%，五个正本合计短约 6%。四个章节 Skill 正文里的同类标注（24 处）也去掉，同样存档。
+
+随之更新：
+
+- 根目录 `SHA256SUMS.txt`（五个 Skill）；`local-skill-adapters.json` 八段接口的正本基线和 `site-study`、`case-study`、`concept-scheme` 的标题锚点；用 `sync-skills.mjs` 重新生成 `skills/` 下五个入口；`framework-catalog.json` 加 `method_revision`，改 01.5（0、a）、04.1（a）、04.7（a）、05.1（b）的条件说明和 W5.1 的阶段说明、`source_document`、`revision_note`、`source_sha256`。
+- `references/` 下：`work-package-execution.md`、`project-service.md`（确认点、`method_revision`、`rules_revision`）；`subagent-card.md`（交接示例加 `method_revision`）；`briefing-and-review.md`（简报多写一行修订日期，确认点和复核要查的内容各补一句）；`revision-history.md` 加本次修订。`LOCAL-SHA256SUMS.txt`、`SOURCE-MANIFEST.json` 随之更新。
+- 工作台内嵌的方法目录内容变了，用构建脚本重新生成 `assets/workbench.html` 和云端 `public/workbench-method.js`。
+- 项目服务代码改了一处：`src/method-version.mjs` 加 `SERVICE_RULES_REVISION`（本包为 2026-11-20），`kg_get_connection` 多返回 `rules_revision`，让对话能看出服务的放行和打回规则是哪一天的。放行、打回规则本身没有动。
+- 新增 `tests/method-revision.test.mjs` 3 项：交接和章末摘要带不带 `method_revision` 都能保存读回；修订日期不代替方法版本号；服务报告规则日期。`tests/process-service.test.mjs` 加一句核对 `rules_revision`。
+- 根目录 `README.md` 和本目录 `README.md` 里“最近一次修订是 2026-11-16”的说法改为指向本记录。
+
+检查（Node 22，云端容器；说明要求 Node 24）：项目服务测试 153 项，151 项通过、2 项 Windows 专项跳过、0 项失败；云端工作台 12 项通过；`sync-skills` 在临时目录安装并回读 612 次哈希，再次演练 0 项变化，接口 9 段；`SHA256SUMS.txt`、`LOCAL-SHA256SUMS.txt` 与 `verify-source.mjs` 校验通过。
+
+没有回装到任何已安装的 Skill 目录，没有重新发布云端站点。新规则没有在真实项目上试过。审查里列的其余次要问题这次没有改。

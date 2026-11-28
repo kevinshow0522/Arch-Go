@@ -31,6 +31,7 @@
   "files": ["成果输出/...", "工作文件/..."],
   "mainline_ref": "主线卡 v0.3；指标表 v2",
   "method_version": "1.30",
+  "method_revision": "简报里给的修订日期",
   "created_at": "ISO 时间"
 }
 ```
