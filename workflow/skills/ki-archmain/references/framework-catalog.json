@@ -1,7 +1,7 @@
 {
   "framework_version": "0.4",
   "integration_date": "2026-10-26",
-  "source_sha256": "6cb43f2560f336f30443884914f8fff61d2d2177b53c25afd4199679d8d5973b",
+  "source_sha256": "5c8db311a237eabacd5359f4dd9cd898c7855fc4cb1ff6eeb7ed9e36513e0294",
   "service_stages": {
     "0": "项目启动",
     "a": "项目策划",
@@ -867,7 +867,7 @@
             },
             "b": {
               "req": "core",
-              "condition": "W5.1单开对话：先由前四章的章末结论得出设计思路并和用户谈定，再提方向",
+              "condition": "W5.1单开对话：先由前四章的章末结论得出设计思路并和用户谈定，再提方向；05.1连同挑方向在同一个对话里确认",
               "declared_core": true
             },
             "c": {

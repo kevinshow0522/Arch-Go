@@ -4,7 +4,7 @@
   "adapters": [
     {
       "target": "ki-archmain/SKILL.md",
-      "base_sha256": "9842fa12e0d761da965d17a50acac82454ee1fafe13806fe59cb1128b69ff1c7",
+      "base_sha256": "f56b6b75d5f50749d3c5189d31e9054195ed74fdcd209327535824d49c083e88",
       "anchor": "# KI建筑设计工作流 1.30",
       "source": "ki-archmain/references/ki-design-interfaces/ki-archmain.txt",
       "interface": "ki-design"
@@ -25,7 +25,7 @@
     },
     {
       "target": "concept-scheme/SKILL.md",
-      "base_sha256": "c7603ff4fe615b0f0ae06985bffc142906443a6485dff784e0490a8259d6887e",
+      "base_sha256": "c38b0a44d6c7b305dfd2f5cceb3d949c5608b457723a261f23190899a3cfa856",
       "anchor": "# 概念方案推演（05 章）v0.9",
       "source": "ki-archmain/references/ki-design-interfaces/concept-scheme.txt",
       "interface": "ki-design"
@@ -33,7 +33,7 @@
     {
       "interface": "sketchup-modeling",
       "target": "ki-archmain/SKILL.md",
-      "base_sha256": "9842fa12e0d761da965d17a50acac82454ee1fafe13806fe59cb1128b69ff1c7",
+      "base_sha256": "f56b6b75d5f50749d3c5189d31e9054195ed74fdcd209327535824d49c083e88",
       "anchor": "# KI建筑设计工作流 1.30",
       "source": "ki-archmain/references/sketchup-modeling-interfaces/ki-archmain.txt"
     },
@@ -47,7 +47,7 @@
     {
       "interface": "sketchup-modeling",
       "target": "concept-scheme/SKILL.md",
-      "base_sha256": "c7603ff4fe615b0f0ae06985bffc142906443a6485dff784e0490a8259d6887e",
+      "base_sha256": "c38b0a44d6c7b305dfd2f5cceb3d949c5608b457723a261f23190899a3cfa856",
       "anchor": "# 概念方案推演（05 章）v0.9",
       "source": "ki-archmain/references/sketchup-modeling-interfaces/concept-scheme.txt"
     },
@@ -61,7 +61,7 @@
     {
       "interface": "work-package-execution",
       "target": "ki-archmain/SKILL.md",
-      "base_sha256": "9842fa12e0d761da965d17a50acac82454ee1fafe13806fe59cb1128b69ff1c7",
+      "base_sha256": "f56b6b75d5f50749d3c5189d31e9054195ed74fdcd209327535824d49c083e88",
       "anchor": "# KI建筑设计工作流 1.30",
       "source": "ki-archmain/references/execution-interfaces/ki-archmain.txt"
     }

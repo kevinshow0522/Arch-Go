@@ -5,8 +5,8 @@
   "files": [
     {
       "path": "PUBLIC-SYNC.md",
-      "bytes": 30942,
-      "sha256": "aca63b240f3923b8bb167b114873195472556757b042137f5df15a7e5edbe556"
+      "bytes": 31251,
+      "sha256": "eb4b976ae7b67a9846b28cb09b858fa1a4c8896b85d13ffcd82b46a83eb04a72"
     },
     {
       "path": "README.md",
@@ -50,8 +50,8 @@
     },
     {
       "path": "kigaga-workflow-v0.3/assets/workbench.html",
-      "bytes": 681522,
-      "sha256": "aa781cdc2edddd093beb7ee53ec9a7a862a415d2610546f65d865b381bb004c1"
+      "bytes": 681571,
+      "sha256": "3c0e4f3912f261de4d8dd783cb23284e4d2b9b9b47d4e3d7905c26dfe440fd6a"
     },
     {
       "path": "kigaga-workflow-v0.3/check-windows.cmd",
@@ -1105,8 +1105,8 @@
     },
     {
       "path": "sites/ki-workbench/public/workbench-method.js",
-      "bytes": 31522,
-      "sha256": "4ea04303ecfe940fa6fddb7a1f9658fe0ed1d3eafb2797ed7628893f894b7013"
+      "bytes": 31571,
+      "sha256": "02a253208ee1d628cacb1cb1360223a899fefa412f7f802418e7d06be19b94d2"
     },
     {
       "path": "sites/ki-workbench/public/workbench-runtime.js",
@@ -1315,18 +1315,18 @@
     },
     {
       "path": "skills/concept-scheme/SKILL.md",
-      "bytes": 29319,
-      "sha256": "2a3f1d99bdb995ff8662a62b10adbd30d21554735ee2c4b771475d743f20eac4"
+      "bytes": 29610,
+      "sha256": "1d182524f46db29ef7966e699a036a875516f73eb140f17b8673b80f09e87a7b"
     },
     {
       "path": "skills/ki-archmain/LOCAL-SHA256SUMS.txt",
       "bytes": 35654,
-      "sha256": "187b4003403c9ffce872adf165c6d0a713cf86c5a99c9c1c95783aa38d1170f4"
+      "sha256": "acca0b9e2d2e93298ae11d3be70db6ab843cf0cbe57d8e0abde1885057e9a184"
     },
     {
       "path": "skills/ki-archmain/SKILL.md",
-      "bytes": 65204,
-      "sha256": "6cb43f2560f336f30443884914f8fff61d2d2177b53c25afd4199679d8d5973b"
+      "bytes": 65419,
+      "sha256": "5c8db311a237eabacd5359f4dd9cd898c7855fc4cb1ff6eeb7ed9e36513e0294"
     },
     {
       "path": "skills/ki-archmain/legacy/README.md",
@@ -1415,8 +1415,8 @@
     },
     {
       "path": "skills/ki-archmain/references/briefing-and-review.md",
-      "bytes": 5145,
-      "sha256": "a71cb02605a9fb4c31657ec9bb0248625303ede32b8e0bc173ea137b08cefa6c"
+      "bytes": 5184,
+      "sha256": "5a8d259de33f1fb1862f4a6304b3e6f2e87cd261961fa73523fb062f29957bde"
     },
     {
       "path": "skills/ki-archmain/references/execution-interfaces/ki-archmain.txt",
@@ -1425,8 +1425,8 @@
     },
     {
       "path": "skills/ki-archmain/references/framework-catalog.json",
-      "bytes": 59128,
-      "sha256": "c3d7ad97dfe2eb975063d5c5f6d7b5fa0ed39ad2e88f383392eeed49d83dfee2"
+      "bytes": 59177,
+      "sha256": "8dde941cc981a88e0a0af99c7212071498bbc9c2b56a381825c249e1e4aa3e93"
     },
     {
       "path": "skills/ki-archmain/references/ki-design-entry.md",
@@ -1456,17 +1456,17 @@
     {
       "path": "skills/ki-archmain/references/local-skill-adapters.json",
       "bytes": 3075,
-      "sha256": "6539b1b51ac677cfda32d67d819eed540a4ba8743e6754ed8431e7afd28c34ef"
+      "sha256": "eac6a1ad607cefd49ea00ed9839dd0b33dee033a09b84ca9d891ee12d2c7235b"
     },
     {
       "path": "skills/ki-archmain/references/project-service.md",
-      "bytes": 14130,
-      "sha256": "bdb7a73565cbd2e33e294e42127a824987bbdef10422c92889d9f7de4e67f92c"
+      "bytes": 14128,
+      "sha256": "4d408a245e3429a68c79e75b2f3dc670fe92b18f2dd89689138ff6c401efdee9"
     },
     {
       "path": "skills/ki-archmain/references/revision-history.md",
-      "bytes": 10703,
-      "sha256": "71f0d97562900a88d422a65c47dbd193c354cabcb2eddfa56aef9e30482b39d5"
+      "bytes": 10816,
+      "sha256": "342b9bc9423d8ddd810cd8fda282f42d4b533b7b5fdaadb68873e85bb77039b4"
     },
     {
       "path": "skills/ki-archmain/references/sketchup-modeling-entry.md",
@@ -1500,8 +1500,8 @@
     },
     {
       "path": "skills/ki-archmain/references/work-package-execution.md",
-      "bytes": 15526,
-      "sha256": "f82301553accf316d3a6608269c651ff220d39da851e199b47ef79b6a1028781"
+      "bytes": 15524,
+      "sha256": "dd6ce18b8e4c3b883a0136fdabcf946c1498390cd1c631711be7473899ea1fe7"
     },
     {
       "path": "skills/ki-design/CHANGELOG.md",
