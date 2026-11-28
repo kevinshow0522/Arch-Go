@@ -1,7 +1,7 @@
 {
   "framework_version": "0.4",
   "integration_date": "2026-10-26",
-  "source_sha256": "30b7250929cd1500bbffec2042de496a75bcf11436531e3067d2121a0ed7eaba",
+  "source_sha256": "32464324faec5b073b60f8b18c7a8373d9eb0df114cabfa9aed6c351ad6dcd6b",
   "service_stages": {
     "0": "项目启动",
     "a": "项目策划",
@@ -1339,7 +1339,7 @@
           "end": false,
           "counted": true,
           "kind": "content",
-          "question": "面积、容量、控制指标与图模说明是否一致；汇总本章深化结论（含06.9经济与实施复核结论）、遗留问题与交付条件",
+          "question": "面积、容量、控制指标与图模说明是否一致",
           "stages": {
             "0": {
               "req": "skip",
@@ -1369,7 +1369,7 @@
           "end": true,
           "counted": true,
           "kind": "content",
-          "question": "工程量、投资、分期和实施安排",
+          "question": "工程量、投资、分期和实施安排；汇总本章深化结论、遗留问题与交付条件",
           "stages": {
             "0": {
               "req": "skip",
@@ -1627,7 +1627,7 @@
   ],
   "method_version": "1.30",
   "method_revision": "2026-11-28",
-  "revision_note": "Local adapter: explicit core rows and chapter-end requirements are separate. 2026-11-25: three-depth matrix, merged work packages (retired ids keep merged_into) and entry backfill follow the user decisions of that day. 2026-11-28: method_revision added; stage 0 confirms 01.5 on its own with no segment controller; planning-depth benchmark figures carry credibility marks only and the benchmark conclusion is confirmed with 02.7; 05 starts by agreeing the design approach with the user in the W5.1 conversation; reverse-derived mainline cards are dropped.",
+  "revision_note": "Local adapter: explicit core rows and chapter-end requirements are separate. 2026-11-25: three-depth matrix, merged work packages (retired ids keep merged_into) and entry backfill follow the user decisions of that day. 2026-11-28: method_revision added; stage 0 confirms 01.5 on its own with no segment controller; planning-depth benchmark figures carry credibility marks only and the benchmark conclusion is confirmed with 02.7; 05 starts by agreeing the design approach with the user in the W5.1 conversation; reverse-derived mainline cards are dropped. Same day: W3.2 lists stages a/b/c; 06.9 carries the chapter summary instead of 06.8.",
   "catalog_policy": "方法库目录是默认版本；项目目录由AI按项目拟定并与用户讨论，章名、编号、标题、条目均可调整；项目条目注明参考的方法索引（M+库内编号）；项目目录保存为“项目目录”记录并记曾用编号",
   "entry_backfill": {
     "a": [
@@ -1818,9 +1818,11 @@
         "03.7"
       ],
       "stages": [
-        "b"
+        "a",
+        "b",
+        "c"
       ],
-      "stage_note": "b（03.3 场地上有房子时做，03.5 有高差时做，03.7 概念深度不做）",
+      "stage_note": "b（03.3 场地上有房子时做，03.5 有高差时做，03.7 概念深度不做）；a 按需只做 03.3、03.4；c 按需做 03.7",
       "skill": "site-study；画图用 architecture-analysis-diagrams",
       "chapter": "03",
       "chapter_end": false

@@ -1,0 +1,48 @@
+name: 校验
+
+# 每次推送和合并请求都跑同一套检查，代替每次修订手工挑着跑。
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: 哈希清单
+        run: |
+          sha256sum -c SHA256SUMS.txt
+          (cd workflow/skills && sha256sum -c ki-archmain/LOCAL-SHA256SUMS.txt)
+          node workflow/scripts/verify-source.mjs
+
+      - name: 整合入口与正本一致
+        run: |
+          node workflow/kigaga-workflow-v0.3/scripts/sync-skills.mjs --apply --dest "$RUNNER_TEMP/skills" --backup "$RUNNER_TEMP/skills-backup"
+          git diff --exit-code
+
+      - name: 项目服务构建与测试
+        working-directory: workflow/kigaga-workflow-v0.3
+        run: |
+          npm ci
+          npm run build
+          npm test
+          git diff --exit-code
+
+      - name: 云端工作台构建与测试
+        working-directory: workflow/sites/ki-workbench
+        run: |
+          npm ci
+          node scripts/import-workbench.mjs
+          node scripts/build-mcp-host.mjs
+          node --test tests/*.test.mjs
+          git diff --exit-code
