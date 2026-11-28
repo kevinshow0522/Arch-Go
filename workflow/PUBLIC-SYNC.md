@@ -154,6 +154,8 @@
 
 05.1 改在 W5.1 的对话里确认后，确认前的独立复核保留、改由这个对话派，中途进场的接收包和进场卡保留，这两点用户 2026-11-28 确认。转述数字互相印证不升 ●、只能追到原件或由用户确认来升，用户 2026-11-28 确认。
 
+同日精简（用户要求整体速度快、省 token，规则不变）：四个章节 Skill 的“版本”一节挪到 `skills/ki-archmain/references/revision-history.md`，原处只留当前版本一行；停车楼类型卡从 `brief-and-metrics/SKILL.md` 挪到新文件 `brief-and-metrics/type-cards/停车楼.md`，做停车楼项目时才读，根目录 `SHA256SUMS.txt` 因此从 10 项变为 11 项；这次修订加的文字压缩了一遍。结果：四个章节 Skill 都比 2026-11-26 的版本短（`brief-and-metrics` 12%、`site-study` 8%、`case-study` 5%、`concept-scheme` 1%），主流程多 7%，五个正本合计基本持平。
+
 随之更新：
 
 - 根目录 `SHA256SUMS.txt`（五个 Skill）；`local-skill-adapters.json` 八段接口的正本基线和 `site-study`、`case-study`、`concept-scheme` 的标题锚点；用 `sync-skills.mjs` 重新生成 `skills/` 下五个入口；`framework-catalog.json` 加 `method_revision`，改 01.5（0、a）、04.1（a）、04.7（a）、05.1（b）的条件说明和 W5.1 的阶段说明、`source_document`、`revision_note`、`source_sha256`。
@@ -163,6 +165,6 @@
 - 新增 `tests/method-revision.test.mjs` 3 项：交接和章末摘要带不带 `method_revision` 都能保存读回；修订日期不代替方法版本号；服务报告规则日期。`tests/process-service.test.mjs` 加一句核对 `rules_revision`。
 - 根目录 `README.md` 和本目录 `README.md` 里“最近一次修订是 2026-11-16”的说法改为指向本记录。
 
-检查（Node 22，云端容器；说明要求 Node 24）：项目服务测试 153 项，151 项通过、2 项 Windows 专项跳过、0 项失败；云端工作台 12 项通过；`sync-skills` 在临时目录安装并回读 610 次哈希，再次演练 0 项变化，接口 9 段；`SHA256SUMS.txt`、`LOCAL-SHA256SUMS.txt` 与 `verify-source.mjs` 校验通过。
+检查（Node 22，云端容器；说明要求 Node 24）：项目服务测试 153 项，151 项通过、2 项 Windows 专项跳过、0 项失败；云端工作台 12 项通过；`sync-skills` 在临时目录安装并回读 612 次哈希，再次演练 0 项变化，接口 9 段；`SHA256SUMS.txt`、`LOCAL-SHA256SUMS.txt` 与 `verify-source.mjs` 校验通过。
 
 没有回装到任何已安装的 Skill 目录，没有重新发布云端站点。新规则没有在真实项目上试过。审查里列的其余次要问题这次没有改。

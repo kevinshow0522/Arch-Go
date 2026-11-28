@@ -4,28 +4,28 @@
   "adapters": [
     {
       "target": "ki-archmain/SKILL.md",
-      "base_sha256": "f56b6b75d5f50749d3c5189d31e9054195ed74fdcd209327535824d49c083e88",
+      "base_sha256": "29a6c4b018ebf4db5075ce0075254b802951cd88aa1a55e5a6627719b96c071b",
       "anchor": "# KI建筑设计工作流 1.30",
       "source": "ki-archmain/references/ki-design-interfaces/ki-archmain.txt",
       "interface": "ki-design"
     },
     {
       "target": "site-study/SKILL.md",
-      "base_sha256": "16b483a30fb78060d20d3417f81fd003181dc91feea754e4b460102d4a9823a9",
+      "base_sha256": "d5e3f46fd33526aca60fe6fd0755dcf6e6f4b46d5aa5f789a2d183c3aa468c51",
       "anchor": "# 场地研究（03 章）v0.8",
       "source": "ki-archmain/references/ki-design-interfaces/site-study.txt",
       "interface": "ki-design"
     },
     {
       "target": "case-study/SKILL.md",
-      "base_sha256": "e6fcb785223370bf568be20717f437fb46dd2049b1fd5225f07618f085f7eb27",
+      "base_sha256": "254bce90fc15779dce16a2550022599b973a4855dc9c2461387f1959e1983ed4",
       "anchor": "# 案例研究（04 章）v0.6",
       "source": "ki-archmain/references/ki-design-interfaces/case-study.txt",
       "interface": "ki-design"
     },
     {
       "target": "concept-scheme/SKILL.md",
-      "base_sha256": "c38b0a44d6c7b305dfd2f5cceb3d949c5608b457723a261f23190899a3cfa856",
+      "base_sha256": "47b4072d26300d97eb5c7bf7fdb25db35a573373de374cc61f5d3501c10dc894",
       "anchor": "# 概念方案推演（05 章）v0.9",
       "source": "ki-archmain/references/ki-design-interfaces/concept-scheme.txt",
       "interface": "ki-design"
@@ -33,21 +33,21 @@
     {
       "interface": "sketchup-modeling",
       "target": "ki-archmain/SKILL.md",
-      "base_sha256": "f56b6b75d5f50749d3c5189d31e9054195ed74fdcd209327535824d49c083e88",
+      "base_sha256": "29a6c4b018ebf4db5075ce0075254b802951cd88aa1a55e5a6627719b96c071b",
       "anchor": "# KI建筑设计工作流 1.30",
       "source": "ki-archmain/references/sketchup-modeling-interfaces/ki-archmain.txt"
     },
     {
       "interface": "sketchup-modeling",
       "target": "site-study/SKILL.md",
-      "base_sha256": "16b483a30fb78060d20d3417f81fd003181dc91feea754e4b460102d4a9823a9",
+      "base_sha256": "d5e3f46fd33526aca60fe6fd0755dcf6e6f4b46d5aa5f789a2d183c3aa468c51",
       "anchor": "# 场地研究（03 章）v0.8",
       "source": "ki-archmain/references/sketchup-modeling-interfaces/site-study.txt"
     },
     {
       "interface": "sketchup-modeling",
       "target": "concept-scheme/SKILL.md",
-      "base_sha256": "c38b0a44d6c7b305dfd2f5cceb3d949c5608b457723a261f23190899a3cfa856",
+      "base_sha256": "47b4072d26300d97eb5c7bf7fdb25db35a573373de374cc61f5d3501c10dc894",
       "anchor": "# 概念方案推演（05 章）v0.9",
       "source": "ki-archmain/references/sketchup-modeling-interfaces/concept-scheme.txt"
     },
@@ -61,7 +61,7 @@
     {
       "interface": "work-package-execution",
       "target": "ki-archmain/SKILL.md",
-      "base_sha256": "f56b6b75d5f50749d3c5189d31e9054195ed74fdcd209327535824d49c083e88",
+      "base_sha256": "29a6c4b018ebf4db5075ce0075254b802951cd88aa1a55e5a6627719b96c071b",
       "anchor": "# KI建筑设计工作流 1.30",
       "source": "ki-archmain/references/execution-interfaces/ki-archmain.txt"
     }
