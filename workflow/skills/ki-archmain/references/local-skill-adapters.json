@@ -4,7 +4,7 @@
   "adapters": [
     {
       "target": "ki-archmain/SKILL.md",
-      "base_sha256": "29a6c4b018ebf4db5075ce0075254b802951cd88aa1a55e5a6627719b96c071b",
+      "base_sha256": "3df2f4a6935731fd6ecc91294caafd42a7f1d9d6e14afdccefb23a061835b217",
       "anchor": "# KI建筑设计工作流 1.30",
       "source": "ki-archmain/references/ki-design-interfaces/ki-archmain.txt",
       "interface": "ki-design"
@@ -33,7 +33,7 @@
     {
       "interface": "sketchup-modeling",
       "target": "ki-archmain/SKILL.md",
-      "base_sha256": "29a6c4b018ebf4db5075ce0075254b802951cd88aa1a55e5a6627719b96c071b",
+      "base_sha256": "3df2f4a6935731fd6ecc91294caafd42a7f1d9d6e14afdccefb23a061835b217",
       "anchor": "# KI建筑设计工作流 1.30",
       "source": "ki-archmain/references/sketchup-modeling-interfaces/ki-archmain.txt"
     },
@@ -61,7 +61,7 @@
     {
       "interface": "work-package-execution",
       "target": "ki-archmain/SKILL.md",
-      "base_sha256": "29a6c4b018ebf4db5075ce0075254b802951cd88aa1a55e5a6627719b96c071b",
+      "base_sha256": "3df2f4a6935731fd6ecc91294caafd42a7f1d9d6e14afdccefb23a061835b217",
       "anchor": "# KI建筑设计工作流 1.30",
       "source": "ki-archmain/references/execution-interfaces/ki-archmain.txt"
     }
