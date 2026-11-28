@@ -5,8 +5,8 @@
   "files": [
     {
       "path": "PUBLIC-SYNC.md",
-      "bytes": 32499,
-      "sha256": "78157e3694ec3726e0fb35d054e80f31c743198281e8923dcbeabac5137a8b80"
+      "bytes": 32581,
+      "sha256": "a36f4c94ec09f94797139d357ae0606dd246ed073b560eebc2ffd9d6ab488b18"
     },
     {
       "path": "README.md",
@@ -1305,8 +1305,8 @@
     },
     {
       "path": "skills/brief-and-metrics/SKILL.md",
-      "bytes": 12562,
-      "sha256": "f3f8300c85a012d7b0309c7ab302ad10dd34798fe8638873da07635414de813f"
+      "bytes": 12415,
+      "sha256": "4960248150857f8fa8e56058e75656d8c87599da8d0e8ab2ad7a9785878c02d9"
     },
     {
       "path": "skills/brief-and-metrics/type-cards/停车楼.md",
@@ -1315,18 +1315,18 @@
     },
     {
       "path": "skills/case-study/SKILL.md",
-      "bytes": 12584,
-      "sha256": "d358b35c2c6f1e82291f38b996dff8e7fd52b9f00d53386096f3ada44de423de"
+      "bytes": 12509,
+      "sha256": "999c2206685f7ff26c591cd74e6acd62d4a09d931796d3603b8f5eb5ac6045c5"
     },
     {
       "path": "skills/concept-scheme/SKILL.md",
-      "bytes": 26065,
-      "sha256": "d0deadd9d3a4411b0bec86b0e1bf94859b5e5cfb666ceafd7093278fde67e5d9"
+      "bytes": 25775,
+      "sha256": "73a4538e3071af89cb46e566d27b68213e4a80bed87f59fc42f8a799442afbda"
     },
     {
       "path": "skills/ki-archmain/LOCAL-SHA256SUMS.txt",
       "bytes": 35757,
-      "sha256": "29d6ada1a3cd4b0ae45dc524d2cf09704e304648dff1efe81ac454c970d6db63"
+      "sha256": "947a85cb2819d05e980a94666f117bcfe1b6de1ebfe3a6f9c76bda2cc04bf2d6"
     },
     {
       "path": "skills/ki-archmain/SKILL.md",
@@ -1461,7 +1461,7 @@
     {
       "path": "skills/ki-archmain/references/local-skill-adapters.json",
       "bytes": 3075,
-      "sha256": "079446b378f2c35384fa06b1e43bfacba2ea998d9b2212b69dd3389d46fe190b"
+      "sha256": "69f8a667b015788385cdcff1963105c8c158fcfc490ad42599f9a0750e6463bf"
     },
     {
       "path": "skills/ki-archmain/references/mid-entry.md",
@@ -1475,8 +1475,8 @@
     },
     {
       "path": "skills/ki-archmain/references/revision-history.md",
-      "bytes": 26160,
-      "sha256": "52b74d4c06d8e8c4f1d9a96d5597aff814c98fbc93e58522157afe95a5778c54"
+      "bytes": 28472,
+      "sha256": "4a8e13027c7c4f98b4da5efa7b04160c2bb732b80a166678600c987fc0f85fa8"
     },
     {
       "path": "skills/ki-archmain/references/sketchup-modeling-entry.md",
@@ -2800,8 +2800,8 @@
     },
     {
       "path": "skills/site-study/SKILL.md",
-      "bytes": 16423,
-      "sha256": "87a97592aad2354758cf1418ea2146df938843694932557afc528d01b825e324"
+      "bytes": 16279,
+      "sha256": "414197a41f9c7815ce4a4f85742728a1f62a22185bbff3065cee5d6390cee6eb"
     },
     {
       "path": "skills/urban-design-analysis/SKILL.md",

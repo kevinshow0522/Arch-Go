@@ -154,7 +154,7 @@
 
 05.1 改在 W5.1 的对话里确认后，确认前的独立复核保留、改由这个对话派，中途进场的接收包和进场卡保留，这两点用户 2026-11-28 确认。转述数字互相印证不升 ●、只能追到原件或由用户确认来升，用户 2026-11-28 确认。
 
-同日精简（用户要求整体速度快、省 token，规则不变）：四个章节 Skill 的“版本”一节挪到 `skills/ki-archmain/references/revision-history.md`，原处只留当前版本一行；停车楼类型卡从 `brief-and-metrics/SKILL.md` 挪到新文件 `brief-and-metrics/type-cards/停车楼.md`，做停车楼项目时才读，根目录 `SHA256SUMS.txt` 因此从 10 项变为 11 项；这次修订加的文字压缩了一遍。结果：四个章节 Skill 都比 2026-11-26 的版本短（`brief-and-metrics` 12%、`site-study` 8%、`case-study` 5%、`concept-scheme` 1%），主流程多 7%，五个正本合计基本持平。随后再精简主流程（用户同意）：正文里逐处标的“某日用户定”去掉，原标注存进 `references/revision-history.md` 的“正文标注存档”；“中途进场”和“直出”两节挪到新文件 `skills/ki-archmain/references/mid-entry.md`，正文留四条要点，中途进入的项目开工时才读；“按任务选模型”原地压成三条，没有挪走，因为总控每次派子代理都要用。主流程因此比 2026-11-26 的版本短 5%，五个正本合计短约 6%。
+同日精简（用户要求整体速度快、省 token，规则不变）：四个章节 Skill 的“版本”一节挪到 `skills/ki-archmain/references/revision-history.md`，原处只留当前版本一行；停车楼类型卡从 `brief-and-metrics/SKILL.md` 挪到新文件 `brief-and-metrics/type-cards/停车楼.md`，做停车楼项目时才读，根目录 `SHA256SUMS.txt` 因此从 10 项变为 11 项；这次修订加的文字压缩了一遍。结果：四个章节 Skill 都比 2026-11-26 的版本短（`brief-and-metrics` 12%、`site-study` 8%、`case-study` 5%、`concept-scheme` 1%），主流程多 7%，五个正本合计基本持平。随后再精简主流程（用户同意）：正文里逐处标的“某日用户定”去掉，原标注存进 `references/revision-history.md` 的“正文标注存档”；“中途进场”和“直出”两节挪到新文件 `skills/ki-archmain/references/mid-entry.md`，正文留四条要点，中途进入的项目开工时才读；“按任务选模型”原地压成三条，没有挪走，因为总控每次派子代理都要用。主流程因此比 2026-11-26 的版本短 5%，五个正本合计短约 6%。四个章节 Skill 正文里的同类标注（24 处）也去掉，同样存档。
 
 随之更新：
 

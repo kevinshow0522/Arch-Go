@@ -11,21 +11,21 @@
     },
     {
       "target": "site-study/SKILL.md",
-      "base_sha256": "d5e3f46fd33526aca60fe6fd0755dcf6e6f4b46d5aa5f789a2d183c3aa468c51",
+      "base_sha256": "c1d9b410f729e00ab196be17279c2cd9d41084cfe351525d66b69d39b3bbbc59",
       "anchor": "# 场地研究（03 章）v0.8",
       "source": "ki-archmain/references/ki-design-interfaces/site-study.txt",
       "interface": "ki-design"
     },
     {
       "target": "case-study/SKILL.md",
-      "base_sha256": "254bce90fc15779dce16a2550022599b973a4855dc9c2461387f1959e1983ed4",
+      "base_sha256": "2d3d21e37933160ebd153d85302c54fd4507df5f2beaddb36d7e6e029294e769",
       "anchor": "# 案例研究（04 章）v0.6",
       "source": "ki-archmain/references/ki-design-interfaces/case-study.txt",
       "interface": "ki-design"
     },
     {
       "target": "concept-scheme/SKILL.md",
-      "base_sha256": "47b4072d26300d97eb5c7bf7fdb25db35a573373de374cc61f5d3501c10dc894",
+      "base_sha256": "d3c4d6cac489402683b80475f7bb24eddfa69add2e2fa1bb7605117e05e2c2fe",
       "anchor": "# 概念方案推演（05 章）v0.9",
       "source": "ki-archmain/references/ki-design-interfaces/concept-scheme.txt",
       "interface": "ki-design"
@@ -40,14 +40,14 @@
     {
       "interface": "sketchup-modeling",
       "target": "site-study/SKILL.md",
-      "base_sha256": "d5e3f46fd33526aca60fe6fd0755dcf6e6f4b46d5aa5f789a2d183c3aa468c51",
+      "base_sha256": "c1d9b410f729e00ab196be17279c2cd9d41084cfe351525d66b69d39b3bbbc59",
       "anchor": "# 场地研究（03 章）v0.8",
       "source": "ki-archmain/references/sketchup-modeling-interfaces/site-study.txt"
     },
     {
       "interface": "sketchup-modeling",
       "target": "concept-scheme/SKILL.md",
-      "base_sha256": "47b4072d26300d97eb5c7bf7fdb25db35a573373de374cc61f5d3501c10dc894",
+      "base_sha256": "d3c4d6cac489402683b80475f7bb24eddfa69add2e2fa1bb7605117e05e2c2fe",
       "anchor": "# 概念方案推演（05 章）v0.9",
       "source": "ki-archmain/references/sketchup-modeling-interfaces/concept-scheme.txt"
     },
