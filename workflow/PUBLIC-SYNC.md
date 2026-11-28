@@ -146,6 +146,7 @@
 方法文字（根目录正本）：
 
 - `ki-archmain`：第 14 节“最近修订”改为 2026-11-28，这个日期写进交接记录和章末摘要的 `method_revision`（第 7 节），简报里带上给子代理用（第 4 节）。项目启动（0）单独做时不设段总控，主总控直接派子代理，01.5 做完单独确认并建主线卡 v0.1；默认不做 W8.1，要交服务建议时按需做 08.1，项目到此为止时在确认记录里写归档说明。从策划深度直接做 01 和 02 的，01.5 仍随 02.7 确认，三种情况先停下单独确认：不值得推进、服务范围要变、缺关键条件。策划深度的对标结论（04.7 简版）随 02.7 确认，场地与案例段末在策划深度只确认 03.8 简版（第 2、3、4 节）。第 5 节：用户确认不改变来源等级，内容分外部事实、甲方的目标和要求、用户能定的事三类；“待取得正式文件”的销项分物理事实和法定权属事实两种；当门槛用的甲方口头目标记“待甲方书面确认”；没销掉的在 08.1 列成交付条件（第 12 节）。第 6 节：策划深度的对标问题沿用 Q 编号。
+- `ki-archmain` 和 `concept-scheme`（同日用户补定的两条）：进入 05 先谈定设计思路。设计思路从前四章的分析和总结里得出，W5.1 固定单开对话、用最强模型，先出一页讨论底稿，不提方向、不做草模，和用户谈定后存确认记录“设计思路”，再提方向；这一步不派复核；主线卡第 5 栏开头写确认过的设计思路。取消逆向补卡：中途进入的项目不从已有成果反推矛盾和策略，按用户指定的章节和条目接着做，已有方案的方向和锁定项写在进场卡里。
 - `brief-and-metrics` v0.8：“策划深度的对标案例”重写，先写对标问题；不用案例等级甲／乙／丙，也不另设等级，每个数字直接标可信度（能点开责任方原始文件的 ●，只有转述的 ◐ 并写成区间，没出处的不进卡）；口径加“哪个阶段的数”；五栏对标卡；验收清单 W2.1 改第 6 条、加第 7 条。
 - `case-study` v0.6：写明案例等级只用于概念方案和方案设计深度的设计借鉴。
 - `site-study` v0.8：选址条件和硬限制随第 5 节改写；验收清单 W3.4 第 2 条随之改写。
@@ -155,7 +156,7 @@
 
 随之更新：
 
-- 根目录 `SHA256SUMS.txt`（五个 Skill）；`local-skill-adapters.json` 八段接口的正本基线和 `site-study`、`case-study`、`concept-scheme` 的标题锚点；用 `sync-skills.mjs` 重新生成 `skills/` 下五个入口；`framework-catalog.json` 加 `method_revision`，改 01.5（0、a）、04.1（a）、04.7（a）的条件说明、`source_document`、`revision_note`、`source_sha256`。
+- 根目录 `SHA256SUMS.txt`（五个 Skill）；`local-skill-adapters.json` 八段接口的正本基线和 `site-study`、`case-study`、`concept-scheme` 的标题锚点；用 `sync-skills.mjs` 重新生成 `skills/` 下五个入口；`framework-catalog.json` 加 `method_revision`，改 01.5（0、a）、04.1（a）、04.7（a）、05.1（b）的条件说明和 W5.1 的阶段说明、`source_document`、`revision_note`、`source_sha256`。
 - `references/` 下：`work-package-execution.md`、`project-service.md`（确认点、`method_revision`、`rules_revision`）；`subagent-card.md`（交接示例加 `method_revision`）；`briefing-and-review.md`（简报多写一行修订日期，确认点和复核要查的内容各补一句）；`revision-history.md` 加本次修订。`LOCAL-SHA256SUMS.txt`、`SOURCE-MANIFEST.json` 随之更新。
 - 工作台内嵌的方法目录内容变了，用构建脚本重新生成 `assets/workbench.html` 和云端 `public/workbench-method.js`。
 - 项目服务代码改了一处：`src/method-version.mjs` 加 `SERVICE_RULES_REVISION`（本包为 2026-11-20），`kg_get_connection` 多返回 `rules_revision`，让对话能看出服务的放行和打回规则是哪一天的。放行、打回规则本身没有动。

@@ -1,7 +1,7 @@
 {
   "framework_version": "0.4",
   "integration_date": "2026-10-26",
-  "source_sha256": "4ecf0166a1a7612ca416393d2fe4cf2b6f949b2d4fb5ad563b22e3a67d2ae60c",
+  "source_sha256": "6cb43f2560f336f30443884914f8fff61d2d2177b53c25afd4199679d8d5973b",
   "service_stages": {
     "0": "项目启动",
     "a": "项目策划",
@@ -867,7 +867,7 @@
             },
             "b": {
               "req": "core",
-              "condition": "",
+              "condition": "W5.1单开对话：先由前四章的章末结论得出设计思路并和用户谈定，再提方向",
               "declared_core": true
             },
             "c": {
@@ -1627,7 +1627,7 @@
   ],
   "method_version": "1.30",
   "method_revision": "2026-11-28",
-  "revision_note": "Local adapter: explicit core rows and chapter-end requirements are separate. 2026-11-25: three-depth matrix, merged work packages (retired ids keep merged_into) and entry backfill follow the user decisions of that day. 2026-11-28: method_revision added; stage 0 confirms 01.5 on its own with no segment controller; planning-depth benchmark figures carry credibility marks only and the benchmark conclusion is confirmed with 02.7.",
+  "revision_note": "Local adapter: explicit core rows and chapter-end requirements are separate. 2026-11-25: three-depth matrix, merged work packages (retired ids keep merged_into) and entry backfill follow the user decisions of that day. 2026-11-28: method_revision added; stage 0 confirms 01.5 on its own with no segment controller; planning-depth benchmark figures carry credibility marks only and the benchmark conclusion is confirmed with 02.7; 05 starts by agreeing the design approach with the user in the W5.1 conversation; reverse-derived mainline cards are dropped.",
   "catalog_policy": "方法库目录是默认版本；项目目录由AI按项目拟定并与用户讨论，章名、编号、标题、条目均可调整；项目条目注明参考的方法索引（M+库内编号）；项目目录保存为“项目目录”记录并记曾用编号",
   "entry_backfill": {
     "a": [
@@ -1919,7 +1919,7 @@
       "stages": [
         "b"
       ],
-      "stage_note": "b（含各方向的大关系体量草模）",
+      "stage_note": "b（单开对话；先谈定设计思路，再提方向和各方向的大关系体量草模）",
       "skill": "concept-scheme；草模交 GPT，没有 GPT 端可用时由 Claude 出体量简图代替",
       "chapter": "05",
       "chapter_end": false
