@@ -22,7 +22,7 @@
 ## 连接与开工
 
 1. 用本地 `kg_get_connection` 核对服务方法1.30和共享数据源；`kg_find_projects`定位唯一项目，`kg_get_context`读取有效条件、当前工作包、最近交接、章末摘要、主线及指标。`ready=false`按工具给出的分页入口补读，不能用摘要代替完整依据。
-2. 写入时传 `method_version: "1.30"`；显式不同版本被拒绝。历史项目缺失版本保持未记录，不以服务版本代替项目事实。
+2. 写入时传 `method_version: "1.30"`；显式不同版本被拒绝。方法修订不改这个版本号，修订日期写进交接和章末摘要 content 的 `method_revision`（上级 `SKILL.md` 第 7 节），服务不校验它，有没有这个字段的记录都收。`kg_get_connection` 返回 `rules_revision` 时，它是服务放行和打回规则的日期，见[工作包执行检查](work-package-execution.md)。历史项目缺失版本保持未记录，不以服务版本代替项目事实。
 3. 按本工作包实际需要说明项目文件范围和读写用途。当前任务已授权的范围持续执行，扩大项目、目录或用途时再确认。参考库只读，先用已有索引再按页读取。
 4. 读取要窄：查状态用 `kg_get_task`、`kg_list_tasks`、`kg_list_records`（按 `kind` 筛），不用 `kg_get_project_progress`（一次返回几万字）。章节 skill 只读本包用到的那一节。
 5. 项目运行规则存成一条 note 记录，新开的主总控、段总控开头先读；它是参考类记录，可以直接升版。
@@ -35,15 +35,15 @@
 - 段内的包由段总控派子代理执行，一个包只派一个子代理。子代理交回不超过约 15 行：结论、成果版本、记录编号、待用户决定的事；细节留在项目库。同一件事只由一个对话向用户汇报。
 - 按任务选模型：策略与判断类（章末结论、主线卡、方向与比选、变更影响判断）用最强模型，其余建筑任务不低于次强一档，不用轻量模型做建筑任务；分档表见上级 `SKILL.md` 第 3 节。
 - 05／06及07成果写 `mainline_ref`，引用当前主线卡版本；05／06另传 `upstream_record_ids`，至少一条有效的本项目上游 `chapter_summary` 记录。保存草稿、检查完成和用户确认分别记录。
-- 用户确认具体成果时保存 `decision, confirmed`，`source` 写实际用户确认依据；`content` JSON包含 `task_id`、当前 `revision`、`item`。同条目新版确认会退役旧确认，旧版本仍可读取；还没结案的引用任务自动改引用新确认。确认不在每个包里各问，集中到确认点由主总控一次问（01.5和02.7；03.8和04.7；05.1连同挑方向；05.9；06.9；08.3）。
+- 用户确认具体成果时保存 `decision, confirmed`，`source` 写实际用户确认依据；`content` JSON包含 `task_id`、当前 `revision`、`item`。同条目新版确认会退役旧确认，旧版本仍可读取；还没结案的引用任务自动改引用新确认。确认不在每个包里各问，集中到确认点由主总控一次问（01.5和02.7；03.8和04.7；05.1连同挑方向；05.9；06.9；08.3。只做项目启动时01.5做完单独确认；策划深度的对标结论即04.7简版随02.7确认，场地与案例段末只确认03.8简版）。
 
 ## 交接与章末同步
 
-`kg_save_record(kind: "handoff")` 的 content 写 JSON：from、to、work_package、task_ids、done、next、waiting_on_user、files、mainline_ref、method_version、created_at。`files`只写项目资料／工作文件／成果输出中的相对路径。
+`kg_save_record(kind: "handoff")` 的 content 写 JSON：from、to、work_package、task_ids、done、next、waiting_on_user、files、mainline_ref、method_version、method_revision、created_at。`files`只写项目资料／工作文件／成果输出中的相对路径。
 
 离开 `in_progress` 时，先保存本任务的新交接，再把返回的 `handoff_record_id` 传给 `kg_checkpoint_task`。交接须对应当前任务、工作包和执行者，不可重用已消费的交接。完成还要有真实成果、检查及已完成依赖。
 
-章末保存 `chapter_summary` JSON，含chapter、item、summary、key_points、ids、open_questions、status、decision_ref、files、mainline_ref、method_version、created_at。已确认状态必须引用同条目当前成果的有效确认记录；未确认结论照样同步并标待确认。
+章末保存 `chapter_summary` JSON，含chapter、item、summary、key_points、ids、open_questions、status、decision_ref、files、mainline_ref、method_version、method_revision、created_at。已确认状态必须引用同条目当前成果的有效确认记录；未确认结论照样同步并标待确认。
 
 主线用 `kind: "mainline"`，指标表用 `kind: "metrics"`，均为项目级记录，content JSON带版本。主线内容改变必须升版。新建或升版不自动打回任务：确认点之后补写新栏不影响已做完的包；做变更判断时在content里写 `affects.task_ids` 或 `affects.items`，服务只打回写明的任务及其下游。05／06／07成果保存时 `mainline_ref` 仍须等于当前主线卡版本。主线卡只在回主线时由主总控更新，在各确认点之后一次写入对应的栏。指标表使用rows，保留指标、数值/单位、口径、性质、来源等级、可信度/状态和影响条目。
 

@@ -17,7 +17,7 @@ async function fixture(t){
 }
 test('方法版本进入连接与快照，所有写工具拒绝明确不一致的方法版本',async t=>{
  const {client,call}=await fixture(t);
- assert.equal((await call('kg_get_connection')).structuredContent.method_version,'1.30');
+ assert.equal((await call('kg_get_connection')).structuredContent.method_version,'1.30');assert.match((await call('kg_get_connection')).structuredContent.rules_revision,/^\d{4}-\d{2}-\d{2}$/);
  const bad=await call('kg_create_project',{request_id:randomUUID(),name:'不应创建',method_version:'1.20'});
  assert.equal(bad.isError,true);assert.match(bad.content[0].text,/方法已更新.*重新加载/);
  const created=await call('kg_create_project',{request_id:randomUUID(),name:'隔离项目',method_version:'1.30'});assert.ok(!created.isError,JSON.stringify(created));
