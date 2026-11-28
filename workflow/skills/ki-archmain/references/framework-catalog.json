@@ -1,7 +1,7 @@
 {
   "framework_version": "0.4",
   "integration_date": "2026-10-26",
-  "source_sha256": "2075b62217378af76c0f3218d38f30e5d0ceee670bd08355f4700c7299e85a56",
+  "source_sha256": "2a23468b611ad913bc4a651ffbb5edf0872b43386e6fa90ec2de79460d57d015",
   "service_stages": {
     "0": "项目启动",
     "a": "项目策划",
@@ -1920,7 +1920,7 @@
         "b"
       ],
       "stage_note": "b（含各方向的大关系体量草模）",
-      "skill": "concept-scheme；草模交 GPT",
+      "skill": "concept-scheme；草模交 GPT，没有 GPT 端可用时由 Claude 出体量简图代替",
       "chapter": "05",
       "chapter_end": false
     },
@@ -2150,7 +2150,7 @@
         "b",
         "c"
       ],
-      "stage_note": "a/b/c（a、b 做简版；主总控做）",
+      "stage_note": "a/b/c（a、b 做简版；展示与交付段总控派子代理做）",
       "skill": "本 skill 第 12 节",
       "chapter": "08",
       "chapter_end": true

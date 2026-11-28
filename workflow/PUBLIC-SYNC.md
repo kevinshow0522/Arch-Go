@@ -115,28 +115,51 @@
 
 没有回装到任何已安装的 Skill 目录，没有重新发布云端站点（云端仍是旧的方法目录）；按段推进和三个深度的新写法还没有在真实项目上完整走过一遍。
 
-## 2026-11-28 修订：整体审查后的四处方法修订与修订日期
+## 2026-11-26 修订：测试项目跑完后的流程补充
 
-起因是对整个公开包做的一次审查。方向由用户 2026-11-28 定，细则由 AI 起草，**还没有经用户逐条核对**；方法版本号仍为 1.30。
+改方法文字和方法目录里两个工作包的说明，方法版本号仍为 1.30；本包里的项目服务代码（`kigaga-workflow-v0.3/src`）和工作台源码没有动。起因是一个测试项目跑完后留下的流程问题。
 
-**审查发现、这次没有解决的缺口：公开包里没有“执行规则1”的服务代码。** `skills/ki-archmain/SKILL.md` 的接口要求写入前核对连接返回 `execution_policy_version=1`，没有就只读；`references/work-package-execution.md` 用到的 `authorization_record_id`、`execution_id`、`execution_readiness`、`kg_bind_task_context`、`entry_mode`、`required_summary_items`、`affects` 等字段和工具，在本包 `kigaga-workflow-v0.3/src` 和测试里都不存在。2026-11-19 并入的只是接口文字。所以只用本包的 Skill 加本包的项目服务，按 Skill 自己的规则只能读、不能写；另外本包服务在主线卡升版时仍会把引用旧版的任务标为待复核，和“主线卡升版不自动打回”的方法文字相反。2026-11-25 那条记录只说了分段放行规则没同步，实际缺的是 2026-10-27 起的整套执行规则。私有维护版的服务代码在另一台电脑上，待上传并脱敏后另做一次同步。
+- 根目录 `ki-archmain`：第 4 节确认点表加“谁来问”一列（05.1 连同挑方向由概念方案段总控在段内直接问，其余由主总控问），写明章末摘要由待确认改成已确认时怎么改、段末汇总正式图清单；第 6 节编号体系加 03.8 启示的编号（必n、可n、不n）；第 7 节主线卡第 3 栏逐条带编号写入，交接记录给出项目服务能通过的完整写法，加“正式图清单”记录和章末摘要确认的说明；第 9 节写明成果文件分服务导出的机器副本和按章的人读版，以项目库的成果版本为准；第 11 节 07 只读“正式图清单”一条记录，可以存一条不计入完成情况的章末摘要；第 3、12 节 W8.1 改由展示与交付段总控派子代理做，05 的方向草模在没有 GPT 端可用时由 Claude 出体量简图代替；第 13 节章末结论要修订时另开同包号的修订任务；第 14 节加修订记录。另按用户当天定的改一处：05.1 确认后主线卡不马上写，矛盾、方向、策略三栏留到概念方案段末，和 05.9 的第 8 栏一起由主总控写入，卡升 v1；段内以 05.1 的章末摘要和确认记录为依据（第 4、7 节，`concept-scheme` 和两个引用文件同步）。
+- 根目录 `brief-and-metrics` v0.6（02.7 的指标表目标行必须有容量类指标和单位面积效率指标）、`site-study` v0.6（03.8 的启示逐条编号）、`concept-scheme` v0.7（草模的替代做法、05.1 谁来问、逐条核“05 必须”）。`case-study` 没有改。
+- `skills/ki-archmain`：`references/work-package-execution.md`（`task_readiness`、版本变化的报错、上游章末引用的报错、复核重存用 `review_note`、条件性开工只在用户明确只要讨论稿时用、交接记录模板、章末摘要确认时的 `affects`、章末结论修订、记录长度上限）；`references/project-service.md`（加“测试项目跑完后的补充”一节，改交接字段、07 章末摘要、两套成果文件）；`references/framework-catalog.json`（W8.1、W5.1 两个包的说明和 `source_document`）。
+- 随之更新：根目录 `SHA256SUMS.txt`；`local-skill-adapters.json` 中 `ki-archmain` 三段、`site-study` 两段、`concept-scheme` 两段接口的正本基线和后两个 Skill 的标题锚点；用 `sync-skills.mjs` 重新生成 `skills/` 下 `ki-archmain`、`site-study`、`brief-and-metrics`、`concept-scheme` 四个入口；`framework-catalog.json` 的 `source_sha256`；`LOCAL-SHA256SUMS.txt` 中四个文件的哈希；方法目录内容有变，按 2026-11-25 的两条命令重新生成 `assets/workbench.html` 和云端 `public/workbench-method.js`（`workbench.html` 除内嵌目录一段外逐字节相同；云端 `workbench-runtime.js`、`workbench/page.html` 重新生成后没有变化）；`SOURCE-MANIFEST.json`。
+- 检查（Node 25，独立 worktree）：项目服务测试 150 项全部通过；`sync-skills` 演练对仓库 `skills/` 和一处临时安装目录均为 0 项变化，接口 9 段；两个工作台资产内嵌的方法目录与生成脚本的算法输出一致；`SHA256SUMS.txt`、`LOCAL-SHA256SUMS.txt` 与 `verify-source.mjs` 校验通过。云端工作台测试这次没有跑。
+
+同日第二轮（2026-11-26 用户定四个目标和六条做法），仍只改方法文字，方法目录内容没有变：
+
+- 根目录 `ki-archmain`：第 1 节加第 8 条“四个目标”（质量、速度、省 token、不跑偏，冲突时按这个次序取舍）；第 4 节加“把关与对齐”六条：每包验收清单、确认点前独立复核、交回时三行对齐检查、偏离当场报告、固定简报和一页子代理操作卡、会话按段精简配置（01–06 各段只开用得上的工具，展示与交付段保留动效和出图连接器）；第 8、11、12 节加 W1.1、W1.2、W7.x、W8.1 的验收清单，第 12 节加每个项目记四组数；第 11 节把“07 用哪些动效、出图连接器”列为待讨论。
+- 控制正本篇幅：模板和格式放新文件 `skills/ki-archmain/references/briefing-and-review.md`，子代理操作卡放 `references/subagent-card.md`；第 14 节的历次修订记录原样挪到 `references/revision-history.md`，正本只留当前版本一行。三个新文件都进了 `LOCAL-SHA256SUMS.txt`，随 `sync-skills.mjs` 安装。没有测试、锚点或脚本依赖第 14 节的内容。
+- 根目录 `brief-and-metrics` v0.7、`site-study` v0.7、`case-study` v0.5、`concept-scheme` v0.8：各加“验收清单”一节，每个包 3–6 条，都从各自已有的硬规则里提出来，没有新增要求。
+- `references/work-package-execution.md`、`references/project-service.md`、接口片段 `references/execution-interfaces/ki-archmain.txt` 各加一句，指向操作卡和模板文件。
+- 随之更新：根目录 `SHA256SUMS.txt`（五个 Skill）；`local-skill-adapters.json` 八段接口的正本基线和 `site-study`、`case-study`、`concept-scheme` 的标题锚点；重新生成 `skills/` 下五个入口；`framework-catalog.json` 的 `source_sha256`，两处工作台资产只按字节换这一个值；`SOURCE-MANIFEST.json`（文件数 555 变为 558）。检查结果同上，补充文件由 292 个变为 295 个。
+
+**服务代码仍然没有同步。** 这次写进 `work-package-execution.md` 和 `project-service.md` 的行为，是私有维护版项目服务 2026-11-26 的行为：章末摘要确认时只改确认信息不打回、改了正文按 `affects` 打回；`kg_save_result` 的 `review_note` 和内容相同的复核重存保留原确认；主线卡和指标表 40000 字上限；`task_readiness`；版本变化和缺上游章末引用的报错内容。本包 `kigaga-workflow-v0.3/src` 仍是 2026-11-20 的快照，没有这些行为，放行和打回也仍按旧规则。交接记录模板不在此列：对交接字段的校验，公开快照和私有版代码相同。要对齐，需另做一次服务代码同步。
+
+没有回装到任何已安装的 Skill 目录，没有重新发布云端站点（云端仍是旧的方法目录）。
+
+## 2026-11-28 修订：整体审查后的方法修订与修订日期
+
+起因是对整个公开包做的一次审查。方向由用户 2026-11-28 定，细则由 AI 起草，**还没有经用户逐条核对**；方法版本号仍为 1.30。这次修订做在 2026-11-26 两轮修订之上（先在云端分支上改，后把 main 合进来、在 main 的文字上重新套了一遍）。
+
+**审查发现、这次没有解决的缺口：公开包里没有“执行规则1”的服务代码。** `skills/ki-archmain/SKILL.md` 的接口要求写入前核对连接返回 `execution_policy_version=1`，没有就只读；`references/work-package-execution.md` 用到的 `authorization_record_id`、`execution_id`、`execution_readiness`、`task_readiness`、`kg_bind_task_context`、`entry_mode`、`required_summary_items`、`affects` 等字段和工具，在本包 `kigaga-workflow-v0.3/src` 和测试里都不存在。2026-11-19 并入的只是接口文字。所以只用本包的 Skill 加本包的项目服务，按 Skill 自己的规则只能读、不能写；另外本包服务在主线卡升版时仍会把引用旧版的任务标为待复核，和“主线卡升版不自动打回”的方法文字相反。前几条记录里“服务代码没有同步”说的是分段放行和确认规则，实际缺的是 2026-10-27 起的整套执行规则。私有维护版的服务代码在另一台电脑上，待上传并脱敏后另做一次同步。
 
 方法文字（根目录正本）：
 
-- `ki-archmain`：开头写“当前修订”日期；交接记录和章末摘要加 `method_revision`（第 7 节）。项目启动（0）单独做时 01.5 做完单独确认并建主线卡 v0.1；策划深度的对标结论（04.7 简版）随 02.7 确认，场地与案例段末在策划深度只确认 03.8 简版（第 2、3、4 节）。第 5 节：用户确认不改变来源等级，外部事实当硬限制或选址条件用、来源只有 B、D、E 级的，标 ✔ 也记“待取得正式文件”。第 6 节：策划深度的对标问题沿用 Q 编号。
-- `brief-and-metrics` v0.6：“策划深度的对标案例”重写，先写对标问题，数字按来源分原始、转述、线索三档，不用案例等级甲／乙／丙，加口径要求和五栏对标卡。
-- `case-study` v0.5：写明案例等级只用于概念方案和方案设计深度的设计借鉴。
-- `site-study` v0.6：选址条件和硬限制随第 5 节改写；“05 必须”写成能逐条判断的条件。
-- `concept-scheme` v0.7：05.9 第一关门槛写成四条，补上“违反 03.8 的 05 必须”，以及用到“待取得正式文件”的硬限制时怎么注明。此前这一条只写在主流程和 site-study 里，做 W5.5 的子代理按规定只读本包那一节，会漏掉。
+- `ki-archmain`：第 14 节“最近修订”改为 2026-11-28，这个日期写进交接记录和章末摘要的 `method_revision`（第 7 节），简报里带上给子代理用（第 4 节）。项目启动（0）单独做时 01.5 做完单独确认并建主线卡 v0.1；策划深度的对标结论（04.7 简版）随 02.7 确认，场地与案例段末在策划深度只确认 03.8 简版（第 2、3、4 节）。第 5 节：用户确认不改变来源等级，外部事实当硬限制或选址条件用、来源只有 B、D、E 级的，标 ✔ 也记“待取得正式文件”。第 6 节：策划深度的对标问题沿用 Q 编号。
+- `brief-and-metrics` v0.8：“策划深度的对标案例”重写，先写对标问题，数字按来源分原始、转述、线索三档，不用案例等级甲／乙／丙，加口径要求和五栏对标卡；验收清单 W2.1 改第 6 条、加第 7 条。
+- `case-study` v0.6：写明案例等级只用于概念方案和方案设计深度的设计借鉴。
+- `site-study` v0.8：选址条件和硬限制随第 5 节改写；验收清单 W3.4 第 2 条随之改写。
+- `concept-scheme` v0.9：05.9 门槛关用到“待取得正式文件”的硬限制时在比选表注明，靠它过关或出局的结论写成以取得正式文件为条件；验收清单 W5.5 第 2 条补一句。审查时指出的“门槛关缺 05 必须”已由 2026-11-26 的修订补上，这次没有重复改。
 
 随之更新：
 
-- 根目录 `SHA256SUMS.txt`（五个 Skill）；`local-skill-adapters.json` 八段接口的正本基线和 `site-study`、`case-study`、`concept-scheme` 的标题锚点；用 `sync-skills.mjs` 重新生成 `skills/` 下五个入口；`framework-catalog.json` 加 `method_revision`，改 01.5（0、a）、04.1（a）、04.7（a）的条件说明、`source_document`、`revision_note`、`source_sha256`；`references/work-package-execution.md` 和 `references/project-service.md` 的确认点、`method_revision`、`rules_revision` 说明；`LOCAL-SHA256SUMS.txt`；`SOURCE-MANIFEST.json`。
+- 根目录 `SHA256SUMS.txt`（五个 Skill）；`local-skill-adapters.json` 八段接口的正本基线和 `site-study`、`case-study`、`concept-scheme` 的标题锚点；用 `sync-skills.mjs` 重新生成 `skills/` 下五个入口；`framework-catalog.json` 加 `method_revision`，改 01.5（0、a）、04.1（a）、04.7（a）的条件说明、`source_document`、`revision_note`、`source_sha256`。
+- `references/` 下：`work-package-execution.md`、`project-service.md`（确认点、`method_revision`、`rules_revision`）；`subagent-card.md`（交接示例加 `method_revision`）；`briefing-and-review.md`（简报多写一行修订日期，确认点和复核要查的内容各补一句）；`revision-history.md` 加本次修订。`LOCAL-SHA256SUMS.txt`、`SOURCE-MANIFEST.json` 随之更新。
 - 工作台内嵌的方法目录内容变了，用构建脚本重新生成 `assets/workbench.html` 和云端 `public/workbench-method.js`。
 - 项目服务代码改了一处：`src/method-version.mjs` 加 `SERVICE_RULES_REVISION`（本包为 2026-11-20），`kg_get_connection` 多返回 `rules_revision`，让对话能看出服务的放行和打回规则是哪一天的。放行、打回规则本身没有动。私有维护版同步进来时要带上这个字段，并把日期改成它实际的规则日期。
 - 新增 `tests/method-revision.test.mjs` 3 项：交接和章末摘要带不带 `method_revision` 都能保存读回；修订日期不代替方法版本号；服务报告规则日期。`tests/process-service.test.mjs` 加一句核对 `rules_revision`。
 - 根目录 `README.md` 和本目录 `README.md` 里“最近一次修订是 2026-11-16”的说法改为指向本记录。
 
-检查（Node 22，云端容器；说明要求 Node 24）：项目服务测试 153 项，151 项通过、2 项 Windows 专项跳过、0 项失败；云端工作台 12 项通过；`sync-skills` 在临时目录安装并回读 604 次哈希，再次演练 0 项变化，接口 9 段；`SHA256SUMS.txt`、`LOCAL-SHA256SUMS.txt` 与 `verify-source.mjs` 校验通过。
+检查（Node 22，云端容器；说明要求 Node 24）：项目服务测试 153 项，151 项通过、2 项 Windows 专项跳过、0 项失败；云端工作台 12 项通过；`sync-skills` 在临时目录安装并回读 610 次哈希，再次演练 0 项变化，接口 9 段；`SHA256SUMS.txt`、`LOCAL-SHA256SUMS.txt` 与 `verify-source.mjs` 校验通过。
 
 没有回装到任何已安装的 Skill 目录，没有重新发布云端站点。新规则没有在真实项目上试过；私有维护版服务对记录里多出的 `method_revision` 字段是否照常保存，没有验证。审查里列的其余次要问题这次没有改。
