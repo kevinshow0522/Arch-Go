@@ -5,8 +5,8 @@
   "files": [
     {
       "path": "PUBLIC-SYNC.md",
-      "bytes": 29815,
-      "sha256": "fbe2de22e4862c32f4fca7379262a3a4d60ff58a883497934a31ddeb60e31a32"
+      "bytes": 30312,
+      "sha256": "3f2637e3c8475196190e379406c4925263f3246e28b7f541a72b17c738d2157d"
     },
     {
       "path": "README.md",
@@ -50,8 +50,8 @@
     },
     {
       "path": "kigaga-workflow-v0.3/assets/workbench.html",
-      "bytes": 681142,
-      "sha256": "a4c00a3d54fae5b1c30bf5e95295e0efaf6bd15e6d62baecf35bb31187f894b2"
+      "bytes": 681245,
+      "sha256": "fd058a64dbae198cc718c811b5c8f14e2aadb74d454d62c98be7694b8f3cae84"
     },
     {
       "path": "kigaga-workflow-v0.3/check-windows.cmd",
@@ -1105,8 +1105,8 @@
     },
     {
       "path": "sites/ki-workbench/public/workbench-method.js",
-      "bytes": 31142,
-      "sha256": "9c42f763621522f1b604f4e1d3e5752a31619ed1a58d71377925e5d04db12d10"
+      "bytes": 31245,
+      "sha256": "43a9c7fae293e48aa9f5b04a8055a0b697fa3e0669a6f198ed46e4c51d4ca9cb"
     },
     {
       "path": "sites/ki-workbench/public/workbench-runtime.js",
@@ -1305,28 +1305,28 @@
     },
     {
       "path": "skills/brief-and-metrics/SKILL.md",
-      "bytes": 18482,
-      "sha256": "4ff6e1cc9e801420789414a846e5ad78a61302c5c55334215e9ff27b6ab52d53"
+      "bytes": 19357,
+      "sha256": "bcd28424a020e2cc9e6420e5ee9842a4e46cdcd1be66c87acb6d11c01841c6a8"
     },
     {
       "path": "skills/case-study/SKILL.md",
-      "bytes": 14281,
-      "sha256": "bd8ab3816255acc0465fd4a083db811f962a9c4daa87b9ca696f4cec85a7ff31"
+      "bytes": 14309,
+      "sha256": "1981167baad347dec4ed1c70ad82601a7b7152d5b315446ca6f6ade836833a08"
     },
     {
       "path": "skills/concept-scheme/SKILL.md",
-      "bytes": 26961,
-      "sha256": "95ab5fc6e73965f6be84c418a58a887cc0eafaef4ac1c9d8c5dff5b672b8001d"
+      "bytes": 27054,
+      "sha256": "0774216c222226b818f52f62d13fd285087b5216e9ed2dd052a6166c055d8208"
     },
     {
       "path": "skills/ki-archmain/LOCAL-SHA256SUMS.txt",
       "bytes": 35654,
-      "sha256": "2c8c692c3f641856bdc4f763bfc863e0a7b492391103c125baba12733935d4b8"
+      "sha256": "466c65f972dde64453b1c79454fe630f90801745fa1b8df9119a3beab4ea8ee4"
     },
     {
       "path": "skills/ki-archmain/SKILL.md",
-      "bytes": 62431,
-      "sha256": "2a23468b611ad913bc4a651ffbb5edf0872b43386e6fa90ec2de79460d57d015"
+      "bytes": 63664,
+      "sha256": "4ecf0166a1a7612ca416393d2fe4cf2b6f949b2d4fb5ad563b22e3a67d2ae60c"
     },
     {
       "path": "skills/ki-archmain/legacy/README.md",
@@ -1415,8 +1415,8 @@
     },
     {
       "path": "skills/ki-archmain/references/briefing-and-review.md",
-      "bytes": 4958,
-      "sha256": "fb5a0b9602d0e7b196f6b222325a13b3d57a72224097a8bebed3bb84b4482789"
+      "bytes": 5090,
+      "sha256": "9bc57c5a80c1ca2ffaa3e1ee4b5b03126033fc3d46f792389cbccc92ebc4a8f9"
     },
     {
       "path": "skills/ki-archmain/references/execution-interfaces/ki-archmain.txt",
@@ -1425,8 +1425,8 @@
     },
     {
       "path": "skills/ki-archmain/references/framework-catalog.json",
-      "bytes": 58748,
-      "sha256": "77ad0475177efedd808817eb077796c470dd1d3f5e8f3079714bf1a0cc429427"
+      "bytes": 58851,
+      "sha256": "c861758760bc04ca6fc7dbe1ff6cbb7ea591f9cdfec96af01cdb42e915720c4b"
     },
     {
       "path": "skills/ki-archmain/references/ki-design-entry.md",
@@ -1456,17 +1456,17 @@
     {
       "path": "skills/ki-archmain/references/local-skill-adapters.json",
       "bytes": 3075,
-      "sha256": "45ef92afaad215f52354d2161fe38578990153f5b4b5e184beb81c53cf79e809"
+      "sha256": "93b10fb4c7e5276632c7b2f12542b5d772a0ae78528036e60930efbae622bd9f"
     },
     {
       "path": "skills/ki-archmain/references/project-service.md",
-      "bytes": 14016,
-      "sha256": "9eb2c47894445f233a36357fc648de301b85013e99935868f7de0521ddef22c9"
+      "bytes": 14043,
+      "sha256": "a52cfb3f557c278f26ee78fb0331115ea4bfce4bc1d08804561b6d1bef06fde3"
     },
     {
       "path": "skills/ki-archmain/references/revision-history.md",
-      "bytes": 9769,
-      "sha256": "0442c68f9de060b731ebfa8df56b5a227956ca7f1da9107d4b21501331502940"
+      "bytes": 10248,
+      "sha256": "10b041cdc98451b9e0b34f6e8beb5e3786f5942211d2f888f9b5ad440ab96c66"
     },
     {
       "path": "skills/ki-archmain/references/sketchup-modeling-entry.md",
@@ -1500,8 +1500,8 @@
     },
     {
       "path": "skills/ki-archmain/references/work-package-execution.md",
-      "bytes": 15346,
-      "sha256": "003d79ba103949a55593b3205af259f5d8e1701049600125bfeee6d8dce3dd46"
+      "bytes": 15403,
+      "sha256": "a63a7908087c784ab21566bf61c899fb547422a62318b75fd7f19ca379f93a64"
     },
     {
       "path": "skills/ki-design/CHANGELOG.md",
@@ -2790,8 +2790,8 @@
     },
     {
       "path": "skills/site-study/SKILL.md",
-      "bytes": 18681,
-      "sha256": "1db646853e81fa752a65cb418bfa80b00e26a46cbb313e0a114a082bb36217f5"
+      "bytes": 18933,
+      "sha256": "e6dab4cd75935ff02b38d5d285310df4772e0b19a93d81c59c16d604772f6093"
     },
     {
       "path": "skills/urban-design-analysis/SKILL.md",

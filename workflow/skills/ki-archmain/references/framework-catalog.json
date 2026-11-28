@@ -1,7 +1,7 @@
 {
   "framework_version": "0.4",
   "integration_date": "2026-10-26",
-  "source_sha256": "2a23468b611ad913bc4a651ffbb5edf0872b43386e6fa90ec2de79460d57d015",
+  "source_sha256": "4ecf0166a1a7612ca416393d2fe4cf2b6f949b2d4fb5ad563b22e3a67d2ae60c",
   "service_stages": {
     "0": "项目启动",
     "a": "项目策划",
@@ -143,7 +143,7 @@
           "stages": {
             "0": {
               "req": "core",
-              "condition": "只做项目启动时，做完单独确认，确认后建主线卡",
+              "condition": "只做项目启动时，做完由主总控单独确认，确认后建主线卡；不设段总控",
               "declared_core": true
             },
             "a": {
@@ -646,7 +646,7 @@
             },
             "a": {
               "req": "core",
-              "condition": "对标问题：并在W2.1里做，给立项测算当依据，不另开W4.1；数字按原始、转述、线索分档，不用案例等级",
+              "condition": "对标问题：并在W2.1里做，给立项测算当依据，不另开W4.1；不用案例等级，每个数字直接标可信度",
               "declared_core": true
             },
             "b": {
@@ -1627,7 +1627,7 @@
   ],
   "method_version": "1.30",
   "method_revision": "2026-11-28",
-  "revision_note": "Local adapter: explicit core rows and chapter-end requirements are separate. 2026-11-25: three-depth matrix, merged work packages (retired ids keep merged_into) and entry backfill follow the user decisions of that day. 2026-11-28: method_revision added; stage 0 confirms 01.5 on its own; planning-depth benchmark conclusion is confirmed with 02.7.",
+  "revision_note": "Local adapter: explicit core rows and chapter-end requirements are separate. 2026-11-25: three-depth matrix, merged work packages (retired ids keep merged_into) and entry backfill follow the user decisions of that day. 2026-11-28: method_revision added; stage 0 confirms 01.5 on its own with no segment controller; planning-depth benchmark figures carry credibility marks only and the benchmark conclusion is confirmed with 02.7.",
   "catalog_policy": "方法库目录是默认版本；项目目录由AI按项目拟定并与用户讨论，章名、编号、标题、条目均可调整；项目条目注明参考的方法索引（M+库内编号）；项目目录保存为“项目目录”记录并记曾用编号",
   "entry_backfill": {
     "a": [
